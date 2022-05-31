@@ -31,11 +31,11 @@ export const NotificationModal: FC<NotificationModalProps> = ({ onConnectWallet 
 
   return (
     <div>
-      {modalState.activeModal === Modals.ConnectWallet && (
-        <Modal visible={modalState.open} onClose={closeModal} className={s.root}>
+      <Modal visible={modalState.open} onClose={closeModal} className={s.root}>
+        {modalState.activeModal === Modals.ConnectWallet && (
           <ConnectWalletModal closeModal={closeModal} onConnectWallet={onConnectWallet} />
-        </Modal>
-      )}
+        )}
+      </Modal>
     </div>
   );
 };

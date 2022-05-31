@@ -2,8 +2,8 @@ import { toast } from 'react-toastify';
 import { erc20Abi } from 'config/abi';
 import { notifyText } from 'config/constants';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import apiActions from 'store/api/actions';
-import { getTokenAmount } from 'utils';
+import { error, request, success } from 'store/api/actions';
+import { toDecimals } from 'utils';
 import { AbiItem } from 'web3-utils';
 
 import { approve } from '../actions';
@@ -14,9 +14,9 @@ export function* approveSaga({
   type,
   payload: { web3Provider, spender, amount, decimals, tokenAddress },
 }: ReturnType<typeof approve>) {
-  yield put(apiActions.request(type));
+  yield put(request(type));
   const myAddress = yield select(userSelector.getProp('address'));
-  const amountWithDecimals = getTokenAmount(amount, decimals);
+  const amountWithDecimals = toDecimals(amount, decimals);
 
   try {
     const tokenContract = yield new web3Provider.eth.Contract(erc20Abi as AbiItem[], spender);
@@ -30,10 +30,12 @@ export function* approveSaga({
       toast.success(notifyText.approve.success);
     }
 
-    yield put(apiActions.success(type));
+    yield put(success(type));
   } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error(err);
     toast.error(notifyText.approve.error);
-    console.log(err);
+    yield put(error(type));
   }
 }
 
