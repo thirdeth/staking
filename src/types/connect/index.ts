@@ -1,7 +1,9 @@
 import { INetwork, IProvider, ISettings } from '@amfi/connect-wallet/src/interface';
+import { ContractsNames } from 'config';
+import { AbiItem } from 'web3-utils';
 
 export enum Chains {
-  'Binance-Smart-Chain' = 'Binance-Smart-Chain',
+  bsc = 'Binance-Smart-Chain',
 }
 export type IChainType = 'testnet' | 'mainnet';
 
@@ -32,18 +34,18 @@ export interface IContracts {
   decimals: number;
   names: string[];
   contracts: {
-    [index: string]: {
-      testnet?: {
-        address?: {
-          [key in Chains]: string;
+    [key in ContractsNames]: {
+      testnet: {
+        address: {
+          [chainKey in Chains]: string;
         };
-        abi: any[];
+        abi: AbiItem[];
       };
-      mainnet?: {
-        address?: {
-          [key in Chains]: string;
+      mainnet: {
+        address: {
+          [chainKey in Chains]: string;
         };
-        abi: any[];
+        abi: AbiItem[];
       };
     };
   };

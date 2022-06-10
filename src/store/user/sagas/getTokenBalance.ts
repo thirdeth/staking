@@ -3,8 +3,9 @@ import { select } from 'redux-saga/effects';
 import { error, request, success } from 'store/api/actions';
 import userSelector from 'store/user/selectors';
 import { call, put, takeLatest } from 'typed-redux-saga';
+import { UserState } from 'types';
 import { Erc20Abi } from 'types/contracts';
-import { fromDecimals } from 'utils';
+import { convertFromDecimalsAmount } from 'utils';
 
 import { getTokenBalance } from '../actions';
 import actionTypes from '../actionTypes';
@@ -12,18 +13,18 @@ import { updateUserState } from '../reducer';
 
 export function* getTokenBalanceSaga({ type, payload: { web3Provider } }: ReturnType<typeof getTokenBalance>) {
   yield put(request(type));
-  const { address, network, chainType } = yield select(userSelector.getUser);
+  const { address: userAddress, network, chainType }: UserState = yield select(userSelector.getUser);
 
-  const { abi: tokenAbi, address: tokenAddress } = contractsConfig.contracts[ContractsNames.staking][chainType];
+  const { address: tokenContractAddress, abi: tokenAbi } = contractsConfig.contracts[ContractsNames.staking][chainType];
 
   try {
-    const tokenContract: Erc20Abi = yield new web3Provider.eth.Contract(tokenAbi, tokenAddress[network]);
+    const tokenContract: Erc20Abi = yield new web3Provider.eth.Contract(tokenAbi, tokenContractAddress[network]);
 
-    if (address) {
-      const balance = yield* call(tokenContract.methods.balanceOf(address).call);
+    if (userAddress) {
+      const balance = yield* call(tokenContract.methods.balanceOf(userAddress).call);
       const decimals = yield* call(tokenContract.methods.decimals().call);
 
-      yield put(updateUserState({ tokenBalance: fromDecimals(balance, +decimals) }));
+      yield put(updateUserState({ tokenBalance: convertFromDecimalsAmount(balance, +decimals) }));
     }
 
     yield put(success(type));

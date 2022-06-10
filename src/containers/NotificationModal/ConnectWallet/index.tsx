@@ -15,7 +15,7 @@ export const ConnectWalletModal: FC<IConnectWalletModalProps> = ({ onConnectWall
       <Button
         className={s.connectBtn}
         onClick={() => {
-          onConnectWallet(WalletProviders.metamask, Chains['Binance-Smart-Chain']);
+          onConnectWallet(WalletProviders.metamask, Chains.bsc);
           closeModal();
         }}
       >

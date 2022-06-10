@@ -1,4 +1,5 @@
 import { Chains, IChainType, IConnectWallet, IContracts } from 'types';
+import { AbiItem } from 'web3-utils';
 
 import { erc20Abi } from './abi';
 
@@ -105,15 +106,15 @@ export const contractsConfig: IContracts = {
     [ContractsNames.staking]: {
       testnet: {
         address: {
-          [Chains['Binance-Smart-Chain']]: '0x658396178d33C91a5C60A1164828e00008769a74',
+          [Chains.bsc]: '0x658396178d33C91a5C60A1164828e00008769a74',
         },
-        abi: erc20Abi,
+        abi: erc20Abi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains['Binance-Smart-Chain']]: '0x658396178d33C91a5C60A1164828e00008769a74',
+          [Chains.bsc]: '0x658396178d33C91a5C60A1164828e00008769a74',
         },
-        abi: erc20Abi,
+        abi: erc20Abi as AbiItem[],
       },
     },
   },

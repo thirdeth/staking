@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js/bignumber';
 
 import { formatNumber } from './numberFormatter';
 
-export const toDecimals = (
+export const convertToDecimalsAmount = (
   balance: string | number,
   decimals = 18,
   shouldForamateNumber = false,
@@ -26,7 +26,7 @@ export const toDecimals = (
   return displayValue.toString(10);
 };
 
-export const fromDecimals = (balance: string | number, decimals = 18): string => {
+export const convertFromDecimalsAmount = (balance: string | number, decimals = 18): string => {
   if (balance === '') {
     return '0';
   }

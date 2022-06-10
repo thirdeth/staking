@@ -1,4 +1,4 @@
-import { createContext, FC, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, FC, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
@@ -19,7 +19,7 @@ interface IContextValue {
 }
 type IAccountInfo = IConnect | IError | { address: string };
 const Web3Context = createContext({} as IContextValue);
-const WalletConnectContext: FC<unknown> = ({ children }) => {
+const WalletConnectContext: FC<{ children: ReactNode }> = ({ children }) => {
   const [currentSubsriber, setCurrentSubsciber] = useState<Subscription>();
   const WalletConnect = useMemo(() => new WalletService(), []);
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const WalletConnectContext: FC<unknown> = ({ children }) => {
   }, [WalletConnect, currentSubsriber, dispatch]);
 
   const subscriberSuccess = useCallback(
-    (res) => {
+    (res: { name: string }) => {
       if (document.visibilityState !== 'visible') {
         disconnect();
       }
@@ -51,8 +51,7 @@ const WalletConnectContext: FC<unknown> = ({ children }) => {
   );
 
   const subscriberError = useCallback(
-    (error) => {
-      // eslint-disable-next-line no-console
+    (error: { code: number }) => {
       console.error(error);
       if (error.code !== 4) {
         WalletConnect.resetConnect();
@@ -68,7 +67,7 @@ const WalletConnectContext: FC<unknown> = ({ children }) => {
       const connected = await WalletConnect.initWalletConnect(provider, chain, chainType);
       if (connected) {
         try {
-          const sub: any = WalletConnect.eventSubscribe().subscribe(subscriberSuccess, subscriberError);
+          const sub = WalletConnect.eventSubscribe().subscribe(subscriberSuccess, subscriberError);
           const accountInfo: IAccountInfo = await WalletConnect.getAccount();
           const accountAddress = (accountInfo as IConnect).address;
           if (accountAddress) {
@@ -82,8 +81,8 @@ const WalletConnectContext: FC<unknown> = ({ children }) => {
             toast.success(`Wallet connected: ${shortenPhrase(accountAddress, 5, 5)}`);
           }
 
-          setCurrentSubsciber(sub);
-        } catch (error) {
+          setCurrentSubsciber(sub as unknown as Subscription);
+        } catch (error: any) {
           // metamask doesn't installed,
           // redirect to download MM or open MM on mobile
           if (error.code === 4) {

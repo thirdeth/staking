@@ -41,7 +41,7 @@ const WalletConnectContext: FC<any> = ({ children }) => {
   }, [WalletConnect, currentSubsriber, dispatch]);
 
   const subscriberSuccess = useCallback(
-    (res) => {
+    (res: { name: string }) => {
       if (document.visibilityState !== 'visible') {
         disconnect();
       }
@@ -54,7 +54,7 @@ const WalletConnectContext: FC<any> = ({ children }) => {
   );
 
   const subscriberError = useCallback(
-    (error) => {
+    (error: { code: number }) => {
       // eslint-disable-next-line no-console
       console.error(error);
       if (error.code !== 4) {
@@ -87,7 +87,7 @@ const WalletConnectContext: FC<any> = ({ children }) => {
           }
 
           setCurrentSubsciber(sub);
-        } catch (error) {
+        } catch (error: any) {
           // metamask doesn't installed,
           // redirect to download MM or open MM on mobile
           if (error.code === 4) {

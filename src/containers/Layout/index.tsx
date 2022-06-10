@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Header, NotificationModal } from 'containers';
 import { useSmoothTopScroll } from 'hooks';
 import { useWalletConnectorContext } from 'services';
+import { Chains, WalletProviders } from 'types';
 
 import s from './styles.module.scss';
 
@@ -18,7 +19,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   useSmoothTopScroll(firstPathAtPathname);
 
   const handleConnectWallet = useCallback(
-    async (provider, newChain) => {
+    async (provider: WalletProviders, newChain: Chains) => {
       connect(provider, newChain);
     },
     [connect],

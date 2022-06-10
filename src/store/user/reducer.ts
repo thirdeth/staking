@@ -5,14 +5,15 @@ const initialState: UserState = {
   address: '',
   provider: '',
   chainType: 'testnet', // TODO change on mainnet preferably
-  network: Chains['Binance-Smart-Chain'],
+  network: Chains.bsc,
+  tokenBalance: '',
 };
 
 export const userReducer = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    updateUserState: (state, action: PayloadAction<Partial<UserState>>) => ({
+    updateUserState: (state: UserState, action: PayloadAction<Partial<UserState>>) => ({
       ...state,
       ...action.payload,
     }),

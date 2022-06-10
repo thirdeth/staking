@@ -1,9 +1,11 @@
 import { toast } from 'react-toastify';
 import { erc20Abi } from 'config/abi';
 import { notifyText } from 'config/constants';
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 import { error, request, success } from 'store/api/actions';
-import { toDecimals } from 'utils';
+import { call, put, select } from 'typed-redux-saga';
+import { Erc20Abi } from 'types';
+import { convertToDecimalsAmount } from 'utils';
 import { AbiItem } from 'web3-utils';
 
 import { approve } from '../actions';
@@ -15,15 +17,15 @@ export function* approveSaga({
   payload: { web3Provider, spender, amount, decimals, tokenAddress },
 }: ReturnType<typeof approve>) {
   yield put(request(type));
-  const myAddress = yield select(userSelector.getProp('address'));
-  const amountWithDecimals = toDecimals(amount, decimals);
+  const myAddress: string = yield select(userSelector.getProp('address'));
+  const amountWithDecimals = convertToDecimalsAmount(amount, decimals);
 
   try {
-    const tokenContract = yield new web3Provider.eth.Contract(erc20Abi as AbiItem[], spender);
-    const allowance = yield call(tokenContract.methods.allowance(myAddress, tokenAddress).call);
+    const tokenContract: Erc20Abi = yield new web3Provider.eth.Contract(erc20Abi as AbiItem[], spender);
+    const allowance: string = yield call(tokenContract.methods.allowance(myAddress, tokenAddress).call);
 
     if (+allowance < +amountWithDecimals) {
-      yield call(tokenContract.methods.approve(tokenAddress, amountWithDecimals).send, {
+      yield call(tokenContract.methods.approve(tokenAddress, amountWithDecimals as string).send, {
         from: myAddress,
         to: spender,
       });

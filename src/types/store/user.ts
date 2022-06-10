@@ -5,4 +5,5 @@ export type UserState = {
   provider: string;
   chainType: IChainType;
   network: Chains;
+  tokenBalance: string;
 };
