@@ -1,40 +1,42 @@
-import { FC, ReactNode, useCallback, useMemo } from 'react';
+import { FC, ReactNode, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Header, NotificationModal } from 'containers';
-import { useSmoothTopScroll } from 'hooks';
-import { useWalletConnectorContext } from 'services';
-import { Chains, WalletProviders } from 'types';
-
-import s from './styles.module.scss';
+import { Box, Container } from '@mui/material';
+import { Breadcrumbs, Footer, Header, NotificationModal } from 'containers';
+import { useBreadcrumbs, useSmoothTopScroll } from 'hooks';
+import { BG_MAIN, HOME_IMAGE_BG } from 'theme/variables';
 
 export interface LayoutProps {
   children?: ReactNode;
 }
 
 export const Layout: FC<LayoutProps> = ({ children }) => {
+  const [breadcrumbs] = useBreadcrumbs();
   const { pathname } = useLocation();
-  const { connect, disconnect } = useWalletConnectorContext();
 
   const firstPathAtPathname = useMemo(() => pathname.split('/')[1], [pathname]);
+  const isHomePage = pathname === '/';
   useSmoothTopScroll(firstPathAtPathname);
 
-  const handleConnectWallet = useCallback(
-    async (provider: WalletProviders, newChain: Chains) => {
-      connect(provider, newChain);
-    },
-    [connect],
-  );
-
-  const disconnectWallet = useCallback(() => {
-    disconnect();
-  }, [disconnect]);
-
   return (
-    <>
-      <NotificationModal onConnectWallet={handleConnectWallet} />
-      <Header disconnect={disconnectWallet} />
-
-      <main className={s.mainContainer}>{children}</main>
-    </>
+    <Box
+      sx={{
+        width: '100%',
+        height: '100%',
+        background: isHomePage ? HOME_IMAGE_BG : BG_MAIN,
+      }}
+    >
+      <Header />
+      <NotificationModal />
+      <Container
+        sx={{
+          pt: isHomePage ? 15 : 5,
+          px: { xs: 0, sm: 0, md: 0, lg: 0 },
+        }}
+      >
+        {!isHomePage && <Breadcrumbs routesBreadcrumbs={breadcrumbs} />}
+        {children}
+      </Container>
+      <Footer />
+    </Box>
   );
 };

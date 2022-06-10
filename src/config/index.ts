@@ -16,23 +16,25 @@ export const chains: {
       blockExplorerUrl: string;
       chainId: number;
       provider: {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         [key: string]: any;
       };
-      img?: any;
+
+      img?: string;
     };
   };
 } = {
-  'Binance-Smart-Chain': {
+  Cronos: {
     mainnet: {
-      name: 'Binance-Smart-Chain',
-      chainId: 56,
+      name: 'Cronos Mainnet',
+      chainId: 25,
       nativeCurrency: {
-        name: 'BNB',
-        symbol: 'BNB',
+        name: 'CRO',
+        symbol: 'CRO',
         decimals: 18,
       },
-      rpc: 'https://bsc-dataseed.binance.org/',
-      blockExplorerUrl: 'https://mainnet.bscscan.com',
+      rpc: 'https://evm.cronos.org',
+      blockExplorerUrl: 'https://cronos.org/explorer',
       provider: {
         MetaMask: { name: 'MetaMask' },
         WalletConnect: {
@@ -41,24 +43,24 @@ export const chains: {
           provider: {
             rpc: {
               rpc: {
-                56: 'https://bsc-dataseed.binance.org/',
+                25: 'https://cronos.org/explorer',
               },
-              chainId: 56,
+              chainId: 25,
             },
           },
         },
       },
     },
     testnet: {
-      name: 'Binance-Smart-Chain',
-      chainId: 97,
+      name: 'Cronos-Testnet',
+      chainId: 338,
       nativeCurrency: {
-        name: 'BNB',
-        symbol: 'BNB',
+        name: 'TCRO',
+        symbol: 'TCRO',
         decimals: 18,
       },
-      rpc: 'https://data-seed-prebsc-2-s2.binance.org:8545/',
-      blockExplorerUrl: 'https://testnet.bscscan.com',
+      rpc: 'https://cronos-testnet-3.crypto.org:8545',
+      blockExplorerUrl: 'https://cronos.crypto.org/explorer/testnet3',
       provider: {
         MetaMask: { name: 'MetaMask' },
         WalletConnect: {
@@ -67,9 +69,9 @@ export const chains: {
           provider: {
             rpc: {
               rpc: {
-                97: 'https://data-seed-prebsc-2-s2.binance.org:8545/',
+                338: 'https://cronos-testnet-3.crypto.org:8545',
               },
-              chainId: 97,
+              chainId: 338,
             },
           },
         },
@@ -106,13 +108,13 @@ export const contractsConfig: IContracts = {
     [ContractsNames.staking]: {
       testnet: {
         address: {
-          [Chains.bsc]: '0x658396178d33C91a5C60A1164828e00008769a74',
+          [Chains.Cronos]: '0x658396178d33C91a5C60A1164828e00008769a74',
         },
         abi: erc20Abi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains.bsc]: '0x658396178d33C91a5C60A1164828e00008769a74',
+          [Chains.Cronos]: '0x658396178d33C91a5C60A1164828e00008769a74',
         },
         abi: erc20Abi as AbiItem[],
       },

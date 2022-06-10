@@ -1,4 +1,4 @@
-import { createContext, FC, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, FC, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
@@ -18,11 +18,15 @@ interface IContextValue {
   walletService: WalletService;
 }
 
+interface WalletConnectProps {
+  children: ReactNode;
+}
+
 type IAccountInfo = IConnect | IError | { address: string };
 
 const Web3Context = createContext({} as IContextValue);
 
-const WalletConnectContext: FC<any> = ({ children }) => {
+const WalletConnectContext: FC<WalletConnectProps> = ({ children }) => {
   const [currentSubsriber, setCurrentSubsciber] = useState<Subscription>();
   const WalletConnect = useMemo(() => new WalletService(), []);
   const dispatch = useDispatch();
@@ -83,10 +87,11 @@ const WalletConnectContext: FC<any> = ({ children }) => {
                 network: chain,
               }),
             );
-            toast.success(`Wallet connected: ${shortenPhrase(accountAddress, 5, 5)}`);
+            toast.success(`Wallet connected: ${shortenPhrase(accountAddress, 3, 3)}`);
           }
 
           setCurrentSubsciber(sub);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
           // metamask doesn't installed,
           // redirect to download MM or open MM on mobile

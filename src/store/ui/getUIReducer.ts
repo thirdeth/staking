@@ -5,7 +5,7 @@ const getUIReducer =
     initialState: UIState,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ) =>
-  // eslint-disable-next-line default-param-last
+  // eslint-disable-next-line
   (state: UIState = initialState, action: any): UIState => {
     const { type } = action;
 

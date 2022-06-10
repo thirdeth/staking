@@ -1,6 +1,17 @@
-@import 'mixins/helpers';
+@mixin font-face($font-family, $file-path, $weight: normal, $style: normal, $format: 'woff') {
+  @font-face {
+    font-family: $font-family;
+    font-weight: $weight;
+    font-style: $style;
+    font-display: swap;
+    @if $format == 'woff' {
+      src: url('#{$file-path}.#{$format}') format($format);
+    } @else {
+      src: url('#{$file-path}.#{$format}') format('truetype');
+    }
+  }
+}
 
-@include font-face('Montserrat', '../../assets/fonts/Montserrat-Regular', 400, normal, 'ttf');
-@include font-face('Montserrat', '../../assets/fonts/Montserrat-Medium', 500, normal, 'ttf');
-@include font-face('Montserrat', '../../assets/fonts/Montserrat-SemiBold', 600, normal, 'ttf');
-@include font-face('Montserrat', '../../assets/fonts/Montserrat-Bold', 700, normal, 'ttf');
+@include font-face('Nasalization', '/assets/fonts/Nasalization-Regular', 400, normal, 'ttf');
+@include font-face('Inter', '/assets/fonts/Inter-Regular', 400, normal, 'ttf');
+@include font-face('Inter', '/assets/fonts/Inter-Medium', 500, medium, 'ttf');

@@ -22,6 +22,7 @@ const reducers = {
 
 const store = configureStore({
   reducer: reducers,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   middleware: (getDefaultMiddleware: any) =>
     getDefaultMiddleware({
       serializableCheck: {

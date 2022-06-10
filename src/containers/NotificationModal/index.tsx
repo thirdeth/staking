@@ -1,3 +1,4 @@
 export * from './ConnectWallet';
+export * from './DisconnectModal';
 export * from './NotificationModal';
-export * from './styles.module.scss';
+export * from './NotificationModal.helpers';

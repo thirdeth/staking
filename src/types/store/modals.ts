@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-shadow
 export enum Modals {
   ConnectWallet = 'ConnectWallet',
+  Disconnect = 'Disconnect',
   init = '',
 }
 

@@ -1,23 +1,21 @@
 import { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { Modal } from 'components/Modal';
+import { Modal } from 'components';
 import { useShallowSelector } from 'hooks';
+import { useWalletConnectorContext } from 'services/WalletConnect';
 import { setActiveModal } from 'store/modals/reducer';
 import modalsSelector from 'store/modals/selectors';
+import userSelector from 'store/user/selectors';
 import { Modals, ModalsInitialState, State } from 'types/store';
 
-import { ConnectWalletModal } from './index';
+import { ConnectWalletModal, DisconnectModal, modalData } from './index';
 
-import s from './styles.module.scss';
-
-export interface NotificationModalProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onConnectWallet: (provider: any, newChain: any) => void;
-}
-
-export const NotificationModal: FC<NotificationModalProps> = ({ onConnectWallet }) => {
+export const NotificationModal: FC = () => {
   const dispatch = useDispatch();
   const { modalState } = useShallowSelector<State, ModalsInitialState>(modalsSelector.getModals);
+  const address = useShallowSelector(userSelector.getProp('address'));
+  const { connect, disconnect } = useWalletConnectorContext();
+  const currData = modalData[modalState.activeModal];
 
   const closeModal = useCallback(() => {
     dispatch(
@@ -30,12 +28,13 @@ export const NotificationModal: FC<NotificationModalProps> = ({ onConnectWallet 
   }, [dispatch]);
 
   return (
-    <div>
-      <Modal visible={modalState.open} onClose={closeModal} className={s.root}>
-        {modalState.activeModal === Modals.ConnectWallet && (
-          <ConnectWalletModal closeModal={closeModal} onConnectWallet={onConnectWallet} />
-        )}
-      </Modal>
-    </div>
+    <Modal open={modalState.open} onClose={closeModal} title={currData?.title}>
+      {modalState.activeModal === Modals.ConnectWallet && (
+        <ConnectWalletModal closeModal={closeModal} onConnectWallet={connect} currData={currData} />
+      )}
+      {modalState.activeModal === Modals.Disconnect && (
+        <DisconnectModal address={address} closeModal={closeModal} disconnect={disconnect} />
+      )}
+    </Modal>
   );
 };

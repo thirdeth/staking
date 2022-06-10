@@ -1,27 +1,62 @@
 import { FC, PropsWithChildren } from 'react';
-import cn from 'clsx';
-import Dialog from 'rc-dialog';
-
-import s from './styles.module.scss';
+import { Box, Dialog, IconButton, styled, Typography } from '@mui/material';
+import { Close } from 'components/Icon/components';
+import { BG_BLUE, COLOR_TEXT_WHITE } from 'theme/variables';
 
 export interface ModalProps {
-  className?: string;
-  visible: boolean;
+  // size?: 'sm' | 'md' | 'lg';
+  open: boolean;
   onClose: () => void;
+  closable?: boolean;
+  title?: string;
 }
-export const Modal: FC<PropsWithChildren<ModalProps>> = ({ className, visible, onClose, children }) => {
+
+const CloseIconButton = styled(IconButton)({
+  position: 'absolute',
+  top: '18px',
+  right: '19px',
+});
+
+export const Modal: FC<PropsWithChildren<ModalProps>> = ({ open, onClose, closable = true, title, children }) => {
   return (
     <Dialog
-      prefixCls="modal"
-      zIndex={1000}
-      destroyOnClose
-      className={cn(s.modal_wrapper, className)}
-      closable={false}
-      visible={visible}
-      maskClosable
+      open={open}
       onClose={onClose}
+      transitionDuration={{
+        enter: 250,
+        exit: 100,
+      }}
     >
-      {children}
+      {title && (
+        <Box
+          sx={(theme) => ({
+            position: 'relative',
+            padding: theme.spacing(0, 2.3),
+            width: '100%',
+            height: '60px',
+            display: 'flex',
+            alignItems: 'center',
+            background: BG_BLUE,
+          })}
+        >
+          <Typography variant="h4" color={COLOR_TEXT_WHITE}>
+            {title}
+          </Typography>
+          {closable && (
+            <CloseIconButton onClick={onClose}>
+              <Close />
+            </CloseIconButton>
+          )}
+        </Box>
+      )}
+
+      <Box
+        sx={(theme) => ({
+          padding: theme.spacing(2.2, 2.2, 4.7),
+        })}
+      >
+        {children}
+      </Box>
     </Dialog>
   );
 };

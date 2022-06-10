@@ -3,7 +3,7 @@ import { ContractsNames } from 'config';
 import { AbiItem } from 'web3-utils';
 
 export enum Chains {
-  bsc = 'Binance-Smart-Chain',
+  Cronos = 'Cronos',
 }
 export type IChainType = 'testnet' | 'mainnet';
 

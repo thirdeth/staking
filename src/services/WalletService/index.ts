@@ -45,6 +45,7 @@ export class WalletService {
     return this.connectWallet.getAccounts();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendTransaction(transactionConfig: any, walletAddress: string) {
     return this.Web3().eth.sendTransaction({
       ...transactionConfig,

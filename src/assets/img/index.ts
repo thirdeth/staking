@@ -1,5 +1,12 @@
-export { ReactComponent as Loader } from './icons/loader.svg';
-export { ReactComponent as SuccessIcon } from './icons/success.svg';
-export { ReactComponent as WarningIcon } from './icons/warning.svg';
-export { ReactComponent as InfoIcon } from './icons/info.svg';
-export { ReactComponent as ErrorIcon } from './icons/error.svg';
+export * from './WalletConnectLogo';
+export * from './MetamaskLogo';
+export * from './GamefiLogo';
+export * from './DefiLogo';
+export * from './DaoLogo';
+export * from './NftLogo';
+export * from './HubLogo';
+export * from './EvmLogo';
+export * from './IbcLogo';
+export * from './BaseLogo';
+
+export { default as MainBgImage } from './Backgrounds/home-bg.png';

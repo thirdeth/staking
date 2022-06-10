@@ -1,6 +1,7 @@
 export * from './connect';
 export * from './store';
 export * from './contracts';
+export * from './routes';
 
 export type TNullable<T> = T | null;
 export type TOptionable<T> = T | undefined;
@@ -8,6 +9,7 @@ export type TOptionable<T> = T | undefined;
 // eslint-disable-next-line no-shadow
 export enum WalletProviders {
   metamask = 'MetaMask',
+  walletConnect = 'WalletConnect',
 }
 
 export type TReferrals = {
@@ -24,6 +26,8 @@ export enum RoundingModes {
 
 export interface INotifyModalProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data?: { [k: string]: any };
+  currData?: {
+    [k: string]: string;
+  };
   closeModal: () => void;
 }
