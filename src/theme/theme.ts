@@ -16,6 +16,7 @@ import { getMuiBreadcrumbsDefaultProps, getMuiBreadcrumbsOverrides } from './Bre
 import { getMuiCssBaselineDefaultProps, getMuiCssBaselineOverrides } from './CssBaseLine';
 import { getMuiDialogDefaultProps, getMuiDialogOverrides } from './Dialog';
 import { getMuiPopoverDefaultProps, getMuiPopoverOverrides } from './Popover';
+import { getMuiTextFieldDefaultProps, getMuiTextFieldOverrides } from './TextField';
 
 const themeBase = createTheme({
   palette: {
@@ -65,6 +66,10 @@ export const theme = createTheme(themeBase, {
     MuiBreadcrumbs: {
       defaultProps: getMuiBreadcrumbsDefaultProps(),
       styleOverrides: getMuiBreadcrumbsOverrides(themeBase),
+    },
+    MuiTextField: {
+      defaultProps: getMuiTextFieldDefaultProps(),
+      styleOverrides: getMuiTextFieldOverrides(themeBase),
     },
   },
 });
