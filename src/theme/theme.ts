@@ -17,6 +17,7 @@ import { getMuiBreadcrumbsDefaultProps, getMuiBreadcrumbsOverrides } from './Bre
 import { getMuiCssBaselineDefaultProps, getMuiCssBaselineOverrides } from './CssBaseLine';
 import { getMuiDialogDefaultProps, getMuiDialogOverrides } from './Dialog';
 import { getMuiPopoverDefaultProps, getMuiPopoverOverrides } from './Popover';
+import { getMuiSelectDefaultProps, getMuiSelectOverrides } from './Select';
 import { getMuiTextFieldDefaultProps, getMuiTextFieldOverrides } from './TextField';
 
 const themeBase = createTheme({
@@ -72,9 +73,13 @@ export const theme = createTheme(themeBase, {
       defaultProps: getMuiBreadcrumbsDefaultProps(),
       styleOverrides: getMuiBreadcrumbsOverrides(),
     },
-    MuiTextField: {
-      defaultProps: getMuiTextFieldDefaultProps(),
-      styleOverrides: getMuiTextFieldOverrides(themeBase),
+    MuiSelect: {
+      defaultProps: getMuiSelectDefaultProps(),
+      styleOverrides: getMuiSelectOverrides(themeBase),
+      MuiTextField: {
+        defaultProps: getMuiTextFieldDefaultProps(),
+        styleOverrides: getMuiTextFieldOverrides(themeBase),
+      },
     },
   },
 });

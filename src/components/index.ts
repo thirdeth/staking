@@ -5,6 +5,7 @@ export * from './Cards/ApplyCard';
 export * from './RoadLine';
 export * from './Icon';
 export * from './UserBalance';
+export * from './Select';
 export * from './Status';
 export * from './Cards';
 export * from './Spinner';

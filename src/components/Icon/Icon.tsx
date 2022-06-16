@@ -16,6 +16,8 @@ import {
   MainLogo,
   MediumIcon,
   OutIcon,
+  SelectArrowDown,
+  SelectCheckIcon,
   TelegramIcon,
   TwitterIcon,
   WalletIcon,
@@ -39,6 +41,8 @@ export enum IconKey {
   OutIcon = 'OutIcon',
   ArrowBreadcrumbs = 'ArrowBreadcrumbs',
   HomeIcon = 'HomeIcon',
+  SelectArrowDown = 'SelectArrowDown',
+  SelectCheckIcon = 'SelectCheckIcon',
   LoaderIcon = 'LoaderIcon',
 }
 
@@ -60,5 +64,7 @@ export const Icon: Record<IconKey, FC<SvgIconProps>> = {
   OutIcon,
   ArrowBreadcrumbs,
   HomeIcon,
+  SelectArrowDown,
+  SelectCheckIcon,
   LoaderIcon,
 };

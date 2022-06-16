@@ -4,7 +4,7 @@ import { Button, Grid, Popover as MuiPopover, styled, Typography } from '@mui/ma
 import { CopyText } from 'components';
 import { Close, OutIcon } from 'components/Icon/components';
 import { FontFamilies } from 'theme/Typography';
-import { BG_BUTTON_WHITE, COLOR_TEXT_RED, COLOR_TEXT_WHITE } from 'theme/variables';
+import { BG_BLUE, BG_BUTTON_WHITE, BORDER_RADIUS_POPOVER, COLOR_TEXT_RED, COLOR_TEXT_WHITE } from 'theme/variables';
 
 import { accountLinkItems } from './Popover.helpers';
 
@@ -42,6 +42,18 @@ export const Popover: FC<AccountModalProps> = ({ address, anchorEl, visible, onC
       }}
       open={visible}
       onClose={onClose}
+      sx={{
+        '& .MuiPopover-paper': {
+          mt: 1,
+          px: 2.5,
+          pt: 1,
+          pb: 2.5,
+          width: '310px',
+          height: '328px',
+          background: BG_BLUE,
+          borderRadius: BORDER_RADIUS_POPOVER,
+        },
+      }}
     >
       <Grid item container direction="column" justifyContent="flex-start" alignItems="flex-start" rowGap={2} xs={12}>
         <Grid item container justifyContent="space-between" alignItems="center" xs={12}>
