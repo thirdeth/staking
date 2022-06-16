@@ -1,7 +1,6 @@
-import { ComponentsOverrides, ComponentsProps, Theme } from '@mui/material';
+import { ComponentsOverrides, ComponentsProps } from '@mui/material';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getMuiIconButtonOverrides = (theme?: Theme): ComponentsOverrides['MuiIconButton'] => ({
+export const getMuiIconButtonOverrides = (): ComponentsOverrides['MuiIconButton'] => ({
   root: {
     padding: 0,
     '&:hover': {

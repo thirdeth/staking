@@ -10,3 +10,6 @@ export * from './IbcLogo';
 export * from './BaseLogo';
 
 export { default as MainBgImage } from './Backgrounds/home-bg.png';
+
+// TODO delete icons and remove for current fetching data icons
+export { default as CronosMockLogo } from './MockIcons/cronos-mock-logo.png';

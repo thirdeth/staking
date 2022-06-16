@@ -8,7 +8,7 @@ import { roadCards } from './Road.helpers';
 
 export const Road: FC = () => {
   return (
-    <Box pt={8} sx={{ width: '100%', position: 'relative' }}>
+    <Box pt={8} sx={{ position: 'relative' }}>
       <Grid item container direction="column" justifyContent="flex-start" alignItems="center" pb={14} xs={12}>
         <RoadLine />
         <Grid item pb={2}>
@@ -30,7 +30,6 @@ export const Road: FC = () => {
 
       <Box
         sx={(theme) => ({
-          width: '100%',
           display: 'grid',
           gridTemplateColumns: 'repeat(2, 360px)',
           gridRowGap: theme.spacing(4.5),

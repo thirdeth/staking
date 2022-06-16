@@ -14,3 +14,4 @@ export * from './IdoIcon';
 export * from './OutIcon';
 export * from './ArrowBreadcrumbs';
 export * from './HomeIcon';
+export * from './LoaderIcon';

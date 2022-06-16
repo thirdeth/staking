@@ -11,6 +11,7 @@ import { breakpointOptions, getMuiGridDefaultProps, getMuiGridOverrides } from '
 import { getTypographyOptions } from 'theme/Typography';
 import { COLOR_TEXT_BLACK } from 'theme/variables';
 
+import { getMuiLoadingButtonDefaultProps, getMuiLoadingButtonOverrides } from './Button/LoadingButton.theme';
 import { getMuiBackdropDefaultProps, getMuiBackdropOverrides } from './Backdrop';
 import { getMuiBreadcrumbsDefaultProps, getMuiBreadcrumbsOverrides } from './Breadcrumbs';
 import { getMuiCssBaselineDefaultProps, getMuiCssBaselineOverrides } from './CssBaseLine';
@@ -33,11 +34,11 @@ export const theme = createTheme(themeBase, {
   components: {
     MuiGrid: {
       defaultProps: getMuiGridDefaultProps(),
-      styleOverrides: getMuiGridOverrides(themeBase),
+      styleOverrides: getMuiGridOverrides(),
     },
     MuiContainer: {
       defaultProps: getMuiContainerDefaultProps(),
-      styleOverrides: getMuiContainerOverrides(themeBase),
+      styleOverrides: getMuiContainerOverrides(),
     },
     MuiBackdrop: {
       defaultProps: getMuiBackdropDefaultProps(),
@@ -49,11 +50,15 @@ export const theme = createTheme(themeBase, {
     },
     MuiIconButton: {
       defaultProps: getMuiIconButtonDefaultProps(),
-      styleOverrides: getMuiIconButtonOverrides(themeBase),
+      styleOverrides: getMuiIconButtonOverrides(),
+    },
+    MuiLoadingButton: {
+      defaultProps: getMuiLoadingButtonDefaultProps(),
+      styleOverrides: getMuiLoadingButtonOverrides(),
     },
     MuiDialog: {
       defaultProps: getMuiDialogDefaultProps(),
-      styleOverrides: getMuiDialogOverrides(themeBase),
+      styleOverrides: getMuiDialogOverrides(),
     },
     MuiCssBaseline: {
       defaultProps: getMuiCssBaselineDefaultProps(),
@@ -65,7 +70,7 @@ export const theme = createTheme(themeBase, {
     },
     MuiBreadcrumbs: {
       defaultProps: getMuiBreadcrumbsDefaultProps(),
-      styleOverrides: getMuiBreadcrumbsOverrides(themeBase),
+      styleOverrides: getMuiBreadcrumbsOverrides(),
     },
     MuiTextField: {
       defaultProps: getMuiTextFieldDefaultProps(),

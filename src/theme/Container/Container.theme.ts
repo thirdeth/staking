@@ -1,16 +1,6 @@
-import { ComponentsOverrides, ComponentsProps, Theme } from '@mui/material';
+import { ComponentsOverrides, ComponentsProps } from '@mui/material';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getMuiContainerOverrides = (theme?: Theme): ComponentsOverrides['MuiContainer'] => ({
-  root: {
-    width: 'auto',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export const getMuiContainerOverrides = (): ComponentsOverrides['MuiContainer'] => ({});
 
 export const getMuiContainerDefaultProps = (): ComponentsProps['MuiContainer'] => ({
   maxWidth: 'lg',

@@ -1,8 +1,7 @@
-import { ComponentsOverrides, ComponentsProps, Theme } from '@mui/material';
+import { ComponentsOverrides, ComponentsProps } from '@mui/material';
 import { BG_MAIN, BG_MODAL_GRAY, BORDER_RADIUS_DEFAULT, SHADOW_MODAL_DEFAULT } from 'theme/variables';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getMuiDialogOverrides = (theme?: Theme): ComponentsOverrides['MuiDialog'] => ({
+export const getMuiDialogOverrides = (): ComponentsOverrides['MuiDialog'] => ({
   root: {
     background: BG_MODAL_GRAY,
   },

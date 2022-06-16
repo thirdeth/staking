@@ -9,7 +9,6 @@ export const Preview: FC = () => {
   return (
     <Box
       sx={{
-        width: '100%',
         height: '100vh',
       }}
     >

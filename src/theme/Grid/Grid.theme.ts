@@ -1,4 +1,4 @@
-import { BreakpointsOptions, ComponentsOverrides, ComponentsProps, Theme } from '@mui/material';
+import { BreakpointsOptions, ComponentsOverrides, ComponentsProps } from '@mui/material';
 
 export const breakpointOptions: BreakpointsOptions = {
   values: {
@@ -10,8 +10,7 @@ export const breakpointOptions: BreakpointsOptions = {
   },
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getMuiGridOverrides = (theme?: Theme): ComponentsOverrides['MuiGrid'] => ({});
+export const getMuiGridOverrides = (): ComponentsOverrides['MuiGrid'] => ({});
 
 export const getMuiGridDefaultProps = (): ComponentsProps['MuiGrid'] => ({
   xs: 'auto',

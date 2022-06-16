@@ -20,7 +20,6 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <Box
       sx={{
-        width: '100%',
         height: '100%',
         background: isHomePage ? HOME_IMAGE_BG : BG_MAIN,
       }}

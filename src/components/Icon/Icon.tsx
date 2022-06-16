@@ -11,6 +11,7 @@ import {
   DiscordIcon,
   HomeIcon,
   IdoIcon,
+  LoaderIcon,
   LogoBlackLittle,
   MainLogo,
   MediumIcon,
@@ -38,6 +39,7 @@ export enum IconKey {
   OutIcon = 'OutIcon',
   ArrowBreadcrumbs = 'ArrowBreadcrumbs',
   HomeIcon = 'HomeIcon',
+  LoaderIcon = 'LoaderIcon',
 }
 
 /* eslint-enable @typescript-eslint/no-shadow */
@@ -58,4 +60,5 @@ export const Icon: Record<IconKey, FC<SvgIconProps>> = {
   OutIcon,
   ArrowBreadcrumbs,
   HomeIcon,
+  LoaderIcon,
 };

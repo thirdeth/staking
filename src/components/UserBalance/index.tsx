@@ -12,41 +12,41 @@ export const UserBalance: FC<UserBalancProps> = ({ balance }) => {
     <Box
       sx={{
         width: '120px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'flex-end',
       }}
     >
-      <Typography variant="body2" fontWeight={FontWeights.fontWeightRegular} textTransform="uppercase">
-        Balance:
-      </Typography>
-      <Grid container justifyContent="center" alignItems="center" wrap="nowrap">
+      <Grid container direction="column" justifyContent="center" alignItems="flex-end">
         <Grid item>
-          <Typography
-            variant="h3"
-            fontWeight={FontWeights.fontWeightRegular}
-            color={COLOR_TEXT_BLUE}
-            textTransform="uppercase"
-            sx={{
-              maxWidth: '70px',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {balance}
+          <Typography variant="body2" fontWeight={FontWeights.fontWeightRegular}>
+            Balance:
           </Typography>
         </Grid>
-        <Grid item>
-          <Typography
-            variant="h3"
-            fontWeight={FontWeights.fontWeightRegular}
-            color={COLOR_TEXT_BLUE}
-            textTransform="uppercase"
-          >
-            CRO
-          </Typography>
+        <Grid item container justifyContent="center" alignItems="center" wrap="nowrap">
+          <Grid item>
+            <Typography
+              variant="h4"
+              fontWeight={FontWeights.fontWeightRegular}
+              color={COLOR_TEXT_BLUE}
+              textTransform="uppercase"
+              sx={{
+                maxWidth: '70px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {balance}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography
+              variant="h4"
+              fontWeight={FontWeights.fontWeightRegular}
+              color={COLOR_TEXT_BLUE}
+              textTransform="uppercase"
+            >
+              CRO
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
     </Box>

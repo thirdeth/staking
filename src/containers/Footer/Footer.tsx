@@ -11,7 +11,6 @@ export const Footer: FC = () => {
     <Box
       sx={(theme) => ({
         paddingTop: theme.spacing(11),
-        width: '100%',
         background: BG_MAIN,
       })}
     >

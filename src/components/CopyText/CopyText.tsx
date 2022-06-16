@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { CSSProperties, FC, useEffect, useState } from 'react';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { Copy } from 'components/Icon/components';
 import {
@@ -17,7 +17,7 @@ const sizesState: Record<Size, string> = {
   md: '300px',
 };
 
-const boxesState: Record<Color, { [k: string]: string }> = {
+const boxesState: Record<Color, CSSProperties> = {
   primary: {
     background: 'transparent',
     border: BORDER_BUTTON_GRAY,
@@ -56,13 +56,13 @@ export const CopyText: FC<CopyTextProps> = ({ size = 'md', color = 'primary', te
   };
   return (
     <Box
-      sx={(theme) => ({
-        padding: theme.spacing(0, 2),
+      px={2}
+      sx={{
         width: '100%',
         height: '44p',
         borderRadius: BORDER_RADIUS_DEFAULT,
         ...boxesState[color],
-      })}
+      }}
     >
       <Grid
         item
@@ -95,6 +95,9 @@ export const CopyText: FC<CopyTextProps> = ({ size = 'md', color = 'primary', te
               }}
             />
           }
+          sx={{
+            p: 0,
+          }}
           onClick={handleCopyAddress}
         />
       </Grid>

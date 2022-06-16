@@ -2,26 +2,22 @@ import { FC } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { CheckIcon } from 'components/Icon/components';
 import { FontWeights } from 'theme/Typography';
+import { flexHelper } from 'utils';
 
 import { paperItems } from './Paper.helpers';
 
 export const Paper: FC = () => {
   return (
-    <Box pt={20} sx={{ width: '100%' }}>
+    <Box pt={20}>
       <Grid container direction="column" justifyContent="flex-start" alignItems="center">
         {paperItems.map(({ id, Image, title, text, list }) => (
           <Box
             key={id}
             sx={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-
+              ...flexHelper('space-between'),
               '&:nth-of-type(odd)': {
                 flexDirection: 'row',
               },
-
               '&:nth-of-type(even)': {
                 flexDirection: 'row-reverse',
               },

@@ -1,7 +1,6 @@
 import { ComponentsOverrides, ComponentsProps, Theme } from '@mui/material';
 import { BG_BLUE, BORDER_RADIUS_POPOVER } from 'theme/variables';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getMuiPopoverOverrides = (theme: Theme): ComponentsOverrides['MuiPopover'] => ({
   root: {
     '.css-kyuf03-MuiBackdrop-root-MuiModal-backdrop': {

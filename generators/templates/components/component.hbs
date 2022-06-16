@@ -1,16 +1,13 @@
 import { FC } from 'react';
-import cn from 'clsx';
-
-import s from './styles.module.scss';
+import { Box } from '@mui/material';
 
 export interface {{ properCase name }}Props {
-  className?: string;
 }
 
-export const {{ properCase name }}: FC<{{ properCase name }}Props> = ({ className }) => {
+export const {{ properCase name }}: FC<{{ properCase name }}Props> = ({  }) => {
   return (
-    <div className={cn(s.{{ camelCase name }}, className)}>
+    <Box>
       Hello World!
-    </div>
+    </Box>
   );
 };

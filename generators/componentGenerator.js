@@ -1,4 +1,3 @@
-const stylesPath = (entity) => `../src/${entity}s/{{ name }}/styles.module.scss`;
 const mocksPath = (entity) => `../src/${entity}s/{{ name }}/{{ name }}.mock.tsx`;
 const componentPath = (entity) => `../src/${entity}s/{{ name }}/{{ name }}.tsx`;
 const storiesPath = (entity) => `../src/${entity}s/{{ name }}/{{ name }}.stories.tsx`;
@@ -22,12 +21,6 @@ module.exports = {
     },
   ],
   actions: [
-    {
-      type: 'add',
-      path: stylesPath('{{ camelCase folder}}'),
-      templateFile: 'templates/components/styles.hbs',
-      abortOnFail: true,
-    },
     {
       type: 'add',
       path: storiesPath('{{ camelCase folder}}'),

@@ -6,11 +6,11 @@ import { Paper, Preview, Road } from './sections';
 
 export const Home: FC = () => {
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box>
       <Preview />
       <Road />
       <Paper />
-      <ApplyCard size="md" />
+      <ApplyCard size="m" />
     </Box>
   );
 };
