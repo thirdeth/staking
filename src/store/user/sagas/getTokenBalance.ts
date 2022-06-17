@@ -1,5 +1,5 @@
-import { contractsConfig, ContractsNames } from 'config';
 import { select } from 'redux-saga/effects';
+import { contractsConfig, ContractsNames } from 'services/WalletService/config';
 import { error, request, success } from 'store/api/actions';
 import userSelector from 'store/user/selectors';
 import { call, put, takeLatest } from 'typed-redux-saga';

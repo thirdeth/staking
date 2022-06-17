@@ -1,4 +1,4 @@
-import { MainBgImage } from 'assets/img';
+import { MainBgImage } from 'modules/landing/assets';
 
 // ===== Backgrounds
 export const BG_MAIN = '#ffffff';

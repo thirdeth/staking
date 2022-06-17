@@ -1,6 +1,5 @@
-export { default as useShallowSelector } from './useShallowSelector';
-export { default as useModal } from './useModal';
-export * from './useDrawLine';
+export * from './useShallowSelector';
+export * from './useModal';
 export * from './useSmoothTopScroll';
-export * from './useBreadcrumbs';
+export * from './useWindowState';
 export * from './useValidateInputField';

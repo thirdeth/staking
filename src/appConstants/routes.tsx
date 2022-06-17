@@ -1,5 +1,9 @@
-import { Home, Idos, MyInvestments, Ranking, Staking } from 'pages';
-import { RoutesProps } from 'types';
+import { Idos } from 'modules/ido/pages';
+import { Home } from 'modules/landing/pages';
+import { MyInvestments } from 'modules/myInvestments/pages';
+import { Ranking } from 'modules/ranking/pages';
+import { Staking } from 'modules/staking/pages';
+import { Modules, RoutesProps } from 'types';
 
 // eslint-disable-next-line no-lone-blocks
 {
@@ -18,6 +22,7 @@ export const routes: RoutesProps = {
       path: '/',
       component: <Home />,
       isNavItem: true,
+      module: Modules.landing,
     },
   },
   idos: {
@@ -28,6 +33,7 @@ export const routes: RoutesProps = {
       path: '/idos',
       component: <Idos />,
       isNavItem: true,
+      module: Modules.ido,
     },
   },
   staking: {
@@ -36,7 +42,7 @@ export const routes: RoutesProps = {
       id: 3,
       title: 'Staking',
       path: '/staking',
-      component: <Staking />,
+      component: <Staking title="title" />,
       isNavItem: true,
     },
     ranking: {
@@ -59,6 +65,7 @@ export const routes: RoutesProps = {
       component: <MyInvestments title="My Investments" />,
       isNavItem: false,
       isProtected: true,
+      module: Modules.myInvestments,
     },
   },
 };

@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
-import { erc20Abi } from 'config/abi';
-import { notifyText } from 'config/constants';
 import { takeLatest } from 'redux-saga/effects';
+import { erc20Abi } from 'services/WalletService/config/abi';
+import { notifyText } from 'services/WalletService/config/constants';
 import { error, request, success } from 'store/api/actions';
 import { call, put, select } from 'typed-redux-saga';
 import { Erc20Abi } from 'types';

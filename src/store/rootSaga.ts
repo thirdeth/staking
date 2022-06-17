@@ -1,5 +1,6 @@
 import { fork } from 'redux-saga/effects';
 import userSaga from 'store/user/sagas';
+
 /* PLOP_INJECT_IMPORT_SAGA */
 
 export default function* rootSaga() {

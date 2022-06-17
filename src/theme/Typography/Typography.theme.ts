@@ -70,27 +70,3 @@ export const getTypographyOptions = (): TypographyOptions => ({
     fontFamily: FontFamilies.primary,
   },
 });
-
-// default {
-//   color: $color-text-black,
-// }
-// white {
-//   color: $color-text-white,
-// }
-// white-light {
-//   color: $color-text-white-light,
-// }
-// white-extraLight {
-//   color: $color-text-white-extraLight,
-// }
-// blue {
-//   color: $color-text-blue,
-// }
-
-// gray {
-//   color: $color-text-gray,
-// }
-
-// gray-light {
-//   color: $color-text-gray-light,
-// }

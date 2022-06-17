@@ -1,7 +1,8 @@
-const mocksPath = (entity) => `../src/${entity}s/{{ name }}/{{ name }}.mock.tsx`;
-const componentPath = (entity) => `../src/${entity}s/{{ name }}/{{ name }}.tsx`;
-const storiesPath = (entity) => `../src/${entity}s/{{ name }}/{{ name }}.stories.tsx`;
-const indexPath = (entity) => `../src/${entity}s/{{ name }}/index.tsx`;
+const testPath = (entity, moduleName) => `../src/modules/${moduleName}/${entity}/{{ name }}/{{ name }}.test.tsx`;
+const mocksPath = (entity, moduleName) => `../src/modules/${moduleName}/${entity}/{{ name }}/{{ name }}.mock.tsx`;
+const componentPath = (entity, moduleName) => `../src/modules/${moduleName}/${entity}/{{ name }}/{{ name }}.tsx`;
+const storiesPath = (entity, moduleName) => `../src/modules/${moduleName}/${entity}/{{ name }}/{{ name }}.stories.tsx`;
+const indexPath = (entity, moduleName) => `../src/modules/${moduleName}/${entity}/{{ name }}/index.tsx`;
 
 module.exports = {
   prompts: [
@@ -12,36 +13,55 @@ module.exports = {
     },
     {
       type: 'list',
+      name: 'moduleName',
+      message: 'Choose module',
+      choices: [
+        { name: 'core', value: 'core' },
+        { name: 'ido', value: 'ido' },
+        { name: 'landing', value: 'landing' },
+        { name: 'myInvestments', value: 'myInvestments' },
+        { name: 'ranking', value: 'ranking' },
+        { name: 'staking', value: 'staking' },
+      ],
+    },
+    {
+      type: 'list',
       name: 'folder',
       message: 'Choose a folder',
       choices: [
-        { name: 'components', value: 'component' },
-        { name: 'containers', value: 'container' },
+        { name: 'components', value: 'components' },
+        { name: 'containers', value: 'containers' },
       ],
     },
   ],
   actions: [
     {
       type: 'add',
-      path: storiesPath('{{ camelCase folder}}'),
+      path: testPath('{{ camelCase folder}}', '{{ camelCase moduleName}}'),
+      templateFile: 'templates/components/test.hbs',
+      abortOnFail: true,
+    },
+    {
+      type: 'add',
+      path: storiesPath('{{ camelCase folder}}', '{{ camelCase moduleName}}'),
       templateFile: 'templates/components/stories.hbs',
       abortOnFail: true,
     },
     {
       type: 'add',
-      path: componentPath('{{ camelCase folder}}'),
+      path: componentPath('{{ camelCase folder}}', '{{ camelCase moduleName}}'),
       templateFile: 'templates/components/component.hbs',
       abortOnFail: true,
     },
     {
       type: 'add',
-      path: indexPath('{{ camelCase folder}}'),
+      path: indexPath('{{ camelCase folder}}', '{{ camelCase moduleName}}'),
       templateFile: 'templates/components/index.hbs',
       abortOnFail: true,
     },
     {
       type: 'add',
-      path: mocksPath('{{ camelCase folder}}'),
+      path: mocksPath('{{ camelCase folder}}', '{{ camelCase moduleName}}'),
       templateFile: 'templates/components/mock.hbs',
       abortOnFail: true,
     },

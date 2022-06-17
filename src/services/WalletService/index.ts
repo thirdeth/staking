@@ -1,6 +1,6 @@
 import { ConnectWallet } from '@amfi/connect-wallet';
 import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
-import { connectWallet as connectWalletConfig } from 'config';
+import { connectWallet as connectWalletConfig } from 'services/WalletService/config';
 import { Chains, IChainType, WalletProviders } from 'types';
 
 export class WalletService {
@@ -14,8 +14,7 @@ export class WalletService {
     providerName: WalletProviders,
     chainName: Chains,
     type: IChainType,
-    // eslint-disable-next-line @typescript-eslint/ban-types
-  ): Promise<boolean | {}> {
+  ): Promise<boolean | unknown> {
     const { provider, network, settings } = connectWalletConfig(chainName, type);
 
     try {
@@ -45,8 +44,7 @@ export class WalletService {
     return this.connectWallet.getAccounts();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  sendTransaction(transactionConfig: any, walletAddress: string) {
+  sendTransaction(transactionConfig: Record<string, unknown>, walletAddress: string) {
     return this.Web3().eth.sendTransaction({
       ...transactionConfig,
       from: walletAddress,

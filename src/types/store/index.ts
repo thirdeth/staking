@@ -1,8 +1,8 @@
 import type { Dispatch as DispatchReact } from 'react';
 
+/* PLOP_INJECT_IMPORT_STATE */
 import { ModalsInitialState } from './modals';
 import { UserState } from './user';
-/* PLOP_INJECT_IMPORT_STATE */
 
 export * from './user';
 export * from './ui';

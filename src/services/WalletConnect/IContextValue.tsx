@@ -2,9 +2,9 @@ import { createContext, FC, ReactNode, useCallback, useContext, useEffect, useMe
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
-import { notifyText } from 'config/constants';
 import { useShallowSelector } from 'hooks';
 import { Subscription } from 'rxjs';
+import { notifyText } from 'services/WalletService/config/constants';
 import { disconnectWalletState, updateUserState } from 'store/user/reducer';
 import userSelector from 'store/user/selectors';
 import { Chains, State, UserState, WalletProviders } from 'types';
@@ -52,6 +52,7 @@ const WalletConnectContext: FC<{ children: ReactNode }> = ({ children }) => {
 
   const subscriberError = useCallback(
     (error: { code: number }) => {
+      // eslint-disable-next-line no-console
       console.error(error);
       if (error.code !== 4) {
         WalletConnect.resetConnect();

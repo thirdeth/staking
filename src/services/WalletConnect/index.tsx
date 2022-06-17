@@ -2,9 +2,9 @@ import { createContext, FC, ReactNode, useCallback, useContext, useEffect, useMe
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
-import { notifyText } from 'config/constants';
 import { useShallowSelector } from 'hooks';
 import { Subscription } from 'rxjs';
+import { notifyText } from 'services/WalletService/config/constants';
 import { disconnectWalletState, updateUserState } from 'store/user/reducer';
 import userSelector from 'store/user/selectors';
 import { Chains, State, UserState, WalletProviders } from 'types';

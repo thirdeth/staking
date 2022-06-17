@@ -1,5 +1,5 @@
 import { INetwork, IProvider, ISettings } from '@amfi/connect-wallet/src/interface';
-import { ContractsNames } from 'config';
+import { ContractsNames } from 'services/WalletService/config';
 import { AbiItem } from 'web3-utils';
 
 export enum Chains {

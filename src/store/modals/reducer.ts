@@ -13,7 +13,7 @@ export const modalsReducer = createSlice({
   name: 'modals',
   initialState,
   reducers: {
-    setActiveModal: (state, action: PayloadAction<Partial<ModalState>>) => ({
+    setActiveModal: (state: ModalsInitialState, action: PayloadAction<Partial<ModalState>>) => ({
       ...state,
       modalState: {
         ...state.modalState,
@@ -21,7 +21,7 @@ export const modalsReducer = createSlice({
       },
     }),
 
-    closeModal: (state) => ({
+    closeModal: (state: ModalsInitialState) => ({
       ...state,
       modalState: {
         activeModal: Modals.init,

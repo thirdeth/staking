@@ -1,5 +1,9 @@
 import Web3 from 'web3';
 
+export type HelloWorldReq = {
+  key: string;
+};
+
 export type BodyWithToken<T = never> = {
   token?: string;
 } & T;

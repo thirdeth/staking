@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { Modules } from '..';
+
 export interface RootRouteProps {
   id: number;
   title: string;
@@ -8,6 +10,7 @@ export interface RootRouteProps {
   isNavItem?: boolean;
   isDynamic?: boolean;
   isProtected?: boolean;
+  module: Modules;
 }
 export interface RouteProps {
   dirName: string;

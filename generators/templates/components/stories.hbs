@@ -8,9 +8,7 @@ export default {
   component: {{ properCase name }},
 } as ComponentMeta<typeof {{ properCase name }}>;
 
-const Template: ComponentStory<typeof {{ properCase name }}> = (args) => (
-  <{{ properCase name }} {...args} />
-);
+const Template: ComponentStory<typeof {{ properCase name }}> = (args) => <{{ properCase name }} {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {{camelCase name}}PropsMocked;
