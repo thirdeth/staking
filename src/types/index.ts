@@ -34,5 +34,7 @@ export enum Modules {
   core = 'core',
   landing = 'landing',
   ido = 'ido',
-  myInvestments = 'ido',
+  staking = 'staking',
+  ranking = 'ranking',
+  myInvestments = 'myInvestments',
 }

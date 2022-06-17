@@ -12,7 +12,7 @@ export const Preview: FC = () => {
         height: '100vh',
       }}
     >
-      <Grid container direction="column" justifyContent="flex-start" alignItems="flex-start" rowGap={3} xs={12}>
+      <Grid container direction="column" justifyContent="flex-start" alignItems="flex-start" rowGap={3}>
         <Grid item>
           <Typography variant="h1">Limitless, Borderless, All-in-One</Typography>
           <Typography variant="h1" color={COLOR_TEXT_BLUE}>

@@ -44,6 +44,7 @@ export const routes: RoutesProps = {
       path: '/staking',
       component: <Staking title="title" />,
       isNavItem: true,
+      module: Modules.staking,
     },
     ranking: {
       dirName: 'Ranking',
@@ -53,6 +54,7 @@ export const routes: RoutesProps = {
         path: '/staking/ranking',
         component: <Ranking />,
         isNavItem: false,
+        module: Modules.ranking,
       },
     },
   },
