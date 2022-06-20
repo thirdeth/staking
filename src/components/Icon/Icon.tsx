@@ -15,6 +15,7 @@ import {
   MainLogo,
   MediumIcon,
   OutIcon,
+  RankIcon,
   SelectArrowDown,
   SelectCheckIcon,
   TelegramIcon,
@@ -42,6 +43,7 @@ export enum IconKey {
   SelectArrowDown = 'SelectArrowDown',
   SelectCheckIcon = 'SelectCheckIcon',
   LoaderIcon = 'LoaderIcon',
+  RankIcon = 'RankIcon',
 }
 
 /* eslint-enable @typescript-eslint/no-shadow */
@@ -64,4 +66,5 @@ export const Icon: Record<IconKey, FC<SvgIconProps>> = {
   SelectArrowDown,
   SelectCheckIcon,
   LoaderIcon,
+  RankIcon,
 };

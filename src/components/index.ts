@@ -11,3 +11,4 @@ export * from './Status';
 export * from './Cards';
 export * from './Spinner';
 export * from './GrowRate';
+export * from './RankInfo';

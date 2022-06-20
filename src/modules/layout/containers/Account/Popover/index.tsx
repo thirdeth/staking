@@ -1,12 +1,12 @@
 import { FC, RefObject } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Grid, Popover as MuiPopover, styled, Typography } from '@mui/material';
-import { CopyText } from 'components';
+import { Link as RouterLink } from 'react-router-dom';
+import { Button, Grid, Link, Popover as MuiPopover, styled, Typography } from '@mui/material';
+import { CopyText, RankInfo } from 'components';
 import { Close, OutIcon } from 'components/Icon/components';
-import { FontFamilies } from 'theme/Typography';
+import { FontFamilies, FontWeights } from 'theme/Typography';
 import { BG_BLUE, BG_BUTTON_WHITE, BORDER_RADIUS_POPOVER, COLOR_TEXT_RED, COLOR_TEXT_WHITE } from 'theme/variables';
 
-import { accountLinkItems } from './Popover.helpers';
+import { accountLinkItems, buyCryptoLink } from './Popover.helpers';
 
 interface AccountModalProps {
   address: string;
@@ -28,18 +28,20 @@ const DisconnectButton = styled(Button)({
   },
 });
 
+const BuyLinkTypography = styled(Typography)({
+  color: COLOR_TEXT_WHITE,
+  fontSize: '14px',
+  whiteSpace: 'nowrap',
+  fontWeight: FontWeights.fontWeightMedium,
+  textDecoration: 'none',
+});
+
 export const Popover: FC<AccountModalProps> = ({ address, anchorEl, visible, onClose, onDisconnect }) => {
   return (
     <MuiPopover
       anchorEl={anchorEl.current}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={visible}
       onClose={onClose}
       sx={{
@@ -49,46 +51,81 @@ export const Popover: FC<AccountModalProps> = ({ address, anchorEl, visible, onC
           pt: 1,
           pb: 2.5,
           width: '310px',
-          height: '328px',
+          height: '389px',
           background: BG_BLUE,
           borderRadius: BORDER_RADIUS_POPOVER,
         },
       }}
     >
-      <Grid item container direction="column" justifyContent="flex-start" alignItems="flex-start" rowGap={2} xs={12}>
+      <Grid container direction="column" justifyContent="space-between" alignItems="flex-start" rowGap={2}>
         <Grid item container justifyContent="space-between" alignItems="center" xs={12}>
-          <Typography variant="h3" color={COLOR_TEXT_WHITE} fontFamily={FontFamilies.primary}>
+          <Typography variant="h4" color={COLOR_TEXT_WHITE}>
             Account
           </Typography>
           <Button
             variant="text"
             startIcon={<Close sx={{ maxWidth: '16px', maxHeight: '16px' }} />}
             onClick={onClose}
-            sx={{
-              padding: '0',
-            }}
+            sx={{ p: 0 }}
           />
         </Grid>
-        <Grid item container xs={12}>
-          <CopyText size="sm" color="secondary" text={address} />
+
+        <Grid item container justifyContent="space-between" alignItems="center" xs={12}>
+          <RankInfo rank={1} />
+
+          <Grid item container direction="column" justifyContent="flex-start" alignItems="flex-start" rowSpacing={1}>
+            <Typography variant="subtitle1" color={COLOR_TEXT_WHITE}>
+              Network
+            </Typography>
+            <Typography variant="h4" color={COLOR_TEXT_WHITE}>
+              Cronos
+            </Typography>
+          </Grid>
         </Grid>
+
+        <CopyText size="sm" color="secondary" text={address} />
+
         {accountLinkItems.map(({ link, title, Icon }, index) => (
           // list is not re rendering
           // eslint-disable-next-line react/no-array-index-key
-          <Link key={index} to={link} onClick={onClose}>
+          <RouterLink key={index} to={link} onClick={onClose}>
             <Grid item container xs={12} columnGap={2}>
               <Icon />
               <Typography variant="body2" color={COLOR_TEXT_WHITE}>
                 {title}
               </Typography>
             </Grid>
-          </Link>
+          </RouterLink>
         ))}
-        <Grid item container xs={12}>
-          <DisconnectButton color="secondary" onClick={onDisconnect} endIcon={<OutIcon />}>
-            Disconnect
-          </DisconnectButton>
-        </Grid>
+
+        <Link
+          href={buyCryptoLink}
+          target="_blank"
+          rel="noreferrer"
+          sx={{
+            pt: 1,
+            width: '100%',
+            textDecoration: 'none',
+          }}
+        >
+          <Grid container alignItems="center" columnGap={1}>
+            <BuyLinkTypography variant="body2">Click here to</BuyLinkTypography>
+            <BuyLinkTypography
+              variant="body2"
+              sx={{
+                borderBottom: '1px solid',
+                borderColor: COLOR_TEXT_WHITE,
+                fontWeight: '900',
+              }}
+            >
+              buy CRO
+            </BuyLinkTypography>
+          </Grid>
+        </Link>
+
+        <DisconnectButton color="secondary" onClick={onDisconnect} endIcon={<OutIcon />}>
+          Disconnect
+        </DisconnectButton>
       </Grid>
     </MuiPopover>
   );

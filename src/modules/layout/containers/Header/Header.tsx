@@ -2,9 +2,10 @@ import { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Container, Grid } from '@mui/material';
 import { useShallowSelector } from 'hooks';
+import { useGetScollValue } from 'modules/layout/hooks';
 import { setActiveModal } from 'store/modals/reducer';
 import userSelector from 'store/user/selectors';
-import { BG_MAIN } from 'theme/variables';
+import { BG_MAIN, TRANSITION_DEFAULT_TIME } from 'theme/variables';
 import { Modals, State, UserState } from 'types';
 
 import { HeaderControls } from './components';
@@ -12,6 +13,7 @@ import { HeaderControls } from './components';
 export const Header: FC = () => {
   const dispatch = useDispatch();
   const { address } = useShallowSelector<State, UserState>(userSelector.getUser);
+  const [scrollToTopValue] = useGetScollValue();
 
   const handleOpenModal = useCallback(
     (type: Modals) => {
@@ -42,7 +44,10 @@ export const Header: FC = () => {
           direction="column"
           justifyContent="center"
           alignItems="center"
-          sx={{ padding: '20px 0' }}
+          sx={{
+            py: scrollToTopValue < 150 ? 2.5 : 0.8,
+            transition: TRANSITION_DEFAULT_TIME,
+          }}
           xs={12}
         >
           <HeaderControls address={address} onOpenModal={handleOpenModal} />
