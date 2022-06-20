@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
+import { ProgressBar } from 'components';
 
 export const Ranking: FC = () => {
   return (
@@ -15,6 +16,7 @@ export const Ranking: FC = () => {
         adipisci provident exercitationem quidem eum aperiam animi distinctio impedit tempore? Assumenda porro veniam
         exercitationem non quod nisi nam odit aperiam aut quam. Autem quia corporis est labore a.
       </Box>
+      <ProgressBar progress={50} />
     </Box>
   );
 };

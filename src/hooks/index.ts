@@ -3,3 +3,4 @@ export * from './useModal';
 export * from './useSmoothTopScroll';
 export * from './useWindowState';
 export * from './useValidateInputField';
+export * from './useGetProgressItems';

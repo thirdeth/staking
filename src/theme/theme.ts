@@ -76,10 +76,10 @@ export const theme = createTheme(themeBase, {
     MuiSelect: {
       defaultProps: getMuiSelectDefaultProps(),
       styleOverrides: getMuiSelectOverrides(themeBase),
-      MuiTextField: {
-        defaultProps: getMuiTextFieldDefaultProps(),
-        styleOverrides: getMuiTextFieldOverrides(themeBase),
-      },
+    },
+    MuiTextField: {
+      defaultProps: getMuiTextFieldDefaultProps(),
+      styleOverrides: getMuiTextFieldOverrides(themeBase),
     },
   },
 });

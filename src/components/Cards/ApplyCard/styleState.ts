@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
 import { SizeProps } from 'types';
 
-const sizeState: Record<SizeProps | string, CSSProperties> = {
+const sizeState: Record<SizeProps, CSSProperties> = {
   s: {
     height: '181px',
     flexDirection: 'row',

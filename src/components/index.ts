@@ -1,3 +1,5 @@
+export * from './Modal';
+export * from './ProgressBar';
 export * from './CopyText';
 export * from './Modal';
 export * from './SocialLinks';
