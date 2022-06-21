@@ -5,6 +5,8 @@ import {
   getMuiButtonOverrides,
   getMuiIconButtonDefaultProps,
   getMuiIconButtonOverrides,
+  getMuiToggleButtonDefaultProps,
+  getMuiToggleButtonOverrides,
 } from 'theme/Button';
 import { getMuiContainerDefaultProps, getMuiContainerOverrides } from 'theme/Container';
 import { breakpointOptions, getMuiGridDefaultProps, getMuiGridOverrides } from 'theme/Grid';
@@ -52,6 +54,10 @@ export const theme = createTheme(themeBase, {
     MuiIconButton: {
       defaultProps: getMuiIconButtonDefaultProps(),
       styleOverrides: getMuiIconButtonOverrides(),
+    },
+    MuiToggleButton: {
+      defaultProps: getMuiToggleButtonDefaultProps(),
+      styleOverrides: getMuiToggleButtonOverrides(themeBase),
     },
     MuiLoadingButton: {
       defaultProps: getMuiLoadingButtonDefaultProps(),
