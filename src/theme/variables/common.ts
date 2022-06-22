@@ -4,6 +4,7 @@ import { MainBgImage, PlanetImage } from 'modules/landing/assets';
 export const BG_MAIN = '#ffffff';
 export const BG_BLUE = 'rgba(94, 153, 245, 1)';
 export const BG_BLUE_LIGHT = 'rgba(231, 240, 254, 1)';
+export const BG_BLUE_EXTRALIGHT = 'rgba(237, 237, 237, 1)';
 export const BG_WHITE_OPACITY = 'rgba(255, 255, 255, 0.15)';
 export const BG_BLUE_DARK = 'rgba(10, 59, 135, 1)';
 export const BG_MODAL_GRAY = 'rgba(76, 76, 76, 0.6)';

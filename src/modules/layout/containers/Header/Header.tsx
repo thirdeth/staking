@@ -1,7 +1,7 @@
 import { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Container, Grid } from '@mui/material';
-import { useShallowSelector } from 'hooks';
+import { useShallowSelector, useWindowState } from 'hooks';
 import { useGetScollValue } from 'modules/layout/hooks';
 import { setActiveModal } from 'store/modals/reducer';
 import userSelector from 'store/user/selectors';
@@ -14,6 +14,7 @@ export const Header: FC = () => {
   const dispatch = useDispatch();
   const { address } = useShallowSelector<State, UserState>(userSelector.getUser);
   const [scrollToTopValue] = useGetScollValue();
+  const { width } = useWindowState();
 
   const handleOpenModal = useCallback(
     (type: Modals) => {
@@ -48,9 +49,8 @@ export const Header: FC = () => {
             py: scrollToTopValue < 150 ? 2.5 : 0.8,
             transition: TRANSITION_DEFAULT_TIME,
           }}
-          xs={12}
         >
-          <HeaderControls address={address} onOpenModal={handleOpenModal} />
+          <HeaderControls address={address} onOpenModal={handleOpenModal} width={+width} />
         </Grid>
       </Container>
     </Box>

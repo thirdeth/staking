@@ -4,6 +4,8 @@ import { SvgIconProps } from '@mui/material';
 import {
   ArrowBreadcrumbs,
   ArrowDown,
+  ArrowRight,
+  BurgerIcon,
   CheckIcon,
   Close,
   CoinIcon,
@@ -45,6 +47,8 @@ export enum IconKey {
   SelectCheckIcon = 'SelectCheckIcon',
   LoaderIcon = 'LoaderIcon',
   RankIcon = 'RankIcon',
+  BurgerIcon = 'BurgerIcon',
+  ArrowRight = 'ArrowRight',
   LogoSmall = 'LogoSmall',
 }
 
@@ -69,5 +73,7 @@ export const Icon: Record<IconKey, FC<SvgIconProps>> = {
   SelectCheckIcon,
   LoaderIcon,
   RankIcon,
+  BurgerIcon,
+  ArrowRight,
   LogoSmall,
 };

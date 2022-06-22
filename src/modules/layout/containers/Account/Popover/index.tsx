@@ -1,6 +1,6 @@
 import { FC, RefObject } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Button, Grid, Link, Popover as MuiPopover, styled, Typography } from '@mui/material';
+import { Button, Grid, Link, Popover, styled, Typography } from '@mui/material';
 import { CopyText, RankInfo } from 'components';
 import { Close, OutIcon } from 'components/Icon/components';
 import { FontFamilies, FontWeights } from 'theme/Typography';
@@ -36,9 +36,9 @@ const BuyLinkTypography = styled(Typography)({
   textDecoration: 'none',
 });
 
-export const Popover: FC<AccountModalProps> = ({ address, anchorEl, visible, onClose, onDisconnect }) => {
+export const AccountPopover: FC<AccountModalProps> = ({ address, anchorEl, visible, onClose, onDisconnect }) => {
   return (
-    <MuiPopover
+    <Popover
       anchorEl={anchorEl.current}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -127,6 +127,6 @@ export const Popover: FC<AccountModalProps> = ({ address, anchorEl, visible, onC
           Disconnect
         </DisconnectButton>
       </Grid>
-    </MuiPopover>
+    </Popover>
   );
 };

@@ -16,7 +16,7 @@ module.exports = {
       name: 'moduleName',
       message: 'Choose module',
       choices: [
-        { name: 'core', value: 'core' },
+        { name: 'layout', value: 'layout' },
         { name: 'ido', value: 'ido' },
         { name: 'landing', value: 'landing' },
         { name: 'myInvestments', value: 'myInvestments' },

@@ -6,16 +6,11 @@ export const getMuiContainerDefaultProps = (): ComponentsProps['MuiContainer'] =
   maxWidth: 'lg',
   sx: {
     px: {
-      xs: 0,
-      sm: 0,
+      xs: 3,
+      sm: 3,
       md: 0,
       lg: 0,
     },
-    mx: {
-      xs: '10px',
-      sm: '40px',
-      md: '40px',
-      lg: 'auto',
-    },
+    mx: 'auto',
   },
 });

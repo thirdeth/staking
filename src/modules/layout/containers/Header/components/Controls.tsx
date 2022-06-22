@@ -4,14 +4,15 @@ import { Button, Grid, styled, Typography } from '@mui/material';
 import { routes } from 'appConstants/routes';
 import { UserBalance } from 'components';
 import { MainLogo } from 'components/Icon/components';
+import { Account, Menu } from 'modules/layout/containers';
 import { formatRoutesToArr } from 'modules/router/utils';
+import { FontFamilies } from 'theme/Typography';
 import { COLOR_TEXT_BLACK, COLOR_TEXT_BLUE } from 'theme/variables';
 import { Modals } from 'types';
 
-import { Account } from '../../Account';
-
 interface HeaderControlsProps {
   address: string;
+  width: number;
   onOpenModal: (type: Modals) => void;
 }
 
@@ -19,21 +20,30 @@ const GridNavItem = styled(NavLink)({
   color: COLOR_TEXT_BLACK,
 });
 
-export const HeaderControls: FC<HeaderControlsProps> = ({ address, onOpenModal }) => {
+export const HeaderControls: FC<HeaderControlsProps> = ({ address, width, onOpenModal }) => {
   return (
     <Grid container item justifyContent="space-between" alignItems="center" xs={12}>
-      <Grid container item alignItems="center" columnGap={2} paddingRight={2}>
-        <Grid item>
-          <MainLogo />
-        </Grid>
-        <Grid item>
-          <Typography variant="h4" sx={{ textTransform: 'uppercase' }}>
-            Cronos Launcher
-          </Typography>
-        </Grid>
+      {width < 900 && <Menu />}
+
+      <Grid container item alignItems="center" columnGap={width < 900 ? 1 : 2} paddingRight={0.5}>
+        <MainLogo />
+        <Typography
+          fontFamily={FontFamilies.secondary}
+          textTransform="uppercase"
+          fontSize={{ xs: '18px', sm: '18px', md: '24px' }}
+          maxWidth={{ xs: '103px', sm: '103px', md: '100%', lg: '100%' }}
+        >
+          Cronos Launcher
+        </Typography>
       </Grid>
 
-      <Grid item container alignItems="center" paddingX={4.5} columnGap={7}>
+      <Grid
+        container
+        alignItems="center"
+        paddingX={4.5}
+        columnGap={7}
+        sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}
+      >
         {formatRoutesToArr(routes).map(
           ({ root: { id, path, title, isNavItem } }) =>
             isNavItem && (
@@ -51,8 +61,8 @@ export const HeaderControls: FC<HeaderControlsProps> = ({ address, onOpenModal }
       </Grid>
       {address.length ? (
         <Grid item container justifyContent="center" alignItems="center" wrap="nowrap" columnGap={3}>
-          <UserBalance balance="1.123124124" />
-          <Account address={address} onDisconnect={() => onOpenModal(Modals.Disconnect)} />
+          {width > 900 && <UserBalance balance="1.123124124" />}
+          <Account address={address} width={width} onDisconnect={() => onOpenModal(Modals.Disconnect)} />
         </Grid>
       ) : (
         <Button size="large" onClick={() => onOpenModal(Modals.ConnectWallet)}>

@@ -2,7 +2,7 @@ import { BreakpointsOptions, ComponentsOverrides, ComponentsProps } from '@mui/m
 
 export const breakpointOptions: BreakpointsOptions = {
   values: {
-    xs: 390,
+    xs: 360,
     sm: 600,
     md: 900,
     lg: 1200,
