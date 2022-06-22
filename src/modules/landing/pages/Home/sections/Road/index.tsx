@@ -38,10 +38,10 @@ export const Road: FC = () => {
         {roadCards.map(({ id, title, Image, text }) => (
           <Grid key={id} item>
             <Box
+              width={{ xs: '342px', sm: '342px', md: '360px' }}
+              height={{ xs: '391px', sm: '391px', md: '452px' }}
               sx={{
                 p: 4.5,
-                width: '360px',
-                height: '452px',
                 background: BG_MAIN,
                 boxShadow: SHADOW_ROAD_CARD,
                 borderRadius: BORDER_RADIUS_ROAD_CARD,
@@ -51,7 +51,7 @@ export const Road: FC = () => {
               <Typography variant="h4" sx={{ pt: 4.5, pb: 3, textTransform: 'uppercase' }}>
                 {title}
               </Typography>
-              <Typography variant="body1" fontWeight={FontWeights.fontWeightRegular}>
+              <Typography fontSize={{ xs: '16px', sm: '16px', md: '18px' }} fontWeight={FontWeights.fontWeightRegular}>
                 {text}
               </Typography>
             </Box>

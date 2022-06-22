@@ -1,4 +1,4 @@
-import { MainBgImage } from 'modules/landing/assets';
+import { MainBgImage, PlanetImage } from 'modules/landing/assets';
 
 // ===== Backgrounds
 export const BG_MAIN = '#ffffff';
@@ -9,6 +9,7 @@ export const BG_BLUE_DARK = 'rgba(10, 59, 135, 1)';
 export const BG_MODAL_GRAY = 'rgba(76, 76, 76, 0.6)';
 export const BG_GRAY_LIGHT = 'rgba(80, 80, 80, 0.1)';
 export const HOME_IMAGE_BG = `url(${MainBgImage}) center -80px / auto 100% no-repeat`;
+export const HOME_IMAGE_BG_MOBILE = `url(${PlanetImage}) center 180px no-repeat, #ffffff`;
 
 // ===== Colors
 export const COLOR_TEXT_BLACK = 'rgba(0, 0, 0, 1)';
