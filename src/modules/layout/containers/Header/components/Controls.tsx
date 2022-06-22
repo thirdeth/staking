@@ -3,11 +3,11 @@ import { NavLink } from 'react-router-dom';
 import { Button, Grid, styled, Typography } from '@mui/material';
 import { routes } from 'appConstants/routes';
 import { UserBalance } from 'components';
-import { MainLogo } from 'components/Icon/components';
+import { MainLogo, WalletIcon } from 'components/Icon/components';
 import { Account, Menu } from 'modules/layout/containers';
 import { formatRoutesToArr } from 'modules/router/utils';
 import { FontFamilies } from 'theme/Typography';
-import { COLOR_TEXT_BLACK, COLOR_TEXT_BLUE } from 'theme/variables';
+import { BG_BLUE, BG_BLUE_LIGHT, BG_BUTTON_BLUE, COLOR_TEXT_BLACK, COLOR_TEXT_BLUE } from 'theme/variables';
 import { Modals } from 'types';
 
 interface HeaderControlsProps {
@@ -65,8 +65,19 @@ export const HeaderControls: FC<HeaderControlsProps> = ({ address, width, onOpen
           <Account address={address} width={width} onDisconnect={() => onOpenModal(Modals.Disconnect)} />
         </Grid>
       ) : (
-        <Button size="large" onClick={() => onOpenModal(Modals.ConnectWallet)}>
-          Connect wallet
+        <Button
+          size="large"
+          sx={{
+            pr: { xs: 0, sm: 0, md: 2 },
+            pl: { xs: 1, sm: 1, md: 2 },
+            minWidth: { xs: '56px', sm: '56px', md: '130px' },
+            height: { xs: '44px', sm: '44px', md: '56px' },
+            background: { xs: BG_BLUE_LIGHT, sm: BG_BLUE_LIGHT, md: BG_BUTTON_BLUE },
+          }}
+          onClick={() => onOpenModal(Modals.ConnectWallet)}
+          startIcon={width < 900 && <WalletIcon sx={{ path: { fill: BG_BLUE } }} />}
+        >
+          {width > 900 && 'Connect wallet'}
         </Button>
       )}
     </Grid>
