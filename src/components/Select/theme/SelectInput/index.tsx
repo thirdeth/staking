@@ -1,6 +1,5 @@
 import { InputBase, styled } from '@mui/material';
 import { FontFamilies } from 'theme/Typography';
-import { BORDER_COLOR_SELECT_GRAY } from 'theme/variables';
 
 export const SelectInput = styled(InputBase)(({ theme }) => ({
   'label + &': {},
@@ -27,7 +26,6 @@ export const SelectInput = styled(InputBase)(({ theme }) => ({
       '"Segoe UI Symbol"',
     ].join(','),
     '&:focus, &:hover': {
-      borderColor: BORDER_COLOR_SELECT_GRAY,
       background: 'transparent',
     },
   },

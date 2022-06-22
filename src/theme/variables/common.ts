@@ -26,6 +26,7 @@ export const COLOR_TEXT_GREEN = 'rgba(26, 192, 87, 1)';
 
 // ===== Borders
 export const BORDER_HEADER = '2px solid rgba(237, 237, 237, 1)';
+export const BORDER_GRAY_LIGHT = '1px solid rgba(0, 0, 0, 0.08)';
 
 // ===== Border-Radius
 export const BORDER_RADIUS_DEFAULT = '8px';

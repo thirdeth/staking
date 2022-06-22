@@ -133,6 +133,7 @@ export const getMuiButtonOverrides = (theme: Theme): ComponentsOverrides['MuiBut
     transition: '0',
     boxSizing: 'border-box',
     borderColor: 'transparent',
+    borderRadius: 0,
     padding: 0,
     margin: 0,
     minWidth: 0,
