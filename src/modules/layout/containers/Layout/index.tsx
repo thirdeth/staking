@@ -1,9 +1,9 @@
 import { FC, ReactNode, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Box, Container } from '@mui/material';
-import { useSmoothTopScroll } from 'hooks';
+import { useSmoothTopScroll, useWindowState } from 'hooks';
 import { useBreadcrumbs } from 'modules/layout/hooks';
-import { BG_MAIN, HOME_IMAGE_BG } from 'theme/variables';
+import { BG_MAIN, HOME_IMAGE_BG, HOME_IMAGE_BG_MOBILE } from 'theme/variables';
 
 import { Breadcrumbs, Footer, Header, NotificationModal } from '..';
 
@@ -14,6 +14,9 @@ export interface LayoutProps {
 export const Layout: FC<LayoutProps> = ({ children }) => {
   const [breadcrumbs] = useBreadcrumbs();
   const { pathname } = useLocation();
+  const { width } = useWindowState();
+
+  const HOIME_BG = +width > 900 ? HOME_IMAGE_BG : HOME_IMAGE_BG_MOBILE;
 
   const firstPathAtPathname = useMemo(() => pathname.split('/')[1], [pathname]);
   const isHomePage = pathname === '/';
@@ -23,7 +26,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
     <Box
       sx={{
         height: '100%',
-        background: isHomePage ? HOME_IMAGE_BG : BG_MAIN,
+        background: isHomePage ? HOIME_BG : BG_MAIN,
       }}
     >
       <Header />
@@ -31,7 +34,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
       <Container
         sx={{
           pt: isHomePage ? 15 : 5,
-          px: { xs: 0, sm: 0, md: 0, lg: 0 },
+          px: { xs: 3, sm: 3, md: 0, lg: 0 },
         }}
       >
         {!isHomePage && <Breadcrumbs routesBreadcrumbs={breadcrumbs} />}
