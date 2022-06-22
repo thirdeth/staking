@@ -6,6 +6,7 @@ import {
   BG_BUTTON_GRAY_DARK,
   BG_MAIN,
   BORDER_BUTTON_GRAY_BOLD,
+  BORDER_RADIUS_DEFAULT,
   COLOR_TEXT_BLUE,
   TRANSITION_DEFAULT_TIME,
 } from 'theme/variables';
@@ -43,6 +44,7 @@ export const Account: FC<AccountProps> = ({ onDisconnect, address, width }) => {
             height: '50px',
             background: 'transparent',
             border: BORDER_BUTTON_GRAY_BOLD,
+            borderRadius: BORDER_RADIUS_DEFAULT,
             display: { xs: 'none', sm: 'none', md: 'flex', lg: 'flex' },
             '&:hover': {
               background: 'transparent',
