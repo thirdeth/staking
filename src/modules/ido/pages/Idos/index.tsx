@@ -1,42 +1,20 @@
-import { FC, useState } from 'react';
-import { Box, SelectChangeEvent } from '@mui/material';
-import { Select } from 'components';
+import { FC } from 'react';
+import { Box } from '@mui/material';
+import { LauncherCard } from 'modules/ido/containers';
+
+const SALET_END_TIME_MOCK = 1234567891011;
+
+const PROGRESS_DATA_MOCK = {
+  progress: 70,
+  totalRaise: 10,
+  allocation: 10,
+  targetRaise: 10,
+};
 
 export const Idos: FC = () => {
-  const [selectValue, setSelectValue] = useState(1);
-
-  const handelChange = (event: SelectChangeEvent<unknown>) => {
-    const { value } = event.target;
-    setSelectValue(Number(value));
-  };
   return (
     <Box>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus odit libero corporis sit velit hic, porro
-      nostrum quas repellat illo voluptas vero animi cum, nobis est. Obcaecati doloremque, distinctio ut autem sapiente
-      reiciendis aperiam voluptatem tempora cum magni soluta aliquam perferendis. Aperiam, quidem laudantium maxime
-      dolore eaque magnam aut cupiditate.
-      <Box pt={12}>
-        <Select
-          value={selectValue}
-          defaultValue={selectValue}
-          onChange={handelChange}
-          paperWidth="200px"
-          menuItems={[
-            {
-              value: 1,
-              label: 'one',
-            },
-            {
-              value: 2,
-              label: 'two',
-            },
-            {
-              value: 3,
-              label: 'three',
-            },
-          ]}
-        />
-      </Box>
+      <LauncherCard saledEndTime={SALET_END_TIME_MOCK} progressData={PROGRESS_DATA_MOCK} />
     </Box>
   );
 };

@@ -8,6 +8,7 @@ export const BG_WHITE_OPACITY = 'rgba(255, 255, 255, 0.15)';
 export const BG_BLUE_DARK = 'rgba(10, 59, 135, 1)';
 export const BG_MODAL_GRAY = 'rgba(76, 76, 76, 0.6)';
 export const BG_GRAY_LIGHT = 'rgba(80, 80, 80, 0.1)';
+export const BG_GRAY = 'rgba(237, 237, 237, 1)';
 export const HOME_IMAGE_BG = `url(${MainBgImage}) center -80px / auto 100% no-repeat`;
 
 // ===== Colors
@@ -30,7 +31,8 @@ export const BORDER_HEADER = '2px solid rgba(237, 237, 237, 1)';
 export const BORDER_RADIUS_DEFAULT = '8px';
 export const BORDER_RADIUS_MEDIUM = '12px';
 export const BORDER_RADIUS_POPOVER = '12px';
-export const BORDER_RADIUS_CARD = '16px';
+export const BORDER_RADIUS_CARD_SMALL = '16px';
+export const BORDER_RADIUS_CARD_MEDIUM = '20px';
 export const BORDER_RADIUS_ROAD_CARD = '24px';
 
 // ===== Box-Shadow

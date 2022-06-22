@@ -3,7 +3,6 @@ import { Box, Typography } from '@mui/material';
 import { Spinner } from 'components';
 import { BORDER_RADIUS_DEFAULT } from 'theme/variables';
 import { ProjectStatusProps } from 'types';
-import { flexHelper } from 'utils';
 
 import { projectStatusStyleState } from './index';
 
@@ -18,10 +17,12 @@ export const Status: FC<StatusProps> = ({ status = 'progress' }) => {
       sx={{
         width: '154px',
         maxHeight: '48px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         border: '1px solid',
         borderRadius: BORDER_RADIUS_DEFAULT,
         ...projectStatusStyleState.color[status],
-        ...flexHelper(),
       }}
     >
       {status === 'loading' ? (

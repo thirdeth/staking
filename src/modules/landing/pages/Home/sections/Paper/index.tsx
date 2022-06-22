@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { CheckIcon } from 'components/Icon/components';
 import { FontWeights } from 'theme/Typography';
-import { flexHelper } from 'utils';
 
 import { paperItems } from './Paper.helpers';
 
@@ -14,7 +13,9 @@ export const Paper: FC = () => {
           <Box
             key={id}
             sx={{
-              ...flexHelper('space-between'),
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
               '&:nth-of-type(odd)': {
                 flexDirection: 'row',
               },

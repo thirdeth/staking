@@ -5,11 +5,10 @@ export const MainLogo: FC<SvgIconProps> = ({ sx, ...props }) => (
   <SvgIcon
     {...props}
     viewBox="0 0 69 80"
-    xmlns="http://www.w3.org/2000/svg"
     sx={{
-      ...sx,
       width: '55px',
       height: '64px',
+      ...sx,
     }}
   >
     <path d="M34.5 39.5V80L69 60.0001L68.9996 19.9996L34.5 39.5Z" fill="#5E99F5" />

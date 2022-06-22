@@ -12,6 +12,7 @@ import {
   IdoIcon,
   LoaderIcon,
   LogoBlackLittle,
+  LogoSmall,
   MainLogo,
   MediumIcon,
   OutIcon,
@@ -44,6 +45,7 @@ export enum IconKey {
   SelectCheckIcon = 'SelectCheckIcon',
   LoaderIcon = 'LoaderIcon',
   RankIcon = 'RankIcon',
+  LogoSmall = 'LogoSmall',
 }
 
 /* eslint-enable @typescript-eslint/no-shadow */
@@ -67,4 +69,5 @@ export const Icon: Record<IconKey, FC<SvgIconProps>> = {
   SelectCheckIcon,
   LoaderIcon,
   RankIcon,
+  LogoSmall,
 };

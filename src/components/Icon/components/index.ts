@@ -18,3 +18,4 @@ export * from './SelectArrowDown';
 export * from './SelectCheckIcon';
 export * from './LoaderIcon';
 export * from './RankIcon';
+export * from './LogoSmall';
