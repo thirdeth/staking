@@ -4,6 +4,7 @@ import { RowCardProps } from './RowCard';
 
 export const rowCardPropsMocked: RowCardProps = {
   cardData: {
+    id: 1,
     projectName: 'CRONOS LAUNCHER',
     projectIcon: CronosMockLogo,
     token: {

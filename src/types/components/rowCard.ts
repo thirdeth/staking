@@ -27,6 +27,7 @@ type TokenProps = {
 };
 
 export interface ProjectCardDataProps {
+  id: number;
   projectName?: string;
   projectIcon?: string;
   token?: TokenProps;
@@ -36,6 +37,7 @@ export interface ProjectCardDataProps {
 }
 
 export interface RankCardDataProps {
+  id: number;
   rankIcon?: string;
   isGrow?: boolean;
   walletAddress?: string;

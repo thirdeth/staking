@@ -1,4 +1,4 @@
-import { Idos } from 'modules/ido/pages';
+import { Details, Idos } from 'modules/ido/pages';
 import { Home } from 'modules/landing/pages';
 import { MyInvestments } from 'modules/myInvestments/pages';
 import { Ranking } from 'modules/ranking/pages';
@@ -33,11 +33,24 @@ export const routes: RoutesProps = {
       isNavItem: true,
       module: Modules.ido,
     },
+    details: {
+      dirName: 'Details',
+      root: {
+        id: 3,
+        title: 'Details',
+        path: '/idos/details/:id',
+        getPath: (id: number) => `/idos/details/${id}`,
+        component: <Details />,
+        isNavItem: false,
+        module: Modules.ido,
+        isDynamic: true,
+      },
+    },
   },
   staking: {
     dirName: 'Staking',
     root: {
-      id: 3,
+      id: 4,
       title: 'Staking',
       path: '/staking',
       component: <Staking title="title" />,
@@ -47,7 +60,7 @@ export const routes: RoutesProps = {
     ranking: {
       dirName: 'Ranking',
       root: {
-        id: 4,
+        id: 5,
         title: 'Ranking',
         path: '/staking/ranking',
         component: <Ranking />,
@@ -59,7 +72,7 @@ export const routes: RoutesProps = {
   'my-investments': {
     dirName: 'MyInvestments',
     root: {
-      id: 5,
+      id: 6,
       title: 'My Investments',
       path: '/my-investments',
       component: <MyInvestments title="My Investments" />,

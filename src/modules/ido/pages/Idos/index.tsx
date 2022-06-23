@@ -1,50 +1,44 @@
-import { FC } from 'react';
-import { Grid } from '@mui/material';
-import { ApplyCard } from 'components';
-import { LauncherCard, PoolInfoCard, TabsContent, TokenInfoCard } from 'modules/ido/containers';
+import { FC, useState } from 'react';
+import { Box, Grid, SelectChangeEvent } from '@mui/material';
+import { ApplyCard, RowCard } from 'components';
+import { CardsHeader, StageBar } from 'modules/ido/components';
 
-const SALET_END_TIME_MOCK = 1234567891011;
-
-const PROGRESS_DATA_MOCK = {
-  progress: 70,
-  totalRaise: 10,
-  allocation: 10,
-  targetRaise: 10,
-};
-
-const POOL_INFO_DATA_MOCK = {
-  tokenDistribution: 123123,
-  minAllocation: 0.01,
-  maxAllocation: 1531.13,
-  tokenPrice: 555.55,
-  accessType: 'Public',
-};
-const TOKEN_INFO_DATA_MOCK = {
-  tokenName: 'The Wasted Lands',
-  tokenSymbol: 'DDO',
-  decimals: 18,
-  address: '0x22d40020282f9c8',
-  totalSupply: 3.333334,
-};
+import { IDOS_DATA_MOCK } from './Idos.helpers';
 
 export const Idos: FC = () => {
+  const [filterValue, setFilterValue] = useState(1);
+  const [activeStage, setActiveState] = useState(1);
+
+  const handleChangeFilterValue = (event: SelectChangeEvent<unknown>) => {
+    const { value } = event.target;
+    setFilterValue(Number(value));
+  };
+
+  const handleChangeActiveStage = (value: number) => {
+    setActiveState(Number(value));
+  };
+
   return (
-    <Grid container justifyContent="space-between" alignItems="flex-start" spacing={3} sx={{ overflowX: 'hidden' }}>
-      <Grid item xs={12}>
-        <LauncherCard saledEndTime={SALET_END_TIME_MOCK} progressData={PROGRESS_DATA_MOCK} />
+    <Box sx={{ overflowX: 'hidden' }}>
+      <StageBar
+        filterValue={filterValue}
+        currentStage={activeStage}
+        onChangeFilter={handleChangeFilterValue}
+        onChangeStage={handleChangeActiveStage}
+      />
+
+      <Grid pt={2} container spacing={2}>
+        <Grid item xs={12} display={{ xs: 'none', sm: 'none', md: 'block' }}>
+          <CardsHeader />
+        </Grid>
+        {!!IDOS_DATA_MOCK.length &&
+          IDOS_DATA_MOCK.map((ido) => (
+            <Grid key={ido.id} item xs={12}>
+              <RowCard variant="project" cardData={ido} />
+            </Grid>
+          ))}
       </Grid>
-      <Grid item xs={12} sm={6} md={6}>
-        <PoolInfoCard poolInfoData={POOL_INFO_DATA_MOCK} />
-      </Grid>
-      <Grid item xs={12} sm={6} md={6}>
-        <TokenInfoCard tokenInfoData={TOKEN_INFO_DATA_MOCK} />
-      </Grid>
-      <Grid item xs={12}>
-        <TabsContent />
-      </Grid>
-      <Grid item xs={12}>
-        <ApplyCard size="s" />
-      </Grid>
-    </Grid>
+      <ApplyCard size="s" />
+    </Box>
   );
 };

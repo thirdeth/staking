@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
 import { Box, BoxProps, Grid } from '@mui/material';
 import { BG_BLUE_LIGHT, BORDER_RADIUS_DEFAULT, TRANSITION_DEFAULT_TIME } from 'theme/variables';
 import { ColorProps, ProjectCardDataProps, RankCardDataProps, VariantProps } from 'types';
@@ -33,12 +32,10 @@ export const RowCard: FC<RowCardProps & BoxProps> = ({
         },
       }}
     >
-      <Link to="/">
-        <Grid container justifyContent="space-between" alignItems="center">
-          {variant === 'project' && cardData && <Project cardData={cardData} />}
-          {variant === 'rank' && cardData && <Rank cardData={cardData} />}
-        </Grid>
-      </Link>
+      <Grid container justifyContent="space-between" alignItems="center">
+        {variant === 'project' && cardData && <Project cardData={cardData} />}
+        {variant === 'rank' && cardData && <Rank cardData={cardData} />}
+      </Grid>
     </Box>
   );
 };
