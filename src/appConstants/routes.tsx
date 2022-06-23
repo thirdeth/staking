@@ -5,14 +5,12 @@ import { Ranking } from 'modules/ranking/pages';
 import { Staking } from 'modules/staking/pages';
 import { Modules, RoutesProps } from 'types';
 
-// eslint-disable-next-line no-lone-blocks
-{
-  /**
+/**
 @Description
 key 'dirName' - should be equal to component dir name
 @example MyInvestments - name of dir and dirName: MyInvestments
 */
-}
+
 export const routes: RoutesProps = {
   home: {
     dirName: 'Home',

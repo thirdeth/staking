@@ -18,8 +18,17 @@ export const getMuiToggleButtonOverrides = (theme: Theme): ComponentsOverrides['
     borderRadius: BORDER_RADIUS_DEFAULT,
     color: COLOR_TEXT_BLACK,
     fontSize: '16px',
-    fontWeight: FontWeights.fontWeightMedium,
+    fontWeight: 700,
     textTransform: 'uppercase',
+    whiteSpace: 'nowrap',
+    [theme.breakpoints.up('md')]: {
+      minWidth: 'auto',
+      width: '100%',
+    },
+    [theme.breakpoints.down('md')]: {
+      minWidth: 'auto',
+      width: '100%',
+    },
 
     '&.MuiToggleButtonGroup-grouped:not(:last-of-type)': {
       borderRadius: BORDER_RADIUS_DEFAULT,

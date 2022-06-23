@@ -1,6 +1,7 @@
 import { ComponentsOverrides, ComponentsProps, Theme } from '@mui/material';
 import { FontWeights } from 'theme/Typography';
 import {
+  BG_MAIN,
   BORDER_COLOR_INPUT_GRAY_DEFAULT,
   BORDER_COLOR_INPUT_GRAY_FOCUS,
   BORDER_COLOR_INPUT_GRAY_HOVER,
@@ -30,6 +31,8 @@ export const getMuiTextFieldOverrides = (theme?: Theme): ComponentsOverrides['Mu
     '& .MuiOutlinedInput-root': {
       color: COLOR_TEXT_BLACK,
       borderRadius: BORDER_RADIUS_DEFAULT,
+      background: BG_MAIN,
+
       '& fieldset': {
         border: '1px solid',
         borderColor: BORDER_COLOR_INPUT_GRAY_DEFAULT,

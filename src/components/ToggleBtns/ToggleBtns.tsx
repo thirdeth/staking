@@ -24,6 +24,7 @@ export const ToggleBtns: FC<ToggleBtnsProps & ToggleButtonGroupProps> = ({ butto
       sx={{
         background: 'transparent',
         border: 'none',
+        width: '100%',
       }}
     >
       {buttonsItems.map((item) => (
