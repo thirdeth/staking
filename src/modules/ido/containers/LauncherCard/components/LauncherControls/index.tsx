@@ -1,12 +1,10 @@
 import { FC } from 'react';
 import { Button, Grid, Typography } from '@mui/material';
 import { SocialLinks } from 'components';
-import { useWindowState } from 'hooks';
 import { FontWeights } from 'theme/Typography';
 import { COLOR_TEXT_BLACK } from 'theme/variables';
 
 export const LauncherControls: FC = () => {
-  const { width } = useWindowState();
   return (
     <Grid
       item
@@ -27,7 +25,13 @@ export const LauncherControls: FC = () => {
       <Typography variant="body2" fontWeight={FontWeights.fontWeightRegular} py={{ xs: 2, sm: 2, md: 0 }}>
         Participants 4017/5000
       </Typography>
-      <SocialLinks color={COLOR_TEXT_BLACK} fullWidth={+width < 900} />
+      <SocialLinks
+        color={COLOR_TEXT_BLACK}
+        sx={{
+          justifyContent: { xs: 'space-between', sm: 'space-between', md: 'center', lg: 'center' },
+          width: { xs: '100%', sm: '100%', md: 'auto !important', lg: 'auto !important' },
+        }}
+      />
     </Grid>
   );
 };

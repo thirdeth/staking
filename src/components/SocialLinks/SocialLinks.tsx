@@ -6,18 +6,11 @@ import { socialsItems } from './SocialLinks.helpers';
 
 type SocialLinksProps = {
   color?: string;
-  fullWidth?: boolean;
 } & GridProps;
 
-export const SocialLinks: FC<SocialLinksProps> = ({ color = COLOR_TEXT_BLUE, fullWidth = false, ...gridProps }) => {
+export const SocialLinks: FC<SocialLinksProps> = ({ color = COLOR_TEXT_BLUE, ...gridProps }) => {
   return (
-    <Grid
-      {...gridProps}
-      container
-      spacing={2}
-      justifyContent={fullWidth ? 'space-between' : 'center'}
-      sx={{ width: fullWidth ? '100% !important' : 'auto' }}
-    >
+    <Grid {...gridProps} container spacing={2}>
       {socialsItems.map(({ id, Icon, link }) => (
         <Grid key={id} item>
           <Link href={link} target="_blank" rel="noreferrer">

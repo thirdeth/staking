@@ -37,14 +37,14 @@ export const Account: FC<AccountProps> = ({ onDisconnect, address, width }) => {
         variant={width > 900 ? 'text' : 'contained'}
         startIcon={<WalletIcon sx={{ path: { fill: width > 900 ? BG_BUTTON_GRAY_DARK : BG_MAIN } }} />}
         sx={(theme) => ({
+          border: BORDER_BUTTON_GRAY_BOLD,
+          borderRadius: BORDER_RADIUS_DEFAULT,
+          height: '50px',
           [theme.breakpoints.between('md', 'xl')]: {
             position: 'relative',
             px: 1.7,
             width: '194px',
-            height: '50px',
             background: 'transparent',
-            border: BORDER_BUTTON_GRAY_BOLD,
-            borderRadius: BORDER_RADIUS_DEFAULT,
             display: { xs: 'none', sm: 'none', md: 'flex', lg: 'flex' },
             '&:hover': {
               background: 'transparent',
@@ -55,7 +55,7 @@ export const Account: FC<AccountProps> = ({ onDisconnect, address, width }) => {
               },
             },
           },
-          [theme.breakpoints.down('md')]: { pr: 0, pl: 1, minWidth: '56px' },
+          [theme.breakpoints.down('md')]: { pr: 0, pl: 1, minWidth: '56px', height: '44px', border: 'none' },
         })}
       >
         {width > 900 && (

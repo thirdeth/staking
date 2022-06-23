@@ -22,7 +22,7 @@ const GridNavItem = styled(NavLink)({
 
 export const HeaderControls: FC<HeaderControlsProps> = ({ address, width, onOpenModal }) => {
   return (
-    <Grid container item justifyContent="space-between" alignItems="center" xs={12}>
+    <Grid container item justifyContent="space-between" alignItems="center" xs={12} wrap="nowrap">
       {width < 900 && <Menu />}
 
       <Grid container item alignItems="center" columnGap={width < 900 ? 1 : 2} paddingRight={0.5}>
@@ -61,7 +61,7 @@ export const HeaderControls: FC<HeaderControlsProps> = ({ address, width, onOpen
       </Grid>
       {address.length ? (
         <Grid item container justifyContent="center" alignItems="center" wrap="nowrap" columnGap={3}>
-          {width > 900 && <UserBalance balance="1.123124124" />}
+          {width > 1000 && <UserBalance balance="1.123124124" />}
           <Account address={address} width={width} onDisconnect={() => onOpenModal(Modals.Disconnect)} />
         </Grid>
       ) : (

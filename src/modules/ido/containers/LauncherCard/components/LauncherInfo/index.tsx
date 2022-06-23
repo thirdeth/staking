@@ -1,14 +1,12 @@
 import { FC } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { LogoSmall, MainLogo } from 'components/Icon/components';
-import { useWindowState } from 'hooks';
 import { FontWeights } from 'theme/Typography';
 import { BG_MAIN, BORDER_RADIUS_CARD_MEDIUM } from 'theme/variables';
 
 import { LauncherCardProps } from '../../LauncherCard';
 
 export const LauncherInfo: FC<Pick<LauncherCardProps, 'saledEndTime'>> = ({ saledEndTime }) => {
-  const { width } = useWindowState();
   return (
     <Grid container justifyContent="space-between" height={{ md: 'auto', lg: '102px' }}>
       <Grid
@@ -41,8 +39,8 @@ export const LauncherInfo: FC<Pick<LauncherCardProps, 'saledEndTime'>> = ({ sale
         >
           <MainLogo
             sx={{
-              width: +width > 1000 ? '85px' : '54px',
-              height: +width > 1000 ? '86px' : '60px',
+              width: { xs: '54px', sm: '54px', md: '85px' },
+              height: { xs: '60px', sm: '60px', md: '86px' },
             }}
           />
         </Grid>

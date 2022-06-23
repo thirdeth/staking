@@ -33,7 +33,8 @@ export const Road: FC = () => {
         display={{ xs: 'flex', sm: 'flex', md: 'grid' }}
         justifyContent={{ xs: 'center', sm: 'center', md: 'space-between' }}
         gridTemplateColumns={{ xs: '1fr', sm: '1fr', md: 'repeat(2, 360px)' }}
-        spacing={4.5}
+        rowSpacing={4.5}
+        columnGap={{ xs: 4.5, sm: 4.5, md: 0, lg: 0 }}
       >
         {roadCards.map(({ id, title, Image, text }) => (
           <Grid key={id} item>
