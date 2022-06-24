@@ -3,16 +3,17 @@ import { RefObject, useCallback, useEffect, useState } from 'react';
 const DEFAULT_OBSERVER_PARAMS = {
   threshold: 0,
   root: null,
-  rootMargin: '0%',
+  rootMargin: '70%',
 };
 
 const DEFAULT_STROKE_OFFSET = 2000;
+const LINE_OFFSET_VALUE = 250;
 
 export const useDrawLine = (elementRef: RefObject<Element>, observerParams = DEFAULT_OBSERVER_PARAMS): [number] => {
   const [isAnimationStart, setAnimationStart] = useState(false);
   const [verticalLineHeight, setVerticalLineHeight] = useState(DEFAULT_STROKE_OFFSET);
 
-  // iif intersection ref is intersection
+  // if intersection ref is intersection
   // it mean that curve line must be drawing
   const handleToggleAnimationStarting = ([entry]: IntersectionObserverEntry[]) => {
     if (!entry) return;
@@ -29,10 +30,8 @@ export const useDrawLine = (elementRef: RefObject<Element>, observerParams = DEF
     (event: Event) => {
       const { scrollTop } = (event.target as Document).documentElement;
 
-      const lineOffsetValue = 350;
-
       if (isAnimationStart) {
-        setVerticalLineHeight(+scrollTop + lineOffsetValue);
+        setVerticalLineHeight(+scrollTop + LINE_OFFSET_VALUE);
       }
     },
     [isAnimationStart],
