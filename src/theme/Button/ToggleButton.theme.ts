@@ -1,5 +1,4 @@
 import { ComponentsOverrides, ComponentsProps, Theme } from '@mui/material';
-import { FontWeights } from 'theme/Typography';
 import {
   BG_BUTTON_BLUE,
   BORDER_BUTTON_GRAY,
