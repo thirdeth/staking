@@ -17,7 +17,7 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
 
   return (
     <StyledLink to={routes.idos.details.root.getPath(cardData.id)}>
-      <Grid container alignItems="center">
+      <Grid container alignItems="center" spacing={{ xs: 3, sm: 3, md: 0 }}>
         <Grid
           item
           container
@@ -49,10 +49,11 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
             container
             justifyContent="flex-start"
             alignItems="flex-start"
+            wrap="nowrap"
             spacing={1}
             sx={{ img: { maxWidth: '36px', maxHeight: '37px' } }}
-            xs={6}
-            sm={6}
+            xs={8}
+            sm={8}
             md={3}
           >
             {token.icon && (
@@ -62,12 +63,12 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
             )}
             <Grid item container direction="column" alignItems="flex-start" justifyContent="flex-start">
               <Grid item>
-                <Typography variant="body2" textTransform="none">
+                <Typography variant="body2" textTransform="none" fontSize={{ xs: '14px', sm: '14px', md: '16px' }}>
                   {token.name}
                 </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="body2" textTransform="none">
+                <Typography variant="body2" textTransform="none" fontSize={{ xs: '14px', sm: '14px', md: '16px' }}>
                   ({token.symbol})
                 </Typography>
               </Grid>
@@ -75,15 +76,15 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
           </Grid>
         )}
         {boughtAmount && (
-          <Grid item xs={6} sm={6} md={2.5}>
-            <Typography variant="body2" textTransform="none">
+          <Grid item xs={4} sm={4} md={2.5}>
+            <Typography variant="body2" textTransform="none" fontSize={{ xs: '14px', sm: '14px', md: '16px' }}>
               {boughtAmount} {token && token.symbol}
             </Typography>
           </Grid>
         )}
         {buyDate && (
           <Grid item xs={2}>
-            <Typography variant="body2" textTransform="none">
+            <Typography variant="body2" textTransform="none" fontSize={{ xs: '14px', sm: '14px', md: '16px' }}>
               {dateFormatter(buyDate)}
             </Typography>
           </Grid>

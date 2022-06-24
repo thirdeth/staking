@@ -18,33 +18,51 @@ export const ApplyCard: FC<ApplyCardProps & BoxProps> = ({ size = 's', ...boxPro
         borderRadius: BORDER_RADIUS_MEDIUM,
         background: BG_BLUE_DARK,
         ...applyCardStyleState.size[size],
+        height: { xs: '342px', sm: '342px', md: applyCardStyleState.size[size].height },
         ...boxProps,
       })}
     >
       <Grid
         container
-        direction={size === 's' ? 'row' : 'column'}
-        justifyContent={size === 's' ? 'space-between' : 'center'}
+        direction={size === 's' ? { xs: 'column', sm: 'column', md: 'row' } : 'column'}
+        justifyContent={size === 's' ? { xs: 'center', sm: 'center', md: 'space-between' } : 'center'}
         alignItems="center"
+        spacing={{ xs: 2, sm: 2, md: 0 }}
         sx={{ height: '100%' }}
       >
         <Grid item>
-          <Box
-            sx={{
-              maxWidth: size === 'm' ? '474px' : 'none',
-            }}
-          >
-            <Typography variant="h1" color={COLOR_TEXT_WHITE} align={size === 'm' ? 'center' : 'left'}>
+          <Box sx={{ maxWidth: size === 'm' ? '474px' : 'none' }}>
+            <Typography
+              variant="h1"
+              color={COLOR_TEXT_WHITE}
+              sx={{ textAlign: size === 'm' ? 'center' : { xs: 'center', sm: 'center', md: 'left' } }}
+              fontSize={{ xs: '24px', sm: '24px', md: '30px' }}
+              maxWidth={{ xs: '288px', sm: '288px', md: 'none' }}
+            >
               APPLY FOR PROJECT INCUBATION
             </Typography>
-            <Typography variant="body2" color={COLOR_TEXT_WHITE_EXTRALIGHT}>
+            <Typography
+              variant="body2"
+              color={COLOR_TEXT_WHITE_EXTRALIGHT}
+              fontSize={{ xs: '14px', sm: '14px', md: '16px' }}
+              maxWidth={{ xs: '288px', sm: '288px', md: 'none' }}
+              textAlign="center"
+            >
               If you want to lanuch an IGO/IDO, It will be your perfect choice
             </Typography>
           </Box>
         </Grid>
 
-        <Grid item>
-          <Button variant="contained" color="secondary" sx={{ mt: size === 's' ? 0 : 2, textTransform: 'uppercase' }}>
+        <Grid item container justifyContent="center" alignItems="center">
+          <Button
+            variant="contained"
+            color="secondary"
+            sx={{
+              mt: size === 's' ? 0 : 2,
+              textTransform: 'uppercase',
+              minWidth: { xs: '100%', sm: '100%', md: '130px' },
+            }}
+          >
             Apply for Ido
           </Button>
         </Grid>

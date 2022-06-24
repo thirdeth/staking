@@ -28,7 +28,7 @@ export const Staking: FC<StakingProps> = ({ title }) => {
   };
 
   return (
-    <Box>
+    <Box sx={{ overflowX: 'hidden' }}>
       <Grid container justifyContent="space-between" alignItems="center">
         <Grid item>
           <Typography variant="h1">{title}</Typography>
