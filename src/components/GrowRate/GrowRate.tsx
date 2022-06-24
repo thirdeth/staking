@@ -4,14 +4,16 @@ import { ArrowDown } from 'components/Icon/components';
 import { COLOR_TEXT_GREEN, COLOR_TEXT_RED } from 'theme/variables';
 
 export interface GrowRateProps {
+  growAmount: number;
   isGrow?: boolean;
 }
 
-export const GrowRate: FC<GrowRateProps> = ({ isGrow = false }) => {
+export const GrowRate: FC<GrowRateProps> = ({ growAmount, isGrow = false }) => {
   return (
     <Box
       sx={{
         position: 'relative',
+        width: 'fit-content',
       }}
     >
       {isGrow ? (
@@ -19,7 +21,6 @@ export const GrowRate: FC<GrowRateProps> = ({ isGrow = false }) => {
           sx={{
             position: 'absolute',
             top: '-5px',
-            left: '-3px',
             transform: 'rotate(180deg)',
           }}
           fill={COLOR_TEXT_GREEN}
@@ -29,12 +30,11 @@ export const GrowRate: FC<GrowRateProps> = ({ isGrow = false }) => {
           sx={{
             position: 'absolute',
             bottom: '-5px',
-            left: '-3px',
           }}
           fill={COLOR_TEXT_RED}
         />
       )}
-      <Typography variant="h4">1</Typography>
+      <Typography variant="h4">{growAmount}</Typography>
     </Box>
   );
 };

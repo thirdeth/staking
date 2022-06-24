@@ -14,6 +14,7 @@ import { getTypographyOptions } from 'theme/Typography';
 import { COLOR_TEXT_BLACK } from 'theme/variables';
 
 import { getMuiLoadingButtonDefaultProps, getMuiLoadingButtonOverrides } from './Button/LoadingButton.theme';
+import { getMuiAccordion, getMuiAccordionDetails, getMuiAccordionPropsDefaultProps } from './Accordion';
 import { getMuiBackdropDefaultProps, getMuiBackdropOverrides } from './Backdrop';
 import { getMuiBreadcrumbsDefaultProps, getMuiBreadcrumbsOverrides } from './Breadcrumbs';
 import { getMuiCssBaselineDefaultProps, getMuiCssBaselineOverrides } from './CssBaseLine';
@@ -86,6 +87,13 @@ export const theme = createTheme(themeBase, {
     MuiTextField: {
       defaultProps: getMuiTextFieldDefaultProps(),
       styleOverrides: getMuiTextFieldOverrides(themeBase),
+    },
+    MuiAccordion: {
+      defaultProps: getMuiAccordionPropsDefaultProps(),
+      styleOverrides: getMuiAccordion(themeBase),
+    },
+    MuiAccordionDetails: {
+      styleOverrides: getMuiAccordionDetails(themeBase),
     },
   },
 });

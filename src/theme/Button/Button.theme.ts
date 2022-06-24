@@ -1,5 +1,5 @@
 import { buttonClasses, ComponentsOverrides, ComponentsProps, Theme } from '@mui/material';
-import { FontWeights } from 'theme/Typography';
+import { FontFamilies, FontWeights } from 'theme/Typography';
 import {
   BG_BLUE,
   BG_BUTTON_BLUE,
@@ -26,7 +26,7 @@ export const getMuiButtonOverrides = (theme: Theme): ComponentsOverrides['MuiBut
     minWidth: '130px',
     fontSize: '16px',
     lineHeight: '19px',
-    fontFamily: '"Nasalization", san-serif',
+    fontFamily: FontFamilies.secondary,
     boxShadow: 'none',
 
     '&:hover': {
@@ -140,6 +140,15 @@ export const getMuiButtonOverrides = (theme: Theme): ComponentsOverrides['MuiBut
 
     '&:hover': {
       backgroundColor: 'transparent',
+    },
+
+    '&.secondary': {
+      ...theme.typography.subtitle1,
+      fontFamily: FontFamilies.primary,
+      padding: 0,
+      textTransform: 'none',
+      color: COLOR_TEXT_BLUE,
+      height: 'unset',
     },
   },
 });

@@ -26,6 +26,7 @@ export const COLOR_TEXT_GRAY_LIGHT = 'rgba(112, 112, 112, 1)';
 export const COLOR_TEXT_GRAY_EXTRALIGHT = 'rgba(216, 216, 216, 1)';
 export const COLOR_TEXT_RED = 'rgba(226, 71, 37, 1)';
 export const COLOR_TEXT_GREEN = 'rgba(26, 192, 87, 1)';
+export const COLOR_LIGHT_BLUE = 'rgb(231, 240, 254, 1)';
 
 // ===== Borders
 export const BORDER_HEADER = '2px solid rgba(237, 237, 237, 1)';

@@ -3,6 +3,7 @@ import { addDecorator } from '@storybook/react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from '../src/theme';
 import { BrowserRouter } from 'react-router-dom';
+import '../src/styles/index.scss';
 
 const MUIDecorator = (story) => (
   <ThemeProvider theme={theme}>

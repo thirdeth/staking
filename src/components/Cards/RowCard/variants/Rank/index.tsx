@@ -19,7 +19,7 @@ export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
             </Grid>
             {isGrow !== undefined && (
               <Grid item>
-                <GrowRate isGrow={isGrow} />
+                <GrowRate isGrow={isGrow} growAmount={10} />
               </Grid>
             )}
           </>

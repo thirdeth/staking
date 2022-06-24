@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { GrowRate } from './GrowRate';
@@ -8,7 +9,15 @@ export default {
   component: GrowRate,
 } as ComponentMeta<typeof GrowRate>;
 
-const Template: ComponentStory<typeof GrowRate> = (args) => <GrowRate {...args} />;
+const Template: ComponentStory<typeof GrowRate> = (args) => (
+  <Box
+    sx={() => ({
+      padding: '20px',
+    })}
+  >
+    <GrowRate {...args} />
+  </Box>
+);
 export const Default = Template.bind({});
 
 Default.args = growRatePropsMocked;

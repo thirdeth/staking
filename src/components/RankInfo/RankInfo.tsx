@@ -1,30 +1,31 @@
 import { FC } from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { RankIcon } from 'components/Icon/components';
 import { COLOR_TEXT_WHITE } from 'theme/variables';
 
 import { rankColors } from './Rank.helpers';
-import { RankNumberProps } from './Rank.types';
+import { UserStakingRankIds } from './Rank.types';
 
 export interface RankInfoProps {
-  rank?: RankNumberProps;
+  rankId?: UserStakingRankIds;
+  isCard?: boolean;
 }
 
-export const RankInfo: FC<RankInfoProps> = ({ rank = 1 }) => {
-  const currentRank = rankColors.find(({ id }) => id === rank);
+export const RankInfo: FC<RankInfoProps> = ({ rankId = 1, isCard = false }) => {
+  const currentRank = rankColors.find(({ id }) => id === rankId);
   return (
-    <Box>
-      <Grid container justifyContent="space-between" alignItems="center" columnSpacing={1}>
-        <Grid item>
-          <RankIcon
-            sx={{
-              width: '35px',
-              height: '40px',
-            }}
-            stopColorOne={currentRank?.stopColorOne}
-            stopColorTwo={currentRank?.stopColorTwo}
-          />
-        </Grid>
+    <Grid container justifyContent="space-between" alignItems="center" columnSpacing={isCard ? 1 : 0}>
+      <Grid item>
+        <RankIcon
+          sx={{
+            width: isCard ? 70 : 35,
+            height: isCard ? 80 : 40,
+          }}
+          stopColorOne={currentRank?.stopColorOne}
+          stopColorTwo={currentRank?.stopColorTwo}
+        />
+      </Grid>
+      {!isCard && (
         <Grid item container direction="column" justifyContent="flex-start" alignItems="flex-start" rowSpacing={1}>
           <Typography variant="subtitle1" color={COLOR_TEXT_WHITE}>
             Correct Rank
@@ -33,7 +34,7 @@ export const RankInfo: FC<RankInfoProps> = ({ rank = 1 }) => {
             {currentRank?.title}
           </Typography>
         </Grid>
-      </Grid>
-    </Box>
+      )}
+    </Grid>
   );
 };

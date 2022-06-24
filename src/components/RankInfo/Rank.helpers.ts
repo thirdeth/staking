@@ -37,10 +37,4 @@ export const rankColors: RankItemProps[] = [
     stopColorOne: 'rgba(6, 136, 11, 1)',
     stopColorTwo: 'rgba(39, 231, 35, 1)',
   },
-  {
-    id: 7,
-    title: 'Amethyst',
-    stopColorOne: 'rgba(102, 6, 136, 1)',
-    stopColorTwo: 'rgba(231, 35, 223, 1)',
-  },
 ];

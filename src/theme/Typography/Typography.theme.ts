@@ -54,6 +54,12 @@ export const getTypographyOptions = (): TypographyOptions => ({
     lineHeight: '30px',
     fontWeight: FontWeights.fontWeightMedium,
     fontFamily: FontFamilies.primary,
+
+    '&.s': {
+      fontSize: '14px',
+      lineHeight: '20px',
+      fontWeight: FontWeights.fontWeightRegular,
+    },
   },
 
   body2: {

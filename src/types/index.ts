@@ -38,3 +38,5 @@ export enum Modules {
   ranking = 'ranking',
   myInvestments = 'myInvestments',
 }
+
+export type Nullable<T> = null | T;
