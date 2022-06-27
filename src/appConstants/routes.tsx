@@ -2,7 +2,7 @@ import { Details, Idos } from 'modules/ido/pages';
 import { Home } from 'modules/landing/pages';
 import { MyInvestments } from 'modules/myInvestments/pages';
 import { Ranking } from 'modules/ranking/pages';
-import { Staking } from 'modules/staking/pages';
+import { Leaderboard, Staking } from 'modules/staking/pages';
 import { Modules, RoutesProps } from 'types';
 
 /**
@@ -68,11 +68,22 @@ export const routes: RoutesProps = {
         module: Modules.ranking,
       },
     },
+    leaderboard: {
+      dirName: 'Leaderboard',
+      root: {
+        id: 6,
+        title: 'Leaderboard',
+        path: '/staking/leaderboard',
+        component: <Leaderboard />,
+        isNavItem: false,
+        module: Modules.staking,
+      },
+    },
   },
   'my-investments': {
     dirName: 'MyInvestments',
     root: {
-      id: 6,
+      id: 7,
       title: 'My Investments',
       path: '/my-investments',
       component: <MyInvestments title="My Investments" />,

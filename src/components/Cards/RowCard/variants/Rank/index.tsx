@@ -1,25 +1,34 @@
 import { FC } from 'react';
-import { Grid, Typography } from '@mui/material';
-import { GrowRate } from 'components';
+import { Grid, styled, Typography } from '@mui/material';
+import { CopyText, GrowRate, RankInfo } from 'components';
+import { COLOR_TEXT_GRAY_DARK } from 'theme/variables';
 import { RankCardDataProps } from 'types';
 import { dateFormatter, shortenPhrase } from 'utils';
 
 import { RowCardProps } from '../../RowCard';
 
-export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
-  const { rankIcon, isGrow, walletAddress, stakedAmount, buyDate }: RankCardDataProps = cardData;
+const RowTitleText = styled(Typography)(({ theme }) => ({
+  display: 'none',
+  fontSize: '14px',
+  color: COLOR_TEXT_GRAY_DARK,
 
+  [theme.breakpoints.down('md')]: { display: 'block' },
+}));
+
+export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
+  const { rankId, isGrow, walletAddress, stakedAmount, buyDate }: RankCardDataProps = cardData;
   return (
     <>
       <Grid container justifyContent="flex-start" alignItems="center" wrap="nowrap" columnGap={1}>
-        {rankIcon && (
+        {rankId && (
           <>
             <Grid item>
-              <img src={rankIcon} alt="project-icon" />
+              <RowTitleText>Rank</RowTitleText>
+              <RankInfo rankId={rankId} isCard />
             </Grid>
             {isGrow !== undefined && (
               <Grid item>
-                <GrowRate isGrow={isGrow} growAmount={10} />
+                <GrowRate growAmount={1} isGrow={isGrow} />
               </Grid>
             )}
           </>
@@ -27,14 +36,38 @@ export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
       </Grid>
 
       {walletAddress && (
-        <Grid item md={2} xs={6}>
-          <Typography variant="body2" textTransform="none">
-            {shortenPhrase(walletAddress, 14, 14)}
-          </Typography>
+        <Grid item md={2} xs={6} container direction="column">
+          <Grid item>
+            <RowTitleText>Wallet Address</RowTitleText>
+          </Grid>
+
+          <Grid item container alignItems="center" spacing={1} wrap="nowrap">
+            <Grid item>
+              <Typography
+                variant="body2"
+                textTransform="none"
+                sx={(theme) => ({
+                  [theme.breakpoints.down('md')]: {
+                    maxWidth: '100px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  },
+                })}
+              >
+                {shortenPhrase(walletAddress, 10, 10)}
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <CopyText text={walletAddress} variant="icon" />
+            </Grid>
+          </Grid>
         </Grid>
       )}
       {stakedAmount && (
         <Grid item md={2} xs={6}>
+          <RowTitleText>Amount Staked</RowTitleText>
           <Typography variant="body2" textTransform="none">
             {stakedAmount} CRO
           </Typography>
@@ -42,6 +75,7 @@ export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
       )}
       {buyDate && (
         <Grid item md={2} xs={6}>
+          <RowTitleText>Last Staked</RowTitleText>
           <Typography variant="body2" textTransform="none">
             {dateFormatter(buyDate)}
           </Typography>

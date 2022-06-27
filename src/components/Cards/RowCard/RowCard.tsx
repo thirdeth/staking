@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Box, BoxProps, Grid } from '@mui/material';
 import { BG_BLUE_LIGHT, BORDER_RADIUS_DEFAULT, TRANSITION_DEFAULT_TIME } from 'theme/variables';
 import { ColorProps, ProjectCardDataProps, RankCardDataProps, VariantProps } from 'types';
@@ -11,17 +11,11 @@ export interface RowCardProps {
   cardData: ProjectCardDataProps | RankCardDataProps;
 }
 
-export const RowCard: FC<RowCardProps & BoxProps> = ({
-  variant = 'project',
-  rowColor = 'gray',
-  cardData,
-  ...boxProps
-}) => {
+const Test: FC<RowCardProps & BoxProps> = ({ variant = 'project', rowColor = 'gray', cardData, ...boxProps }) => {
   return (
     <Box
-      p={3.25}
+      p={variant === 'project' ? 3.25 : 2}
       sx={{
-        minHeight: '130px',
         borderRadius: BORDER_RADIUS_DEFAULT,
         backgroundColor: rowCardStyleState.color[rowColor],
         transition: TRANSITION_DEFAULT_TIME,
@@ -32,10 +26,16 @@ export const RowCard: FC<RowCardProps & BoxProps> = ({
         },
       }}
     >
-      <Grid container justifyContent="space-between" alignItems="center">
+      <Grid
+        container
+        justifyContent="space-between"
+        alignItems={{ xs: 'space-between', sm: 'space-between', md: 'center' }}
+      >
         {variant === 'project' && cardData && <Project cardData={cardData} />}
         {variant === 'rank' && cardData && <Rank cardData={cardData} />}
       </Grid>
     </Box>
   );
 };
+
+export const RowCard = memo(Test);

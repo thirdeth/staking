@@ -1,5 +1,7 @@
 import { FC, MouseEvent, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Box, Button, Grid, Typography } from '@mui/material';
+import { routes } from 'appConstants/routes';
 import { ApplyCard } from 'components';
 import { useValidateInputField, ValidationTypes } from 'hooks';
 import { ChartCard } from 'modules/staking/components';
@@ -34,7 +36,9 @@ export const Staking: FC<StakingProps> = ({ title }) => {
           <Typography variant="h1">{title}</Typography>
         </Grid>
         <Grid item>
-          <Button>Leaderboard</Button>
+          <Link to={routes.staking.leaderboard.root.path}>
+            <Button>Leaderboard</Button>
+          </Link>
         </Grid>
       </Grid>
 

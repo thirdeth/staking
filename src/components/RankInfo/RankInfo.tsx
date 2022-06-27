@@ -13,8 +13,9 @@ export interface RankInfoProps {
 
 export const RankInfo: FC<RankInfoProps> = ({ rankId = 1, isCard = false }) => {
   const currentRank = rankColors.find(({ id }) => id === rankId);
+
   return (
-    <Grid container justifyContent="space-between" alignItems="center" columnSpacing={isCard ? 1 : 0}>
+    <Grid container justifyContent="space-between" alignItems="center" columnSpacing={1}>
       <Grid item>
         <RankIcon
           sx={{
