@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Grid } from '@mui/material';
 import { ApplyCard, RowCard } from 'components';
+import { CardsHeader } from 'modules/staking/components';
 
 import { leaderboardItemsMock } from './Leaderboard.helpers';
 
@@ -9,7 +10,7 @@ export const Leaderboard: FC = () => {
     <>
       <Grid pt={2} container spacing={2}>
         <Grid item xs={12} display={{ xs: 'none', sm: 'none', md: 'block' }}>
-          {/* <CardsHeader /> */}
+          <CardsHeader />
         </Grid>
 
         {leaderboardItemsMock.map((cardData) => (
