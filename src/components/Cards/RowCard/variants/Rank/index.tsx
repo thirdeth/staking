@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Grid, styled, Typography } from '@mui/material';
+import { Box, Grid, styled, Typography } from '@mui/material';
 import { CopyText, GrowRate, RankInfo } from 'components';
 import { COLOR_TEXT_GRAY_DARK } from 'theme/variables';
 import { RankCardDataProps } from 'types';
@@ -37,32 +37,27 @@ export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
 
       {walletAddress && (
         <Grid item md={2} xs={6} container direction="column">
-          <Grid item>
-            <RowTitleText>Wallet Address</RowTitleText>
-          </Grid>
+          <RowTitleText>Wallet Address</RowTitleText>
 
-          <Grid item container alignItems="center" spacing={1} wrap="nowrap">
-            <Grid item>
-              <Typography
-                variant="body2"
-                textTransform="none"
-                sx={(theme) => ({
-                  [theme.breakpoints.down('md')]: {
-                    maxWidth: '100px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                  },
-                })}
-              >
-                {shortenPhrase(walletAddress, 10, 10)}
-              </Typography>
-            </Grid>
+          <Box display="flex" alignItems="center">
+            <Typography
+              variant="body2"
+              textTransform="none"
+              mr={1}
+              sx={(theme) => ({
+                [theme.breakpoints.down('md')]: {
+                  maxWidth: '100px',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                },
+              })}
+            >
+              {shortenPhrase(walletAddress, 10, 10)}
+            </Typography>
 
-            <Grid item>
-              <CopyText text={walletAddress} variant="icon" />
-            </Grid>
-          </Grid>
+            <CopyText text={walletAddress} variant="icon" />
+          </Box>
         </Grid>
       )}
       {stakedAmount && (
