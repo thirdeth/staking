@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Box, BoxProps, Typography } from '@mui/material';
+import { Box, BoxProps, SxProps, Theme, Typography } from '@mui/material';
 import { RankIcon } from 'components/Icon/components';
 import { isFunction } from 'lodash';
 
