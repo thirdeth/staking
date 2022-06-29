@@ -24,7 +24,7 @@ export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
           <>
             <Grid item>
               <RowTitleText>Rank</RowTitleText>
-              <RankInfo rankId={rankId} isCard />
+              <RankInfo rankId={rankId} type="icon" size="m" />
             </Grid>
             {isGrow !== undefined && (
               <Grid item>

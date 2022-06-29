@@ -71,7 +71,7 @@ export const AccountPopover: FC<AccountModalProps> = ({ address, anchorEl, visib
         </Grid>
 
         <Grid item container justifyContent="space-between" alignItems="center" xs={12}>
-          <RankInfo rankId={1} />
+          <RankInfo rankId={1} type="account" size="s" />
 
           <Grid item container direction="column" justifyContent="flex-start" alignItems="flex-start" rowSpacing={1}>
             <Typography variant="subtitle1" color={COLOR_TEXT_WHITE}>

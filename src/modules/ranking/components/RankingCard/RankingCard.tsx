@@ -62,17 +62,7 @@ export const RankingCard: FC<RankingCardProps> = ({ rankId, description, stakedT
           pl: isExpanded ? '0' : 'calc(50% - 40px)',
         }}
       >
-        <RankInfo rankId={rankId} isCard />
-        <Typography
-          sx={{
-            color: isExpanded ? COLOR_TEXT_BLUE : 'transparent',
-            m: 4.5,
-          }}
-          color={COLOR_TEXT_BLUE}
-          variant="h1"
-        >
-          {currentRank?.title}
-        </Typography>
+        <RankInfo rankId={rankId} type="card" size="m" hideText={!isExpanded} />
       </BoxWithBottomBorder>
       <Box
         sx={{
