@@ -31,7 +31,7 @@ export const investmentsMockData: ProjectCardDataProps[] = [
 export const investmentsRankMockData: RankCardDataProps[] = [
   {
     id: 1,
-    rankIcon: CronosMockLogo,
+    rankId: 1,
     walletAddress: '0x4064a8586217ffbc6ac72aad9eef5e7198c13cb7',
     stakedAmount: '100,000',
     buyDate: new Date(Date.UTC(2022, 7, 16)).getTime(),
@@ -39,7 +39,7 @@ export const investmentsRankMockData: RankCardDataProps[] = [
   },
   {
     id: 2,
-    rankIcon: CronosMockLogo,
+    rankId: 1,
     walletAddress: '0x4064a8586217ffbc6ac72aad9eef5e7198c13cb7',
     stakedAmount: '100,000',
     buyDate: new Date(Date.UTC(2022, 7, 16)).getTime(),
@@ -47,7 +47,7 @@ export const investmentsRankMockData: RankCardDataProps[] = [
   },
   {
     id: 3,
-    rankIcon: CronosMockLogo,
+    rankId: 1,
     walletAddress: '0x4064a8586217ffbc6ac72aad9eef5e7198c13cb7',
     stakedAmount: '100,000',
     buyDate: new Date(Date.UTC(2022, 7, 16)).getTime(),

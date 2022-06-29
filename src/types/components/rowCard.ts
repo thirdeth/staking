@@ -1,3 +1,5 @@
+import { UserStakingRankIds } from 'components';
+
 enum ProjectStatusValues {
   progress,
   completed,
@@ -38,7 +40,7 @@ export interface ProjectCardDataProps {
 
 export interface RankCardDataProps {
   id: number;
-  rankIcon?: string;
+  rankId?: UserStakingRankIds;
   isGrow?: boolean;
   walletAddress?: string;
   stakedAmount?: string;

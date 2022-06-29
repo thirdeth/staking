@@ -21,6 +21,7 @@ export const GrowRate: FC<GrowRateProps> = ({ growAmount, isGrow = false }) => {
           sx={{
             position: 'absolute',
             top: '-5px',
+            right: '-3px',
             transform: 'rotate(180deg)',
           }}
           fill={COLOR_TEXT_GREEN}
@@ -30,6 +31,7 @@ export const GrowRate: FC<GrowRateProps> = ({ growAmount, isGrow = false }) => {
           sx={{
             position: 'absolute',
             bottom: '-5px',
+            right: '-3px',
           }}
           fill={COLOR_TEXT_RED}
         />

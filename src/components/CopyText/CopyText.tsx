@@ -11,6 +11,7 @@ import {
 
 type Size = 'sm' | 'md';
 type Color = 'primary' | 'secondary';
+type Variant = 'input' | 'icon';
 
 const sizesState: Record<Size, string> = {
   sm: '170px',
@@ -32,11 +33,12 @@ const colorsState: Record<Color, string> = {
 };
 export interface CopyTextProps {
   size?: Size;
+  variant?: Variant;
   color?: Color;
   text: string;
 }
 
-export const CopyText: FC<CopyTextProps> = ({ size = 'md', color = 'primary', text }) => {
+export const CopyText: FC<CopyTextProps> = ({ variant = 'input', size = 'md', color = 'primary', text }) => {
   const [helperText, setHelperText] = useState('');
 
   useEffect(() => {
@@ -55,37 +57,57 @@ export const CopyText: FC<CopyTextProps> = ({ size = 'md', color = 'primary', te
     }
   };
   return (
-    <Box
-      px={2}
-      sx={{
-        width: '100%',
-        height: '44p',
-        borderRadius: BORDER_RADIUS_DEFAULT,
-        ...boxesState[color],
-      }}
-    >
-      <Grid
-        item
-        container
-        justifyContent="space-between"
-        alignItems="center"
-        wrap="nowrap"
-        xs={12}
-        sx={{
-          overflow: 'hidden',
-        }}
-      >
-        <Typography
-          variant="subtitle1"
-          color={colorsState[color]}
+    <>
+      {variant === 'input' && (
+        <Box
+          px={2}
           sx={{
-            maxWidth: sizesState[size],
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
+            width: '100%',
+            height: '44p',
+            borderRadius: BORDER_RADIUS_DEFAULT,
+            ...boxesState[color],
           }}
         >
-          {helperText || text}
-        </Typography>
+          <Grid
+            item
+            container
+            justifyContent="space-between"
+            alignItems="center"
+            wrap="nowrap"
+            xs={12}
+            sx={{
+              overflow: 'hidden',
+            }}
+          >
+            <Typography
+              variant="subtitle1"
+              color={colorsState[color]}
+              sx={{
+                maxWidth: sizesState[size],
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {helperText || text}
+            </Typography>
+            <Button
+              variant="text"
+              startIcon={
+                <Copy
+                  sx={{
+                    color: colorsState[color],
+                  }}
+                />
+              }
+              sx={{
+                p: 0,
+              }}
+              onClick={handleCopyAddress}
+            />
+          </Grid>
+        </Box>
+      )}
+      {variant === 'icon' && (
         <Button
           variant="text"
           startIcon={
@@ -100,7 +122,7 @@ export const CopyText: FC<CopyTextProps> = ({ size = 'md', color = 'primary', te
           }}
           onClick={handleCopyAddress}
         />
-      </Grid>
-    </Box>
+      )}
+    </>
   );
 };
