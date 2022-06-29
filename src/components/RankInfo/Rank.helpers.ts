@@ -1,3 +1,5 @@
+import { COLOR_TEXT_BLACK, COLOR_TEXT_BLUE, COLOR_TEXT_WHITE } from 'theme/variables';
+
 import { RankItemProps } from './Rank.types';
 
 export const rankColors: RankItemProps[] = [
@@ -38,3 +40,14 @@ export const rankColors: RankItemProps[] = [
     stopColorTwo: 'rgba(39, 231, 35, 1)',
   },
 ];
+
+export const styleHelper = {
+  account: {
+    rankColor: COLOR_TEXT_WHITE,
+    subtitleColor: COLOR_TEXT_WHITE,
+  },
+  card: {
+    rankColor: COLOR_TEXT_BLUE,
+    subtitleColor: COLOR_TEXT_BLACK,
+  },
+};

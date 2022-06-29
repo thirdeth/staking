@@ -52,7 +52,7 @@ export const getTypographyOptions = (): TypographyOptions => ({
   body1: {
     fontSize: '18px',
     lineHeight: '30px',
-    fontWeight: FontWeights.fontWeightMedium,
+    fontWeight: FontWeights.fontWeightRegular,
     fontFamily: FontFamilies.primary,
 
     '&.s': {
