@@ -1,41 +1,56 @@
-import { FC, memo } from 'react';
-import { Box, BoxProps, Grid } from '@mui/material';
+import { FC } from 'react';
+import { Box, BoxProps, styled } from '@mui/material';
+import { ChangeStakeItemType } from 'modules/staking/pages/Staking/Staking.types';
 import { BG_BLUE_LIGHT, BORDER_RADIUS_DEFAULT, TRANSITION_DEFAULT_TIME } from 'theme/variables';
-import { ColorProps, ProjectCardDataProps, RankCardDataProps, VariantProps } from 'types';
+import { ColorProps, ProjectCardDataProps, RankCardDataProps, StakesCardDataProps, VariantProps } from 'types';
 
+import { Stakes } from './variants/Stakes';
 import { Project, Rank, rowCardStyleState } from './index';
 
-export interface RowCardProps {
+export const BoxRowStyled = styled(Box)({
+  borderRadius: BORDER_RADIUS_DEFAULT,
+  transition: TRANSITION_DEFAULT_TIME,
+  '&:hover': {
+    backgroundColor: BG_BLUE_LIGHT,
+  },
+});
+
+export type RowCardProps = {
   variant?: VariantProps;
   rowColor?: ColorProps;
-  cardData: ProjectCardDataProps | RankCardDataProps;
-}
+  isHarvesting?: boolean;
+  isWithdrawing?: boolean;
+  onChangeStakeItem?: (changeType: ChangeStakeItemType, stakeIndex: number) => void;
+  cardData: ProjectCardDataProps | RankCardDataProps | StakesCardDataProps;
+} & BoxProps;
 
-const Test: FC<RowCardProps & BoxProps> = ({ variant = 'project', rowColor = 'gray', cardData, ...boxProps }) => {
+export const RowCard: FC<RowCardProps> = ({
+  variant = 'project',
+  rowColor = 'gray',
+  cardData,
+  isHarvesting = false,
+  isWithdrawing = false,
+  onChangeStakeItem,
+  ...boxProps
+}) => {
   return (
-    <Box
-      p={variant === 'project' ? 3.25 : 2}
+    <BoxRowStyled
+      p={{ xs: 2, sm: 2, md: rowCardStyleState.size[variant] }}
       sx={{
-        borderRadius: BORDER_RADIUS_DEFAULT,
         backgroundColor: rowCardStyleState.color[rowColor],
-        transition: TRANSITION_DEFAULT_TIME,
         ...boxProps,
-
-        '&:hover': {
-          backgroundColor: BG_BLUE_LIGHT,
-        },
       }}
     >
-      <Grid
-        container
-        justifyContent="space-between"
-        alignItems={{ xs: 'space-between', sm: 'space-between', md: 'center' }}
-      >
-        {variant === 'project' && cardData && <Project cardData={cardData} />}
-        {variant === 'rank' && cardData && <Rank cardData={cardData} />}
-      </Grid>
-    </Box>
+      {variant === 'project' && cardData && <Project cardData={cardData} />}
+      {variant === 'rank' && cardData && <Rank cardData={cardData} />}
+      {variant === 'stakes' && cardData && (
+        <Stakes
+          cardData={cardData}
+          isHarvesting={isHarvesting}
+          isWithdrawing={isWithdrawing}
+          onChangeStakeItem={onChangeStakeItem}
+        />
+      )}
+    </BoxRowStyled>
   );
 };
-
-export const RowCard = memo(Test);

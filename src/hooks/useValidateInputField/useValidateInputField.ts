@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, useState } from 'react';
+import { ChangeEvent, ChangeEventHandler, useCallback, useState } from 'react';
 
 import { validateOnlyNumbers, ValidationTypes } from './index';
 
@@ -30,9 +30,9 @@ export const useValidateInputField = (
     }
   };
 
-  const hadleSetMaxValue = (value: string) => {
+  const handleSetOriginValue = useCallback((value: string) => {
     setInputValue(value);
-  };
+  }, []);
 
-  return [inputValue, handleChangeValue, hadleSetMaxValue];
+  return [inputValue, handleChangeValue, handleSetOriginValue];
 };

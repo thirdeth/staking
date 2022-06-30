@@ -28,7 +28,7 @@ export const UserBalance: FC<UserBalancProps> = ({ balance }) => {
               color={COLOR_TEXT_BLUE}
               textTransform="uppercase"
               sx={{
-                maxWidth: '70px',
+                maxWidth: '85px',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',

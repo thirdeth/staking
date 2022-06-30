@@ -1,8 +1,12 @@
-import { FC, ReactNode, useMemo } from 'react';
+import { FC, ReactNode, useEffect, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Box, Container } from '@mui/material';
-import { useSmoothTopScroll, useWindowState } from 'hooks';
+import { useShallowSelector, useSmoothTopScroll, useWindowState } from 'hooks';
 import { useBreadcrumbs } from 'modules/layout/hooks';
+import { useWalletConnectorContext } from 'services';
+import { getNativeBalance } from 'store/user/actions';
+import userSelector from 'store/user/selectors';
 import { BG_MAIN, HOME_IMAGE_BG, HOME_IMAGE_BG_MOBILE } from 'theme/variables';
 
 import { Breadcrumbs, Footer, Header, NotificationModal } from '..';
@@ -15,12 +19,27 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   const [breadcrumbs] = useBreadcrumbs();
   const { pathname } = useLocation();
   const { width } = useWindowState();
+  const dispatch = useDispatch();
 
-  const HOIME_BG = +width > 900 ? HOME_IMAGE_BG : HOME_IMAGE_BG_MOBILE;
+  const { walletService } = useWalletConnectorContext();
+  const address = useShallowSelector(userSelector.getProp('address'));
+
+  const mediaBreakpointsValue = 900;
+  const HOIME_BG = +width > mediaBreakpointsValue ? HOME_IMAGE_BG : HOME_IMAGE_BG_MOBILE;
 
   const firstPathAtPathname = useMemo(() => pathname.split('/')[1], [pathname]);
   const isHomePage = pathname === '/';
   useSmoothTopScroll(firstPathAtPathname);
+
+  useEffect(() => {
+    if (address.length) {
+      dispatch(
+        getNativeBalance({
+          web3Provider: walletService.Web3(),
+        }),
+      );
+    }
+  }, [address.length, dispatch, walletService]);
 
   return (
     <Box

@@ -3,6 +3,7 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, R
 import storage from 'redux-persist/lib/storage';
 import createSagaMiddleware from 'redux-saga';
 
+import stakingActionTypes from './staking/actionTypes';
 import userActionTypes from './user/actionTypes';
 import reducer from './rootReducer';
 import rootSaga from './rootSaga';
@@ -26,7 +27,21 @@ const store = configureStore({
   middleware: (getDefaultMiddleware: any) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, userActionTypes.APPROVE],
+        ignoredActions: [
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER,
+          userActionTypes.GET_TOKEN_BALANCE,
+          userActionTypes.GET_NATIVE_BALANCE,
+          userActionTypes.APPROVE,
+          stakingActionTypes.STAKE,
+          stakingActionTypes.HARVEST,
+          stakingActionTypes.WITHDRAW,
+          stakingActionTypes.GET_USER_STAKES,
+        ],
       },
     }).concat(sagaMiddleware),
 });

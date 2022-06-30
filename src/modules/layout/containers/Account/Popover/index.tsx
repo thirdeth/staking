@@ -1,6 +1,6 @@
 import { FC, RefObject } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Button, Grid, Link, Popover, styled, Typography } from '@mui/material';
+import { Box, Button, Grid, Link, Popover, styled, Typography } from '@mui/material';
 import { CopyText, RankInfo } from 'components';
 import { Close, OutIcon } from 'components/Icon/components';
 import { FontFamilies, FontWeights } from 'theme/Typography';
@@ -10,6 +10,7 @@ import { accountLinkItems, buyCryptoLink } from './Popover.helpers';
 
 interface AccountModalProps {
   address: string;
+  nativeBalance: string;
   visible: boolean;
   anchorEl: RefObject<HTMLElement>;
   onClose: () => void;
@@ -36,7 +37,14 @@ const BuyLinkTypography = styled(Typography)({
   textDecoration: 'none',
 });
 
-export const AccountPopover: FC<AccountModalProps> = ({ address, anchorEl, visible, onClose, onDisconnect }) => {
+export const AccountPopover: FC<AccountModalProps> = ({
+  address,
+  nativeBalance,
+  anchorEl,
+  visible,
+  onClose,
+  onDisconnect,
+}) => {
   return (
     <Popover
       anchorEl={anchorEl.current}
@@ -51,7 +59,7 @@ export const AccountPopover: FC<AccountModalProps> = ({ address, anchorEl, visib
           pt: 1,
           pb: 2.5,
           width: '310px',
-          height: '389px',
+          height: { xs: '440px', sm: '440px', md: '389px' },
           background: BG_BLUE,
           borderRadius: BORDER_RADIUS_POPOVER,
         },
@@ -85,6 +93,30 @@ export const AccountPopover: FC<AccountModalProps> = ({ address, anchorEl, visib
 
         <CopyText size="sm" color="secondary" text={address} />
 
+        <Box display={{ xs: 'flex', sm: 'flex', md: 'none' }} justifyContent="flex-start" alignItems="center">
+          <Typography variant="body2" color={COLOR_TEXT_WHITE}>
+            Balance:
+          </Typography>
+
+          <Typography
+            ml={1}
+            variant="h4"
+            sx={{
+              color: COLOR_TEXT_WHITE,
+
+              strong: {
+                maxWidth: '70px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                fontWeight: FontWeights.fontWeightRegular,
+              },
+            }}
+          >
+            <strong>{nativeBalance}</strong> CRO
+          </Typography>
+        </Box>
+
         {accountLinkItems.map(({ link, title, Icon }, index) => (
           // list is not re rendering
           // eslint-disable-next-line react/no-array-index-key
@@ -102,11 +134,7 @@ export const AccountPopover: FC<AccountModalProps> = ({ address, anchorEl, visib
           href={buyCryptoLink}
           target="_blank"
           rel="noreferrer"
-          sx={{
-            pt: 1,
-            width: '100%',
-            textDecoration: 'none',
-          }}
+          sx={{ pt: 1, width: '100%', textDecoration: 'none' }}
         >
           <Grid container alignItems="center" columnGap={1}>
             <BuyLinkTypography variant="body2">Click here to</BuyLinkTypography>

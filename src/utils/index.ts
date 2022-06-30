@@ -3,3 +3,6 @@ export * from './shortenPhrase';
 export * from './numberFormatter';
 export * from './validateOnlyNumbers';
 export * from './dateFormatter';
+export * from './getContractDataByItsName';
+export * from './getRewardPercent';
+export * from './getToastMessage';

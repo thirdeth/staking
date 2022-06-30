@@ -19,5 +19,8 @@
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"],
-  "files": ["src/types/globals.d.ts"]
+  "files": [
+    "src/types/globals.d.ts",
+    "./src/components/Cards/RowCard/components/RowCardSkeleton/RowCardSkeletonProps.tsx"
+  ]
 }

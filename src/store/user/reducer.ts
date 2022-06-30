@@ -7,6 +7,7 @@ const initialState: UserState = {
   chainType: 'testnet', // TODO change on mainnet preferably
   network: Chains.Cronos,
   tokenBalance: '',
+  nativeBalance: '',
 };
 
 export const userReducer = createSlice({

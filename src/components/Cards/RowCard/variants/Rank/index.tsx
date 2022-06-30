@@ -18,7 +18,11 @@ const RowTitleText = styled(Typography)(({ theme }) => ({
 export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
   const { rankId, isGrow, walletAddress, stakedAmount, buyDate }: RankCardDataProps = cardData;
   return (
-    <>
+    <Grid
+      container
+      justifyContent="space-between"
+      alignItems={{ xs: 'space-between', sm: 'space-between', md: 'center' }}
+    >
       <Grid container justifyContent="flex-start" alignItems="center" wrap="nowrap" columnGap={1}>
         {rankId && (
           <>
@@ -76,6 +80,6 @@ export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
           </Typography>
         </Grid>
       )}
-    </>
+    </Grid>
   );
 };

@@ -1,4 +1,5 @@
 import { ChangeEventHandler, FC, MouseEvent } from 'react';
+import { LoadingButton } from '@mui/lab';
 import { Box, Button, Grid, InputAdornment, styled, TextField, Typography } from '@mui/material';
 import { ToggleBtns } from 'components';
 import { FontFamilies } from 'theme/Typography';
@@ -13,16 +14,18 @@ import {
 import { toggleButtonItems } from './StakingForm.helpers';
 
 const TextContainer = styled(Typography)({
+  mb: 1,
   fontSize: '16px',
   lineHeight: '24px',
   fontWeight: 700,
 });
 
 export interface StakingFormProps {
-  userStakes: number;
-  userBalance: number;
+  totalStakedAmount: string;
+  tokenBalance: string;
   stakePeriod: number;
   stakeValue: string;
+  isStaking: boolean;
   onStake: () => void;
   onSetMaxStakeValue: (maxValue: string) => void;
   onChangeStakeValue: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
@@ -30,11 +33,12 @@ export interface StakingFormProps {
 }
 
 export const StakingForm: FC<StakingFormProps> = ({
-  userBalance,
-  userStakes,
+  tokenBalance,
+  totalStakedAmount,
   stakeValue,
   stakePeriod,
   onStake,
+  isStaking,
   onSetMaxStakeValue,
   onChangeStakePeriod,
   onChangeStakeValue,
@@ -51,15 +55,15 @@ export const StakingForm: FC<StakingFormProps> = ({
       <Grid container direction="column" spacing={4.5}>
         <Grid item xs={12}>
           <Typography variant="h3" fontSize={{ xs: '20px', sm: '20px', md: '24px' }}>
-            Stake for IDO Particioation
+            Stake for IDO Participation
           </Typography>
         </Grid>
 
         <Grid item container direction="column" xs={12}>
           <Grid item container justifyContent="flex-start" alignItems="center">
-            <Typography variant="h3">{userStakes}</Typography>
+            <Typography variant="h3">{totalStakedAmount || '...'}</Typography>
             <Typography variant="body1" ml={2}>
-              BUSD
+              CLZ
             </Typography>
           </Grid>
 
@@ -79,7 +83,7 @@ export const StakingForm: FC<StakingFormProps> = ({
           </Grid>
 
           <Grid item container justifyContent="space-between" alignItems="center">
-            <TextContainer>Lock period: {toggleButtonItems[stakePeriod - 1].label}</TextContainer>
+            <TextContainer>Lock period: {toggleButtonItems[stakePeriod]?.label}</TextContainer>
             <Typography variant="h1" color={COLOR_TEXT_BLUE}>
               12%
             </Typography>
@@ -88,20 +92,37 @@ export const StakingForm: FC<StakingFormProps> = ({
 
         <Grid item container justifyContent="space-between" alignItems="flex-end" spacing={2} xs={12}>
           <Grid item>
-            <TextContainer mb={1}>Balance: {userBalance} BUSD</TextContainer>
+            <Box display="flex" alignItems="center">
+              <TextContainer>Balance:</TextContainer>
+              <TextContainer
+                sx={{
+                  mx: 1,
+                  maxWidth: '100px',
+                  display: 'block',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpaces: 'nowrap',
+                }}
+              >
+                {tokenBalance || '...'}
+              </TextContainer>
+              <TextContainer>CLZ</TextContainer>
+            </Box>
 
             <TextField
               value={stakeValue}
               onChange={onChangeStakeValue}
               variant="outlined"
               placeholder="0.00"
+              disabled={isStaking}
               sx={{ width: { xs: '100%', sm: '100%', md: '352px' } }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
                     <Button
                       variant="text"
-                      onClick={() => onSetMaxStakeValue(userBalance.toString())}
+                      disabled={isStaking}
+                      onClick={() => onSetMaxStakeValue(tokenBalance.toString())}
                       sx={{
                         px: 1,
                         height: '24px',
@@ -124,7 +145,9 @@ export const StakingForm: FC<StakingFormProps> = ({
           </Grid>
 
           <Grid item>
-            <Button onClick={onStake}>Stake</Button>
+            <LoadingButton variant="contained" loading={isStaking} onClick={onStake}>
+              Stake
+            </LoadingButton>
           </Grid>
         </Grid>
       </Grid>

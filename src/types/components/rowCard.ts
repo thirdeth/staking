@@ -15,7 +15,7 @@ enum ColorValues {
 enum VariantValues {
   project,
   rank,
-  pool,
+  stakes,
 }
 
 export type ColorProps = keyof typeof ColorValues;
@@ -45,4 +45,9 @@ export interface RankCardDataProps {
   walletAddress?: string;
   stakedAmount?: string;
   buyDate?: string | number;
+}
+
+export interface StakesCardDataProps {
+  id: number;
+  stakesData?: string[];
 }

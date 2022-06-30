@@ -14,16 +14,21 @@ export const ChartCard: FC<ChartCardProps> = ({ value, text, chartImg }) => {
     <Box
       sx={{
         px: { xs: 2, sm: 2, md: 6.2 },
-        py: 5.6,
+        py: { xs: 3, sm: 3, md: 5.4 },
         background: BG_BLUE_ACCENT,
         borderRadius: BORDER_RADIUS_DEFAULT,
       }}
     >
-      <Grid container justifyContent={{ xs: 'center', sm: 'center', md: 'space-between' }} alignItems="flex-start">
+      <Grid container justifyContent="space-between" alignItems="flex-start">
         <Grid item container direction="column" justifyContent="space-between">
-          <Grid item pb={3}>
+          <Grid item pb={{ xs: 1, sm: 1, md: 3 }}>
             <Typography
-              sx={{ color: COLOR_TEXT_WHITE, fontSize: '30px', lineHeight: '28px', fontFamily: FontFamilies.secondary }}
+              sx={{
+                color: COLOR_TEXT_WHITE,
+                fontSize: { xs: '20px', sm: '20px', md: '30px' },
+                lineHeight: '28px',
+                fontFamily: FontFamilies.secondary,
+              }}
             >
               {value}
             </Typography>
@@ -35,7 +40,19 @@ export const ChartCard: FC<ChartCardProps> = ({ value, text, chartImg }) => {
           </Grid>
         </Grid>
 
-        <Grid item>{chartImg}</Grid>
+        <Grid
+          item
+          container
+          alignSelf={{ xs: 'flex-end', sm: 'flex-end', md: 'center' }}
+          sx={{
+            img: {
+              width: { xs: '104px', sm: '104px', md: 'auto' },
+              height: { xs: '51px', sm: '51px', md: 'auto' },
+            },
+          }}
+        >
+          {chartImg}
+        </Grid>
       </Grid>
     </Box>
   );

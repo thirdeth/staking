@@ -1,6 +1,5 @@
 import { createContext, FC, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
 import { useShallowSelector } from 'hooks';
 import { Subscription } from 'rxjs';
@@ -8,7 +7,7 @@ import { notifyText } from 'services/WalletService/config/constants';
 import { disconnectWalletState, updateUserState } from 'store/user/reducer';
 import userSelector from 'store/user/selectors';
 import { Chains, State, UserState, WalletProviders } from 'types';
-import { shortenPhrase } from 'utils';
+import { getToastMessage, shortenPhrase } from 'utils';
 
 import { WalletService } from '../WalletService';
 
@@ -41,7 +40,7 @@ const WalletConnectContext: FC<WalletConnectProps> = ({ children }) => {
     dispatch(disconnectWalletState());
     WalletConnect.resetConnect();
     currentSubsriber?.unsubscribe();
-    toast.info(notifyText.disconnet.info);
+    getToastMessage('info', notifyText.disconnet.info);
   }, [WalletConnect, currentSubsriber, dispatch]);
 
   const subscriberSuccess = useCallback(
@@ -51,7 +50,7 @@ const WalletConnectContext: FC<WalletConnectProps> = ({ children }) => {
       }
       if (res.name === 'accountsChanged') {
         disconnect();
-        toast.info('Please sign login message at MetaMask');
+        getToastMessage('info', 'Please sign login message at MetaMask');
       }
     },
     [disconnect],
@@ -63,7 +62,7 @@ const WalletConnectContext: FC<WalletConnectProps> = ({ children }) => {
       console.error(error);
       if (error.code !== 4) {
         WalletConnect.resetConnect();
-        toast.error('You changed to wrong network. Please choose Binance-Smart-Chain');
+        getToastMessage('error', 'You changed to wrong network. Please choose Binance-Smart-Chain');
         dispatch(disconnectWalletState());
       }
     },
@@ -87,7 +86,7 @@ const WalletConnectContext: FC<WalletConnectProps> = ({ children }) => {
                 network: chain,
               }),
             );
-            toast.success(`Wallet connected: ${shortenPhrase(accountAddress, 3, 3)}`);
+            getToastMessage('success', `Wallet connected: ${shortenPhrase(accountAddress, 3, 3)}`);
           }
 
           setCurrentSubsciber(sub);

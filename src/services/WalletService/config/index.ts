@@ -1,7 +1,7 @@
 import { Chains, IChainType, IConnectWallet, IContracts } from 'types';
 import { AbiItem } from 'web3-utils';
 
-import { erc20Abi } from './abi';
+import { erc20Abi, stakingAbi } from './abi';
 
 export const chains: {
   [key: string]: {
@@ -96,7 +96,8 @@ export const connectWallet = (newChainName: Chains, type: IChainType): IConnectW
 };
 
 export enum ContractsNames {
-  staking = 'staking',
+  staking,
+  token,
 }
 
 export type IContractsNames = keyof typeof ContractsNames;
@@ -108,13 +109,27 @@ export const contractsConfig: IContracts = {
     [ContractsNames.staking]: {
       testnet: {
         address: {
-          [Chains.Cronos]: '0x658396178d33C91a5C60A1164828e00008769a74',
+          [Chains.Cronos]: '0x24806f4637192C5269D00fF76893DfdFcE49DFEc',
+        },
+        abi: stakingAbi as AbiItem[],
+      },
+      mainnet: {
+        address: {
+          [Chains.Cronos]: '0x24806f4637192C5269D00fF76893DfdFcE49DFEc',
+        },
+        abi: stakingAbi as AbiItem[],
+      },
+    },
+    [ContractsNames.token]: {
+      testnet: {
+        address: {
+          [Chains.Cronos]: '0x43bA502a34D66BAd37122E84da4697B900Ef55d2',
         },
         abi: erc20Abi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains.Cronos]: '0x658396178d33C91a5C60A1164828e00008769a74',
+          [Chains.Cronos]: '0x43bA502a34D66BAd37122E84da4697B900Ef55d2',
         },
         abi: erc20Abi as AbiItem[],
       },

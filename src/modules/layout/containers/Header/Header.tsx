@@ -12,7 +12,7 @@ import { HeaderControls } from './components';
 
 export const Header: FC = () => {
   const dispatch = useDispatch();
-  const { address } = useShallowSelector<State, UserState>(userSelector.getUser);
+  const { address, nativeBalance } = useShallowSelector<State, UserState>(userSelector.getUser);
   const [scrollToTopValue] = useGetScollValue();
   const { width } = useWindowState();
 
@@ -50,7 +50,12 @@ export const Header: FC = () => {
             transition: TRANSITION_DEFAULT_TIME,
           }}
         >
-          <HeaderControls address={address} onOpenModal={handleOpenModal} width={+width} />
+          <HeaderControls
+            address={address}
+            nativeBalance={nativeBalance}
+            onOpenModal={handleOpenModal}
+            width={+width}
+          />
         </Grid>
       </Container>
     </Box>

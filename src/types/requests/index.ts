@@ -24,10 +24,18 @@ export interface RequestWithWeb3Provider {
   web3Provider: Web3;
 }
 
-export interface ApproveReq extends RequestWithWeb3Provider {
+export type ApproveReq = {
   amount: string;
-  spender: string;
+  spenderAddress: string;
   tokenAddress: string;
   web3Provider: Web3;
-  decimals: number;
-}
+} & RequestWithWeb3Provider;
+
+export type StakeReq = {
+  amount: string;
+  poolId: number;
+} & RequestWithWeb3Provider;
+
+export type ChangeUserStakeItemReq = {
+  stakeIndex: number;
+} & RequestWithWeb3Provider;
