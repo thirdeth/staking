@@ -1,6 +1,8 @@
 import { FC, MouseEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Box, Button, Grid, Typography } from '@mui/material';
+import { routes } from 'appConstants/routes';
 import { ApplyCard, RowCard } from 'components';
 import { RowCardSkeleton } from 'components/Cards/RowCard/components';
 import { useShallowSelector, useValidateInputField, ValidationTypes } from 'hooks';
@@ -94,7 +96,9 @@ export const Staking: FC<StakingProps> = ({ title }) => {
     <Box sx={{ overflowX: 'hidden' }}>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="h1">{title}</Typography>
-        <Button>Leaderboard</Button>
+        <Link to={routes.staking.leaderboard.root.path}>
+          <Button>Leaderboard</Button>
+        </Link>
       </Box>
 
       <Grid
