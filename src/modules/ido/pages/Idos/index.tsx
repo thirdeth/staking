@@ -1,28 +1,43 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Box, Grid, SelectChangeEvent } from '@mui/material';
 import { ApplyCard, RowCard } from 'components';
 import { CardsHeader, StageBar } from 'modules/ido/components';
+import { getIdoList } from 'store/ido/actions';
+import { IdoPublic, IdoStatus } from 'types/store/requests';
 
 import { IDOS_DATA_MOCK } from './Idos.helpers';
 
 export const Idos: FC = () => {
-  const [filterValue, setFilterValue] = useState(1);
-  const [activeStage, setActiveState] = useState(1);
+  const dispatch = useDispatch();
+  const [publicFilterValue, setPublicFilterValue] = useState(IdoPublic.all);
+  const [idoStatus, setIdoStatus] = useState(IdoStatus.pending);
 
-  const handleChangeFilterValue = (event: SelectChangeEvent<unknown>) => {
+  const handleChangeFilterValue = useCallback((event: SelectChangeEvent<unknown>) => {
     const { value } = event.target;
-    setFilterValue(Number(value));
-  };
+    setPublicFilterValue(value as IdoPublic);
+  }, []);
 
-  const handleChangeActiveStage = (value: number) => {
-    setActiveState(Number(value));
-  };
+  const handleChangeActiveStage = useCallback((value: IdoStatus) => {
+    setIdoStatus(value);
+  }, []);
+
+  console.log(publicFilterValue, idoStatus);
+
+  useEffect(() => {
+    dispatch(
+      getIdoList({
+        publicVar: publicFilterValue,
+        statusVar: IdoStatus.all,
+      }),
+    );
+  }, [dispatch, publicFilterValue]);
 
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       <StageBar
-        filterValue={filterValue}
-        currentStage={activeStage}
+        publicFilterValue={publicFilterValue}
+        idoStatus={idoStatus}
         onChangeFilter={handleChangeFilterValue}
         onChangeStage={handleChangeActiveStage}
       />

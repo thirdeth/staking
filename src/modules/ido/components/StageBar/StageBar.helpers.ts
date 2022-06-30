@@ -1,29 +1,31 @@
+import { IdoPublic, IdoStatus } from 'types/store/requests';
+
 export const stageVariantItems = [
   {
-    id: 1,
+    id: IdoStatus.pending,
     stageName: 'Upcoming',
   },
   {
-    id: 2,
+    id: IdoStatus.registrationClosed,
     stageName: 'Registration closed',
   },
   {
-    id: 3,
+    id: IdoStatus.completedSuccess,
     stageName: 'Completed',
   },
 ];
 
 export const selectMenuItems = [
   {
-    value: 1,
+    value: IdoPublic.all,
     label: 'All Access',
   },
   {
-    value: 2,
+    value: IdoPublic.public,
     label: 'Public',
   },
   {
-    value: 3,
+    value: IdoPublic.private,
     label: 'Private',
   },
 ];

@@ -6,3 +6,4 @@ export * from './dateFormatter';
 export * from './getContractDataByItsName';
 export * from './getRewardPercent';
 export * from './getToastMessage';
+export * from './validateStatus';

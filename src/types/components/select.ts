@@ -1,4 +1,6 @@
+import { IdoPublic } from 'types/store/requests';
+
 export type MenuItemsProps = {
-  value: number;
+  value: IdoPublic | any;
   label: string;
 };

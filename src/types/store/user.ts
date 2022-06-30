@@ -7,4 +7,5 @@ export type UserState = {
   network: Chains;
   tokenBalance: string;
   nativeBalance: string;
+  key: string;
 };

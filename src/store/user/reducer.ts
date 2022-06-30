@@ -8,6 +8,7 @@ const initialState: UserState = {
   network: Chains.Cronos,
   tokenBalance: '',
   nativeBalance: '',
+  key: '',
 };
 
 export const userReducer = createSlice({

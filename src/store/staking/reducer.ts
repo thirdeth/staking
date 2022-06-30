@@ -10,7 +10,7 @@ export const stakingReducer = createSlice({
   name: 'staking',
   initialState,
   reducers: {
-    updateStakingState: (state, action: PayloadAction<Partial<StakingState>>) => ({
+    updateStakingState: (state: StakingState, action: PayloadAction<Partial<StakingState>>) => ({
       ...state,
       ...action.payload,
     }),

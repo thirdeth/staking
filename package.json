@@ -93,7 +93,9 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "chromatic": "npx chromatic --project-token=0df28a94390a",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "generate-types": "node ./scripts/generate-types.js",
+    "download-schema": "node ./scripts/download-schema.js"
   },
   "browserslist": {
     "production": [

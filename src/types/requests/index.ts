@@ -1,7 +1,13 @@
+import { IdoPublic, IdoStatus } from 'types/store/requests';
 import Web3 from 'web3';
 
 export type HelloWorldReq = {
   key: string;
+};
+
+export type GetIdoListReq = {
+  publicVar: IdoPublic;
+  statusVar: IdoStatus;
 };
 
 export type BodyWithToken<T = never> = {
