@@ -60,7 +60,6 @@ export const getMuiButtonOverrides = (theme: Theme): ComponentsOverrides['MuiBut
 
   sizeMedium: {
     padding: theme.spacing(0, 2),
-    maxWidth: '300px',
     height: '44px',
   },
   sizeLarge: {

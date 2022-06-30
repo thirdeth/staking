@@ -2,6 +2,7 @@
 export enum Modals {
   ConnectWallet = 'ConnectWallet',
   Disconnect = 'Disconnect',
+  Invest = 'Invest',
   init = '',
 }
 

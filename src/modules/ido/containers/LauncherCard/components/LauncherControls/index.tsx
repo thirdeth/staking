@@ -3,8 +3,11 @@ import { Button, Grid, Typography } from '@mui/material';
 import { SocialLinks } from 'components';
 import { FontWeights } from 'theme/Typography';
 import { COLOR_TEXT_BLACK } from 'theme/variables';
+import { Modals } from 'types';
 
-export const LauncherControls: FC = () => {
+import { LauncherCardProps } from '../../LauncherCard';
+
+export const LauncherControls: FC<Pick<LauncherCardProps, 'onOpenModal'>> = ({ onOpenModal }) => {
   return (
     <Grid
       item
@@ -14,12 +17,7 @@ export const LauncherControls: FC = () => {
       alignItems="center"
       pt={4}
     >
-      <Button
-        sx={{
-          width: { xs: '100%', sm: '100%', md: 'auto' },
-          maxWidth: { xs: '100%', sm: '100%', md: 'auto' },
-        }}
-      >
+      <Button sx={{ width: { xs: '100%', sm: '100%', md: 'auto' } }} onClick={() => onOpenModal(Modals.Invest)}>
         Claim Token
       </Button>
       <Typography variant="body2" fontWeight={FontWeights.fontWeightRegular} py={{ xs: 2, sm: 2, md: 0 }}>

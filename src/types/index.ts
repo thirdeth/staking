@@ -39,4 +39,12 @@ export enum Modules {
   myInvestments = 'myInvestments',
 }
 
+export enum ProjectStages {
+  upcoming = 'upcoming',
+  open = 'open ido',
+  completed = 'past ido',
+}
+
+export type ProjectStageProps = keyof typeof ProjectStages;
+
 export type Nullable<T> = null | T;

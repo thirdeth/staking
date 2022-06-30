@@ -15,6 +15,9 @@ export const modalData: ModalData = {
   [Modals.Disconnect]: {
     title: 'Disconnect wallet?',
   },
+  [Modals.Invest]: {
+    title: 'Invest',
+  },
   [Modals.init]: {
     title: '',
   },

@@ -6,7 +6,14 @@ import { BG_MAIN, BORDER_RADIUS_CARD_MEDIUM } from 'theme/variables';
 
 import { LauncherCardProps } from '../../LauncherCard';
 
-export const LauncherInfo: FC<Pick<LauncherCardProps, 'saledEndTime'>> = ({ saledEndTime }) => {
+enum StageTextVariants {
+  upcoming = 'Registration will start in',
+  open = 'Registration closed. Sale Opens In',
+  completed = 'Completed success',
+}
+
+export const LauncherInfo: FC<Pick<LauncherCardProps, 'progressData'>> = ({ progressData }) => {
+  const { stage, saleEndTime } = progressData;
   return (
     <Grid container justifyContent="space-between" height={{ md: 'auto', lg: '102px' }}>
       <Grid
@@ -84,11 +91,13 @@ export const LauncherInfo: FC<Pick<LauncherCardProps, 'saledEndTime'>> = ({ sale
         md={5}
       >
         <Typography variant="body2" textTransform="uppercase" fontWeight={FontWeights.fontWeightRegular}>
-          SALE END IN
+          {StageTextVariants[stage]}
         </Typography>
-        <Typography variant="h1" textTransform="uppercase">
-          {saledEndTime}
-        </Typography>
+        {stage !== 'completed' && (
+          <Typography variant="h1" textTransform="uppercase">
+            {saleEndTime}
+          </Typography>
+        )}
       </Grid>
     </Grid>
   );
