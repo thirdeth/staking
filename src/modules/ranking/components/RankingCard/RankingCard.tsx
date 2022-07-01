@@ -98,7 +98,15 @@ export const RankingCard: FC<RankingCardProps> = ({ rankId, description, stakedT
             >
               Full staked tokens
             </Typography>
-            <Typography variant="h2" color={COLOR_TEXT_BLUE}>
+            <Typography
+              variant="h2"
+              color={COLOR_TEXT_BLUE}
+              sx={(theme) => ({
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: '26px',
+                },
+              })}
+            >
               {formatNumber(stakedTokens)}
             </Typography>
           </BoxWithBottomBorder>

@@ -29,7 +29,7 @@ export const getTypographyOptions = (): TypographyOptions => ({
   },
 
   h2: {
-    fontSize: '34px',
+    fontSize: '30px',
     lineHeight: '24px',
     fontWeight: FontWeights.fontWeightRegular,
     fontFamily: FontFamilies.secondary,

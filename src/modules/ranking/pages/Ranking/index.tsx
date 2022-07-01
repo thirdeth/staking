@@ -1,22 +1,30 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
-import { Box } from '@mui/material';
-import { ProgressBar } from 'components';
+import { Box, Grid, Typography } from '@mui/material';
+import { UserStakingRankIds } from 'components';
+import { RankingCard } from 'modules/ranking/components';
+import { RankingInfoCard } from 'modules/ranking/components/RankingInfoCard';
+
+import { rankingCardsInfo } from './Ranking.helper';
 
 export const Ranking: FC = () => {
   return (
     <Box>
-      <Link to="/staking/ranking">Go next</Link>
-      <Box>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo suscipit quos quae nisi voluptates excepturi
-        consectetur dolore dolorem quo, eaque illum commodi voluptas dicta ab, sint aspernatur modi dignissimos dolorum
-        cum? Exercitationem, sit voluptates iure hic nemo id facere facilis. Suscipit optio dolores perspiciatis et quos
-        dolorum? Voluptatum beatae est natus neque impedit, recusandae laboriosam consequatur ipsam facere deserunt
-        eaque asperiores nisi labore, suscipit deleniti, sapiente consequuntur? Qui quam culpa doloribus molestias,
-        adipisci provident exercitationem quidem eum aperiam animi distinctio impedit tempore? Assumenda porro veniam
-        exercitationem non quod nisi nam odit aperiam aut quam. Autem quia corporis est labore a.
-      </Box>
-      <ProgressBar progress={50} />
+      <Typography paddingBottom={4} variant="h1">
+        Ranking
+      </Typography>
+      <RankingInfoCard
+        rankId={1}
+        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+      />
+      <Grid container spacing={3} paddingTop={9}>
+        {rankingCardsInfo.map((rankInfo) => {
+          return (
+            <Grid item xs={12} sm={12} md={6} lg={4} key={rankInfo.rankId}>
+              <RankingCard {...rankInfo} rankId={rankInfo.rankId as UserStakingRankIds} />
+            </Grid>
+          );
+        })}
+      </Grid>
     </Box>
   );
 };
