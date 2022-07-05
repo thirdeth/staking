@@ -25,18 +25,14 @@ export const StageBar: FC<StageBarProps> = ({ idoStatus, publicFilterValue, onCh
   return (
     <Stack>
       <Box
-        sx={(theme) => ({
-          overflow: 'hidden',
+        sx={{
+          overflow: 'auto',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'flex-start',
           background: BG_BUTTON_GRAY,
           borderRadius: '8px',
-
-          [theme.breakpoints.down('md')]: {
-            justifyContent: 'space-between',
-          },
-        })}
+        }}
+        justifyContent={{ xs: 'space-between', sm: 'space-between', md: 'flex-start' }}
       >
         {stageVariantItems.map(({ id, stageName }) => (
           <Button
@@ -50,6 +46,7 @@ export const StageBar: FC<StageBarProps> = ({ idoStatus, publicFilterValue, onCh
               px: 2,
               color: idoStatus === id ? COLOR_TEXT_WHITE : COLOR_TEXT_BLACK,
               background: idoStatus === id ? BG_BLUE : 'transparent',
+              minWidth: 200,
 
               [theme.breakpoints.down('md')]: {
                 flexBasis: '33.34%',

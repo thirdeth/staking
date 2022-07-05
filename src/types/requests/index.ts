@@ -6,8 +6,11 @@ export type HelloWorldReq = {
 };
 
 export type GetIdoListReq = {
-  publicVar: IdoPublic;
-  statusVar: IdoStatus;
+  public: IdoPublic;
+  status: IdoStatus | IdoStatus[];
+  count: number;
+  start: number;
+  shouldConcat?: boolean;
 };
 
 export type BodyWithToken<T = never> = {

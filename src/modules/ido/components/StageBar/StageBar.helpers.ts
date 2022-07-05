@@ -6,8 +6,12 @@ export const stageVariantItems = [
     stageName: 'Upcoming',
   },
   {
-    id: IdoStatus.registrationClosed,
-    stageName: 'Registration closed',
+    id: IdoStatus.register,
+    stageName: 'Registration',
+  },
+  {
+    id: IdoStatus.inProgress,
+    stageName: 'In progress',
   },
   {
     id: IdoStatus.completedSuccess,

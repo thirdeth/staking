@@ -1,5 +1,6 @@
 import { CronosMockLogo } from 'assets/img';
 import { ProjectCardDataProps, RankCardDataProps } from 'types';
+import { IdoStatus } from 'types/store/requests';
 
 export const investmentsMockData: ProjectCardDataProps[] = [
   {
@@ -12,7 +13,9 @@ export const investmentsMockData: ProjectCardDataProps[] = [
       icon: CronosMockLogo,
     },
     boughtAmount: '100,000',
-    status: 'progress',
+    status: IdoStatus.inProgress,
+    startTime: '',
+    hardCap: 1000,
   },
   {
     id: 2,
@@ -24,7 +27,9 @@ export const investmentsMockData: ProjectCardDataProps[] = [
       icon: CronosMockLogo,
     },
     boughtAmount: '100,000',
-    status: 'loading',
+    status: IdoStatus.pending,
+    startTime: '',
+    hardCap: 0,
   },
 ];
 

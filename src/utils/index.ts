@@ -7,3 +7,4 @@ export * from './getContractDataByItsName';
 export * from './getRewardPercent';
 export * from './getToastMessage';
 export * from './validateStatus';
+export * from './camelize';

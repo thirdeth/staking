@@ -1,4 +1,5 @@
 import { CronosMockLogo } from 'assets/img';
+import { IdoStatus } from 'types/store/requests';
 
 import { RowCardProps } from './RowCard';
 
@@ -13,6 +14,6 @@ export const rowCardPropsMocked: RowCardProps = {
       icon: CronosMockLogo,
     },
     boughtAmount: '100,000',
-    status: 'progress',
+    status: IdoStatus.inProgress,
   },
 };

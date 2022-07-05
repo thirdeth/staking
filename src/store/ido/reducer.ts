@@ -2,7 +2,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IdoState } from 'types';
 
 const initialState: IdoState = {
-  ido: [],
+  ido: {
+    count: 0,
+    idos: [],
+  },
 };
 
 export const idoReducer = createSlice({

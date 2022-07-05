@@ -16,7 +16,7 @@ const RowTitleText = styled(Typography)(({ theme }) => ({
 }));
 
 export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
-  const { rankId, isGrow, walletAddress, stakedAmount, buyDate }: RankCardDataProps = cardData;
+  const { rankId, isGrow, walletAddress, stakedAmount, buyDate } = cardData as RankCardDataProps;
   return (
     <Grid
       container

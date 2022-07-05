@@ -22,7 +22,7 @@ export const Stakes: FC<StakesProps> = ({ cardData, isHarvesting, isWithdrawing,
   const [isAllowToWithdraw, setAllowToWithdraw] = useState(false);
   const [isSurePopupVisible, setSurePopupVisible, onCloseSurePopup] = useModal(false);
 
-  const { id, stakesData }: StakesCardDataProps = cardData;
+  const { id, stakesData } = cardData as StakesCardDataProps;
   // if undefined its value does not show at html. verification is in markup
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [staked, earned, poolId, daysLeft]: any = stakesData;

@@ -1,13 +1,17 @@
 import { URL } from 'appConstants';
-import { IdoPublic, IdoStatus } from 'types/store/requests';
+import { GetIdoListReq } from 'types/requests';
+import { snakeize } from 'utils';
 
 import ajax from './ajax';
 
 export const baseApi = {
-  getIdoList(publicVar: IdoPublic, statusVar: IdoStatus) {
+  getIdoList(payload: GetIdoListReq) {
     return ajax({
       method: 'get',
-      url: URL.getIdoList(publicVar, statusVar),
+      url: URL.getIdoList,
+      params: {
+        ...snakeize(payload),
+      },
     });
   },
 };

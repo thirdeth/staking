@@ -1,5 +1,7 @@
+import { IdoStatus } from 'types/store/requests';
+
 import { StatusProps } from './index';
 
 export const statusPropsMocked: StatusProps = {
-  status: 'progress',
+  status: IdoStatus.inProgress,
 };

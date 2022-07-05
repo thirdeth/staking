@@ -1,4 +1,5 @@
 import { UserStakingRankIds } from 'components';
+import { IdoStatus } from 'types/store/requests';
 
 enum ProjectStatusValues {
   progress,
@@ -29,13 +30,15 @@ type TokenProps = {
 };
 
 export interface ProjectCardDataProps {
-  id: number;
+  id?: number;
   projectName?: string;
   projectIcon?: string;
   token?: TokenProps;
-  status?: ProjectStatusProps;
+  status?: IdoStatus;
   boughtAmount?: string | number;
   buyDate?: string | number;
+  startTime: string;
+  hardCap: number;
 }
 
 export interface RankCardDataProps {

@@ -2,15 +2,15 @@ import { FC } from 'react';
 import { Box, Typography } from '@mui/material';
 import { Spinner } from 'components';
 import { BORDER_RADIUS_DEFAULT } from 'theme/variables';
-import { ProjectStatusProps } from 'types';
+import { IdoStatus } from 'types/store/requests';
 
 import { projectStatusStyleState } from './index';
 
 export type StatusProps = {
-  status: ProjectStatusProps;
+  status: IdoStatus;
 };
 
-export const Status: FC<StatusProps> = ({ status = 'progress' }) => {
+export const Status: FC<StatusProps> = ({ status }) => {
   return (
     <Box
       py={1.5}
@@ -25,7 +25,7 @@ export const Status: FC<StatusProps> = ({ status = 'progress' }) => {
         ...projectStatusStyleState.color[status],
       }}
     >
-      {status === 'loading' ? (
+      {status === IdoStatus.pending ? (
         <Spinner />
       ) : (
         <Typography variant="body2" color={projectStatusStyleState.color[status].color} textTransform="uppercase">
