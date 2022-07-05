@@ -4,6 +4,7 @@ import { StakingState } from 'types';
 const initialState: StakingState = {
   totalStakedAmount: '',
   userStakes: [],
+  topInvestors: [],
 };
 
 export const stakingReducer = createSlice({

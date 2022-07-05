@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Box, BoxProps, Typography } from '@mui/material';
 import { RankIcon } from 'components/Icon/components';
 import { isFunction } from 'lodash';
+import { BG_GRAY_LIGHT } from 'theme/variables';
 
 import { rankColors, styleHelper } from './Rank.helpers';
 import { UserStakingRankIds } from './Rank.types';
@@ -10,7 +11,7 @@ export interface RankInfoProps {
   rankId?: UserStakingRankIds;
   subtitle?: string;
   size?: 's' | 'm';
-  type?: 'card' | 'account' | 'icon';
+  type?: 'card' | 'account' | 'icon' | 'rank';
   hideText?: boolean;
 }
 
@@ -36,17 +37,35 @@ export const RankInfo: FC<RankInfoProps & Pick<BoxProps, 'sx'>> = ({
         };
       }}
     >
-      <RankIcon
-        sx={{
-          width: size === 'm' ? 70 : 35,
-          height: size === 'm' ? 80 : 40,
-          mr: size === 'm' ? 3 : 2,
-        }}
-        stopColorOne={currentRank?.stopColorOne}
-        stopColorTwo={currentRank?.stopColorTwo}
-      />
-      {type !== 'icon' && (
-        <Box>
+      <Box position="relative">
+        <RankIcon
+          sx={{
+            width: size === 'm' ? 70 : 35,
+            height: size === 'm' ? 80 : 40,
+          }}
+          stopColorOne={currentRank?.stopColorOne}
+          stopColorTwo={currentRank?.stopColorTwo}
+        />
+        {type === 'rank' && (
+          <Typography
+            sx={{
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+              background: BG_GRAY_LIGHT,
+              width: 25,
+              height: 25,
+            }}
+            variant="h2"
+            align="center"
+          >
+            {rankId}
+          </Typography>
+        )}
+      </Box>
+      {type !== 'icon' && type !== 'rank' && (
+        <Box ml={size === 'm' ? 3 : 2}>
           {subtitle && (
             <Typography
               sx={{

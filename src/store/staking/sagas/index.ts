@@ -1,5 +1,6 @@
 import { fork } from 'redux-saga/effects';
 
+import getTopInvestors from './getTopInvestors';
 import getUserStakes from './getUserStakes';
 import harvest from './harvest';
 import stake from './stake';
@@ -10,4 +11,5 @@ export default function* stakingSagas() {
   yield fork(harvest);
   yield fork(stake);
   yield fork(withdraw);
+  yield fork(getTopInvestors);
 }

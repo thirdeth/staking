@@ -44,7 +44,7 @@ export interface ProjectCardDataProps {
 export interface RankCardDataProps {
   id: number;
   rankId?: UserStakingRankIds;
-  isGrow?: boolean;
+  growAmount: number;
   walletAddress?: string;
   stakedAmount?: string;
   buyDate?: string | number;

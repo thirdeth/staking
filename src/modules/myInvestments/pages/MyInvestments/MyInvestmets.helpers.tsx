@@ -40,7 +40,7 @@ export const investmentsRankMockData: RankCardDataProps[] = [
     walletAddress: '0x4064a8586217ffbc6ac72aad9eef5e7198c13cb7',
     stakedAmount: '100,000',
     buyDate: new Date(Date.UTC(2022, 7, 16)).getTime(),
-    isGrow: true,
+    growAmount: 1,
   },
   {
     id: 2,
@@ -48,7 +48,7 @@ export const investmentsRankMockData: RankCardDataProps[] = [
     walletAddress: '0x4064a8586217ffbc6ac72aad9eef5e7198c13cb7',
     stakedAmount: '100,000',
     buyDate: new Date(Date.UTC(2022, 7, 16)).getTime(),
-    isGrow: true,
+    growAmount: 1,
   },
   {
     id: 3,
@@ -56,6 +56,6 @@ export const investmentsRankMockData: RankCardDataProps[] = [
     walletAddress: '0x4064a8586217ffbc6ac72aad9eef5e7198c13cb7',
     stakedAmount: '100,000',
     buyDate: new Date(Date.UTC(2022, 7, 16)).getTime(),
-    isGrow: false,
+    growAmount: 1,
   },
 ];

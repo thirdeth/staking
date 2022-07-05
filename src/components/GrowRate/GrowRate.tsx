@@ -5,10 +5,9 @@ import { COLOR_TEXT_GREEN, COLOR_TEXT_RED } from 'theme/variables';
 
 export interface GrowRateProps {
   growAmount: number;
-  isGrow?: boolean;
 }
 
-export const GrowRate: FC<GrowRateProps> = ({ growAmount, isGrow = false }) => {
+export const GrowRate: FC<GrowRateProps> = ({ growAmount }) => {
   return (
     <Box
       sx={{
@@ -16,7 +15,7 @@ export const GrowRate: FC<GrowRateProps> = ({ growAmount, isGrow = false }) => {
         width: 'fit-content',
       }}
     >
-      {isGrow ? (
+      {growAmount > 0 && (
         <ArrowDown
           sx={{
             position: 'absolute',
@@ -26,7 +25,8 @@ export const GrowRate: FC<GrowRateProps> = ({ growAmount, isGrow = false }) => {
           }}
           fill={COLOR_TEXT_GREEN}
         />
-      ) : (
+      )}
+      {growAmount < 0 && (
         <ArrowDown
           sx={{
             position: 'absolute',

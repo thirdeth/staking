@@ -16,7 +16,7 @@ const RowTitleText = styled(Typography)(({ theme }) => ({
 }));
 
 export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
-  const { rankId, isGrow, walletAddress, stakedAmount, buyDate } = cardData as RankCardDataProps;
+  const { rankId, walletAddress, stakedAmount, buyDate, growAmount } = cardData as RankCardDataProps;
   return (
     <Grid
       container
@@ -26,13 +26,13 @@ export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
       <Grid container justifyContent="flex-start" alignItems="center" wrap="nowrap" columnGap={1}>
         {rankId && (
           <>
-            <Grid item>
+            <Grid item sx={{ position: 'relative' }}>
               <RowTitleText>Rank</RowTitleText>
-              <RankInfo rankId={rankId} type="icon" size="m" />
+              <RankInfo rankId={rankId} type="rank" size="m" />
             </Grid>
-            {isGrow !== undefined && (
+            {growAmount !== undefined && (
               <Grid item>
-                <GrowRate growAmount={1} isGrow={isGrow} />
+                <GrowRate growAmount={growAmount} />
               </Grid>
             )}
           </>

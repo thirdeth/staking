@@ -9,6 +9,7 @@ import { getUIReducer } from '.';
 const initialState: UIState = {
   [userActionTypes.APPROVE]: RequestStatus.INIT,
   [stakingActionTypes.STAKE]: RequestStatus.INIT,
+  [stakingActionTypes.GET_TOP_INVESTORS]: RequestStatus.INIT,
   [idoActionTypes.GET_IDO_LIST]: RequestStatus.INIT,
 };
 

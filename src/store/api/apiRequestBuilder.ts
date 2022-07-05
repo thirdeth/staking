@@ -14,4 +14,10 @@ export const baseApi = {
       },
     });
   },
+  getTopInvestors() {
+    return ajax({
+      method: 'get',
+      url: URL.getTopInvestors,
+    });
+  },
 };
