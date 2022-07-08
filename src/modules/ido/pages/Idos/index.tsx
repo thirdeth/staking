@@ -60,11 +60,15 @@ export const Idos = () => {
     [searchParams],
   );
 
+  const stageParams = (searchParams.getAll(PARAMS.status) as IdoStatus[]).length
+    ? (searchParams.getAll(PARAMS.status) as IdoStatus[])
+    : [IdoStatus.pending];
+
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       <StageBar
         publicFilterValue={(searchParams.get(PARAMS.access) as IdoPublic) || IdoPublic.all}
-        idoStatus={(searchParams.getAll(PARAMS.status) as IdoStatus[]) || [IdoStatus.pending]}
+        idoStatus={stageParams as IdoStatus[]}
         onChangeFilter={handleChangePublicFilter}
         onChangeStatus={handleChangeIdoStatus}
       />

@@ -24,6 +24,8 @@ export type StageBarProps = {
 };
 
 export const StageBar: FC<StageBarProps> = ({ idoStatus, publicFilterValue, onChangeFilter, onChangeStatus }) => {
+  console.log(idoStatus);
+
   const valuesForSecondarySelect = getValuesForSecondarySelect(idoStatus);
   return (
     <Stack>
