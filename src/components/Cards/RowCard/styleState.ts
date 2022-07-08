@@ -1,8 +1,8 @@
-import { BG_BLUE_LIGHT, BG_GRAY_LIGHT } from 'theme/variables';
+import { BG_BLUE_LIGHT, BG_GRAY } from 'theme/variables';
 import { ColorProps, VariantProps } from 'types';
 
 const colorState: Record<ColorProps, string> = {
-  gray: BG_GRAY_LIGHT,
+  gray: BG_GRAY,
   blue: BG_BLUE_LIGHT,
   transparent: 'none',
 };

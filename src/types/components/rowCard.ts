@@ -1,4 +1,5 @@
 import { UserStakingRankIds } from 'components';
+import { IdoType } from 'modules/ido/utils';
 import { IdoStatus } from 'types/store/requests';
 
 enum ProjectStatusValues {
@@ -39,6 +40,10 @@ export interface ProjectCardDataProps {
   buyDate?: string | number;
   startTime: string;
   hardCap: number;
+  isPublic: boolean;
+  type: IdoType;
+  timer: string;
+  price: string;
 }
 
 export interface RankCardDataProps {

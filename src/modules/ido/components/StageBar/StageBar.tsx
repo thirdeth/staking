@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Box, Button, SelectChangeEvent, Stack } from '@mui/material';
 import { Select } from 'components';
+import { intersection } from 'lodash';
 import {
   BG_BLUE,
   BG_BLUE_EXTRALIGHT,
@@ -10,18 +11,20 @@ import {
   COLOR_TEXT_BLACK,
   COLOR_TEXT_WHITE,
 } from 'theme/variables';
+import { MenuItemsProps } from 'types';
 import { IdoPublic, IdoStatus } from 'types/store/requests';
 
-import { selectMenuItems, stageVariantItems } from './StageBar.helpers';
+import { getValuesForSecondarySelect, selectMenuItems, statusVariantItems } from './StageBar.helpers';
 
 export type StageBarProps = {
-  idoStatus: IdoStatus;
+  idoStatus: IdoStatus[];
   publicFilterValue: IdoPublic;
   onChangeFilter: (event: SelectChangeEvent<unknown>) => void;
-  onChangeStage: (value: IdoStatus) => void;
+  onChangeStatus: (value: IdoStatus[]) => void;
 };
 
-export const StageBar: FC<StageBarProps> = ({ idoStatus, publicFilterValue, onChangeFilter, onChangeStage }) => {
+export const StageBar: FC<StageBarProps> = ({ idoStatus, publicFilterValue, onChangeFilter, onChangeStatus }) => {
+  const valuesForSecondarySelect = getValuesForSecondarySelect(idoStatus);
   return (
     <Stack>
       <Box
@@ -31,33 +34,42 @@ export const StageBar: FC<StageBarProps> = ({ idoStatus, publicFilterValue, onCh
           alignItems: 'center',
           background: BG_BUTTON_GRAY,
           borderRadius: '8px',
+          '& > *:last-child': {
+            marginLeft: 'auto',
+          },
         }}
-        justifyContent={{ xs: 'space-between', sm: 'space-between', md: 'flex-start' }}
       >
-        {stageVariantItems.map(({ id, stageName }) => (
+        {statusVariantItems.map(({ status, stageName }) => (
           <Button
-            key={id}
-            onClick={() => onChangeStage(id)}
+            key={stageName}
+            onClick={() => onChangeStatus(status)}
             variant="text"
-            sx={(theme) => ({
-              p: 0,
-              height: 60,
-              borderRight: BORDER_GRAY_LIGHT,
-              px: 2,
-              color: idoStatus === id ? COLOR_TEXT_WHITE : COLOR_TEXT_BLACK,
-              background: idoStatus === id ? BG_BLUE : 'transparent',
-              minWidth: 200,
+            sx={(theme) => {
+              const selectedProperties = intersection(idoStatus, status).length
+                ? {
+                    color: COLOR_TEXT_WHITE,
+                    background: BG_BLUE,
+                  }
+                : {
+                    color: COLOR_TEXT_BLACK,
+                    background: 'transparent',
+                  };
+              return {
+                p: 0,
+                height: 60,
+                borderRight: BORDER_GRAY_LIGHT,
+                px: 2,
+                fontSize: { xs: '14px', sm: '14px', md: '16px' },
+                ...selectedProperties,
 
-              [theme.breakpoints.down('md')]: {
-                flexBasis: '33.34%',
-                '&:last-of-type': {
-                  border: 'none',
+                [theme.breakpoints.down('md')]: {
+                  flexBasis: '33.34%',
+                  '&:last-of-type': {
+                    border: 'none',
+                  },
                 },
-              },
-              [theme.breakpoints.down('sm')]: {
-                fontSize: '14px',
-              },
-            })}
+              };
+            }}
           >
             {stageName}
           </Button>
@@ -66,40 +78,91 @@ export const StageBar: FC<StageBarProps> = ({ idoStatus, publicFilterValue, onCh
         {/* For desktop width */}
         <Box
           sx={{
+            display: { xs: 'none', sm: 'none', md: 'flex' },
             alignItems: 'center',
-            marginLeft: 'auto',
-            mr: 2.5,
-            height: 60,
+            height: '100%',
+
+            '& > *': {
+              height: 60,
+              width: 200,
+              justifyContent: 'center',
+              '&:first-child': {
+                borderRight: BORDER_GRAY_LIGHT,
+                borderLeft: BORDER_GRAY_LIGHT,
+                borderStyle: 'solid',
+                borderWidth: '0 1px',
+              },
+            },
           }}
-          display={{ xs: 'none', sm: 'none', md: 'flex' }}
         >
+          {valuesForSecondarySelect && !!valuesForSecondarySelect.values.length && (
+            <Select
+              sx={{
+                px: 2,
+              }}
+              value={valuesForSecondarySelect?.value}
+              onChange={(event) => onChangeStatus(event.target.value as IdoStatus[])}
+              paperWidth="250px"
+              menuItems={valuesForSecondarySelect?.values as MenuItemsProps[]}
+            />
+          )}
+
           <Select
+            sx={{
+              px: 2,
+            }}
             value={publicFilterValue}
             defaultValue={publicFilterValue}
             onChange={onChangeFilter}
-            paperWidth="200px"
+            paperWidth="250px"
             menuItems={selectMenuItems}
           />
         </Box>
       </Box>
 
       {/* For mobile width */}
-      <Select
+      <Box
         sx={{
-          mt: 2,
-          px: 1.5,
-          width: 'fit-content',
-          display: { xs: 'flex', sm: 'flex', md: 'none' },
-          background: BG_BLUE_EXTRALIGHT,
-          borderRadius: BORDER_RADIUS_DEFAULT,
-          alignSelf: 'flex-end',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          flexDirection: { xs: 'column', sm: 'row', md: 'row' },
         }}
-        value={publicFilterValue}
-        defaultValue={publicFilterValue}
-        onChange={onChangeFilter}
-        paperWidth="200px"
-        menuItems={selectMenuItems}
-      />
+      >
+        {valuesForSecondarySelect && !!valuesForSecondarySelect.values.length && (
+          <Select
+            sx={{
+              mt: 2,
+              mr: { xs: 0, sm: 2, md: 2 },
+              px: 1.5,
+              width: 'fit-content',
+              display: { xs: 'flex', sm: 'flex', md: 'none' },
+              background: BG_BLUE_EXTRALIGHT,
+              borderRadius: BORDER_RADIUS_DEFAULT,
+              alignSelf: 'flex-end',
+            }}
+            value={valuesForSecondarySelect?.value}
+            onChange={(event) => onChangeStatus(event.target.value as IdoStatus[])}
+            paperWidth="200px"
+            menuItems={valuesForSecondarySelect?.values as MenuItemsProps[]}
+          />
+        )}
+        <Select
+          sx={{
+            mt: 2,
+            px: 1.5,
+            width: 'fit-content',
+            display: { xs: 'flex', sm: 'flex', md: 'none' },
+            background: BG_BLUE_EXTRALIGHT,
+            borderRadius: BORDER_RADIUS_DEFAULT,
+            alignSelf: 'flex-end',
+          }}
+          value={publicFilterValue}
+          defaultValue={publicFilterValue}
+          onChange={onChangeFilter}
+          paperWidth="200px"
+          menuItems={selectMenuItems}
+        />
+      </Box>
     </Stack>
   );
 };

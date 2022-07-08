@@ -6,7 +6,7 @@ import { IdoPublic, IdoStatus } from 'types/store/requests';
 
 export const useIdoFilter = (isUrlUpdated = false) => {
   const [publicFilter, setPublicFilterValue] = useState(IdoPublic.all);
-  const [idoStatus, setIdoStatus] = useState(IdoStatus.pending);
+  const [idoStatuses, setIdoStatuses] = useState<IdoStatus[]>([IdoStatus.pending]);
 
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -18,23 +18,25 @@ export const useIdoFilter = (isUrlUpdated = false) => {
       setPublicFilterValue(value as IdoPublic);
 
       if (isUrlUpdated) {
-        const oldParams = Object.fromEntries(new URLSearchParams(searchParams.toString()));
-        setSearchParams({ ...oldParams, [PARAMS.access]: value as string });
+        const statusParams = new URLSearchParams(searchParams).getAll(PARAMS.status);
+
+        setSearchParams({ [PARAMS.status]: statusParams, [PARAMS.access]: value as string });
       }
     },
     [isUrlUpdated, searchParams, setSearchParams],
   );
 
   const handleChangeIdoStatus = useCallback(
-    (value: IdoStatus) => {
-      setIdoStatus(value);
+    (value: IdoStatus[]) => {
+      setIdoStatuses(value);
 
       if (isUrlUpdated) {
-        const oldParams = Object.fromEntries(new URLSearchParams(searchParams.toString()));
-        setSearchParams({ ...oldParams, [PARAMS.status]: value as string });
+        const accessParams = new URLSearchParams(searchParams).getAll(PARAMS.access);
+
+        setSearchParams({ [PARAMS.status]: value, [PARAMS.access]: accessParams });
       }
     },
-    [isUrlUpdated, searchParams, setSearchParams],
+    [isUrlUpdated, searchParams, setIdoStatuses, setSearchParams],
   );
 
   const handleChangeCurrentPage = useCallback((value: number) => {
@@ -44,7 +46,8 @@ export const useIdoFilter = (isUrlUpdated = false) => {
   return {
     publicFilter,
     handleChangePublicFilter,
-    idoStatus,
+    idoStatuses,
+    setIdoStatuses,
     handleChangeIdoStatus,
     currentPage,
     handleChangeCurrentPage,

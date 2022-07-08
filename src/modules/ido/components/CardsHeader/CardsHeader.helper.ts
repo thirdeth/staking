@@ -1,7 +1,7 @@
-import { IdoStatus } from 'types/store/requests';
+import { IdoType } from 'modules/ido/utils';
 
-export const cardsHeaderHelper = {
-  [IdoStatus.pending]: [
+export const cardsHeaders = {
+  [IdoType.pending]: [
     {
       gridSize: 4,
       label: 'project name',
@@ -15,15 +15,15 @@ export const cardsHeaderHelper = {
       label: 'starts in',
     },
     {
-      gridSize: 2,
-      label: 'TOTAL RAISED',
+      gridSize: 3,
+      label: 'targeted raise',
     },
     {
-      gridSize: 3,
-      label: 'Token sold',
+      gridSize: 2,
+      label: 'access type',
     },
   ],
-  [IdoStatus.inProgress]: [
+  [IdoType.inProgress]: [
     {
       gridSize: 4,
       label: 'project name',
@@ -34,103 +34,33 @@ export const cardsHeaderHelper = {
     },
     {
       gridSize: 2,
-      label: 'ends in',
-    },
-    {
-      gridSize: 2,
-      label: 'TOTAL RAISED',
+      label: 'stage',
     },
     {
       gridSize: 3,
-      label: 'Token sold',
+      label: 'next stage will start in',
+    },
+    {
+      gridSize: 2,
+      label: 'total raised',
     },
   ],
-  [IdoStatus.completedSuccess]: [
+  [IdoType.completed]: [
     {
       gridSize: 4,
       label: 'project name',
     },
     {
-      gridSize: 1,
+      gridSize: 2,
       label: 'token',
     },
     {
-      gridSize: 2,
-      label: 'ends in',
-    },
-    {
-      gridSize: 2,
-      label: 'TOTAL RAISED',
+      gridSize: 3,
+      label: 'status',
     },
     {
       gridSize: 3,
-      label: 'Token sold',
-    },
-  ],
-  [IdoStatus.completedFail]: [
-    {
-      gridSize: 4,
-      label: 'project name',
-    },
-    {
-      gridSize: 1,
-      label: 'token',
-    },
-    {
-      gridSize: 2,
-      label: 'ends in',
-    },
-    {
-      gridSize: 2,
-      label: 'TOTAL RAISED',
-    },
-    {
-      gridSize: 3,
-      label: 'Token sold',
-    },
-  ],
-  [IdoStatus.register]: [
-    {
-      gridSize: 4,
-      label: 'project name',
-    },
-    {
-      gridSize: 1,
-      label: 'token',
-    },
-    {
-      gridSize: 2,
-      label: 'ends in',
-    },
-    {
-      gridSize: 2,
-      label: 'TOTAL RAISED',
-    },
-    {
-      gridSize: 3,
-      label: 'Token sold',
-    },
-  ],
-  [IdoStatus.registrationClosed]: [
-    {
-      gridSize: 4,
-      label: 'project name',
-    },
-    {
-      gridSize: 1,
-      label: 'token',
-    },
-    {
-      gridSize: 2,
-      label: 'ends in',
-    },
-    {
-      gridSize: 2,
-      label: 'TOTAL RAISED',
-    },
-    {
-      gridSize: 3,
-      label: 'Token sold',
+      label: 'total raised',
     },
   ],
 };

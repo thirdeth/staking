@@ -1,21 +1,52 @@
+import { intersection, isEqual } from 'lodash';
 import { IdoPublic, IdoStatus } from 'types/store/requests';
 
-export const stageVariantItems = [
+export const statusVariantItems = [
   {
-    id: IdoStatus.pending,
+    status: [IdoStatus.pending],
     stageName: 'Upcoming',
   },
   {
-    id: IdoStatus.register,
-    stageName: 'Registration',
-  },
-  {
-    id: IdoStatus.inProgress,
+    status: [IdoStatus.inProgress, IdoStatus.register, IdoStatus.registrationClosed],
     stageName: 'In progress',
   },
   {
-    id: IdoStatus.completedSuccess,
+    status: [IdoStatus.completedSuccess, IdoStatus.completedFail],
     stageName: 'Completed',
+  },
+];
+
+export const inProgressSecondaryStatusMenuItems = [
+  {
+    value: [IdoStatus.inProgress, IdoStatus.register, IdoStatus.registrationClosed],
+    label: 'All Stages',
+  },
+  {
+    value: [IdoStatus.register],
+    label: 'Registration',
+  },
+  {
+    value: [IdoStatus.registrationClosed],
+    label: 'Registration closed',
+  },
+  {
+    value: [IdoStatus.inProgress],
+    label: 'Sale in progress',
+  },
+];
+
+export const completedSecondaryStatusMenuItems = [
+  {
+    value: [IdoStatus.completedSuccess, IdoStatus.completedFail],
+    label: 'All Statuses',
+  },
+  {
+    value: [IdoStatus.completedSuccess],
+    label: 'Completed success',
+  },
+  {
+    value: [IdoStatus.completedFail],
+    label: 'Completed fail',
   },
 ];
 
@@ -33,3 +64,31 @@ export const selectMenuItems = [
     label: 'Private',
   },
 ];
+
+// eslint-disable-next-line consistent-return
+export const getValuesForSecondarySelect = (idoStatusesArray: IdoStatus[]) => {
+  if (idoStatusesArray.includes(IdoStatus.pending)) {
+    return {
+      values: [],
+      value: '',
+    };
+  }
+
+  for (let i = 0; i < inProgressSecondaryStatusMenuItems.length; i += 1) {
+    if (isEqual(idoStatusesArray, inProgressSecondaryStatusMenuItems[i].value)) {
+      return {
+        values: inProgressSecondaryStatusMenuItems,
+        value: inProgressSecondaryStatusMenuItems[i].value,
+      };
+    }
+  }
+
+  for (let i = 0; i < completedSecondaryStatusMenuItems.length; i += 1) {
+    if (isEqual(idoStatusesArray, completedSecondaryStatusMenuItems[i].value)) {
+      return {
+        values: completedSecondaryStatusMenuItems,
+        value: completedSecondaryStatusMenuItems[i].value,
+      };
+    }
+  }
+};

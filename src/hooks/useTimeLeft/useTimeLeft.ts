@@ -42,7 +42,12 @@ export const useTimeLeft = (endTime: DateLike, isPadded = false): Nullable<ITime
       };
     }
 
-    return null;
+    return {
+      days: isPadded ? padNumber(0) : 0,
+      hours: isPadded ? padNumber(0) : 0,
+      minutes: isPadded ? padNumber(0) : 0,
+      seconds: isPadded ? padNumber(0) : 0,
+    };
   };
 
   const [timeLeft, setTimeLeft] = useState<Nullable<ITimeLeft>>(calculateTimeLeft());

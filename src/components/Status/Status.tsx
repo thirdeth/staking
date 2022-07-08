@@ -1,16 +1,12 @@
 import { FC } from 'react';
 import { Box, Typography } from '@mui/material';
-import { Spinner } from 'components';
-import { BORDER_RADIUS_DEFAULT } from 'theme/variables';
-import { IdoStatus } from 'types/store/requests';
-
-import { projectStatusStyleState } from './index';
+import { BG_BLUE_DARK, BORDER_RADIUS_DEFAULT } from 'theme/variables';
 
 export type StatusProps = {
-  status: IdoStatus;
+  isPublic: boolean;
 };
 
-export const Status: FC<StatusProps> = ({ status }) => {
+export const Status: FC<StatusProps> = ({ isPublic }) => {
   return (
     <Box
       py={1.5}
@@ -20,18 +16,13 @@ export const Status: FC<StatusProps> = ({ status }) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        border: '1px solid',
+        border: `1px solid ${BG_BLUE_DARK}`,
         borderRadius: BORDER_RADIUS_DEFAULT,
-        ...projectStatusStyleState.color[status],
       }}
     >
-      {status === IdoStatus.pending ? (
-        <Spinner />
-      ) : (
-        <Typography variant="body2" color={projectStatusStyleState.color[status].color} textTransform="uppercase">
-          {status}
-        </Typography>
-      )}
+      <Typography variant="h4" textTransform="uppercase" color={BG_BLUE_DARK}>
+        {isPublic ? 'public' : 'private'}
+      </Typography>
     </Box>
   );
 };

@@ -6,7 +6,7 @@ import { MenuItemsProps } from 'types';
 
 import { SelectInput } from './theme';
 
-const SELECT_CHECK_ICON = `url(${SelectCheckIcon}) 176px center no-repeat, transparent`;
+const SELECT_CHECK_ICON = `url(${SelectCheckIcon}) 190px center no-repeat, transparent`;
 
 export interface SelectProps {
   menuItems: MenuItemsProps[];

@@ -3,6 +3,8 @@ import idoSelector from 'store/ido/selectors';
 import { ProjectCardDataProps } from 'types';
 import { IdoStatus } from 'types/store/requests';
 
+import { getIdoTypeFromIdoStatus } from '../utils';
+
 type ReturnType = {
   idos: ProjectCardDataProps[];
   count: number;
@@ -15,7 +17,21 @@ export const useUpdatedIdoDataFromApi = (): ReturnType => {
 
   return {
     idos: idos.map(
-      ({ id, projectName, tokenName, tokenSymbol, status, logoUrl, totalBought, tokenLogoUrl, start, hardCap }) => {
+      ({
+        id,
+        projectName,
+        tokenName,
+        tokenSymbol,
+        status,
+        logoUrl,
+        totalBought,
+        tokenLogoUrl,
+        start,
+        hardCap,
+        isPublic,
+        timer,
+        price,
+      }) => {
         return {
           id,
           projectName,
@@ -28,7 +44,11 @@ export const useUpdatedIdoDataFromApi = (): ReturnType => {
           projectIcon: logoUrl || 'https://www.svgrepo.com/show/36559/question-mark.svg',
           boughtAmount: totalBought,
           startTime: start,
-          hardCap,
+          hardCap: +hardCap,
+          isPublic: !!isPublic,
+          type: getIdoTypeFromIdoStatus([status] as IdoStatus[]),
+          timer,
+          price,
         };
       },
     ),

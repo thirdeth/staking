@@ -64,7 +64,7 @@ export const LauncherProgress: FC<Pick<LauncherCardProps, 'progressData'>> = ({ 
       </Grid>
 
       <Grid item xs={12}>
-        <ProgressBar variant="parallelogram" progress={progress} />
+        <ProgressBar variant="parallelogram" progress={50} base={100} />
       </Grid>
     </Grid>
   );
