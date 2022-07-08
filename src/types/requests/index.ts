@@ -10,6 +10,8 @@ export type GetIdoListReq = {
   status: IdoStatus | IdoStatus[];
   count: number;
   start: number;
+  isMyIdos?: boolean;
+  owner?: string;
   shouldConcat?: boolean;
 };
 

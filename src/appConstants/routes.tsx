@@ -53,7 +53,7 @@ export const routes: RoutesProps = {
       id: 4,
       title: 'Staking',
       path: '/staking',
-      component: <Staking title="title" />,
+      component: <Staking title="Staking" />,
       isNavItem: true,
       module: Modules.staking,
     },
@@ -90,6 +90,18 @@ export const routes: RoutesProps = {
       isNavItem: false,
       isProtected: true,
       module: Modules.myInvestments,
+    },
+  },
+  'my-idos': {
+    dirName: 'Idos',
+    root: {
+      id: 8,
+      title: 'My IDOs',
+      path: '/my-idos',
+      component: <Idos isMyIdos />,
+      isNavItem: true,
+      isProtected: false,
+      module: Modules.ido,
     },
   },
 };

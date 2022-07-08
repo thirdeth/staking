@@ -2,9 +2,10 @@ import { omit } from 'lodash';
 import { call, select } from 'redux-saga/effects';
 import apiActions from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
-import idosSelectore from 'store/ido/selectors';
+import idosSelector from 'store/ido/selectors';
+import usersSelector from 'store/user/selectors';
 import { put, takeLatest } from 'typed-redux-saga';
-import { IdoState } from 'types';
+import { IdoState, UserState } from 'types';
 import { IDO } from 'types/api/IDO';
 import { camelize } from 'utils';
 
@@ -15,12 +16,16 @@ import { updateIdoState } from '../reducer';
 export function* getIdoListSaga({ type, payload }: ReturnType<typeof getIdoList>) {
   yield* put(apiActions.request(type));
 
-  const { idos }: IdoState['ido'] = yield select(idosSelectore.getProp('ido'));
+  const { idos }: IdoState['ido'] = yield select(idosSelector.getProp('ido'));
+  const myAddress: UserState['address'] = yield select(usersSelector.getProp('address'));
 
   try {
     const {
       data: { count, result },
-    } = yield call(baseApi.getIdoList, omit(payload, 'shouldConcat'));
+    } = yield call(baseApi.getIdoList, {
+      ...omit(payload, 'shouldConcat', 'isMyIdos'),
+      owner: payload.isMyIdos ? myAddress : '',
+    });
 
     const camleizedIdoData = camelize(result);
 

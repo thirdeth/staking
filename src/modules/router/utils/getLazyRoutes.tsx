@@ -6,7 +6,18 @@ import { formatRoutesToArr } from './formatRoutesToArr';
 
 export default function getLazyRoutes(routes: RoutesProps, loggedIn: boolean) {
   const routesArr = formatRoutesToArr(routes).map(
-    ({ dirName, root: { path, id, title, isProtected, module: configModule }, ...nested }) => {
+    ({
+      dirName,
+      root: {
+        path,
+        id,
+        title,
+        isProtected,
+        module: configModule,
+        component: { props },
+      },
+      ...nested
+    }) => {
       const Component = lazy(() =>
         import(`modules/${configModule}/pages/${dirName}`).then((module) => ({ default: module[dirName] })),
       );
@@ -18,7 +29,7 @@ export default function getLazyRoutes(routes: RoutesProps, loggedIn: boolean) {
             {getLazyRoutes(nested, loggedIn)}
             <Route
               path={path}
-              element={isProtected && !loggedIn ? <Navigate to="/" /> : <Component title={title} />}
+              element={isProtected && !loggedIn ? <Navigate to="/" /> : <Component title={title} {...props} />}
               key={id}
             />
           </Fragment>
@@ -27,7 +38,7 @@ export default function getLazyRoutes(routes: RoutesProps, loggedIn: boolean) {
       return (
         <Route
           path={path}
-          element={isProtected && !loggedIn ? <Navigate to="/" /> : <Component title={title} />}
+          element={isProtected && !loggedIn ? <Navigate to="/" /> : <Component title={title} {...props} />}
           key={id}
         />
       );

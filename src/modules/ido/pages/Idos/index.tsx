@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useMemo } from 'react';
+/* eslint-disable react/no-array-index-key */
+import { FC, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Button, Grid } from '@mui/material';
 import { ApplyCard, RowCard } from 'components';
@@ -9,13 +10,18 @@ import { useIdoFilter, useUpdatedIdoDataFromApi } from 'modules/ido/hooks';
 import { getIdoTypeFromIdoStatus } from 'modules/ido/utils';
 import { getIdoList } from 'store/ido/actions';
 import idoActionTypes from 'store/ido/actionTypes';
+import { updateIdoState } from 'store/ido/reducer';
 import uiSelector from 'store/ui/selectors';
 import { PARAMS, RequestStatus } from 'types';
 import { IdoPublic, IdoStatus } from 'types/store/requests';
 
 const DEFAULT_IDOS_PER_PAGE = 5;
 
-export const Idos = () => {
+interface IdoPageProps {
+  isMyIdos?: boolean;
+}
+
+export const Idos: FC<IdoPageProps> = ({ isMyIdos }) => {
   const dispatch = useDispatch();
 
   const { idos, count } = useUpdatedIdoDataFromApi();
@@ -27,6 +33,14 @@ export const Idos = () => {
   const { handleChangePublicFilter, handleChangeIdoStatus, currentPage, handleChangeCurrentPage, searchParams } =
     useIdoFilter(true);
 
+  const statusParams = useMemo(
+    () =>
+      (searchParams.getAll(PARAMS.status) as IdoStatus[]).length
+        ? (searchParams.getAll(PARAMS.status) as IdoStatus[])
+        : [IdoStatus.pending],
+    [searchParams],
+  );
+
   const handleChangePageAndFetch = useCallback(
     (page: number) => {
       handleChangeCurrentPage(page);
@@ -34,41 +48,49 @@ export const Idos = () => {
       dispatch(
         getIdoList({
           public: (searchParams.get(PARAMS.access) as IdoPublic) || IdoPublic.all,
-          status: (searchParams.getAll(PARAMS.status) as IdoStatus[]) || IdoStatus.pending,
+          status: statusParams,
           count: DEFAULT_IDOS_PER_PAGE,
           start: page * DEFAULT_IDOS_PER_PAGE,
+          isMyIdos,
           shouldConcat: true,
         }),
       );
     },
-    [dispatch, handleChangeCurrentPage, searchParams],
+    [dispatch, handleChangeCurrentPage, isMyIdos, searchParams, statusParams],
   );
 
   useEffect(() => {
+    // smoth changes for user
+    dispatch(
+      updateIdoState({
+        ido: {
+          count: 0,
+          idos: [],
+        },
+      }),
+    );
+    handleChangeCurrentPage(0);
     dispatch(
       getIdoList({
         public: (searchParams.get(PARAMS.access) as IdoPublic) || IdoPublic.all,
-        status: (searchParams.getAll(PARAMS.status) as IdoStatus[]) || IdoStatus.pending,
+        status: statusParams,
         count: DEFAULT_IDOS_PER_PAGE,
         start: 0,
+        isMyIdos,
       }),
     );
-  }, [dispatch, searchParams]);
+  }, [dispatch, handleChangeCurrentPage, isMyIdos, searchParams, statusParams]);
 
   const idoType = useMemo(
     () => getIdoTypeFromIdoStatus(searchParams.getAll(PARAMS.status) as IdoStatus[]),
     [searchParams],
   );
 
-  const stageParams = (searchParams.getAll(PARAMS.status) as IdoStatus[]).length
-    ? (searchParams.getAll(PARAMS.status) as IdoStatus[])
-    : [IdoStatus.pending];
-
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       <StageBar
         publicFilterValue={(searchParams.get(PARAMS.access) as IdoPublic) || IdoPublic.all}
-        idoStatus={stageParams as IdoStatus[]}
+        idoStatus={statusParams}
         onChangeFilter={handleChangePublicFilter}
         onChangeStatus={handleChangeIdoStatus}
       />
@@ -77,20 +99,21 @@ export const Idos = () => {
         <Grid item xs={12} display={{ xs: 'none', sm: 'none', md: 'block' }}>
           <CardsHeader idoType={idoType} />
         </Grid>
-        {isLoading
-          ? new Array(5).fill('').map((_, index) => (
-              // eslint-disable-next-line react/no-array-index-key
+        {idos.map((idoData) => (
+          <Grid key={idoData.id} item xs={12}>
+            <RowCard variant="project" cardData={idoData} />
+          </Grid>
+        ))}
+        {isLoading &&
+          Array(count > DEFAULT_IDOS_PER_PAGE ? count % DEFAULT_IDOS_PER_PAGE : DEFAULT_IDOS_PER_PAGE)
+            .fill('')
+            .map((_, index) => (
               <Grid key={index} item xs={12}>
                 <RowCardSkeleton />
               </Grid>
-            ))
-          : idos.map((idoData) => (
-              <Grid key={idoData.id} item xs={12}>
-                <RowCard variant="project" cardData={idoData} />
-              </Grid>
             ))}
       </Grid>
-      {count >= DEFAULT_IDOS_PER_PAGE * currentPage + DEFAULT_IDOS_PER_PAGE && (
+      {count >= DEFAULT_IDOS_PER_PAGE * (currentPage + 1) && (
         <Button
           sx={{
             my: 5,

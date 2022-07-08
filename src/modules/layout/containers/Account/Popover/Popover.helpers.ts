@@ -10,7 +10,7 @@ export const accountLinkItems = [
   {
     title: 'My IDOs',
     Icon: IdoIcon,
-    link: '/',
+    link: routes['my-idos'].root.path,
   },
 ];
 
