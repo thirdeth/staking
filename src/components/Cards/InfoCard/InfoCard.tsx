@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, BoxProps, Button, Typography } from '@mui/material';
 import { WarningIcon } from 'components/Icon/components';
 import { BG_BLUE_LIGHT, BORDER_RADIUS_DEFAULT, COLOR_TEXT_ACCENT_BLUE } from 'theme/variables';
 
@@ -9,7 +9,13 @@ export interface InfoCardProps {
   onClick?: () => void;
 }
 
-export const InfoCard: FC<PropsWithChildren<InfoCardProps>> = ({ title, onClick, buttonText, children }) => {
+export const InfoCard: FC<PropsWithChildren<InfoCardProps & Pick<BoxProps, 'sx'>>> = ({
+  sx,
+  title,
+  onClick,
+  buttonText,
+  children,
+}) => {
   return (
     <Box
       sx={{
@@ -21,6 +27,7 @@ export const InfoCard: FC<PropsWithChildren<InfoCardProps>> = ({ title, onClick,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        ...sx,
       }}
     >
       {children}

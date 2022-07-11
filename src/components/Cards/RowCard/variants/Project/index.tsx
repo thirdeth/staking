@@ -45,7 +45,7 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
 
   return (
     <StyledLink to={routes.idos.details.root.getPath(id)}>
-      <Grid container alignItems={{ xs: 'stretch', sm: 'stretch', md: 'center' }} spacing={2}>
+      <Grid container alignItems={{ xs: 'stretch', sm: 'stretch', md: 'center' }}>
         <Grid item container justifyContent="flex-start" alignItems="center" wrap="nowrap" xs={12} sm={12} md={4}>
           <TypographySybtitle>Project name</TypographySybtitle>
           <Box
@@ -104,7 +104,7 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
           )}
         </Grid>
         {type !== IdoType.completed && (
-          <Grid item xs={6} sm={6} md={2.5}>
+          <Grid item xs={6} sm={6} md={3}>
             {hardCap && type === IdoType.pending && (
               <>
                 <TypographySybtitle>Targeted raise</TypographySybtitle>
@@ -124,7 +124,7 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
           </Grid>
         )}
 
-        <Grid item xs={6} sm={6} md={type === IdoType.completed ? 3 : 2.5} justifyContent="center" alignItems="center">
+        <Grid item xs={6} sm={6} md={type === IdoType.completed ? 3 : 2} justifyContent="center" alignItems="center">
           {isPublic && type === IdoType.pending ? (
             <>
               <TypographySybtitle>Access Type</TypographySybtitle>

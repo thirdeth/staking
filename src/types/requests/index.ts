@@ -9,7 +9,9 @@ export type GetIdoListReq = {
   count: number;
   start: number;
   isMyIdos?: boolean;
+  isMyInvesments?: boolean;
   owner?: string;
+  investor?: string;
   shouldConcat?: boolean;
 };
 

@@ -23,8 +23,9 @@ export function* getIdoListSaga({ type, payload }: ReturnType<typeof getIdoList>
     const {
       data: { count, result },
     } = yield call(baseApi.getIdoList, {
-      ...omit(payload, 'shouldConcat', 'isMyIdos'),
+      ...omit(payload, 'shouldConcat', 'isMyIdos', 'isMyInvesments'),
       owner: payload.isMyIdos ? myAddress : '',
+      investor: payload.isMyInvesments ? myAddress : '',
     });
 
     const camleizedIdoData = camelize(result);

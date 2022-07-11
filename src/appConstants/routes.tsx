@@ -1,6 +1,5 @@
 import { Details, Idos } from 'modules/ido/pages';
 import { Home } from 'modules/landing/pages';
-import { MyInvestments } from 'modules/myInvestments/pages';
 import { Ranking } from 'modules/ranking/pages';
 import { Leaderboard, Staking } from 'modules/staking/pages';
 import { Modules, RoutesProps } from 'types';
@@ -81,15 +80,15 @@ export const routes: RoutesProps = {
     },
   },
   'my-investments': {
-    dirName: 'MyInvestments',
+    dirName: 'Idos',
     root: {
       id: 7,
       title: 'My Investments',
       path: '/my-investments',
-      component: <MyInvestments title="My Investments" />,
+      component: <Idos isMyInvesments />,
       isNavItem: false,
-      isProtected: true,
-      module: Modules.myInvestments,
+      isProtected: false,
+      module: Modules.ido,
     },
   },
   'my-idos': {
@@ -99,7 +98,7 @@ export const routes: RoutesProps = {
       title: 'My IDOs',
       path: '/my-idos',
       component: <Idos isMyIdos />,
-      isNavItem: true,
+      isNavItem: false,
       isProtected: false,
       module: Modules.ido,
     },

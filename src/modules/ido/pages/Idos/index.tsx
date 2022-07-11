@@ -3,6 +3,7 @@ import { FC, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Button, Grid } from '@mui/material';
 import { ApplyCard, RowCard } from 'components';
+import { InfoCard } from 'components/Cards/InfoCard';
 import { RowCardSkeleton } from 'components/Cards/RowCard/components';
 import { useShallowSelector } from 'hooks';
 import { CardsHeader, StageBar } from 'modules/ido/components';
@@ -12,6 +13,7 @@ import { getIdoList } from 'store/ido/actions';
 import idoActionTypes from 'store/ido/actionTypes';
 import { updateIdoState } from 'store/ido/reducer';
 import uiSelector from 'store/ui/selectors';
+import { COLOR_TEXT_BLACK } from 'theme/variables';
 import { PARAMS, RequestStatus } from 'types';
 import { IdoPublic, IdoStatus } from 'types/store/requests';
 
@@ -19,9 +21,10 @@ const DEFAULT_IDOS_PER_PAGE = 5;
 
 interface IdoPageProps {
   isMyIdos?: boolean;
+  isMyInvesments?: boolean;
 }
 
-export const Idos: FC<IdoPageProps> = ({ isMyIdos }) => {
+export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
   const dispatch = useDispatch();
 
   const { idos, count } = useUpdatedIdoDataFromApi();
@@ -52,15 +55,16 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos }) => {
           count: DEFAULT_IDOS_PER_PAGE,
           start: page * DEFAULT_IDOS_PER_PAGE,
           isMyIdos,
+          isMyInvesments,
           shouldConcat: true,
         }),
       );
     },
-    [dispatch, handleChangeCurrentPage, isMyIdos, searchParams, statusParams],
+    [dispatch, handleChangeCurrentPage, isMyIdos, isMyInvesments, searchParams, statusParams],
   );
 
   useEffect(() => {
-    // smoth changes for user
+    // smooth changes for user
     dispatch(
       updateIdoState({
         ido: {
@@ -77,14 +81,12 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos }) => {
         count: DEFAULT_IDOS_PER_PAGE,
         start: 0,
         isMyIdos,
+        isMyInvesments,
       }),
     );
-  }, [dispatch, handleChangeCurrentPage, isMyIdos, searchParams, statusParams]);
+  }, [dispatch, handleChangeCurrentPage, isMyIdos, isMyInvesments, searchParams, statusParams]);
 
-  const idoType = useMemo(
-    () => getIdoTypeFromIdoStatus(searchParams.getAll(PARAMS.status) as IdoStatus[]),
-    [searchParams],
-  );
+  const idoType = useMemo(() => getIdoTypeFromIdoStatus(statusParams), [statusParams]);
 
   return (
     <Box sx={{ overflowX: 'hidden' }}>
@@ -96,9 +98,11 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos }) => {
       />
 
       <Grid pt={2} container spacing={2}>
-        <Grid item xs={12} display={{ xs: 'none', sm: 'none', md: 'block' }}>
-          <CardsHeader idoType={idoType} />
-        </Grid>
+        {count && (
+          <Grid item xs={12} display={{ xs: 'none', sm: 'none', md: 'block' }} padding={0}>
+            <CardsHeader idoType={idoType} />
+          </Grid>
+        )}
         {idos.map((idoData) => (
           <Grid key={idoData.id} item xs={12}>
             <RowCard variant="project" cardData={idoData} />
@@ -113,11 +117,23 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos }) => {
               </Grid>
             ))}
       </Grid>
+      {count === 0 && !isLoading && (
+        <InfoCard
+          sx={{
+            mt: 10,
+          }}
+          title={`There are no ${idoType} projects now. Keep tuned!`}
+        />
+      )}
       {count >= DEFAULT_IDOS_PER_PAGE * (currentPage + 1) && (
         <Button
           sx={{
             my: 5,
+            color: COLOR_TEXT_BLACK,
+            borderWidth: 2,
           }}
+          fullWidth
+          variant="outlined"
           onClick={() => handleChangePageAndFetch(currentPage + 1)}
         >
           Show more

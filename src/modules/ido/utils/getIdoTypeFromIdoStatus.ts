@@ -1,9 +1,9 @@
 import { IdoStatus } from 'types/store/requests';
 
 export enum IdoType {
-  pending = 'pending',
-  inProgress = 'in progress',
-  completed = 'completed',
+  pending = 'upcoming',
+  inProgress = 'open',
+  completed = 'finished',
 }
 
 export const getIdoTypeFromIdoStatus = (idoStatuses: IdoStatus[]) => {
