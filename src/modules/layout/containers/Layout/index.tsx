@@ -5,7 +5,7 @@ import { Box, Container } from '@mui/material';
 import { useShallowSelector, useSmoothTopScroll, useWindowState } from 'hooks';
 import { useBreadcrumbs } from 'modules/layout/hooks';
 import { useWalletConnectorContext } from 'services';
-import { getNativeBalance } from 'store/user/actions';
+import { getNativeBalance, getRankId, updateUserData } from 'store/user/actions';
 import userSelector from 'store/user/selectors';
 import { BG_MAIN, HOME_IMAGE_BG, HOME_IMAGE_BG_MOBILE } from 'theme/variables';
 
@@ -34,8 +34,9 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   useEffect(() => {
     if (address.length) {
       dispatch(
-        getNativeBalance({
+        updateUserData({
           web3Provider: walletService.Web3(),
+          updateParams: ['nativeBalance', 'rankId'],
         }),
       );
     }

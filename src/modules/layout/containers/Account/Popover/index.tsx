@@ -1,7 +1,7 @@
 import { FC, RefObject } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Button, Grid, Link, Popover, styled, Typography } from '@mui/material';
-import { CopyText } from 'components';
+import { CopyText, UserStakingRankIds } from 'components';
 import { Close, OutIcon } from 'components/Icon/components';
 import RankInfo from 'components/RankInfo/RankInfo';
 import { FontFamilies, FontWeights } from 'theme/Typography';
@@ -11,6 +11,7 @@ import { accountLinkItems, buyCryptoLink } from './Popover.helpers';
 
 interface AccountModalProps {
   address: string;
+  rankId: string;
   nativeBalance: string;
   visible: boolean;
   anchorEl: RefObject<HTMLElement>;
@@ -40,6 +41,7 @@ const BuyLinkTypography = styled(Typography)({
 
 export const AccountPopover: FC<AccountModalProps> = ({
   address,
+  rankId,
   nativeBalance,
   anchorEl,
   visible,
@@ -80,9 +82,15 @@ export const AccountPopover: FC<AccountModalProps> = ({
         </Grid>
 
         <Grid item container justifyContent="space-between" alignItems="center" xs={12}>
-          <RankInfo rankId={1} type="account" size="s" />
+          <RankInfo
+            rankId={+rankId as UserStakingRankIds}
+            subtitle="Correct Rank"
+            type="account"
+            size="s"
+            onClick={onClose}
+          />
 
-          <Grid item container direction="column" justifyContent="flex-start" alignItems="flex-start" rowSpacing={1}>
+          <Grid item container direction="column" justifyContent="flex-start" alignItems="flex-start">
             <Typography variant="subtitle1" color={COLOR_TEXT_WHITE}>
               Network
             </Typography>

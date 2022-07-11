@@ -1,17 +1,18 @@
 import { FC } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, BoxProps, Typography } from '@mui/material';
 import { UserStakingRankIds } from 'components/RankInfo';
 import RankInfo from 'components/RankInfo/RankInfo';
 import { COLOR_TEXT_GRAY_EXTRALIGHT } from 'theme/variables';
 
-export interface RankingInfoCardProps {
+export type RankingInfoCardProps = {
   rankId: UserStakingRankIds;
   description: string;
-}
+} & BoxProps;
 
-export const RankingInfoCard: FC<RankingInfoCardProps> = ({ rankId, description }) => {
+export const RankingInfoCard: FC<RankingInfoCardProps> = ({ rankId, description, ...boxProps }) => {
   return (
     <Box
+      {...boxProps}
       sx={(theme) => ({
         display: 'flex',
         alignItems: 'center',

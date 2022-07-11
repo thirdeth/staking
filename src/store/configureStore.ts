@@ -37,6 +37,8 @@ const store = configureStore({
           REGISTER,
           userActionTypes.GET_TOKEN_BALANCE,
           userActionTypes.GET_NATIVE_BALANCE,
+          userActionTypes.GET_RANK_ID,
+          userActionTypes.UPDATE_USER_DATA,
           userActionTypes.APPROVE,
           stakingActionTypes.STAKE,
           stakingActionTypes.HARVEST,

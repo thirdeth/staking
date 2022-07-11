@@ -16,12 +16,13 @@ import { AccountPopover } from './Popover';
 
 export interface AccountProps {
   address: string;
+  rankId: string;
   nativeBalance: string;
   width: number;
   onDisconnect: () => void;
 }
 
-export const Account: FC<AccountProps> = ({ onDisconnect, address, nativeBalance, width }) => {
+export const Account: FC<AccountProps> = ({ address, rankId, nativeBalance, width, onDisconnect }) => {
   const popoverRef = useRef(null);
   const [isAccountInfoVisible, onOpenAccountInfo, onCloseAccountInfo] = useModal(false);
 
@@ -77,6 +78,7 @@ export const Account: FC<AccountProps> = ({ onDisconnect, address, nativeBalance
       {isAccountInfoVisible && (
         <AccountPopover
           address={address}
+          rankId={rankId}
           nativeBalance={nativeBalance}
           anchorEl={popoverRef}
           visible={isAccountInfoVisible}

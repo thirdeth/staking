@@ -3,19 +3,21 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { routes } from 'appConstants/routes';
-import { ApplyCard, RowCard } from 'components';
+import { ApplyCard, InfoCard, RowCard, UserStakingRankIds } from 'components';
 import { RowCardSkeleton } from 'components/Cards/RowCard/components';
 import { useShallowSelector, useValidateInputField, ValidationTypes } from 'hooks';
+import { RankingInfoCard } from 'modules/ranking/components/RankingInfoCard';
 import { ChartCard, StakesCardsHeader } from 'modules/staking/components';
 import { StakingForm } from 'modules/staking/containers';
 import { useWalletConnectorContext } from 'services';
+import { setActiveModal } from 'store/modals/reducer';
 import { getUserStakes, onHarvest, onStake, onWithdraw } from 'store/staking/actions';
 import stakingActionTypes from 'store/staking/actionTypes';
 import stakingSelector from 'store/staking/selectors';
 import uiSelector from 'store/ui/selectors';
 import { getTokenBalance } from 'store/user/actions';
 import userSelector from 'store/user/selectors';
-import { RequestStatus, StakingState, State, UserState } from 'types';
+import { Modals, RequestStatus, StakingState, State, UserState } from 'types';
 
 import { chartItemsArray } from './Staking.helpers';
 import { ChangeStakeItemType } from './Staking.types';
@@ -27,7 +29,7 @@ interface StakingProps {
 export const Staking: FC<StakingProps> = ({ title }) => {
   const dispatch = useDispatch();
   const { walletService } = useWalletConnectorContext();
-  const { address, tokenBalance } = useShallowSelector<State, UserState>(userSelector.getUser);
+  const { address, tokenBalance, rankId } = useShallowSelector<State, UserState>(userSelector.getUser);
   const { userStakes, totalStakedAmount } = useShallowSelector<State, StakingState>(stakingSelector.getStaking);
 
   const [stakePeriod, setStakePeriod] = useState(1);
@@ -48,6 +50,15 @@ export const Staking: FC<StakingProps> = ({ title }) => {
   const handleCahngeStakePeriod = (event: MouseEvent<HTMLElement>) => {
     const { value } = event.target as HTMLButtonElement;
     setStakePeriod(+value);
+  };
+
+  const handleOpenConnectModal = () => {
+    dispatch(
+      setActiveModal({
+        activeModal: Modals.ConnectWallet,
+        open: true,
+      }),
+    );
   };
 
   const handleStake = () => {
@@ -94,75 +105,95 @@ export const Staking: FC<StakingProps> = ({ title }) => {
 
   return (
     <Box sx={{ overflowX: 'hidden' }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Typography variant="h1">{title}</Typography>
-        <Link to={routes.staking.leaderboard.root.path}>
-          <Button>Leaderboard</Button>
-        </Link>
-      </Box>
+      {!!address.length && (
+        <>
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Typography variant="h1">{title}</Typography>
+            <Link to={routes.staking.leaderboard.root.path}>
+              <Button>Leaderboard</Button>
+            </Link>
+          </Box>
 
-      <Grid
-        container
-        pt={5.1}
-        justifyContent={{ xs: 'center', sm: 'center', md: 'center', lg: 'space-between' }}
-        alignItems="flex-start"
-        spacing={3}
-      >
-        <Grid item xs={12} sm={12} md={6}>
-          <StakingForm
-            totalStakedAmount={totalStakedAmount}
-            tokenBalance={tokenBalance}
-            stakePeriod={stakePeriod}
-            stakeValue={stakeValue}
-            isStaking={isStaking}
-            onChangeStakePeriod={handleCahngeStakePeriod}
-            onChangeStakeValue={setStakeValue}
-            onSetMaxStakeValue={setOriginStakeValue}
-            onStake={handleStake}
-          />
-        </Grid>
+          {+rankId !== 0 && (
+            <RankingInfoCard
+              rankId={+rankId as UserStakingRankIds}
+              description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+              my={3}
+            />
+          )}
 
-        <Grid item container spacing={1} direction="column" xs={12} sm={12} md={6}>
-          {chartItemsArray.map(({ value, text, Img }, index) => (
-            // not rerendering chart card items
-            // eslint-disable-next-line react/no-array-index-key
-            <Grid key={index} item>
-              <ChartCard value={value} text={text} chartImg={<Img />} />
+          <Grid
+            container
+            pt={2}
+            justifyContent={{ xs: 'center', sm: 'center', md: 'center', lg: 'space-between' }}
+            alignItems="flex-start"
+            spacing={3}
+          >
+            <Grid item xs={12} sm={12} md={6}>
+              <StakingForm
+                totalStakedAmount={totalStakedAmount}
+                tokenBalance={tokenBalance}
+                stakePeriod={stakePeriod}
+                stakeValue={stakeValue}
+                isStaking={isStaking}
+                onChangeStakePeriod={handleCahngeStakePeriod}
+                onChangeStakeValue={setStakeValue}
+                onSetMaxStakeValue={setOriginStakeValue}
+                onStake={handleStake}
+              />
             </Grid>
-          ))}
-        </Grid>
 
-        <Grid item mt={2} xs={12} container spacing={2}>
-          <Grid item xs={12}>
-            {!!userStakes.length && <StakesCardsHeader />}
+            <Grid item container spacing={1} direction="column" xs={12} sm={12} md={6}>
+              {chartItemsArray.map(({ value, text, Img }, index) => (
+                // not rerendering chart card items
+                // eslint-disable-next-line react/no-array-index-key
+                <Grid key={index} item>
+                  <ChartCard value={value} text={text} chartImg={<Img />} />
+                </Grid>
+              ))}
+            </Grid>
+
+            <Grid item mt={2} xs={12} container spacing={2}>
+              <Grid item xs={12}>
+                {!!userStakes.length && <StakesCardsHeader />}
+              </Grid>
+
+              {userStakes.length &&
+                !isGettingUserStakes &&
+                userStakes.map((cardData, index) => (
+                  // not rerendering items
+                  // eslint-disable-next-line react/no-array-index-key
+                  <Grid key={index} item xs={12}>
+                    <RowCard
+                      cardData={{ stakesData: cardData, id: index }}
+                      variant="stakes"
+                      isHarvesting={isHarvesting}
+                      isWithdrawing={isWithdrawing}
+                      onChangeStakeItem={handleChangeStakeItem}
+                    />
+                  </Grid>
+                ))}
+
+              {isGettingUserStakes &&
+                new Array(6).fill('').map((_, index) => (
+                  // not important if will rerender
+                  // eslint-disable-next-line react/no-array-index-key
+                  <Grid key={index} item xs={12}>
+                    <RowCardSkeleton variant="stakes" />
+                  </Grid>
+                ))}
+            </Grid>
           </Grid>
+        </>
+      )}
+      {!address.length && (
+        <InfoCard
+          title="Looks like you haven’t staked yet… But first you need to connect your wallet"
+          buttonText="Connect Wallet"
+          onClick={handleOpenConnectModal}
+        />
+      )}
 
-          {userStakes.length &&
-            !isGettingUserStakes &&
-            userStakes.map((cardData, index) => (
-              // not rerendering items
-              // eslint-disable-next-line react/no-array-index-key
-              <Grid key={index} item xs={12}>
-                <RowCard
-                  cardData={{ stakesData: cardData, id: index }}
-                  variant="stakes"
-                  isHarvesting={isHarvesting}
-                  isWithdrawing={isWithdrawing}
-                  onChangeStakeItem={handleChangeStakeItem}
-                />
-              </Grid>
-            ))}
-
-          {isGettingUserStakes &&
-            new Array(6).fill('').map((_, index) => (
-              // not important if will rerender
-              // eslint-disable-next-line react/no-array-index-key
-              <Grid key={index} item xs={12}>
-                <RowCardSkeleton variant="stakes" />
-              </Grid>
-            ))}
-        </Grid>
-      </Grid>
       <ApplyCard size="s" />
     </Box>
   );

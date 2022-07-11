@@ -12,7 +12,7 @@ import { HeaderControls } from './components';
 
 export const Header: FC = () => {
   const dispatch = useDispatch();
-  const { address, nativeBalance } = useShallowSelector<State, UserState>(userSelector.getUser);
+  const { address, nativeBalance, rankId } = useShallowSelector<State, UserState>(userSelector.getUser);
   const [scrollToTopValue] = useGetScollValue();
   const { width } = useWindowState();
 
@@ -46,6 +46,7 @@ export const Header: FC = () => {
         <Grid container item direction="column" justifyContent="center" alignItems="center">
           <HeaderControls
             address={address}
+            rankId={rankId}
             nativeBalance={nativeBalance}
             onOpenModal={handleOpenModal}
             width={+width}

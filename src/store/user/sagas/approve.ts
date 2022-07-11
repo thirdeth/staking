@@ -15,7 +15,7 @@ export function* approveSaga({
   type,
   payload: { web3Provider, spenderAddress, amount, tokenAddress },
 }: ReturnType<typeof approve>) {
-  yield put(request(type));
+  yield* put(request(type));
   const myAddress: string = yield select(userSelector.getProp('address'));
 
   try {
@@ -32,12 +32,12 @@ export function* approveSaga({
       getToastMessage('success', notifyText.approve.success);
     }
 
-    yield put(success(type));
+    yield* put(success(type));
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
     getToastMessage('error', notifyText.approve.error);
-    yield put(error(type));
+    yield* put(error(type));
     throw err;
   }
 }

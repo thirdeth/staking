@@ -1,9 +1,7 @@
 import { IdoPublic, IdoStatus } from 'types/store/requests';
 import Web3 from 'web3';
 
-export type HelloWorldReq = {
-  key: string;
-};
+export type UpdateUserProps = 'tokenBalance' | 'nativeBalance' | 'userStakes' | 'rankId';
 
 export type GetIdoListReq = {
   public: IdoPublic;
@@ -65,6 +63,10 @@ export type InvestReq = {
 
 export type ChangeUserStakeItemReq = {
   stakeIndex: number;
+} & RequestWithWeb3Provider;
+
+export type UpdateUserDataReq = {
+  updateParams: UpdateUserProps[];
 } & RequestWithWeb3Provider;
 
 export type GetIvestmentsInfoReq = {

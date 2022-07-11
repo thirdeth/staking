@@ -21,3 +21,4 @@ export * from './RankIcon';
 export * from './BurgerIcon';
 export * from './ArrowRight';
 export * from './LogoSmall';
+export * from './WarningIcon';

@@ -46,6 +46,7 @@ export function* getIdoListSaga({ type, payload }: ReturnType<typeof getIdoList>
 
     yield* put(apiActions.success(type));
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log(err);
     yield* put(apiActions.error(type, err));
   }

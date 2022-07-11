@@ -4,6 +4,12 @@ import { RankItemProps } from './Rank.types';
 
 export const rankColors: RankItemProps[] = [
   {
+    id: 0,
+    title: 'Stake to get RANK',
+    stopColorOne: '#FFFFFF',
+    stopColorTwo: '#FFFFFF',
+  },
+  {
     id: 1,
     title: 'Bronze',
     stopColorOne: '#882B03',

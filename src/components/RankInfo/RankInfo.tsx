@@ -1,8 +1,10 @@
 import { FC, memo } from 'react';
-import { Box, BoxProps, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Box, BoxProps, Button, Typography } from '@mui/material';
+import { routes } from 'appConstants';
 import { RankIcon } from 'components/Icon/components';
 import { isFunction } from 'lodash';
-import { BG_GRAY_LIGHT } from 'theme/variables';
+import { BG_BUTTON_GRAY_DARK, BG_GRAY_LIGHT, COLOR_TEXT_BLUE } from 'theme/variables';
 
 import { rankColors, styleHelper } from './Rank.helpers';
 import { UserStakingRankIds } from './Rank.types';
@@ -13,6 +15,7 @@ export interface RankInfoProps {
   size?: 's' | 'm';
   type?: 'card' | 'account' | 'icon' | 'rank';
   hideText?: boolean;
+  onClick?: () => void;
 }
 
 const RankInfo: FC<RankInfoProps & Pick<BoxProps, 'sx'>> = ({
@@ -21,6 +24,7 @@ const RankInfo: FC<RankInfoProps & Pick<BoxProps, 'sx'>> = ({
   subtitle,
   type = 'icon',
   hideText,
+  onClick,
   sx,
 }) => {
   const currentRank = rankColors.find(({ id }) => id === rankId);
@@ -65,26 +69,56 @@ const RankInfo: FC<RankInfoProps & Pick<BoxProps, 'sx'>> = ({
           </Typography>
         )}
       </Box>
+
       {type !== 'icon' && type !== 'rank' && (
         <Box ml={size === 'm' ? 3 : 2}>
           {subtitle && (
             <Typography
-              sx={{
-                color: hideText ? 'transparent' : styleHelper[type].subtitleColor,
-              }}
+              sx={{ color: hideText ? 'transparent' : styleHelper[type].subtitleColor }}
               variant={size === 'm' ? 'body1' : 'subtitle1'}
             >
               {subtitle}
             </Typography>
           )}
-          <Typography
-            sx={{
-              color: hideText ? 'transparent' : styleHelper[type].rankColor,
-            }}
-            variant={size === 'm' ? 'h1' : 'h4'}
-          >
-            {currentRank?.title}
-          </Typography>
+
+          <Box>
+            {/* For large page info version */}
+            {size === 'm' ? (
+              <Typography sx={{ color: hideText ? 'transparent' : styleHelper[type].rankColor }} variant="h1">
+                {currentRank?.title}
+              </Typography>
+            ) : (
+              <Link to={routes.staking.ranking.root.path} onClick={onClick}>
+                {/* For small popover onClick version */}
+
+                {rankId !== 0 && (
+                  <Typography sx={{ color: hideText ? 'transparent' : styleHelper[type].rankColor }} variant="h4">
+                    {currentRank?.title}
+                  </Typography>
+                )}
+
+                {rankId === 0 && (
+                  <Button
+                    color="secondary"
+                    sx={{
+                      width: '128px',
+                      height: '22px',
+                      fontSize: '12px',
+                      color: COLOR_TEXT_BLUE,
+                      borderRadius: '4px',
+                      whiteSpace: 'nowrap',
+                      textTransform: 'none',
+                      '&:hover': {
+                        background: BG_BUTTON_GRAY_DARK,
+                      },
+                    }}
+                  >
+                    {currentRank?.title}
+                  </Button>
+                )}
+              </Link>
+            )}
+          </Box>
         </Box>
       )}
     </Box>

@@ -24,6 +24,7 @@ import {
   TelegramIcon,
   TwitterIcon,
   WalletIcon,
+  WarningIcon,
 } from './components';
 
 /* eslint-disable @typescript-eslint/no-shadow */
@@ -50,6 +51,7 @@ export enum IconKey {
   BurgerIcon = 'BurgerIcon',
   ArrowRight = 'ArrowRight',
   LogoSmall = 'LogoSmall',
+  WarningIcon = 'WarningIcon',
 }
 
 /* eslint-enable @typescript-eslint/no-shadow */
@@ -76,4 +78,5 @@ export const Icon: Record<IconKey, FC<SvgIconProps>> = {
   BurgerIcon,
   ArrowRight,
   LogoSmall,
+  WarningIcon,
 };

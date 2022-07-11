@@ -20,6 +20,7 @@ export const COLOR_TEXT_WHITE = 'rgba(255, 255, 255, 1)';
 export const COLOR_TEXT_WHITE_LIGHT = 'rgba(250, 250, 252, 1)';
 export const COLOR_TEXT_WHITE_EXTRALIGHT = 'rgba(255, 255, 255, 0.7)';
 export const COLOR_TEXT_BLUE = 'rgba(94, 153, 245, 1)';
+export const COLOR_TEXT_ACCENT_BLUE = 'rgba(10, 59, 135, 1)';
 export const COLOR_TEXT_GRAY = 'rgba(181, 181, 181, 1)';
 export const COLOR_TEXT_GRAY_DARK = 'rgba(76, 76, 76, 1)';
 export const COLOR_TEXT_GRAY_LIGHT = 'rgba(112, 112, 112, 1)';

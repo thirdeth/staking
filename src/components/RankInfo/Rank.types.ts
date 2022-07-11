@@ -1,4 +1,4 @@
-export type UserStakingRankIds = 1 | 2 | 3 | 4 | 5 | 6;
+export type UserStakingRankIds = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export type RankItemProps = {
   id: UserStakingRankIds;

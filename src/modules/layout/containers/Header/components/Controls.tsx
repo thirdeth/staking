@@ -12,6 +12,7 @@ import { Modals } from 'types';
 
 interface HeaderControlsProps {
   address: string;
+  rankId: string;
   nativeBalance: string;
   width: number;
   onOpenModal: (type: Modals) => void;
@@ -21,7 +22,7 @@ const GridNavItem = styled(NavLink)({
   color: COLOR_TEXT_BLACK,
 });
 
-export const HeaderControls: FC<HeaderControlsProps> = ({ address, nativeBalance, width, onOpenModal }) => {
+export const HeaderControls: FC<HeaderControlsProps> = ({ address, rankId, nativeBalance, width, onOpenModal }) => {
   return (
     <Grid container item justifyContent="space-between" alignItems="center" xs={12} wrap="nowrap">
       {width < 900 && <Menu />}
@@ -65,6 +66,7 @@ export const HeaderControls: FC<HeaderControlsProps> = ({ address, nativeBalance
           {width > 1000 && <UserBalance balance={nativeBalance} />}
           <Account
             address={address}
+            rankId={rankId}
             nativeBalance={nativeBalance}
             width={width}
             onDisconnect={() => onOpenModal(Modals.Disconnect)}
