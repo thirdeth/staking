@@ -4,8 +4,12 @@ import { ProgressBar } from 'components';
 
 import { LauncherCardProps } from '../../LauncherCard';
 
-export const LauncherProgress: FC<Pick<LauncherCardProps, 'progressData'>> = ({ progressData }) => {
-  const { progress, totalRaise, allocation, targetRaise } = progressData;
+export const LauncherProgress: FC<Pick<LauncherCardProps, 'projectData' | 'userAllocation'>> = ({
+  projectData,
+  userAllocation,
+}) => {
+  const { totalBought, hardCap } = projectData;
+
   return (
     <Grid container alignItems="center" rowGap={2} pt={{ xs: 2, sm: 2, md: 4 }}>
       <Grid item container xs={12}>
@@ -25,7 +29,7 @@ export const LauncherProgress: FC<Pick<LauncherCardProps, 'progressData'>> = ({ 
             Total Raise:
           </Typography>
           <Typography variant="body2" fontWeight={700}>
-            {totalRaise} BUSD (86%)
+            {totalBought} CLZ
           </Typography>
         </Grid>
 
@@ -37,34 +41,38 @@ export const LauncherProgress: FC<Pick<LauncherCardProps, 'progressData'>> = ({ 
           sm={12}
           md={7}
         >
-          <Grid item container direction={{ xs: 'column', sm: 'column', md: 'row' }} xs={6}>
-            <Typography variant="body2" fontWeight={700}>
-              Allocation:
-            </Typography>
-            <Typography variant="body2" fontWeight={700}>
-              {allocation} BUSD MAX
-            </Typography>
-          </Grid>
+          {userAllocation && (
+            <Grid item container direction={{ xs: 'column', sm: 'column', md: 'row' }} xs={6}>
+              <>
+                <Typography variant="body2" fontWeight={700}>
+                  Allocation:
+                </Typography>
+                <Typography variant="body2" fontWeight={700}>
+                  {userAllocation} CLZ MAX
+                </Typography>
+              </>
+            </Grid>
+          )}
 
           <Grid
             item
             container
             justifyContent={{ xs: 'space-between', sm: 'space-between', md: 'flex-end' }}
             direction={{ xs: 'column', sm: 'column', md: 'row' }}
-            xs={6}
+            xs={userAllocation ? 6 : 12}
           >
             <Typography variant="body2" fontWeight={700}>
               Target Raise:
             </Typography>
             <Typography variant="body2" fontWeight={700}>
-              {targetRaise} BUSD
+              {hardCap} CLZ
             </Typography>
           </Grid>
         </Grid>
       </Grid>
 
       <Grid item xs={12}>
-        <ProgressBar variant="parallelogram" progress={50} base={100} />
+        <ProgressBar variant="parallelogram" progress={+totalBought} base={+hardCap} />
       </Grid>
     </Grid>
   );

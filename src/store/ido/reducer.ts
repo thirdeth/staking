@@ -1,10 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IdoState } from 'types';
+import { IDO } from 'types/api/IDO';
 
 const initialState: IdoState = {
   ido: {
     count: 0,
     idos: [],
+  },
+  currentIdo: {} as IDO,
+  userInfo: {
+    userAllocation: null,
+    claimed: '',
+    bought: '',
+    payed: '',
+    claimAmount: '',
   },
 };
 

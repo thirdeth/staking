@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Box, BoxProps, Typography } from '@mui/material';
 import { RankIcon } from 'components/Icon/components';
 import { isFunction } from 'lodash';
@@ -15,7 +15,7 @@ export interface RankInfoProps {
   hideText?: boolean;
 }
 
-export const RankInfo: FC<RankInfoProps & Pick<BoxProps, 'sx'>> = ({
+const RankInfo: FC<RankInfoProps & Pick<BoxProps, 'sx'>> = ({
   rankId = 1,
   size,
   subtitle,
@@ -29,6 +29,7 @@ export const RankInfo: FC<RankInfoProps & Pick<BoxProps, 'sx'>> = ({
     <Box
       sx={(theme) => {
         // TODO: https://manzoni.atlassian.net/jira/software/projects/CRON/boards/160?assignee=60d5a3f3f6505400697aa5fa%2C613f02d449f7bd006889717f&selectedIssue=CRON-52
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const sxProps: any = isFunction(sx) ? sx(theme) : sx;
         return {
           display: 'flex',
@@ -89,3 +90,5 @@ export const RankInfo: FC<RankInfoProps & Pick<BoxProps, 'sx'>> = ({
     </Box>
   );
 };
+
+export default memo(RankInfo);

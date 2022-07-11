@@ -35,7 +35,7 @@ export const RowCard: FC<RowCardProps> = ({
 }) => {
   return (
     <BoxRowStyled
-      p={{ xs: 2, sm: 2 }}
+      p={variant === 'project' ? { xs: 2, sm: 4 } : { xs: 2, sm: 2 }}
       sx={{
         backgroundColor: rowCardStyleState.color[rowColor],
         ...boxProps,

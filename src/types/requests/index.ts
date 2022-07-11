@@ -15,6 +15,15 @@ export type GetIdoListReq = {
   shouldConcat?: boolean;
 };
 
+export type GetIdoByIdReq = {
+  id: string;
+};
+
+export type RegistrationIdoReq = {
+  address: string;
+  pk: number;
+};
+
 export type BodyWithToken<T = never> = {
   token?: string;
 } & T;
@@ -47,6 +56,17 @@ export type StakeReq = {
   poolId: number;
 } & RequestWithWeb3Provider;
 
+export type InvestReq = {
+  amount: string;
+  idoId: number;
+  withWeights: boolean;
+  proof: string[];
+} & RequestWithWeb3Provider;
+
 export type ChangeUserStakeItemReq = {
   stakeIndex: number;
+} & RequestWithWeb3Provider;
+
+export type GetIvestmentsInfoReq = {
+  idoId: string;
 } & RequestWithWeb3Provider;

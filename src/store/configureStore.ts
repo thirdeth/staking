@@ -3,6 +3,7 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, R
 import storage from 'redux-persist/lib/storage';
 import createSagaMiddleware from 'redux-saga';
 
+import idoActionTypes from './ido/actionTypes';
 import stakingActionTypes from './staking/actionTypes';
 import userActionTypes from './user/actionTypes';
 import reducer from './rootReducer';
@@ -41,6 +42,10 @@ const store = configureStore({
           stakingActionTypes.HARVEST,
           stakingActionTypes.WITHDRAW,
           stakingActionTypes.GET_USER_STAKES,
+          idoActionTypes.GET_USER_ALLOCATION,
+          idoActionTypes.GET_IDO_LIST,
+          idoActionTypes.GET_IDO_BY_ID,
+          idoActionTypes.GET_INVESTMENTS_INFO,
         ],
       },
     }).concat(sagaMiddleware),

@@ -6,8 +6,8 @@ const DEFAULT_OBSERVER_PARAMS = {
   rootMargin: '70%',
 };
 
-const DEFAULT_STROKE_OFFSET = 2000;
-const LINE_OFFSET_VALUE = 250;
+const DEFAULT_STROKE_OFFSET = 1000;
+const LINE_OFFSET_VALUE = 350;
 
 export const useDrawLine = (elementRef: RefObject<Element>, observerParams = DEFAULT_OBSERVER_PARAMS): [number] => {
   const [isAnimationStart, setAnimationStart] = useState(false);

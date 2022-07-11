@@ -1,19 +1,16 @@
 import { FC } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import { LogoSmall, MainLogo } from 'components/Icon/components';
+import { Countdown } from 'components';
+import { ProjectDataProps } from 'modules/ido/pages/Details/Details.types';
 import { FontWeights } from 'theme/Typography';
 import { BG_MAIN, BORDER_RADIUS_CARD_MEDIUM } from 'theme/variables';
+import { IdoStatus } from 'types/store/requests';
 
-import { LauncherCardProps } from '../../LauncherCard';
+import { statusTextVariants } from '../../LauncherCard.helpers';
 
-enum StageTextVariants {
-  upcoming = 'Registration will start in',
-  open = 'Registration closed. Sale Opens In',
-  completed = 'Completed success',
-}
+export const LauncherInfo: FC<ProjectDataProps> = ({ projectData }) => {
+  const { status, projectName, logoUrl, tokenSymbol, price, tokenLogoUrl, timer } = projectData;
 
-export const LauncherInfo: FC<Pick<LauncherCardProps, 'progressData'>> = ({ progressData }) => {
-  const { stage, saleEndTime } = progressData;
   return (
     <Grid container justifyContent="space-between" height={{ md: 'auto', lg: '102px' }}>
       <Grid
@@ -42,22 +39,22 @@ export const LauncherInfo: FC<Pick<LauncherCardProps, 'progressData'>> = ({ prog
               height: '75px',
               width: '75px',
             },
+
+            img: {
+              width: { xs: '54px', sm: '54px', md: '86px' },
+              height: { xs: '60px', sm: '60px', md: '86px' },
+            },
           })}
         >
-          <MainLogo
-            sx={{
-              width: { xs: '54px', sm: '54px', md: '85px' },
-              height: { xs: '60px', sm: '60px', md: '86px' },
-            }}
-          />
+          <img src={logoUrl} alt="project logo" />
         </Grid>
 
         <Grid item container direction="column" justifyContent="space-between" sx={{ height: '100%' }}>
           <Typography variant="h1" textTransform="uppercase" sx={{ fontSize: { xs: '20px', sm: '20px', md: '30px' } }}>
-            Cronos Launcher
+            {projectName}
           </Typography>
           <Typography variant="body2" textTransform="uppercase" fontWeight={FontWeights.fontWeightRegular}>
-            price (CLZ) = 0.13 CRO
+            price ({tokenSymbol}) = {price} CRO
           </Typography>
         </Grid>
       </Grid>
@@ -73,9 +70,17 @@ export const LauncherInfo: FC<Pick<LauncherCardProps, 'progressData'>> = ({ prog
         sm={2}
         md={2}
       >
-        <Box sx={{ width: '52px', height: '52px', background: BG_MAIN, borderRadius: '50%' }}>
+        <Box
+          sx={{
+            width: '52px',
+            height: '52px',
+            background: BG_MAIN,
+            borderRadius: '50%',
+            img: { width: '45px', height: '45px' },
+          }}
+        >
           <Grid container justifyContent="center" alignItems="center" height="100%">
-            <LogoSmall sx={{ width: '40px', height: '45px' }} />
+            <img src={tokenLogoUrl} alt="token logo" />
           </Grid>
         </Box>
       </Grid>
@@ -91,13 +96,9 @@ export const LauncherInfo: FC<Pick<LauncherCardProps, 'progressData'>> = ({ prog
         md={5}
       >
         <Typography variant="body2" textTransform="uppercase" fontWeight={FontWeights.fontWeightRegular}>
-          {StageTextVariants[stage]}
+          {statusTextVariants[status as IdoStatus]}
         </Typography>
-        {stage !== 'completed' && (
-          <Typography variant="h1" textTransform="uppercase">
-            {saleEndTime}
-          </Typography>
-        )}
+        {status !== 'completed' && <Countdown auctionEndText="Failed" endAuction={+timer} />}
       </Grid>
     </Grid>
   );

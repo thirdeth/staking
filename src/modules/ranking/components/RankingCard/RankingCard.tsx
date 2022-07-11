@@ -1,7 +1,8 @@
 import { FC, useRef, useState } from 'react';
 import { Box, Button, styled, Typography } from '@mui/material';
 import { UserStakingRankIds } from 'components';
-import { rankColors, RankInfo } from 'components/RankInfo';
+import { rankColors } from 'components/RankInfo';
+import RankInfo from 'components/RankInfo/RankInfo';
 import {
   COLOR_LIGHT_BLUE,
   COLOR_TEXT_BLUE,

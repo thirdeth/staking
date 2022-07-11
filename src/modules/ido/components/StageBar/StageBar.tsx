@@ -86,7 +86,7 @@ export const StageBar: FC<StageBarProps> = ({ idoStatus, publicFilterValue, onCh
               height: 60,
               width: 200,
               justifyContent: 'center',
-              '&:first-child': {
+              '&:first-of-type': {
                 borderRight: BORDER_GRAY_LIGHT,
                 borderLeft: BORDER_GRAY_LIGHT,
                 borderStyle: 'solid',

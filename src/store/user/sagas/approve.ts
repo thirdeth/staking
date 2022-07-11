@@ -38,6 +38,7 @@ export function* approveSaga({
     console.error(err);
     getToastMessage('error', notifyText.approve.error);
     yield put(error(type));
+    throw err;
   }
 }
 

@@ -46,7 +46,7 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
   return (
     <StyledLink to={routes.idos.details.root.getPath(id)}>
       <Grid container alignItems={{ xs: 'stretch', sm: 'stretch', md: 'center' }} spacing={2}>
-        <Grid item justifyContent="flex-start" alignItems="center" wrap="nowrap" xs={12} sm={12} md={4}>
+        <Grid item container justifyContent="flex-start" alignItems="center" wrap="nowrap" xs={12} sm={12} md={4}>
           <TypographySybtitle>Project name</TypographySybtitle>
           <Box
             sx={{

@@ -18,4 +18,8 @@ export const notifyText = {
     success: 'Successful withdraw',
     error: 'Error withdraw',
   },
+  invest: {
+    success: 'Successful invest',
+    error: 'Error invest',
+  },
 };

@@ -22,9 +22,7 @@ export const NotificationModal: FC = () => {
 
   const [investValue, setInvestValue, setMaxInvestValue] = useValidateInputField(ValidationTypes.number);
 
-  const handleInvest = () => {
-    alert(investValue);
-  };
+  const handleInvest = () => {};
 
   const closeModal = useCallback(() => {
     dispatch(

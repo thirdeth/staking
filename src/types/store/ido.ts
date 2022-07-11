@@ -5,4 +5,12 @@ export type IdoState = {
     count: number;
     idos: IDO[];
   };
+  currentIdo: IDO;
+  userInfo: {
+    userAllocation: string | null;
+    claimed: string;
+    bought: string;
+    payed: string;
+    claimAmount: string;
+  };
 };

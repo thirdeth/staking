@@ -1,1 +1,1 @@
-export const sidebarTabItems = ['Project Summary', 'Schedule', 'Tokenomics', 'Roadmap'];
+export const sidebarTabItems = ['Project Info', 'Project Summary', 'Tokenomics', 'Roadmap'];

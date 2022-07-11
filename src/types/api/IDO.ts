@@ -37,7 +37,7 @@ export interface IDO {
   tokenSymbol: string;
   tokenomics?: Tokenomic[];
   totalBought: string;
-  totalSupply: string;
+  totalSupply: number;
   twitter: string;
   unlockPercent?: number;
   unlockStepTime?: number;

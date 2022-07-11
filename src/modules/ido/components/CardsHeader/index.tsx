@@ -10,7 +10,7 @@ const TextContainer = styled(Typography)({
   lineHeight: '45px',
   textTransform: 'uppercase',
   fontWeight: FontWeights.fontWeightRegular,
-  '&:not(:first-child)': {
+  '&:not(:first-of-type)': {
     textAlign: 'center',
   },
 });

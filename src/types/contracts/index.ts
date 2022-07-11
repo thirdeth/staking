@@ -2,4 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { Erc20Abi } from './Erc20Abi';
+export type { IdoFarmeAbi } from './IdoFarmeAbi';
 export type { StakingAbi } from './StakingAbi';

@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import { Grid, Typography } from '@mui/material';
 import { ChartImg, ChartText } from 'modules/ido/assets';
+import { ProjectDataProps } from 'modules/ido/pages/Details/Details.types';
 import { BG_GRAY_LIGHT, BORDER_RADIUS_CARD_MEDIUM } from 'theme/variables';
 
-export const Tokenomics: FC = () => {
+export const Tokenomics: FC<ProjectDataProps> = ({ projectData }) => {
   return (
     <Grid container direction="column">
       <Typography variant="h2" fontSize="22px" mb={3}>

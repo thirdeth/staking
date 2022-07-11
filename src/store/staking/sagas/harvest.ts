@@ -1,4 +1,3 @@
-import { toast } from 'react-toastify';
 import { select } from 'redux-saga/effects';
 import { ContractsNames } from 'services/WalletService/config';
 import { notifyText } from 'services/WalletService/config/constants';

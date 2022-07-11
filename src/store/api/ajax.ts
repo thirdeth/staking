@@ -15,6 +15,7 @@ export default function* ajax(config: AxiosRequestConfig): Generator<SelectEffec
     client.defaults.headers.common.Authorization = `Token ${accessToken}`;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const response: any = yield call<(configVar: AxiosRequestConfig) => Promise<AxiosResponse>>(client, config);
 
   if (accessToken && response.status === 401) {

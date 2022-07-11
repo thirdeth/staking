@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Box, Typography } from '@mui/material';
-import { RankInfo, UserStakingRankIds } from 'components/RankInfo';
+import { UserStakingRankIds } from 'components/RankInfo';
+import RankInfo from 'components/RankInfo/RankInfo';
 import { COLOR_TEXT_GRAY_EXTRALIGHT } from 'theme/variables';
 
 export interface RankingInfoCardProps {

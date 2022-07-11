@@ -1,8 +1,9 @@
 import { FC, RefObject } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Button, Grid, Link, Popover, styled, Typography } from '@mui/material';
-import { CopyText, RankInfo } from 'components';
+import { CopyText } from 'components';
 import { Close, OutIcon } from 'components/Icon/components';
+import RankInfo from 'components/RankInfo/RankInfo';
 import { FontFamilies, FontWeights } from 'theme/Typography';
 import { BG_BLUE, BG_BUTTON_WHITE, BORDER_RADIUS_POPOVER, COLOR_TEXT_RED, COLOR_TEXT_WHITE } from 'theme/variables';
 

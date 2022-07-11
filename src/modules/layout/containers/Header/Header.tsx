@@ -32,24 +32,18 @@ export const Header: FC = () => {
   return (
     <Box
       sx={{
-        position: 'sticky',
+        py: scrollToTopValue <= 150 ? 2.5 : 0.8,
+        position: 'fixed',
         top: '0',
+        left: '0',
+        right: '0',
         zIndex: '2',
         background: BG_MAIN,
+        transition: TRANSITION_DEFAULT_TIME,
       }}
     >
       <Container>
-        <Grid
-          container
-          item
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          sx={{
-            py: scrollToTopValue < 150 ? 2.5 : 0.8,
-            transition: TRANSITION_DEFAULT_TIME,
-          }}
-        >
+        <Grid container item direction="column" justifyContent="center" alignItems="center">
           <HeaderControls
             address={address}
             nativeBalance={nativeBalance}

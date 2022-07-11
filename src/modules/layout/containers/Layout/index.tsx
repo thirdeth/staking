@@ -52,7 +52,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
       <NotificationModal />
       <Container
         sx={{
-          pt: isHomePage ? 15 : 5,
+          pt: 15,
           px: { xs: 3, sm: 3, md: 0, lg: 0 },
         }}
       >

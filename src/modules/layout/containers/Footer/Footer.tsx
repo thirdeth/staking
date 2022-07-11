@@ -55,7 +55,7 @@ export const Footer: FC = () => {
           xs={12}
           pt={4.5}
         >
-          <SocialLinks />
+          <SocialLinks links={{}} />
         </Grid>
       </Grid>
 

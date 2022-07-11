@@ -1,94 +1,74 @@
-import { FC, useCallback } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router';
 import { Grid, Typography } from '@mui/material';
 import { ApplyCard } from 'components';
-import {
-  LauncherCard,
-  PoolInfoCard,
-  ProgressLauncherDataProps,
-  TabsContent,
-  TokenInfoCard,
-} from 'modules/ido/containers';
-import { setActiveModal } from 'store/modals/reducer';
+import { useShallowSelector } from 'hooks';
+import { isEmpty } from 'lodash';
+import { LauncherCard, TabsContent } from 'modules/ido/containers';
+import { LauncherSkeletonCard } from 'modules/ido/containers/LauncherCard/components';
+import { getIdoById } from 'store/ido/actions';
+import idoActionTypes from 'store/ido/actionTypes';
+import idoSelector from 'store/ido/selectors';
+import uiSelector from 'store/ui/selectors';
 import { FontFamilies, FontWeights } from 'theme/Typography';
 import { COLOR_TEXT_BLUE } from 'theme/variables';
-import { Modals } from 'types';
+import { RequestStatus } from 'types';
+import { getDisplayStageName } from 'utils';
 
-const SALED_END_TIME_MOCK = 1234567891011;
-
-const PROGRESS_DATA_MOCK: ProgressLauncherDataProps = {
-  stage: 'open',
-  progress: 70,
-  totalRaise: 10,
-  allocation: 10,
-  targetRaise: 10,
-  saleEndTime: SALED_END_TIME_MOCK,
-};
-
-const POOL_INFO_DATA_MOCK = {
-  tokenDistribution: 123123,
-  minAllocation: 0.01,
-  maxAllocation: 1531.13,
-  tokenPrice: 555.55,
-  accessType: 'Public',
-};
-const TOKEN_INFO_DATA_MOCK = {
-  tokenName: 'The Wasted Lands',
-  tokenSymbol: 'DDO',
-  decimals: 18,
-  address: '0x22d40020282f9c8',
-  totalSupply: 3.333334,
-};
+import { IdoRequiredProps } from './Details.types';
 
 export const Details: FC = () => {
+  const { id } = useParams();
   const dispatch = useDispatch();
+  const projectData = useShallowSelector(idoSelector.getProp('currentIdo')) as IdoRequiredProps;
+  const { userAllocation } = useShallowSelector(idoSelector.getProp('userInfo'));
 
-  const handleOpenModal = useCallback(
-    (modalType: Modals) => {
-      dispatch(
-        setActiveModal({
-          activeModal: modalType,
-          txHash: '',
-          open: true,
-        }),
-      );
-    },
-    [dispatch],
-  );
+  const {
+    [idoActionTypes.REGISTRATION_TO_IDO]: registrationRequestStatus,
+    [idoActionTypes.GET_IDO_BY_ID]: getIdoByIdRequestStatus,
+  } = useShallowSelector(uiSelector.getUI);
+  const isRegistration = registrationRequestStatus === RequestStatus.REQUEST;
+  const isGettingIdoById = getIdoByIdRequestStatus === RequestStatus.REQUEST;
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getIdoById({ id }));
+    }
+  }, [dispatch, id]);
 
   return (
-    <Grid container justifyContent="space-between" alignItems="flex-start" spacing={3} sx={{ overflowX: 'hidden' }}>
-      <Grid item xs={12}>
-        <Typography
-          variant="body2"
-          sx={{
-            strong: {
-              fontSize: '30px',
-              fontFamily: FontFamilies.secondary,
-              fontWeight: FontWeights.fontWeightRegular,
-              textTransform: 'uppercase',
-              color: COLOR_TEXT_BLUE,
-            },
-          }}
-        >
-          Status: <strong>{PROGRESS_DATA_MOCK.stage}</strong>
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <LauncherCard progressData={PROGRESS_DATA_MOCK} onOpenModal={handleOpenModal} />
-      </Grid>
-      <Grid item xs={12} sm={6} md={6}>
-        <PoolInfoCard poolInfoData={POOL_INFO_DATA_MOCK} />
-      </Grid>
-      <Grid item xs={12} sm={6} md={6}>
-        <TokenInfoCard tokenInfoData={TOKEN_INFO_DATA_MOCK} />
-      </Grid>
-      <Grid item xs={12}>
-        <TabsContent />
-      </Grid>
-      <Grid item xs={12}>
-        <ApplyCard size="s" />
-      </Grid>
-    </Grid>
+    <>
+      {!isEmpty(projectData) && !isGettingIdoById && (
+        <Grid container justifyContent="space-between" alignItems="flex-start" spacing={3} sx={{ overflowX: 'hidden' }}>
+          <Grid item xs={12}>
+            <Typography
+              variant="body2"
+              sx={{
+                strong: {
+                  fontSize: '30px',
+                  fontFamily: FontFamilies.secondary,
+                  fontWeight: FontWeights.fontWeightRegular,
+                  textTransform: 'uppercase',
+                  color: COLOR_TEXT_BLUE,
+                },
+              }}
+            >
+              Status: <strong>{getDisplayStageName(projectData.status)}</strong>
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <LauncherCard projectData={projectData} userAllocation={userAllocation} isRegistration={isRegistration} />
+          </Grid>
+          <Grid item xs={12}>
+            <TabsContent projectData={projectData} />
+          </Grid>
+          <Grid item xs={12}>
+            <ApplyCard size="s" />
+          </Grid>
+        </Grid>
+      )}
+      {isGettingIdoById && <LauncherSkeletonCard />}
+    </>
   );
 };

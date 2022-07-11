@@ -8,7 +8,7 @@ import { COLOR_TEXT_BLUE } from 'theme/variables';
 
 export const Preview: FC = () => {
   return (
-    <Box sx={{ pt: { xs: 20, sm: 20, md: 0 }, height: PREVIEW_SECTION_SIZE }}>
+    <Box sx={{ pt: { xs: 20, sm: 20, md: 12 }, height: PREVIEW_SECTION_SIZE }}>
       <Grid container direction="column" justifyContent="flex-start" alignItems="flex-start" spacing={3}>
         <Grid item xs={12}>
           <Typography variant="h1">Limitless, Borderless, All-in-One</Typography>
@@ -29,7 +29,7 @@ export const Preview: FC = () => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <SocialLinks />
+          <SocialLinks links={{}} />
         </Grid>
         <Grid item xs={12}>
           <LogoBlackLittle />

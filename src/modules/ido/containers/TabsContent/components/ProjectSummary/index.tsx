@@ -1,16 +1,14 @@
 import { FC } from 'react';
+import ReactHtmlParser from 'react-html-parser';
 import { Grid, Typography } from '@mui/material';
+import { ProjectDataProps } from 'modules/ido/pages/Details/Details.types';
 import { BORDER_RADIUS_CARD_MEDIUM } from 'theme/variables';
+import { getEmbedYoutubeLink } from 'utils';
 
-type ProjectSummaryProps = {
-  summaryInfoData: {
-    text: string;
-    videoLink: string;
-  };
-};
+export const ProjectSummary: FC<ProjectDataProps> = ({ projectData }) => {
+  const { projectSummary, videoUrl } = projectData;
+  const currentUrl = getEmbedYoutubeLink(videoUrl);
 
-export const ProjectSummary: FC<ProjectSummaryProps> = ({ summaryInfoData }) => {
-  const { text, videoLink } = summaryInfoData;
   return (
     <Grid container direction="column" spacing={4}>
       <Grid item>
@@ -19,13 +17,13 @@ export const ProjectSummary: FC<ProjectSummaryProps> = ({ summaryInfoData }) => 
         </Typography>
       </Grid>
       <Grid item>
-        <Typography variant="body2">{text}</Typography>
+        <Typography component="div">{ReactHtmlParser(projectSummary)}</Typography>
       </Grid>
       <Grid item>
         <iframe
           width="100%"
           height="374"
-          src={videoLink}
+          src={currentUrl}
           title="YouTube video player"
           frameBorder="20px"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
