@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Box, Skeleton } from '@mui/material';
-import { BG_GRAY, BORDER_RADIUS_CARD_MEDIUM, BORDER_RADIUS_DEFAULT } from 'theme/variables';
+import { BG_GRAY, BORDER_RADIUS_DEFAULT } from 'theme/variables';
 
 export const TabsSkeleton: FC = () => {
   return (
@@ -10,7 +10,7 @@ export const TabsSkeleton: FC = () => {
         py: { xs: 1, sm: 1, md: 3 },
         height: '670px',
         background: BG_GRAY,
-        borderRadius: { xs: BORDER_RADIUS_DEFAULT, sm: BORDER_RADIUS_DEFAULT, md: BORDER_RADIUS_CARD_MEDIUM },
+        borderRadius: BORDER_RADIUS_DEFAULT,
       }}
     >
       {new Array(5).fill('').map((_, index) => (

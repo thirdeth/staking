@@ -1,13 +1,7 @@
 import { FC } from 'react';
 import { Box, Button, Grid } from '@mui/material';
 import { FontFamilies } from 'theme/Typography';
-import {
-  BG_GRAY,
-  BORDER_RADIUS_CARD_MEDIUM,
-  BORDER_RADIUS_DEFAULT,
-  COLOR_TEXT_BLACK,
-  COLOR_TEXT_BLUE,
-} from 'theme/variables';
+import { BG_GRAY, BORDER_RADIUS_DEFAULT, COLOR_TEXT_BLACK, COLOR_TEXT_BLUE } from 'theme/variables';
 
 export type SideBarProps = {
   tabItems: string[];
@@ -21,9 +15,9 @@ export const SideBar: FC<SideBarProps> = ({ activeTab, tabItems, onChangeActiveT
       sx={{
         px: { xs: 2, sm: 2, md: 3 },
         py: { xs: 1, sm: 1, md: 3 },
-        height: { xs: '37px', sm: '37px', md: '670px' },
+        height: { xs: '37px', sm: '37px', md: '363px' },
         background: BG_GRAY,
-        borderRadius: { xs: BORDER_RADIUS_DEFAULT, sm: BORDER_RADIUS_DEFAULT, md: BORDER_RADIUS_CARD_MEDIUM },
+        borderRadius: BORDER_RADIUS_DEFAULT,
       }}
     >
       <Grid

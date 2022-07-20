@@ -19,5 +19,5 @@
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"],
-  "files": ["src/types/globals.d.ts"]
+  "files": ["src/types/globals.d.ts", "./src/modules/ranking/components/RankingInfoCard/RankingInfoCardProps.tsx"]
 }

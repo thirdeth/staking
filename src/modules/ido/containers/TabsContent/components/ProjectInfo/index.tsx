@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Box, Grid, styled, Tooltip, Typography } from '@mui/material';
 import { ProjectDataProps } from 'modules/ido/pages/Details/Details.types';
 import { FontFamilies, FontWeights } from 'theme/Typography';
-import { BG_GRAY, BORDER_RADIUS_CARD_MEDIUM } from 'theme/variables';
+import { BG_GRAY, BORDER_RADIUS_DEFAULT } from 'theme/variables';
 import { shortenPhrase } from 'utils';
 
 const TextContainer = styled(Typography)(({ theme }) => ({
@@ -27,7 +27,7 @@ export const ProjectInfo: FC<ProjectDataProps> = ({ projectData }) => {
         sx={{
           p: { xs: 2, sm: 2, md: 3 },
           background: BG_GRAY,
-          borderRadius: BORDER_RADIUS_CARD_MEDIUM,
+          borderRadius: BORDER_RADIUS_DEFAULT,
         }}
       >
         <Grid container justifyContent="space-between" alignItems="flex-start">

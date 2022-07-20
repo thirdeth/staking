@@ -1,7 +1,7 @@
 import { FC, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { LoadingButton } from '@mui/lab';
-import { Box, Grid, Paper, Stack, styled, Typography } from '@mui/material';
+import { Grid, Paper, Stack, styled, Typography } from '@mui/material';
 import { generateVestingTableData } from 'modules/ido/utils/generateVestingTableData';
 import { onClaim } from 'store/ido/actions';
 import { BG_BLUE_LIGHT, BORDER_RADIUS_DEFAULT } from 'theme/variables';
