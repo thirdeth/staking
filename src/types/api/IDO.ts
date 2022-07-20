@@ -5,6 +5,8 @@
  * This file was automatically generated.
  */
 
+import { Partner } from './Partner';
+import { Team } from './Team';
 import { Tokenomic } from './Tokenomic';
 
 export interface IDO {
@@ -21,6 +23,7 @@ export interface IDO {
   medium: string;
   owner?: number;
   ownerAddress?: string;
+  partners?: Partner[];
   price: string;
   projectName: string;
   projectSummary: string;
@@ -30,8 +33,9 @@ export interface IDO {
   startUnlockPercent?: number;
   status?: string;
   targetedRaise?: string;
+  team?: Team[];
   telegram: string;
-  timer: string;
+  timer?: string;
   tokenAddress: string;
   tokenLogoUrl?: string;
   tokenName: string;

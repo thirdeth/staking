@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { isEmpty } from 'lodash';
+import { IdoRequiredProps } from 'modules/ido/pages/Details/Details.types';
 import { getIdoById } from 'store/ido/actions';
-import { IDO } from 'types/api/IDO';
 import { IdoStatus } from 'types/store/requests';
 
-export const useUpdateIdoData = (currentIdo: IDO, id: string | undefined) => {
+export const useUpdateIdoData = (currentIdo: IdoRequiredProps, id: string | undefined) => {
   const dispatch = useDispatch();
 
   const isNotSuccess = currentIdo.status !== IdoStatus.completedSuccess;

@@ -1,4 +1,5 @@
 import { ProjectDataProps } from 'modules/ido/pages/Details/Details.types';
+import { Color } from 'types/api/enums';
 
 export const tabsContentPropsMocked: ProjectDataProps = {
   projectData: {
@@ -29,7 +30,16 @@ export const tabsContentPropsMocked: ProjectDataProps = {
     medium: '',
     telegram: '',
     twitter: '',
-    tokenomics: [],
+    tokenomics: [
+      {
+        title: '123',
+        percent: 123,
+        color: Color['#0A3B87'],
+        id: 1,
+      },
+    ],
+    partners: [],
+    team: [],
     projectSummary: '',
     roadmap: '',
     tokenLogoUrl: '',

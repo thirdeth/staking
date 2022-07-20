@@ -1,11 +1,10 @@
 import { FC } from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
 import { Grid } from '@mui/material';
-
-import { ChartItemsProps } from './CircleChart.types';
+import { TokenomicProps } from 'modules/ido/pages/Details/Details.types';
 
 export interface CircleChartProps {
-  chartData: ChartItemsProps[];
+  chartData: TokenomicProps[];
 }
 
 export const CircleChart: FC<CircleChartProps> = ({ chartData }) => {

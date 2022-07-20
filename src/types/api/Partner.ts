@@ -5,11 +5,8 @@
  * This file was automatically generated.
  */
 
-import { Color } from './enums';
-
-export interface Tokenomic {
-  color: Color;
+export interface Partner {
+  icon?: string;
   id?: number;
-  percent: number;
-  title?: string;
+  urlPath?: string;
 }

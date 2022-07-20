@@ -47,7 +47,7 @@ export const useUpdatedIdoDataFromApi = (): ReturnType => {
           hardCap: +hardCap,
           isPublic: !!isPublic,
           type: getIdoTypeFromIdoStatus([status] as IdoStatus[]),
-          timer,
+          timer: timer as string,
           price,
         };
       },

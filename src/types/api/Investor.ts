@@ -8,6 +8,7 @@
 export interface Investor {
   address?: string;
   lastStaked: string;
+  level?: string;
   positionDelta: number;
   stakeAmount: string;
 }

@@ -1,4 +1,5 @@
 import { noop } from 'lodash';
+import { Color } from 'types/api/enums';
 
 import { LauncherCardProps } from './LauncherCard';
 
@@ -36,7 +37,16 @@ export const launcherCardPropsMocked: LauncherCardProps = {
     medium: '',
     telegram: '',
     twitter: '',
-    tokenomics: [],
+    tokenomics: [
+      {
+        title: '123',
+        percent: 123,
+        color: Color['#0A3B87'],
+        id: 1,
+      },
+    ],
+    partners: [],
+    team: [],
     projectSummary: '',
     roadmap: '',
     tokenLogoUrl: '',

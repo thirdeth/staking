@@ -36,7 +36,7 @@ export const Details: FC = () => {
   const userAddress = useShallowSelector(userSelector.getProp('address'));
 
   // for refresh ido data
-  useUpdateIdoData(currentIdo, id);
+  useUpdateIdoData(currentIdo as IdoRequiredProps, id);
   const [isCanAddLiquidity, setCanAddLiquidity] = useState(false);
 
   const {
