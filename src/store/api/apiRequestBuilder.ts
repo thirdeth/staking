@@ -1,5 +1,5 @@
 import { URL } from 'appConstants';
-import { GetIdoListReq, RegistrationIdoReq } from 'types/requests';
+import { GetIdoListReq, GetProofReq, RegistrationIdoReq } from 'types/requests';
 import { snakeize } from 'utils';
 
 import ajax from './ajax';
@@ -36,6 +36,13 @@ export const baseApi = {
     return ajax({
       method: 'post',
       url: URL.registrationToIdo,
+      data,
+    });
+  },
+  getProof(data: GetProofReq) {
+    return ajax({
+      method: 'post',
+      url: URL.getProof,
       data,
     });
   },

@@ -18,6 +18,9 @@ export const modalData: ModalData = {
   [Modals.Invest]: {
     title: 'Invest',
   },
+  [Modals.Vesting]: {
+    title: 'Vesting',
+  },
   [Modals.init]: {
     title: '',
   },

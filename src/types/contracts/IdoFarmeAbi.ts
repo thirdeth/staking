@@ -36,8 +36,10 @@ export type Claim = ContractEventLog<{
 export type Invest = ContractEventLog<{
   idoId: string;
   bought: string;
+  totalBought: string;
   0: string;
   1: string;
+  2: string;
 }>;
 export type LiquidityAdded = ContractEventLog<{
   idoId: string;
@@ -109,9 +111,9 @@ export interface IdoFarmeAbi extends BaseContract {
 
     deleteIdo(idoId: number | string | BN): NonPayableTransactionObject<void>;
 
-    geBoughts(idoIds: (number | string | BN)[]): NonPayableTransactionObject<string[]>;
+    getBoughts(idoIds: (number | string | BN)[]): NonPayableTransactionObject<string[]>;
 
-    getClaimAmount(idoId: number | string | BN, user: string): NonPayableTransactionObject<string>;
+    getClaimAmount(idoId: number | string | BN, user: string): NonPayableTransactionObject<string[]>;
 
     getRoleAdmin(role: string | number[]): NonPayableTransactionObject<string>;
 

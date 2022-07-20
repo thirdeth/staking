@@ -1,28 +1,34 @@
 import { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Modal } from 'components/Modal';
-import { useShallowSelector, useValidateInputField, ValidationTypes } from 'hooks';
+import { useShallowSelector } from 'hooks';
 import { useWalletConnectorContext } from 'services/WalletConnect';
+import idoActionTypes from 'store/ido/actionTypes';
+import idoSelector from 'store/ido/selectors';
 import { setActiveModal } from 'store/modals/reducer';
 import modalsSelector from 'store/modals/selectors';
+import uiSelector from 'store/ui/selectors';
 import userSelector from 'store/user/selectors';
-import { Modals, ModalsInitialState, State } from 'types/store';
+import { IdoState, Modals, ModalsInitialState, State, UserState } from 'types/store';
 
-import { ConnectWalletModal, DisconnectModal, Invest, modalData } from './index';
-
-const MAX_INVEST_VALUE_MOCK = 2385;
-const USER_BALANCE_MOCK = 1.123123;
+import { ConnectWalletModal, DisconnectModal, InvestModal, modalData } from './index';
+import { VestingModal } from './VestingModal';
 
 export const NotificationModal: FC = () => {
   const dispatch = useDispatch();
   const { modalState } = useShallowSelector<State, ModalsInitialState>(modalsSelector.getModals);
-  const address = useShallowSelector(userSelector.getProp('address'));
-  const { connect, disconnect } = useWalletConnectorContext();
+  const { address, nativeBalance } = useShallowSelector<State, UserState>(userSelector.getUser);
+  const {
+    currentIdo,
+    vestingInfo,
+    userInfo: { userAllocation, claimAmount },
+  } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
+
+  const { connect, disconnect, walletService } = useWalletConnectorContext();
   const currData = modalData[modalState.activeModal];
 
-  const [investValue, setInvestValue, setMaxInvestValue] = useValidateInputField(ValidationTypes.number);
-
-  const handleInvest = () => {};
+  const { [idoActionTypes.INVEST]: investRequestStatus, [idoActionTypes.CLAIM]: claimRequestStatus } =
+    useShallowSelector(uiSelector.getUI);
 
   const closeModal = useCallback(() => {
     dispatch(
@@ -43,13 +49,24 @@ export const NotificationModal: FC = () => {
         <DisconnectModal address={address} closeModal={closeModal} disconnect={disconnect} />
       )}
       {modalState.activeModal === Modals.Invest && (
-        <Invest
-          investValue={investValue}
-          maxInvestValue={MAX_INVEST_VALUE_MOCK.toString()}
-          userBalance={USER_BALANCE_MOCK}
-          onInvest={handleInvest}
-          onChangeInvestValue={setInvestValue}
-          onSetMaxInvestValue={setMaxInvestValue}
+        <InvestModal
+          userBalance={nativeBalance}
+          nativeBalance={nativeBalance}
+          userAllocation={userAllocation}
+          web3Provider={walletService.Web3()}
+          tokenPrice={+currentIdo.price}
+          investRequestStatus={investRequestStatus}
+          closeModal={closeModal}
+        />
+      )}
+      {modalState.activeModal === Modals.Vesting && (
+        <VestingModal
+          claimAmount={claimAmount}
+          idoIncrement={currentIdo.idoIncrement.toString()}
+          endTime={currentIdo.end}
+          vestingInfo={vestingInfo}
+          web3Provider={walletService.Web3()}
+          claimRequestStatus={claimRequestStatus}
           closeModal={closeModal}
         />
       )}

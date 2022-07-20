@@ -1,15 +1,15 @@
 import { FC } from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Tooltip, Typography } from '@mui/material';
 import { Countdown } from 'components';
 import { ProjectDataProps } from 'modules/ido/pages/Details/Details.types';
 import { FontWeights } from 'theme/Typography';
-import { BG_MAIN, BORDER_RADIUS_CARD_MEDIUM } from 'theme/variables';
+import { BG_MAIN, BORDER_RADIUS_CARD_MEDIUM, BORDER_RADIUS_DEFAULT } from 'theme/variables';
 import { IdoStatus } from 'types/store/requests';
 
 import { statusTextVariants } from '../../LauncherCard.helpers';
 
 export const LauncherInfo: FC<ProjectDataProps> = ({ projectData }) => {
-  const { status, projectName, logoUrl, tokenSymbol, price, tokenLogoUrl, timer } = projectData;
+  const { status, projectName, logoUrl, tokenSymbol, price, tokenLogoUrl, timer, start } = projectData;
 
   return (
     <Grid container justifyContent="space-between" height={{ md: 'auto', lg: '102px' }}>
@@ -39,20 +39,32 @@ export const LauncherInfo: FC<ProjectDataProps> = ({ projectData }) => {
               height: '75px',
               width: '75px',
             },
-
-            img: {
-              width: { xs: '54px', sm: '54px', md: '86px' },
-              height: { xs: '60px', sm: '60px', md: '86px' },
-            },
           })}
         >
-          <img src={logoUrl} alt="project logo" />
+          <Box
+            component="img"
+            src={logoUrl}
+            alt="project logo"
+            sx={{
+              width: { xs: '54px', sm: '54px', md: '86px' },
+              height: { xs: '60px', sm: '60px', md: '86px' },
+              borderRadius: BORDER_RADIUS_DEFAULT,
+            }}
+          />
         </Grid>
 
         <Grid item container direction="column" justifyContent="space-between" sx={{ height: '100%' }}>
-          <Typography variant="h1" textTransform="uppercase" sx={{ fontSize: { xs: '20px', sm: '20px', md: '30px' } }}>
-            {projectName}
-          </Typography>
+          <Tooltip title={projectName} arrow placement="bottom-start">
+            <Typography
+              variant="h1"
+              textTransform="uppercase"
+              noWrap
+              maxWidth={{ xs: 150, sm: 150, md: 350 }}
+              fontSize={{ xs: '20px', sm: '20px', md: '30px' }}
+            >
+              {projectName}
+            </Typography>
+          </Tooltip>
           <Typography variant="body2" textTransform="uppercase" fontWeight={FontWeights.fontWeightRegular}>
             price ({tokenSymbol}) = {price} CRO
           </Typography>
@@ -76,11 +88,19 @@ export const LauncherInfo: FC<ProjectDataProps> = ({ projectData }) => {
             height: '52px',
             background: BG_MAIN,
             borderRadius: '50%',
-            img: { width: '45px', height: '45px' },
           }}
         >
           <Grid container justifyContent="center" alignItems="center" height="100%">
-            <img src={tokenLogoUrl} alt="token logo" />
+            <Box
+              component="img"
+              src={tokenLogoUrl}
+              alt="token logo"
+              sx={{
+                width: '45px',
+                height: '45px',
+                borderRadius: '50%',
+              }}
+            />
           </Grid>
         </Box>
       </Grid>
@@ -98,7 +118,9 @@ export const LauncherInfo: FC<ProjectDataProps> = ({ projectData }) => {
         <Typography variant="body2" textTransform="uppercase" fontWeight={FontWeights.fontWeightRegular}>
           {statusTextVariants[status as IdoStatus]}
         </Typography>
-        {status !== 'completed' && <Countdown auctionEndText="Failed" endAuction={+timer} />}
+        {status !== IdoStatus.completedFail && status !== IdoStatus.completedSuccess && (
+          <Countdown auctionEndText="00d 00h 00m 00s" timer={+timer} startTime={+start} type={status} />
+        )}
       </Grid>
     </Grid>
   );

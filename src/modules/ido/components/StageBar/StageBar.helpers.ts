@@ -1,4 +1,4 @@
-import { intersection, isEqual } from 'lodash';
+import { isEqual } from 'lodash';
 import { IdoPublic, IdoStatus } from 'types/store/requests';
 
 export const statusVariantItems = [

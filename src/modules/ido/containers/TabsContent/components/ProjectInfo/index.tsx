@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Box, Grid, styled, Typography } from '@mui/material';
+import { Box, Grid, styled, Tooltip, Typography } from '@mui/material';
 import { ProjectDataProps } from 'modules/ido/pages/Details/Details.types';
 import { FontFamilies, FontWeights } from 'theme/Typography';
 import { BG_GRAY, BORDER_RADIUS_CARD_MEDIUM } from 'theme/variables';
@@ -16,7 +16,7 @@ const TextContainer = styled(Typography)(({ theme }) => ({
 }));
 
 export const ProjectInfo: FC<ProjectDataProps> = ({ projectData }) => {
-  const { tokenName, tokenSymbol, tokenAddress, totalSupply } = projectData;
+  const { tokenName, tokenSymbol, tokenAddress, totalSupply, decimals } = projectData;
   const titlesArray = ['Token Name', 'Token Symbol', 'Decimals', 'Address', 'Total Supply', 'Access type'];
   return (
     <>
@@ -67,13 +67,17 @@ export const ProjectInfo: FC<ProjectDataProps> = ({ projectData }) => {
               <TextContainer>{tokenSymbol}</TextContainer>
             </Grid>
             <Grid item>
-              <TextContainer>18</TextContainer>
+              <TextContainer>{decimals}</TextContainer>
             </Grid>
             <Grid item>
               <TextContainer>{shortenPhrase(tokenAddress, 4, 5)}</TextContainer>
             </Grid>
             <Grid item>
-              <TextContainer>{totalSupply} DDO</TextContainer>
+              <Tooltip title={totalSupply} arrow placement="left">
+                <TextContainer>
+                  {totalSupply} {tokenSymbol}
+                </TextContainer>
+              </Tooltip>
             </Grid>
             <Grid item>
               <TextContainer>{projectData.isPublic ? 'Public' : 'Private'}</TextContainer>

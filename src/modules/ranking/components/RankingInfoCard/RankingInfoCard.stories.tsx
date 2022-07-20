@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { RankingInfoCard } from './RankingInfoCard';
 import { rankingInfoCardPropsMocked } from './RankingInfoCard.mock';
+import { RankingInfoCard } from './RankingInfoCardProps';
 
 export default {
   title: 'components/RankingInfoCard',

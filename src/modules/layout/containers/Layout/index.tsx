@@ -5,7 +5,7 @@ import { Box, Container } from '@mui/material';
 import { useShallowSelector, useSmoothTopScroll, useWindowState } from 'hooks';
 import { useBreadcrumbs } from 'modules/layout/hooks';
 import { useWalletConnectorContext } from 'services';
-import { getNativeBalance, getRankId, updateUserData } from 'store/user/actions';
+import { updateUserData } from 'store/user/actions';
 import userSelector from 'store/user/selectors';
 import { BG_MAIN, HOME_IMAGE_BG, HOME_IMAGE_BG_MOBILE } from 'theme/variables';
 

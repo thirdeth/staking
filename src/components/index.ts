@@ -1,3 +1,4 @@
+export * from './Icon';
 export * from './Modal';
 export * from './ProgressBar';
 export * from './CopyText';

@@ -2,61 +2,57 @@ import { select } from 'redux-saga/effects';
 import { ContractsNames } from 'services/WalletService/config';
 import { notifyText } from 'services/WalletService/config/constants';
 import { error, request, success } from 'store/api/actions';
+import { baseApi } from 'store/api/apiRequestBuilder';
+import idoSelector from 'store/ido/selectors';
 import userActionTypes from 'store/user/actionTypes';
-import { getTokenBalanceSaga } from 'store/user/sagas/getTokenBalance';
+import { updateUserDataSaga } from 'store/user/sagas/updateUserData';
 import userSelector from 'store/user/selectors';
 import { call, put, takeLatest } from 'typed-redux-saga';
 import { UserState } from 'types';
-import { Erc20Abi, IdoFarmeAbi } from 'types/contracts';
+import { IdoFarmeAbi } from 'types/contracts';
+import { UpdateUserProps } from 'types/requests';
 import { getContractDataByItsName, getToastMessage, toDecimals } from 'utils';
 
-import { approveSaga } from '../../user/sagas/approve';
 import { onInvest } from '../actions';
 import actionTypes from '../actionTypes';
 
-export function* investSaga({
-  type,
-  payload: { web3Provider, amount, idoId, withWeights, proof },
-}: ReturnType<typeof onInvest>) {
-  yield put(request(type));
+export function* investSaga({ type, payload: { web3Provider, amount } }: ReturnType<typeof onInvest>) {
+  yield* put(request(type));
   const { address, chainType }: UserState = yield select(userSelector.getUser);
-  const [tokenAbi, tokenContractAddress] = getContractDataByItsName(ContractsNames.token, chainType);
+  const { idoIncrement, id, withWeights, decimals } = yield select(idoSelector.getProp('currentIdo'));
   const [idoFarmeAbi, idoFarmeContractAddress] = getContractDataByItsName(ContractsNames.idoFarme, chainType);
+
+  const amountWithDecimals = toDecimals(amount, +decimals);
 
   try {
     const idoFarmeContract: IdoFarmeAbi = yield new web3Provider.eth.Contract(idoFarmeAbi, idoFarmeContractAddress);
-    const tokenContract: Erc20Abi = yield new web3Provider.eth.Contract(tokenAbi, tokenContractAddress);
 
-    yield call(approveSaga, {
-      type: userActionTypes.APPROVE,
-      payload: {
-        web3Provider,
-        spenderAddress: tokenContractAddress,
-        tokenAddress: idoFarmeContractAddress,
-        amount,
-      },
-    });
-    const decimals = yield* call(tokenContract.methods.decimals().call);
-    const amountWithDecimals = toDecimals(amount, +decimals);
+    const { data } = yield* call(baseApi.getProof, { address, ido_id: id });
 
-    yield call(idoFarmeContract.methods.invest(idoId, idoId, proof).send, {
+    const weight = withWeights ? data.response.weight.toString() : '0';
+    const proof = withWeights ? data.response.proof : [];
+
+    yield* call(idoFarmeContract.methods.invest(idoIncrement.toString(), weight, proof).send, {
       from: address,
       to: idoFarmeContractAddress,
-      value: 123,
+      value: amountWithDecimals,
     });
 
-    yield call(getTokenBalanceSaga, {
-      type: userActionTypes.GET_TOKEN_BALANCE,
-      payload: { web3Provider },
+    yield* call(updateUserDataSaga, {
+      type: userActionTypes.UPDATE_USER_DATA,
+      payload: {
+        web3Provider,
+        updateParams: ['tokenBalance', 'nativeBalance'] as UpdateUserProps[],
+      },
     });
 
-    yield put(success(type));
+    yield* put(success(type));
     getToastMessage('success', notifyText.invest.success);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
     getToastMessage('error', notifyText.invest.error);
-    yield put(error(type));
+    yield* put(error(type));
   }
 }
 

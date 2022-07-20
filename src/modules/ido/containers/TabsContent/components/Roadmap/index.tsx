@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import ReactHtmlParser from 'react-html-parser';
 import { Grid, Typography } from '@mui/material';
 import { ProjectDataProps } from 'modules/ido/pages/Details/Details.types';
 
@@ -12,7 +13,7 @@ export const Roadmap: FC<ProjectDataProps> = ({ projectData }) => {
         </Typography>
       </Grid>
       <Grid item>
-        <Typography variant="body2">{roadmap}</Typography>
+        <Typography component="div">{ReactHtmlParser(roadmap)}</Typography>
       </Grid>
     </Grid>
   );

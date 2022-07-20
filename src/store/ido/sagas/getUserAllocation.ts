@@ -24,6 +24,7 @@ export function* getUserAllocationSaga({ type, payload: { address, pk } }: Retur
 
     yield* put(apiActions.success(type));
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log(err);
     yield* put(apiActions.error(type, err));
   }

@@ -25,9 +25,9 @@ const GridNavItem = styled(NavLink)({
 export const HeaderControls: FC<HeaderControlsProps> = ({ address, rankId, nativeBalance, width, onOpenModal }) => {
   return (
     <Grid container item justifyContent="space-between" alignItems="center" xs={12} wrap="nowrap">
-      {width < 900 && <Menu />}
+      <Menu />
 
-      <Grid container item alignItems="center" columnGap={width < 900 ? 1 : 2} paddingRight={0.5}>
+      <Grid container item alignItems="center" columnGap={{ xs: 1, sm: 1, md: 2 }} paddingRight={0.5}>
         <MainLogo />
         <Typography
           fontFamily={FontFamilies.secondary}
@@ -83,7 +83,7 @@ export const HeaderControls: FC<HeaderControlsProps> = ({ address, rankId, nativ
             background: { xs: BG_BLUE_LIGHT, sm: BG_BLUE_LIGHT, md: BG_BUTTON_BLUE },
           }}
           onClick={() => onOpenModal(Modals.ConnectWallet)}
-          startIcon={width < 900 && <WalletIcon sx={{ path: { fill: BG_BLUE } }} />}
+          startIcon={<WalletIcon sx={{ display: { xs: 'block', sm: 'block', md: 'none' }, path: { fill: BG_BLUE } }} />}
         >
           {width > 900 && 'Connect wallet'}
         </Button>

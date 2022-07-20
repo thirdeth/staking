@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 
-import { RankingInfoCard } from './RankingInfoCard';
 import { rankingInfoCardPropsMocked } from './RankingInfoCard.mock';
+import { RankingInfoCard } from './RankingInfoCardProps';
 
 describe('RankingInfoCard', () => {
   it('should render', () => {

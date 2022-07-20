@@ -1,11 +1,17 @@
 import { FC, RefObject } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Button, Grid, Link, Popover, styled, Typography } from '@mui/material';
-import { CopyText, UserStakingRankIds } from 'components';
+import { CopyText, RankInfo, UserStakingRankIds } from 'components';
 import { Close, OutIcon } from 'components/Icon/components';
-import RankInfo from 'components/RankInfo/RankInfo';
 import { FontFamilies, FontWeights } from 'theme/Typography';
-import { BG_BLUE, BG_BUTTON_WHITE, BORDER_RADIUS_POPOVER, COLOR_TEXT_RED, COLOR_TEXT_WHITE } from 'theme/variables';
+import {
+  BG_BLUE,
+  BG_BUTTON_WHITE,
+  BG_MAIN,
+  BORDER_RADIUS_POPOVER,
+  COLOR_TEXT_RED,
+  COLOR_TEXT_WHITE,
+} from 'theme/variables';
 
 import { accountLinkItems, buyCryptoLink } from './Popover.helpers';
 
@@ -75,7 +81,7 @@ export const AccountPopover: FC<AccountModalProps> = ({
           </Typography>
           <Button
             variant="text"
-            startIcon={<Close sx={{ maxWidth: '16px', maxHeight: '16px' }} />}
+            startIcon={<Close sx={{ maxWidth: '16px', maxHeight: '16px', path: { stroke: BG_MAIN } }} />}
             onClick={onClose}
             sx={{ p: 0 }}
           />

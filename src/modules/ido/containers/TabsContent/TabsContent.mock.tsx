@@ -9,7 +9,7 @@ export const tabsContentPropsMocked: ProjectDataProps = {
     projectName: 'KHB7sPwf',
     tokenName: 'IiQ8zh1eZX',
     tokenSymbol: 'IiQ',
-    totalSupply: 9934514,
+    totalSupply: '9934514',
     tokenAddress: '0x43bA502a34D66BAd37122E84da4697B900Ef55d2',
     isPublic: false,
     vesting: false,
@@ -37,5 +37,7 @@ export const tabsContentPropsMocked: ProjectDataProps = {
     decimals: 18,
     investors: '',
     targetedRaise: '',
+    withWeights: true,
+    idoIncrement: 1,
   },
 };

@@ -1,101 +1,161 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { routes } from 'appConstants';
 import { useShallowSelector } from 'hooks';
+import { noop } from 'lodash';
 import { useWalletConnectorContext } from 'services';
-import { getInvestmentsInfo, getUserAllocation, onRegistrationToIdo } from 'store/ido/actions';
+import { onClaim, onRefund, onRegistrationToIdo } from 'store/ido/actions';
 import idoSelector from 'store/ido/selectors';
 import { setActiveModal } from 'store/modals/reducer';
 import userSelector from 'store/user/selectors';
-import { Modals } from 'types';
+import { IdoState, Modals, State, UserState } from 'types';
 import { IdoStatus } from 'types/store/requests';
 
-export const useValidateLauncherBtn = (status: string): [string, () => void, boolean] => {
-  const [isBtnVisible, setBtnVisible] = useState(true);
+import { BtnHandlerType, HandlersKeys } from './useValidateLauncherBtn.types';
+import { validateWithoutWeights, validateWithWeights } from './useValidateLauncherBtnHelpers';
+
+export const useValidateLauncherBtn = (status: string): [string, () => void, boolean, string] => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { walletService } = useWalletConnectorContext();
-  const userAddress = useShallowSelector(userSelector.getProp('address'));
-  const { userAllocation } = useShallowSelector(idoSelector.getProp('userInfo'));
 
-  const handleNavigateToStake = () => {
+  const { address: userAddress, rankId } = useShallowSelector<State, UserState>(userSelector.getUser);
+  const {
+    userInfo: { userAllocation, claimAmount, payed },
+    currentIdo: { withWeights, vesting, idoIncrement, ownerAddress },
+  } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
+
+  // ----------------- Button handlers ------------------
+  const handleNavigateToStake = useCallback(() => {
     navigate(routes.staking.root.path);
-  };
+  }, [navigate]);
 
-  const handleOpenModal = (modalType: Modals) => {
-    dispatch(
-      setActiveModal({
-        activeModal: modalType,
-        txHash: '',
-        open: true,
-      }),
-    );
-  };
+  const handleOpenModal = useCallback(
+    (modalType: Modals) => {
+      dispatch(
+        setActiveModal({
+          activeModal: modalType,
+          txHash: '',
+          open: true,
+        }),
+      );
+    },
+    [dispatch],
+  );
 
-  const handleRegister = () => {
+  const handleRegister = useCallback(() => {
     if (id) {
       dispatch(
         onRegistrationToIdo({
           address: userAddress,
           pk: +id,
-        }),
-      );
-    }
-  };
-  const handleOpenClaimModal = () => {
-    console.log('open claim');
-  };
-
-  useEffect(() => {
-    if (userAddress.length && id) {
-      dispatch(
-        getUserAllocation({
-          address: userAddress,
-          pk: +id,
-        }),
-      );
-      dispatch(
-        getInvestmentsInfo({
           web3Provider: walletService.Web3(),
-          idoId: id,
+          idoIncrement: idoIncrement.toString(),
+          vesting: !!vesting,
+          ownerAddress: ownerAddress as string,
         }),
       );
     }
-  }, [dispatch, id, userAddress, walletService]);
+  }, [dispatch, id, idoIncrement, userAddress, vesting, walletService, ownerAddress]);
+
+  const handleClaim = useCallback(() => {
+    if (id) {
+      dispatch(
+        onClaim({
+          web3Provider: walletService.Web3(),
+          idoIncrement: idoIncrement.toString(),
+        }),
+      );
+    }
+  }, [dispatch, id, idoIncrement, walletService]);
+
+  const handleRefund = useCallback(() => {
+    dispatch(
+      onRefund({
+        web3Provider: walletService.Web3(),
+        idoIncrement: idoIncrement.toString(),
+      }),
+    );
+  }, [dispatch, idoIncrement, walletService]);
+
+  const getButtonHandlers = useCallback(() => {
+    return {
+      [HandlersKeys.navigate]: () => handleNavigateToStake,
+      [HandlersKeys.openInvestModal]: () => () => handleOpenModal(Modals.Invest),
+      [HandlersKeys.openConnectModal]: () => () => handleOpenModal(Modals.ConnectWallet),
+      [HandlersKeys.openVestingModal]: () => () => handleOpenModal(Modals.Vesting),
+      [HandlersKeys.register]: () => handleRegister,
+      [HandlersKeys.refund]: () => handleRefund,
+      [HandlersKeys.claim]: () => handleClaim,
+    };
+  }, [handleClaim, handleNavigateToStake, handleOpenModal, handleRefund, handleRegister]);
+  // --------------------------------------------------
+
+  const [isBtnVisible, setBtnVisible] = useState(true);
+  const [btnText, setBtnText] = useState('');
+  const [textMessage, setTextMessage] = useState('');
+  const [btnHandler, setBtnHandler] = useState<BtnHandlerType>(() => noop);
+
+  const handleValidateValidBtnProps = useCallback(() => {
+    // if user does not connected to wallet
+    if (!userAddress.length) {
+      setBtnText('Connect Wallet');
+      setBtnHandler(() => () => handleOpenModal(Modals.ConnectWallet));
+      setBtnVisible(true);
+    } else {
+      // if user connected and missed registration stage - btn will be hidden
+      if (status !== IdoStatus.register && userAllocation === null && withWeights) {
+        setBtnVisible(false);
+      }
+
+      // if project with weights parametrs
+      if (withWeights) {
+        const [{ text, handlerKey, isVisible }, infoText] = validateWithWeights(
+          status,
+          +rankId,
+          userAllocation,
+          +payed,
+          claimAmount,
+          vesting,
+        );
+        setBtnText(text);
+        setBtnHandler(getButtonHandlers()[handlerKey]);
+        setBtnVisible(isVisible);
+        setTextMessage(infoText);
+      }
+
+      // if project without weights parametrs
+      if (!withWeights) {
+        const [{ text, handlerKey, isVisible }, infoText] = validateWithoutWeights(
+          status,
+          +payed,
+          claimAmount,
+          vesting,
+        );
+        setBtnText(text);
+        setBtnHandler(getButtonHandlers()[handlerKey]);
+        setBtnVisible(isVisible);
+        setTextMessage(infoText);
+      }
+    }
+  }, [
+    vesting,
+    withWeights,
+    claimAmount,
+    getButtonHandlers,
+    handleOpenModal,
+    payed,
+    rankId,
+    status,
+    userAddress.length,
+    userAllocation,
+  ]);
 
   useEffect(() => {
-    if (userAllocation !== null) {
-      setBtnVisible(false);
-    }
-  }, [userAllocation]);
+    handleValidateValidBtnProps();
+  }, [handleValidateValidBtnProps]);
 
-  let btnText = 'Stake to participate';
-  let btnHandler = handleNavigateToStake;
-
-  // if user does not connected to wallet
-  if (!userAddress.length) {
-    btnText = 'Connect Wallet';
-    btnHandler = () => handleOpenModal(Modals.ConnectWallet);
-  } else {
-    // if user connected check the current project status
-    if (status === IdoStatus.register) {
-      btnText = 'Register';
-      btnHandler = handleRegister;
-    }
-    if (status === IdoStatus.registrationClosed) {
-      btnText = 'Stake more';
-    }
-    if (status === IdoStatus.registrationClosed) {
-      btnText = 'Invest';
-      btnHandler = () => handleOpenModal(Modals.Invest);
-    }
-    if (status === IdoStatus.completedSuccess || status === IdoStatus.completedFail) {
-      btnText = 'Claim';
-      btnHandler = handleOpenClaimModal;
-    }
-  }
-
-  return [btnText, btnHandler, isBtnVisible];
+  return [btnText, btnHandler, isBtnVisible, textMessage];
 };

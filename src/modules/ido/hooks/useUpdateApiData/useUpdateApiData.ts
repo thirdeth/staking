@@ -3,7 +3,7 @@ import idoSelector from 'store/ido/selectors';
 import { ProjectCardDataProps } from 'types';
 import { IdoStatus } from 'types/store/requests';
 
-import { getIdoTypeFromIdoStatus } from '../utils';
+import { getIdoTypeFromIdoStatus } from '../../utils';
 
 type ReturnType = {
   idos: ProjectCardDataProps[];

@@ -62,6 +62,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/jsx-no-constructed-context-values': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'react/display-name': 'off',
     'react/function-component-definition': [
       2,
       {

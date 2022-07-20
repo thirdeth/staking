@@ -23,6 +23,17 @@ export type RegistrationIdoReq = {
   address: string;
   pk: number;
 };
+export type GetProofReq = {
+  address: string;
+  ido_id: number;
+};
+
+export type RegistretionIdoWithUpdatesReq = {
+  idoIncrement: string;
+  vesting: boolean;
+  ownerAddress: string;
+} & RegistrationIdoReq &
+  RequestWithWeb3Provider;
 
 export type BodyWithToken<T = never> = {
   token?: string;
@@ -58,9 +69,16 @@ export type StakeReq = {
 
 export type InvestReq = {
   amount: string;
-  idoId: number;
-  withWeights: boolean;
-  proof: string[];
+} & RequestWithWeb3Provider;
+
+export type ClaimReq = {
+  idoIncrement: string;
+} & RequestWithWeb3Provider;
+
+export type AddLiquidityReq = {
+  idoIncrement: string;
+  tokenAddress: string;
+  decimals: number;
 } & RequestWithWeb3Provider;
 
 export type ChangeUserStakeItemReq = {
@@ -73,4 +91,7 @@ export type UpdateUserDataReq = {
 
 export type GetIvestmentsInfoReq = {
   idoId: string;
+  idoIncrement: string;
+  vesting: boolean;
+  ownerAddress: string;
 } & RequestWithWeb3Provider;

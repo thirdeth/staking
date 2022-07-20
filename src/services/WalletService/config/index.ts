@@ -110,13 +110,13 @@ export const contractsConfig: IContracts = {
     [ContractsNames.staking]: {
       testnet: {
         address: {
-          [Chains.Cronos]: '0xbdcb7d4B4EF6d90497b72C61f264B0eC24AEf692',
+          [Chains.Cronos]: '0xE303dD7146E67D3Bd438e54971ebd9076908e7d5',
         },
         abi: stakingAbi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains.Cronos]: '0xbdcb7d4B4EF6d90497b72C61f264B0eC24AEf692',
+          [Chains.Cronos]: '0xE303dD7146E67D3Bd438e54971ebd9076908e7d5',
         },
         abi: stakingAbi as AbiItem[],
       },
@@ -138,13 +138,13 @@ export const contractsConfig: IContracts = {
     [ContractsNames.idoFarme]: {
       testnet: {
         address: {
-          [Chains.Cronos]: '0x7DD5fA3c3a17CCF2Df8A6C999c55CD783ee31BE5',
+          [Chains.Cronos]: '0x0435C135ab271afC3273c6098AB1Ab6AbFd6c318',
         },
         abi: idoFarmeAbi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains.Cronos]: '0x7DD5fA3c3a17CCF2Df8A6C999c55CD783ee31BE5',
+          [Chains.Cronos]: '0x0435C135ab271afC3273c6098AB1Ab6AbFd6c318',
         },
         abi: idoFarmeAbi as AbiItem[],
       },

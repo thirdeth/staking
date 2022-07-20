@@ -1,4 +1,4 @@
-import { RankingInfoCardProps } from './RankingInfoCard';
+import { RankingInfoCardProps } from './RankingInfoCardProps';
 
 export const rankingInfoCardPropsMocked: RankingInfoCardProps = {
   rankId: 1,

@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { CssBaseline, ThemeProvider } from '@mui/material';
+import { Spinner } from 'components';
 import { Layout } from 'modules/layout/containers';
 import { RouteManager } from 'modules/router/containers';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -21,7 +22,7 @@ root.render(
   <Provider store={store.store}>
     <PersistGate loading={null} persistor={store.persistor}>
       <Router>
-        <Suspense fallback={<div>Loading ...</div>}>
+        <Suspense fallback={<Spinner size="xl" />}>
           <WalletConnectContext>
             <ThemeProvider theme={theme}>
               <CssBaseline />

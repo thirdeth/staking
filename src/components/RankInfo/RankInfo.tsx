@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, BoxProps, Button, Typography } from '@mui/material';
 import { routes } from 'appConstants';
@@ -18,7 +18,7 @@ export interface RankInfoProps {
   onClick?: () => void;
 }
 
-const RankInfo: FC<RankInfoProps & Pick<BoxProps, 'sx'>> = ({
+export const RankInfo: FC<RankInfoProps & Pick<BoxProps, 'sx'>> = ({
   rankId = 1,
   size,
   subtitle,
@@ -88,9 +88,8 @@ const RankInfo: FC<RankInfoProps & Pick<BoxProps, 'sx'>> = ({
                 {currentRank?.title}
               </Typography>
             ) : (
-              <Link to={routes.staking.ranking.root.path} onClick={onClick}>
+              <Link to={rankId === 0 ? routes.staking.root.path : routes.staking.ranking.root.path} onClick={onClick}>
                 {/* For small popover onClick version */}
-
                 {rankId !== 0 && (
                   <Typography sx={{ color: hideText ? 'transparent' : styleHelper[type].rankColor }} variant="h4">
                     {currentRank?.title}
@@ -124,5 +123,3 @@ const RankInfo: FC<RankInfoProps & Pick<BoxProps, 'sx'>> = ({
     </Box>
   );
 };
-
-export default memo(RankInfo);

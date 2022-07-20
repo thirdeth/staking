@@ -13,6 +13,7 @@ export interface IDO {
   end: string;
   hardCap: string;
   id?: number;
+  idoIncrement: number;
   investor?: string;
   investors?: string;
   isPublic?: boolean;
@@ -37,10 +38,11 @@ export interface IDO {
   tokenSymbol: string;
   tokenomics?: Tokenomic[];
   totalBought: string;
-  totalSupply: number;
+  totalSupply: string;
   twitter: string;
   unlockPercent?: number;
   unlockStepTime?: number;
   vesting?: boolean;
   videoUrl?: string;
+  withWeights?: boolean;
 }

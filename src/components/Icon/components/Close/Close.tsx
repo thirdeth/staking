@@ -13,7 +13,7 @@ export const Close: FC<SvgIconProps> = ({ sx, ...props }) => (
   >
     <path
       d="M6.5 18L18.5 6M6.5 6L18.5 18"
-      stroke="white"
+      stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"

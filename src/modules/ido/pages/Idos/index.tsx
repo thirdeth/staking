@@ -13,7 +13,7 @@ import { getIdoList } from 'store/ido/actions';
 import idoActionTypes from 'store/ido/actionTypes';
 import { updateIdoState } from 'store/ido/reducer';
 import uiSelector from 'store/ui/selectors';
-import { COLOR_TEXT_BLACK } from 'theme/variables';
+import { BG_BLUE, COLOR_TEXT_BLACK } from 'theme/variables';
 import { PARAMS, RequestStatus } from 'types';
 import { IdoPublic, IdoStatus } from 'types/store/requests';
 
@@ -131,6 +131,9 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
             my: 5,
             color: COLOR_TEXT_BLACK,
             borderWidth: 2,
+            '&:hover': {
+              border: `2px solid ${BG_BLUE}`,
+            },
           }}
           fullWidth
           variant="outlined"

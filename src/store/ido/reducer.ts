@@ -10,11 +10,15 @@ const initialState: IdoState = {
   currentIdo: {} as IDO,
   userInfo: {
     userAllocation: null,
-    claimed: '',
-    bought: '',
     payed: '',
-    claimAmount: '',
+    claimAmount: [],
   },
+  vestingInfo: {
+    startUnlockPercent: '',
+    unlockPercent: '',
+    unlockStepTime: '',
+  },
+  isLiqAdded: false,
 };
 
 export const idoReducer = createSlice({
@@ -25,9 +29,14 @@ export const idoReducer = createSlice({
       ...state,
       ...action.payload,
     }),
+    resetCurrentIdo: (state: IdoState) => ({
+      ...state,
+      ...initialState.currentIdo,
+      ...initialState.userInfo,
+    }),
   },
 });
 
-export const { updateIdoState } = idoReducer.actions;
+export const { updateIdoState, resetCurrentIdo } = idoReducer.actions;
 
 export default idoReducer.reducer;

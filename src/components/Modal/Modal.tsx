@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from 'react';
 import { Box, Dialog, Grid, IconButton, styled, Typography } from '@mui/material';
 import { Close } from 'components/Icon/components';
-import { BG_BLUE, COLOR_TEXT_WHITE } from 'theme/variables';
+import { BG_BLUE, BG_BLUE_ACCENT, BG_MAIN, COLOR_TEXT_WHITE } from 'theme/variables';
 
 export interface ModalProps {
   // size?: 'sm' | 'md' | 'lg';
@@ -46,7 +46,10 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = ({ open, onClose, closab
           </Grid>
           {closable && (
             <Grid item>
-              <CloseIconButton onClick={onClose}>
+              <CloseIconButton
+                onClick={onClose}
+                sx={{ svg: { path: { stroke: BG_MAIN } }, '&:hover': { svg: { path: { stroke: BG_BLUE_ACCENT } } } }}
+              >
                 <Close />
               </CloseIconButton>
             </Grid>

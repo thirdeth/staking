@@ -1,5 +1,11 @@
 import { IDO } from 'types/api/IDO';
 
+export type VestingInfoProps = {
+  startUnlockPercent: string;
+  unlockPercent: string;
+  unlockStepTime: string;
+};
+
 export type IdoState = {
   ido: {
     count: number;
@@ -8,9 +14,9 @@ export type IdoState = {
   currentIdo: IDO;
   userInfo: {
     userAllocation: string | null;
-    claimed: string;
-    bought: string;
     payed: string;
-    claimAmount: string;
+    claimAmount: string[];
   };
+  vestingInfo: VestingInfoProps;
+  isLiqAdded: boolean;
 };

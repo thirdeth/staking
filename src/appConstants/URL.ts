@@ -6,4 +6,5 @@ export default {
   getUserAllocation: ({ address, pk }: RegistrationIdoReq) => `/investor_allocation/?address=${address}&pk=${pk}`,
   registrationToIdo: '/registration_to_ido/',
   getTopInvestors: '/get_top_investors/',
+  getProof: '/get_proof/',
 };

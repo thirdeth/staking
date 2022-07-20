@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { Box, Grid, styled, Typography } from '@mui/material';
-import { CopyText, GrowRate } from 'components';
-import RankInfo from 'components/RankInfo/RankInfo';
+import { CopyText, GrowRate, RankInfo } from 'components';
 import { COLOR_TEXT_GRAY_DARK } from 'theme/variables';
 import { RankCardDataProps } from 'types';
 import { dateFormatter, shortenPhrase } from 'utils';

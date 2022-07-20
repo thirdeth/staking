@@ -1,7 +1,13 @@
+import { noop } from 'lodash';
+
 import { LauncherCardProps } from './LauncherCard';
 
 export const launcherCardPropsMocked: LauncherCardProps = {
   isRegistration: false,
+  isGettingInvestmentsInfo: false,
+  isCanAddLiquidity: false,
+  isAddingLiquidity: false,
+  onAddLiauidity: () => noop,
   projectData: {
     id: 1,
     timer: '1657700814',
@@ -10,7 +16,7 @@ export const launcherCardPropsMocked: LauncherCardProps = {
     projectName: 'KHB7sPwf',
     tokenName: 'IiQ8zh1eZX',
     tokenSymbol: 'IiQ',
-    totalSupply: 9934514,
+    totalSupply: '9934514',
     tokenAddress: '0x43bA502a34D66BAd37122E84da4697B900Ef55d2',
     isPublic: false,
     vesting: false,
@@ -38,6 +44,8 @@ export const launcherCardPropsMocked: LauncherCardProps = {
     decimals: 18,
     investors: '',
     targetedRaise: '',
+    withWeights: true,
+    idoIncrement: 1,
   },
   userAllocation: '',
 };

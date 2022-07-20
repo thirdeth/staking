@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import RankInfo from './RankInfo';
+import { RankInfo } from './RankInfo';
 import { rankInfoPropsMocked } from './RankInfo.mock';
 
 export default {

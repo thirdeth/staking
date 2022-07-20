@@ -49,10 +49,17 @@ export const StageBar: FC<StageBarProps> = ({ idoStatus, publicFilterValue, onCh
                 ? {
                     color: COLOR_TEXT_WHITE,
                     background: BG_BLUE,
+                    '&:hover': {
+                      background: BG_BLUE,
+                    },
                   }
                 : {
                     color: COLOR_TEXT_BLACK,
                     background: 'transparent',
+                    '&:hover': {
+                      color: COLOR_TEXT_WHITE,
+                      background: BG_BLUE,
+                    },
                   };
               return {
                 p: 0,

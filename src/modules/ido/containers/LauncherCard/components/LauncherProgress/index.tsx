@@ -1,12 +1,16 @@
 import { FC } from 'react';
 import { Grid, Typography } from '@mui/material';
 import { ProgressBar } from 'components';
+import { getTooltipWithLoading } from 'modules/ido/utils';
 
 import { LauncherCardProps } from '../../LauncherCard';
 
-export const LauncherProgress: FC<Pick<LauncherCardProps, 'projectData' | 'userAllocation'>> = ({
+type LauncherProgressProps = Pick<LauncherCardProps, 'projectData' | 'userAllocation' | 'isGettingInvestmentsInfo'>;
+
+export const LauncherProgress: FC<LauncherProgressProps> = ({
   projectData,
   userAllocation,
+  isGettingInvestmentsInfo,
 }) => {
   const { totalBought, hardCap } = projectData;
 
@@ -26,31 +30,27 @@ export const LauncherProgress: FC<Pick<LauncherCardProps, 'projectData' | 'userA
           md={5}
         >
           <Typography variant="body2" fontWeight={700}>
-            Total Raise:
+            Total Raise:&nbsp;
           </Typography>
-          <Typography variant="body2" fontWeight={700}>
-            {totalBought} CLZ
-          </Typography>
+
+          {getTooltipWithLoading(isGettingInvestmentsInfo, totalBought)}
         </Grid>
 
         <Grid
           item
           container
           justifyContent={{ xs: 'flex-start', sm: 'flex-start', md: 'space-between' }}
+          alignItems="center"
           xs={12}
           sm={12}
           md={7}
         >
           {userAllocation && (
-            <Grid item container direction={{ xs: 'column', sm: 'column', md: 'row' }} xs={6}>
-              <>
-                <Typography variant="body2" fontWeight={700}>
-                  Allocation:
-                </Typography>
-                <Typography variant="body2" fontWeight={700}>
-                  {userAllocation} CLZ MAX
-                </Typography>
-              </>
+            <Grid item container alignItems="center" direction={{ xs: 'column', sm: 'column', md: 'row' }} xs={6}>
+              <Typography variant="body2" fontWeight={700}>
+                Allocation:&nbsp;
+              </Typography>
+              {getTooltipWithLoading(isGettingInvestmentsInfo, userAllocation)}
             </Grid>
           )}
 
@@ -58,15 +58,14 @@ export const LauncherProgress: FC<Pick<LauncherCardProps, 'projectData' | 'userA
             item
             container
             justifyContent={{ xs: 'space-between', sm: 'space-between', md: 'flex-end' }}
+            alignItems="center"
             direction={{ xs: 'column', sm: 'column', md: 'row' }}
             xs={userAllocation ? 6 : 12}
           >
             <Typography variant="body2" fontWeight={700}>
-              Target Raise:
+              Target Raise:&nbsp;
             </Typography>
-            <Typography variant="body2" fontWeight={700}>
-              {hardCap} CLZ
-            </Typography>
+            {getTooltipWithLoading(isGettingInvestmentsInfo, hardCap)}
           </Grid>
         </Grid>
       </Grid>

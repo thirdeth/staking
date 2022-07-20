@@ -9,5 +9,4 @@ export * from './getToastMessage';
 export * from './validateStatus';
 export * from './getDisplayStageName';
 export * from './getFormatedCounterDate';
-export * from './getEmbedYoutubeLink';
 export * from './camelize';

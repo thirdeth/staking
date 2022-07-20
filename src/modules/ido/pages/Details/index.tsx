@@ -1,19 +1,23 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import { Grid, Typography } from '@mui/material';
 import { ApplyCard } from 'components';
 import { useShallowSelector } from 'hooks';
 import { isEmpty } from 'lodash';
-import { LauncherCard, TabsContent } from 'modules/ido/containers';
-import { LauncherSkeletonCard } from 'modules/ido/containers/LauncherCard/components';
-import { getIdoById } from 'store/ido/actions';
+import { LauncherCard, SkeletonContainer, TabsContent } from 'modules/ido/containers';
+import { useUpdateIdoData } from 'modules/ido/hooks';
+import { useWalletConnectorContext } from 'services';
+import { getIdoById, getInvestmentsInfo, onAddLiquidity } from 'store/ido/actions';
 import idoActionTypes from 'store/ido/actionTypes';
+import { resetCurrentIdo } from 'store/ido/reducer';
 import idoSelector from 'store/ido/selectors';
 import uiSelector from 'store/ui/selectors';
+import userSelector from 'store/user/selectors';
 import { FontFamilies, FontWeights } from 'theme/Typography';
 import { COLOR_TEXT_BLUE } from 'theme/variables';
-import { RequestStatus } from 'types';
+import { IdoState, RequestStatus, State } from 'types';
+import { IdoStatus } from 'types/store/requests';
 import { getDisplayStageName } from 'utils';
 
 import { IdoRequiredProps } from './Details.types';
@@ -21,25 +25,84 @@ import { IdoRequiredProps } from './Details.types';
 export const Details: FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const projectData = useShallowSelector(idoSelector.getProp('currentIdo')) as IdoRequiredProps;
-  const { userAllocation } = useShallowSelector(idoSelector.getProp('userInfo'));
+  const { walletService } = useWalletConnectorContext();
 
   const {
-    [idoActionTypes.REGISTRATION_TO_IDO]: registrationRequestStatus,
+    currentIdo,
+    userInfo: { userAllocation },
+    isLiqAdded,
+  } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
+  const { idoIncrement, ownerAddress, vesting, status, tokenAddress, decimals } = currentIdo as IdoRequiredProps;
+  const userAddress = useShallowSelector(userSelector.getProp('address'));
+
+  // for refresh ido data
+  useUpdateIdoData(currentIdo, id);
+  const [isCanAddLiquidity, setCanAddLiquidity] = useState(false);
+
+  const {
     [idoActionTypes.GET_IDO_BY_ID]: getIdoByIdRequestStatus,
+    [idoActionTypes.ADD_LIQUIDITY]: addLiquidityRequestStatus,
+    [idoActionTypes.REGISTRATION_TO_IDO]: registrationRequestStatus,
+    [idoActionTypes.GET_INVESTMENTS_INFO]: getInvestmentsInfoRequestStatus,
   } = useShallowSelector(uiSelector.getUI);
-  const isRegistration = registrationRequestStatus === RequestStatus.REQUEST;
+
   const isGettingIdoById = getIdoByIdRequestStatus === RequestStatus.REQUEST;
+  const isRegistration = registrationRequestStatus === RequestStatus.REQUEST;
+  const isAddingLiquidity = addLiquidityRequestStatus === RequestStatus.REQUEST;
+  const isGettingInvestmentsInfo = getInvestmentsInfoRequestStatus === RequestStatus.REQUEST;
+
+  const isDataLoaded = !isEmpty(currentIdo) && !isGettingIdoById;
+
+  const handleAddLiquidity = () => {
+    dispatch(
+      onAddLiquidity({
+        web3Provider: walletService.Web3(),
+        idoIncrement: idoIncrement.toString(),
+        tokenAddress,
+        decimals,
+      }),
+    );
+  };
 
   useEffect(() => {
     if (id) {
       dispatch(getIdoById({ id }));
     }
-  }, [dispatch, id]);
+
+    return () => {
+      dispatch(resetCurrentIdo());
+    };
+  }, [dispatch, id, walletService]);
+
+  useEffect(() => {
+    if (id && userAddress.length && !isEmpty(currentIdo)) {
+      dispatch(
+        getInvestmentsInfo({
+          web3Provider: walletService.Web3(),
+          idoId: id,
+          idoIncrement: idoIncrement.toString(),
+          vesting,
+          ownerAddress,
+        }),
+      );
+    }
+  }, [currentIdo, dispatch, id, idoIncrement, ownerAddress, userAddress.length, vesting, walletService]);
+
+  useEffect(() => {
+    const isLoginAndDataLoaded = userAddress?.length && ownerAddress?.length;
+    const isUserAdmin = userAddress?.toLowerCase() === ownerAddress?.toLowerCase();
+    const isCompletedSuccess = status === IdoStatus.completedSuccess;
+    // if user is owner IDO and liquidity is not added
+    if (isLoginAndDataLoaded && isUserAdmin && !isLiqAdded && isCompletedSuccess) {
+      setCanAddLiquidity(true);
+    } else {
+      setCanAddLiquidity(false);
+    }
+  }, [isLiqAdded, ownerAddress, status, userAddress]);
 
   return (
     <>
-      {!isEmpty(projectData) && !isGettingIdoById && (
+      {isDataLoaded && (
         <Grid container justifyContent="space-between" alignItems="flex-start" spacing={3} sx={{ overflowX: 'hidden' }}>
           <Grid item xs={12}>
             <Typography
@@ -54,21 +117,31 @@ export const Details: FC = () => {
                 },
               }}
             >
-              Status: <strong>{getDisplayStageName(projectData.status)}</strong>
+              Status: <strong>{getDisplayStageName(status)}</strong>
             </Typography>
           </Grid>
+
           <Grid item xs={12}>
-            <LauncherCard projectData={projectData} userAllocation={userAllocation} isRegistration={isRegistration} />
+            <LauncherCard
+              projectData={currentIdo as IdoRequiredProps}
+              userAllocation={userAllocation}
+              isCanAddLiquidity={isCanAddLiquidity}
+              isRegistration={isRegistration}
+              onAddLiauidity={handleAddLiquidity}
+              isAddingLiquidity={isAddingLiquidity}
+              isGettingInvestmentsInfo={isGettingInvestmentsInfo}
+            />
           </Grid>
           <Grid item xs={12}>
-            <TabsContent projectData={projectData} />
+            <TabsContent projectData={currentIdo as IdoRequiredProps} />
           </Grid>
           <Grid item xs={12}>
             <ApplyCard size="s" />
           </Grid>
         </Grid>
       )}
-      {isGettingIdoById && <LauncherSkeletonCard />}
+
+      {isGettingIdoById && <SkeletonContainer />}
     </>
   );
 };

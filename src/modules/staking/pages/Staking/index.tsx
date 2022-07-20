@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useEffect, useState } from 'react';
+import { FC, MouseEvent, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Box, Button, Grid, Typography } from '@mui/material';
@@ -47,21 +47,21 @@ export const Staking: FC<StakingProps> = ({ title }) => {
   const isWithdrawing = withdrawRequestStatus === RequestStatus.REQUEST;
   const isGettingUserStakes = getUserStakesRequestStatus === RequestStatus.REQUEST;
 
-  const handleCahngeStakePeriod = (event: MouseEvent<HTMLElement>) => {
+  const handleCahngeStakePeriod = useCallback((event: MouseEvent<HTMLElement>) => {
     const { value } = event.target as HTMLButtonElement;
     setStakePeriod(+value);
-  };
+  }, []);
 
-  const handleOpenConnectModal = () => {
+  const handleOpenConnectModal = useCallback(() => {
     dispatch(
       setActiveModal({
         activeModal: Modals.ConnectWallet,
         open: true,
       }),
     );
-  };
+  }, [dispatch]);
 
-  const handleStake = () => {
+  const handleStake = useCallback(() => {
     dispatch(
       onStake({
         web3Provider: walletService.Web3(),
@@ -69,26 +69,29 @@ export const Staking: FC<StakingProps> = ({ title }) => {
         poolId: stakePeriod,
       }),
     );
-  };
+  }, [dispatch, stakePeriod, stakeValue, walletService]);
 
-  const handleChangeStakeItem = (changeType: ChangeStakeItemType, stakeIndex: number) => {
-    if (changeType === 'harvest') {
-      dispatch(
-        onHarvest({
-          web3Provider: walletService.Web3(),
-          stakeIndex,
-        }),
-      );
-    }
-    if (changeType === 'withdraw') {
-      dispatch(
-        onWithdraw({
-          web3Provider: walletService.Web3(),
-          stakeIndex,
-        }),
-      );
-    }
-  };
+  const handleChangeStakeItem = useCallback(
+    (changeType: ChangeStakeItemType, stakeIndex: number) => {
+      if (changeType === 'harvest') {
+        dispatch(
+          onHarvest({
+            web3Provider: walletService.Web3(),
+            stakeIndex,
+          }),
+        );
+      }
+      if (changeType === 'withdraw') {
+        dispatch(
+          onWithdraw({
+            web3Provider: walletService.Web3(),
+            stakeIndex,
+          }),
+        );
+      }
+    },
+    [dispatch, walletService],
+  );
 
   useEffect(() => {
     if (address.length) {

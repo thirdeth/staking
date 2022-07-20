@@ -15,7 +15,7 @@ export const Menu: FC = () => {
       <Button
         ref={popoverRef}
         startIcon={<BurgerIcon sx={{ path: { fill: BG_MAIN } }} />}
-        sx={{ pr: 0, pl: 1, minWidth: '56px' }}
+        sx={{ pr: 0, pl: 1, minWidth: '56px', display: { xs: 'block', sm: 'block', md: 'none' } }}
         onClick={onOpenMenu}
       />
       {isMenuVisible && <MenuPopover visible={isMenuVisible} anchorEl={popoverRef} onClose={onCloseMenu} />}
