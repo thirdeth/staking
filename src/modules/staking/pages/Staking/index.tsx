@@ -11,11 +11,10 @@ import { ChartCard, StakesCardsHeader } from 'modules/staking/components';
 import { StakingForm } from 'modules/staking/containers';
 import { useWalletConnectorContext } from 'services';
 import { setActiveModal } from 'store/modals/reducer';
-import { getUserStakes, onHarvest, onStake, onWithdraw } from 'store/staking/actions';
+import { onHarvest, onStake, onWithdraw } from 'store/staking/actions';
 import stakingActionTypes from 'store/staking/actionTypes';
 import stakingSelector from 'store/staking/selectors';
 import uiSelector from 'store/ui/selectors';
-import { getTokenBalance } from 'store/user/actions';
 import userSelector from 'store/user/selectors';
 import { Modals, RequestStatus, StakingState, State, UserState } from 'types';
 
@@ -92,13 +91,6 @@ export const Staking: FC<StakingProps> = ({ title }) => {
     },
     [dispatch, walletService],
   );
-
-  useEffect(() => {
-    if (address.length) {
-      dispatch(getTokenBalance({ web3Provider: walletService.Web3() }));
-      dispatch(getUserStakes({ web3Provider: walletService.Web3() }));
-    }
-  }, [address.length, dispatch, walletService]);
 
   useEffect(() => {
     if (stakeRequestStatus === RequestStatus.SUCCESS) {

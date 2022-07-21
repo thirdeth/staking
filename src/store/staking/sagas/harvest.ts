@@ -11,6 +11,8 @@ import { getContractDataByItsName, getToastMessage } from 'utils';
 import { onHarvest } from '../actions';
 import actionTypes from '../actionTypes';
 
+import { getUserStakesSaga } from './getUserStakes';
+
 export function* harvestSaga({ type, payload: { web3Provider, stakeIndex } }: ReturnType<typeof onHarvest>) {
   yield put(request(type));
   const { address, chainType }: UserState = yield select(userSelector.getUser);
@@ -21,6 +23,11 @@ export function* harvestSaga({ type, payload: { web3Provider, stakeIndex } }: Re
 
     yield call(stakingContract.methods.harvest(stakeIndex).send, {
       from: address,
+    });
+
+    yield call(getUserStakesSaga, {
+      type: actionTypes.GET_USER_STAKES,
+      payload: { web3Provider },
     });
 
     yield put(success(type));

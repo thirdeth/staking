@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Box, Button, Grid, styled, Typography } from '@mui/material';
 import { LogoSmall } from 'components/Icon/components';
 import { useModal } from 'hooks';
@@ -25,12 +25,7 @@ export const Stakes: FC<StakesProps> = ({ cardData, isHarvesting, isWithdrawing,
   const { id, stakesData } = cardData as StakesCardDataProps;
   // if undefined its value does not show at html. verification is in markup
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [staked, earned, poolId, daysLeft]: any = stakesData;
-
-  const handleChangeSure = (flag: boolean) => {
-    setAllowToWithdraw(flag);
-    onCloseSurePopup();
-  };
+  const [staked, earned, poolId, comissionPercent, daysLeft]: any = stakesData;
 
   const handleWithdrawChange = () => {
     if (isAllowToWithdraw && onChangeStakeItem) {
@@ -39,6 +34,24 @@ export const Stakes: FC<StakesProps> = ({ cardData, isHarvesting, isWithdrawing,
       setSurePopupVisible();
     }
   };
+
+  const handleChangeSure = (isSure: boolean) => {
+    if (isSure && onChangeStakeItem) {
+      setAllowToWithdraw(isSure);
+      onCloseSurePopup();
+      onChangeStakeItem('withdraw', id);
+    } else {
+      setAllowToWithdraw(isSure);
+      onCloseSurePopup();
+    }
+  };
+
+  useEffect(() => {
+    const isUserStakesClosed = +dateFormatter(+daysLeft, 'lll', true) === 0;
+    if (isUserStakesClosed) {
+      setAllowToWithdraw(true);
+    }
+  }, [daysLeft]);
 
   return (
     <Grid
@@ -56,7 +69,6 @@ export const Stakes: FC<StakesProps> = ({ cardData, isHarvesting, isWithdrawing,
           </Box>
         </Grid>
       )}
-
       {earned && (
         <Grid item container md={2.5} xs={4} justifyContent={{ xs: 'center', sm: 'center', md: 'flex-start' }}>
           <Typography variant="body2" textTransform="none">
@@ -107,6 +119,7 @@ export const Stakes: FC<StakesProps> = ({ cardData, isHarvesting, isWithdrawing,
           visible={isSurePopupVisible}
           onClose={onCloseSurePopup}
           onChangeSure={handleChangeSure}
+          comissionPercent={comissionPercent}
         />
       )}
     </Grid>

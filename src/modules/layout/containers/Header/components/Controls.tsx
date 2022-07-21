@@ -52,7 +52,11 @@ export const HeaderControls: FC<HeaderControlsProps> = ({ address, rankId, nativ
               <Grid key={id} item>
                 <GridNavItem to={path}>
                   {({ isActive }) => (
-                    <Typography variant="body2" color={isActive ? COLOR_TEXT_BLUE : COLOR_TEXT_BLACK}>
+                    <Typography
+                      variant="body2"
+                      color={isActive ? COLOR_TEXT_BLUE : COLOR_TEXT_BLACK}
+                      sx={{ '&:hover': { color: COLOR_TEXT_BLUE } }}
+                    >
                       {title}
                     </Typography>
                   )}

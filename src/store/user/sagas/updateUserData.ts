@@ -1,9 +1,9 @@
-import { select } from 'redux-saga/effects';
+import { select, takeEvery } from 'redux-saga/effects';
 import { error, request, success } from 'store/api/actions';
 import stakingActionTypes from 'store/staking/actionTypes';
 import { getUserStakesSaga } from 'store/staking/sagas/getUserStakes';
 import userSelector from 'store/user/selectors';
-import { call, put, takeLatest } from 'typed-redux-saga';
+import { call, put } from 'typed-redux-saga';
 import { UserState } from 'types';
 
 import { updateUserData } from '../actions';
@@ -24,10 +24,9 @@ export function* updateUserDataSaga({
     if (!userAddress.length) {
       return;
     }
-
-    if (updateParams.includes('tokenBalance')) {
-      yield call(getTokenBalanceSaga, {
-        type: actionTypes.GET_TOKEN_BALANCE,
+    if (updateParams.includes('userStakes')) {
+      yield call(getUserStakesSaga, {
+        type: stakingActionTypes.GET_USER_STAKES,
         payload: { web3Provider },
       });
     }
@@ -37,9 +36,9 @@ export function* updateUserDataSaga({
         payload: { web3Provider },
       });
     }
-    if (updateParams.includes('userStakes')) {
-      yield call(getUserStakesSaga, {
-        type: stakingActionTypes.GET_USER_STAKES,
+    if (updateParams.includes('tokenBalance')) {
+      yield call(getTokenBalanceSaga, {
+        type: actionTypes.GET_TOKEN_BALANCE,
         payload: { web3Provider },
       });
     }
@@ -59,5 +58,5 @@ export function* updateUserDataSaga({
 }
 
 export default function* listener() {
-  yield takeLatest(actionTypes.UPDATE_USER_DATA, updateUserDataSaga);
+  yield takeEvery(actionTypes.UPDATE_USER_DATA, updateUserDataSaga);
 }

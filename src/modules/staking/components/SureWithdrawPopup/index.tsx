@@ -1,15 +1,25 @@
-import { FC, RefObject } from 'react';
+import { FC, RefObject, useMemo } from 'react';
 import { Box, Button, Popover, Typography } from '@mui/material';
 import { BG_MAIN, BORDER_RADIUS_POPOVER, COLOR_TEXT_GRAY_LIGHT } from 'theme/variables';
+import { fromDecimals } from 'utils';
 
 type SureWithdrawPopupProps = {
   visible: boolean;
   anchorEl: RefObject<HTMLElement>;
+  comissionPercent: string;
   onClose: () => void;
   onChangeSure: (flag: boolean) => void;
 };
 
-export const SureWithdrawPopup: FC<SureWithdrawPopupProps> = ({ anchorEl, visible, onClose, onChangeSure }) => {
+export const SureWithdrawPopup: FC<SureWithdrawPopupProps> = ({
+  anchorEl,
+  comissionPercent,
+  visible,
+  onClose,
+  onChangeSure,
+}) => {
+  const commisionPercentFromDec = useMemo(() => +fromDecimals(comissionPercent) * 100, [comissionPercent]);
+
   return (
     <Popover
       anchorEl={anchorEl.current}
@@ -30,7 +40,7 @@ export const SureWithdrawPopup: FC<SureWithdrawPopupProps> = ({ anchorEl, visibl
       }}
     >
       <Typography mb={2} fontSize={14} lineHeight="20px" color={COLOR_TEXT_GRAY_LIGHT} textAlign="center">
-        Are you sure? You will be charged with 25% of the staked balance
+        Are you sure? You will be charged with {commisionPercentFromDec}% of the staked balance
       </Typography>
       <Box display="flex" justifyContent="center">
         <Button size="small" variant="contained" onClick={() => onChangeSure(true)}>

@@ -123,8 +123,6 @@ export interface StakingAbi extends BaseContract {
 
     clz(): NonPayableTransactionObject<string>;
 
-    getDepositInfo(_user: string): NonPayableTransactionObject<[string, string, string, string, string][]>;
-
     getFront(_user: string): NonPayableTransactionObject<string[][]>;
 
     getPoolsAmount(): NonPayableTransactionObject<string>;
@@ -153,6 +151,8 @@ export interface StakingAbi extends BaseContract {
 
     hasRole(role: string | number[], account: string): NonPayableTransactionObject<boolean>;
 
+    levelToWeight(arg0: number | string | BN): NonPayableTransactionObject<string>;
+
     lockedAmount(): NonPayableTransactionObject<string>;
 
     numOfStakers(): NonPayableTransactionObject<string>;
@@ -173,6 +173,8 @@ export interface StakingAbi extends BaseContract {
     setCommission(_poolId: number | string | BN, _commission: number | string | BN): NonPayableTransactionObject<void>;
 
     stake(_poolId: number | string | BN, amount: number | string | BN): NonPayableTransactionObject<void>;
+
+    stakeToLevel(arg0: number | string | BN): NonPayableTransactionObject<string>;
 
     supportsInterface(interfaceId: string | number[]): NonPayableTransactionObject<boolean>;
 

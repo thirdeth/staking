@@ -3,8 +3,10 @@ import { Button, Grid, Typography } from '@mui/material';
 import { ArrowDown, WalletIcon } from 'components/Icon/components';
 import { useModal } from 'hooks';
 import {
+  BG_BLUE,
   BG_BUTTON_GRAY_DARK,
   BG_MAIN,
+  BORDER_BUTTON_BLUE,
   BORDER_BUTTON_GRAY_BOLD,
   BORDER_RADIUS_DEFAULT,
   COLOR_TEXT_BLUE,
@@ -42,6 +44,11 @@ export const Account: FC<AccountProps> = ({ address, rankId, nativeBalance, widt
           border: BORDER_BUTTON_GRAY_BOLD,
           borderRadius: BORDER_RADIUS_DEFAULT,
           height: '50px',
+          '&:hover': {
+            border: `2px solid ${BG_BLUE}`,
+            svg: { path: { fill: BG_BLUE } },
+          },
+
           [theme.breakpoints.between('md', 'xl')]: {
             position: 'relative',
             px: 1.7,
