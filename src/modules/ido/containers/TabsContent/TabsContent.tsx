@@ -3,13 +3,13 @@ import { Grid } from '@mui/material';
 import { SideBar } from 'modules/ido/components';
 import { ProjectDataProps } from 'modules/ido/pages/Details/Details.types';
 
-import { ProjectInfo, ProjectSummary, Roadmap, Tokenomics } from './components';
+import { Partners, ProjectInfo, ProjectSummary, Roadmap, TeamMembers, Tokenomics } from './components';
 import { sidebarTabItems } from './TabsContent.helpers';
 
 export const TabsContent: FC<ProjectDataProps> = ({ projectData }) => {
   const [activeTab, setActiveTab] = useState(1);
   const ActiveTabComponent = useMemo(
-    () => [ProjectInfo, ProjectSummary, Tokenomics, Roadmap][activeTab - 1],
+    () => [ProjectInfo, ProjectSummary, Tokenomics, Roadmap, Partners, TeamMembers][activeTab - 1],
     [activeTab],
   );
 
