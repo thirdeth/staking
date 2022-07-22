@@ -1,7 +1,8 @@
-import { ChangeEventHandler, FC, MouseEvent } from 'react';
+import { ChangeEventHandler, FC, MouseEvent, useMemo } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { Box, Button, Grid, InputAdornment, styled, TextField, Typography } from '@mui/material';
 import { ToggleBtns } from 'components';
+import { getPoolUnstakeValue } from 'modules/staking/utils';
 import { FontFamilies } from 'theme/Typography';
 import {
   BG_BLUE_EXTRALIGHT,
@@ -10,6 +11,7 @@ import {
   BORDER_RADIUS_DEFAULT,
   COLOR_TEXT_BLUE,
 } from 'theme/variables';
+import { PoolsInfoProps } from 'types';
 
 import { toggleButtonItems } from './StakingForm.helpers';
 
@@ -23,6 +25,8 @@ const TextContainer = styled(Typography)({
 export interface StakingFormProps {
   totalStakedAmount: string;
   tokenBalance: string;
+  poolsInfo: PoolsInfoProps[];
+  poolsAprArr: number[];
   stakePeriod: number;
   stakeValue: string;
   isStaking: boolean;
@@ -36,6 +40,8 @@ export const StakingForm: FC<StakingFormProps> = ({
   tokenBalance,
   totalStakedAmount,
   stakeValue,
+  poolsInfo,
+  poolsAprArr,
   stakePeriod,
   onStake,
   isStaking,
@@ -43,6 +49,8 @@ export const StakingForm: FC<StakingFormProps> = ({
   onChangeStakePeriod,
   onChangeStakeValue,
 }) => {
+  const poolUnstakeValue = useMemo(() => getPoolUnstakeValue(poolsInfo, stakePeriod), [poolsInfo, stakePeriod]);
+
   return (
     <Box
       sx={{
@@ -78,14 +86,13 @@ export const StakingForm: FC<StakingFormProps> = ({
 
         <Grid item container direction="column" xs={12}>
           <Grid item container justifyContent="space-between" alignItems="center">
-            <TextContainer>Early unstake fee: 25%</TextContainer>
+            <TextContainer>Early unstake fee: {`${poolUnstakeValue}%` || '...'}</TextContainer>
             <Typography>APR</Typography>
           </Grid>
 
-          <Grid item container justifyContent="space-between" alignItems="center">
-            <TextContainer>Lock period: {toggleButtonItems[stakePeriod]?.label}</TextContainer>
-            <Typography variant="h1" color={COLOR_TEXT_BLUE}>
-              12%
+          <Grid item container justifyContent="flex-end" alignItems="center">
+            <Typography variant="h1" color={COLOR_TEXT_BLUE} noWrap maxWidth="150px">
+              {poolsAprArr[stakePeriod]}%
             </Typography>
           </Grid>
         </Grid>
@@ -145,7 +152,7 @@ export const StakingForm: FC<StakingFormProps> = ({
           </Grid>
 
           <Grid item>
-            <LoadingButton variant="contained" loading={isStaking} onClick={onStake}>
+            <LoadingButton variant="contained" loading={isStaking} disabled={+stakeValue === 0} onClick={onStake}>
               Stake
             </LoadingButton>
           </Grid>

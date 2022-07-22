@@ -24,11 +24,11 @@ export const StakesCardsHeader: FC = () => {
       >
         <TextContainer>CLZ Earned</TextContainer>
       </Grid>
-      <Grid item container xs={4} md={2.4} justifyContent={{ xs: 'flex-end', sm: 'flex-end', md: 'flex-start' }}>
+      <Grid item container xs={4} md={2} justifyContent={{ xs: 'flex-end', sm: 'flex-end', md: 'flex-start' }}>
         <TextContainer>Reward</TextContainer>
       </Grid>
-      <Grid item display={{ xs: 'none', sm: 'none', md: 'block' }} md={1.6}>
-        <TextContainer>Days left</TextContainer>
+      <Grid item display={{ xs: 'none', sm: 'none', md: 'block' }} md={2}>
+        <TextContainer>Time left</TextContainer>
       </Grid>
       <Grid item xs={12} md={3} />
     </Grid>

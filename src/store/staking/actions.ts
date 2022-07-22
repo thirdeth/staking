@@ -7,4 +7,5 @@ export const onStake = createAction<StakeReq>(actionTypes.STAKE);
 export const onHarvest = createAction<ChangeUserStakeItemReq>(actionTypes.HARVEST);
 export const onWithdraw = createAction<ChangeUserStakeItemReq>(actionTypes.WITHDRAW);
 export const getUserStakes = createAction<RequestWithWeb3Provider>(actionTypes.GET_USER_STAKES);
+export const getPoolsInfo = createAction<RequestWithWeb3Provider>(actionTypes.GET_POOLS_INFO);
 export const getTopInvestors = createAction(actionTypes.GET_TOP_INVESTORS);

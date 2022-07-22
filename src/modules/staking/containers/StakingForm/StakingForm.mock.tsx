@@ -10,4 +10,12 @@ export const stakingFormPropsMocked: StakingFormProps = {
   onChangeStakePeriod: () => {},
   onChangeStakeValue: () => {},
   onSetMaxStakeValue: () => {},
+  poolsAprArr: [7, 25, 70],
+  poolsInfo: [
+    {
+      apr: '',
+      commission: '',
+      timeLockUp: '',
+    },
+  ],
 };

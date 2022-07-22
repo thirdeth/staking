@@ -5,6 +5,7 @@ const initialState: StakingState = {
   totalStakedAmount: '',
   userStakes: [],
   topInvestors: [],
+  poolsInfo: [],
 };
 
 export const stakingReducer = createSlice({

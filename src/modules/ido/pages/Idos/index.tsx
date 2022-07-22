@@ -50,12 +50,12 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
 
       dispatch(
         getIdoList({
-          public: (searchParams.get(PARAMS.access) as IdoPublic) || IdoPublic.all,
+          public: (searchParams.getAll(PARAMS.access) as IdoPublic[]) || IdoPublic.all,
           status: statusParams,
           count: DEFAULT_IDOS_PER_PAGE,
           start: page * DEFAULT_IDOS_PER_PAGE,
-          isMyIdos,
-          isMyInvesments,
+          isMyIdos: isMyIdos !== undefined ? [isMyIdos] : [],
+          isMyInvesments: isMyInvesments !== undefined ? [isMyInvesments] : [],
           shouldConcat: true,
         }),
       );
@@ -76,12 +76,12 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
     handleChangeCurrentPage(0);
     dispatch(
       getIdoList({
-        public: (searchParams.get(PARAMS.access) as IdoPublic) || IdoPublic.all,
+        public: (searchParams.getAll(PARAMS.access) as IdoPublic[]) || IdoPublic.all,
         status: statusParams,
         count: DEFAULT_IDOS_PER_PAGE,
         start: 0,
-        isMyIdos,
-        isMyInvesments,
+        isMyIdos: isMyIdos !== undefined ? [isMyIdos] : [],
+        isMyInvesments: isMyInvesments !== undefined ? [isMyInvesments] : [],
       }),
     );
   }, [dispatch, handleChangeCurrentPage, isMyIdos, isMyInvesments, searchParams, statusParams]);

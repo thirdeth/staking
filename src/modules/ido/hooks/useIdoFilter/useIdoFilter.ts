@@ -20,7 +20,7 @@ export const useIdoFilter = (isUrlUpdated = false) => {
       if (isUrlUpdated) {
         const statusParams = new URLSearchParams(searchParams).getAll(PARAMS.status);
 
-        setSearchParams({ [PARAMS.status]: statusParams, [PARAMS.access]: value as string });
+        setSearchParams({ [PARAMS.status]: statusParams, [PARAMS.access]: [value as string] });
       }
     },
     [isUrlUpdated, searchParams, setSearchParams],

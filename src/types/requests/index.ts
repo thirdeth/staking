@@ -4,12 +4,12 @@ import Web3 from 'web3';
 export type UpdateUserProps = 'tokenBalance' | 'nativeBalance' | 'userStakes' | 'rankId';
 
 export type GetIdoListReq = {
-  public: IdoPublic;
+  public: IdoPublic | IdoPublic[];
   status: IdoStatus | IdoStatus[];
   count: number;
   start: number;
-  isMyIdos?: boolean;
-  isMyInvesments?: boolean;
+  isMyIdos?: boolean[];
+  isMyInvesments?: boolean[];
   owner?: string;
   investor?: string;
   shouldConcat?: boolean;

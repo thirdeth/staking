@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
+import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import createSagaMiddleware from 'redux-saga';
 
-import idoActionTypes from './ido/actionTypes';
-import stakingActionTypes from './staking/actionTypes';
-import userActionTypes from './user/actionTypes';
+import { ignoredActions } from './user/ignoredSerializableActions';
 import reducer from './rootReducer';
 import rootSaga from './rootSaga';
 
@@ -27,34 +25,7 @@ const store = configureStore({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   middleware: (getDefaultMiddleware: any) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [
-          FLUSH,
-          REHYDRATE,
-          PAUSE,
-          PERSIST,
-          PURGE,
-          REGISTER,
-          userActionTypes.GET_TOKEN_BALANCE,
-          userActionTypes.GET_NATIVE_BALANCE,
-          userActionTypes.GET_RANK_ID,
-          userActionTypes.UPDATE_USER_DATA,
-          userActionTypes.APPROVE,
-          stakingActionTypes.STAKE,
-          stakingActionTypes.HARVEST,
-          stakingActionTypes.WITHDRAW,
-          stakingActionTypes.GET_USER_STAKES,
-          idoActionTypes.GET_USER_ALLOCATION,
-          idoActionTypes.GET_IDO_LIST,
-          idoActionTypes.GET_IDO_BY_ID,
-          idoActionTypes.GET_INVESTMENTS_INFO,
-          idoActionTypes.REGISTRATION_TO_IDO,
-          idoActionTypes.INVEST,
-          idoActionTypes.CLAIM,
-          idoActionTypes.REFUND,
-          idoActionTypes.ADD_LIQUIDITY,
-        ],
-      },
+      serializableCheck: { ignoredActions },
     }).concat(sagaMiddleware),
 });
 

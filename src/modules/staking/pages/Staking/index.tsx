@@ -9,9 +9,10 @@ import { useShallowSelector, useValidateInputField, ValidationTypes } from 'hook
 import { RankingInfoCard } from 'modules/ranking/components/RankingInfoCard';
 import { ChartCard, StakesCardsHeader } from 'modules/staking/components';
 import { StakingForm } from 'modules/staking/containers';
+import { useGetPoolsAprArray } from 'modules/staking/hooks';
 import { useWalletConnectorContext } from 'services';
 import { setActiveModal } from 'store/modals/reducer';
-import { onHarvest, onStake, onWithdraw } from 'store/staking/actions';
+import { getPoolsInfo, onHarvest, onStake, onWithdraw } from 'store/staking/actions';
 import stakingActionTypes from 'store/staking/actionTypes';
 import stakingSelector from 'store/staking/selectors';
 import uiSelector from 'store/ui/selectors';
@@ -29,10 +30,13 @@ export const Staking: FC<StakingProps> = ({ title }) => {
   const dispatch = useDispatch();
   const { walletService } = useWalletConnectorContext();
   const { address, tokenBalance, rankId } = useShallowSelector<State, UserState>(userSelector.getUser);
-  const { userStakes, totalStakedAmount } = useShallowSelector<State, StakingState>(stakingSelector.getStaking);
+  const { userStakes, totalStakedAmount, poolsInfo } = useShallowSelector<State, StakingState>(
+    stakingSelector.getStaking,
+  );
 
   const [stakePeriod, setStakePeriod] = useState(1);
   const [stakeValue, setStakeValue, setOriginStakeValue] = useValidateInputField(ValidationTypes.number);
+  const poolsAprArr = useGetPoolsAprArray(poolsInfo);
 
   const {
     [stakingActionTypes.STAKE]: stakeRequestStatus,
@@ -98,6 +102,12 @@ export const Staking: FC<StakingProps> = ({ title }) => {
     }
   }, [setOriginStakeValue, stakeRequestStatus]);
 
+  useEffect(() => {
+    if (address.length) {
+      dispatch(getPoolsInfo({ web3Provider: walletService.Web3() }));
+    }
+  }, [address.length, dispatch, walletService]);
+
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       {!!address.length && (
@@ -128,6 +138,8 @@ export const Staking: FC<StakingProps> = ({ title }) => {
               <StakingForm
                 totalStakedAmount={totalStakedAmount}
                 tokenBalance={tokenBalance}
+                poolsInfo={poolsInfo}
+                poolsAprArr={poolsAprArr}
                 stakePeriod={stakePeriod}
                 stakeValue={stakeValue}
                 isStaking={isStaking}
@@ -162,6 +174,7 @@ export const Staking: FC<StakingProps> = ({ title }) => {
                     <RowCard
                       cardData={{ stakesData: cardData, id: index }}
                       variant="stakes"
+                      poolsAprArr={poolsAprArr}
                       isHarvesting={isHarvesting}
                       isWithdrawing={isWithdrawing}
                       onChangeStakeItem={handleChangeStakeItem}

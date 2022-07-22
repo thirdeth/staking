@@ -20,6 +20,7 @@ export type RowCardProps = {
   rowColor?: ColorProps;
   isHarvesting?: boolean;
   isWithdrawing?: boolean;
+  poolsAprArr?: number[];
   onChangeStakeItem?: (changeType: ChangeStakeItemType, stakeIndex: number) => void;
   cardData: ProjectCardDataProps | RankCardDataProps | StakesCardDataProps;
 } & BoxProps;
@@ -28,6 +29,7 @@ export const RowCard: FC<RowCardProps> = ({
   variant = 'project',
   rowColor = 'gray',
   cardData,
+  poolsAprArr,
   isHarvesting = false,
   isWithdrawing = false,
   onChangeStakeItem,
@@ -46,6 +48,7 @@ export const RowCard: FC<RowCardProps> = ({
       {variant === 'stakes' && cardData && (
         <Stakes
           cardData={cardData}
+          poolsAprArr={poolsAprArr}
           isHarvesting={isHarvesting}
           isWithdrawing={isWithdrawing}
           onChangeStakeItem={onChangeStakeItem}

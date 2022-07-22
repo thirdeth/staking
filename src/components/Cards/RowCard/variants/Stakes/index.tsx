@@ -3,9 +3,10 @@ import { Box, Button, Grid, styled, Typography } from '@mui/material';
 import { LogoSmall } from 'components/Icon/components';
 import { useModal } from 'hooks';
 import { SureWithdrawPopup } from 'modules/staking/components';
+import { getTimeLeftDate } from 'modules/staking/utils';
 import { FontFamilies, FontWeights } from 'theme/Typography';
 import { StakesCardDataProps } from 'types';
-import { dateFormatter, fromDecimals, getRewardPercent } from 'utils';
+import { fromDecimals } from 'utils';
 
 import { RowCardProps } from '../../RowCard';
 
@@ -15,11 +16,15 @@ const ButtonStyled = styled(Button)({
   textTransform: 'none',
 });
 
-type StakesProps = Pick<RowCardProps, 'cardData' | 'isHarvesting' | 'isWithdrawing' | 'onChangeStakeItem'>;
+type StakesProps = Pick<
+  RowCardProps,
+  'cardData' | 'isHarvesting' | 'isWithdrawing' | 'onChangeStakeItem' | 'poolsAprArr'
+>;
 
-export const Stakes: FC<StakesProps> = ({ cardData, isHarvesting, isWithdrawing, onChangeStakeItem }) => {
+export const Stakes: FC<StakesProps> = ({ cardData, poolsAprArr, isHarvesting, isWithdrawing, onChangeStakeItem }) => {
   const surePoupRef = useRef(null);
   const [isAllowToWithdraw, setAllowToWithdraw] = useState(false);
+  const [isAllowToHarvest, setAllowToHarvest] = useState(true);
   const [isSurePopupVisible, setSurePopupVisible, onCloseSurePopup] = useModal(false);
 
   const { id, stakesData } = cardData as StakesCardDataProps;
@@ -47,9 +52,10 @@ export const Stakes: FC<StakesProps> = ({ cardData, isHarvesting, isWithdrawing,
   };
 
   useEffect(() => {
-    const isUserStakesClosed = +dateFormatter(+daysLeft, 'lll', true) === 0;
+    const isUserStakesClosed = +new Date(+daysLeft * 1000) - Date.now() <= 0;
     if (isUserStakesClosed) {
       setAllowToWithdraw(true);
+      setAllowToHarvest(false);
     }
   }, [daysLeft]);
 
@@ -77,16 +83,16 @@ export const Stakes: FC<StakesProps> = ({ cardData, isHarvesting, isWithdrawing,
         </Grid>
       )}
       {poolId && (
-        <Grid item container justifyContent={{ xs: 'flex-end', sm: 'flex-end', md: 'flex-start' }} md={2.5} xs={4}>
+        <Grid item container justifyContent={{ xs: 'flex-end', sm: 'flex-end', md: 'flex-start' }} md={2} xs={4}>
           <Typography variant="body2" textTransform="none">
-            {getRewardPercent(+poolId)} %
+            {(poolsAprArr as number[])[poolId]} %
           </Typography>
         </Grid>
       )}
       {daysLeft && (
-        <Grid item display={{ xs: 'none', sm: 'none', md: 'block' }} md={1.5}>
+        <Grid item display={{ xs: 'none', sm: 'none', md: 'block' }} md={2}>
           <Typography variant="body2" textTransform="none">
-            {dateFormatter(+daysLeft, 'lll', true)} D
+            {getTimeLeftDate(+daysLeft)}
           </Typography>
         </Grid>
       )}
@@ -99,7 +105,10 @@ export const Stakes: FC<StakesProps> = ({ cardData, isHarvesting, isWithdrawing,
         md={3}
         xs={12}
       >
-        <ButtonStyled disabled={isHarvesting} onClick={() => onChangeStakeItem && onChangeStakeItem('harvest', id)}>
+        <ButtonStyled
+          disabled={isHarvesting || !isAllowToHarvest}
+          onClick={() => onChangeStakeItem && onChangeStakeItem('harvest', id)}
+        >
           Harvest
         </ButtonStyled>
         <ButtonStyled
