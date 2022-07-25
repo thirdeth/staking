@@ -1,14 +1,19 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { Box, Button, Grid, styled, Typography } from '@mui/material';
+import { Button, Grid, styled, Typography } from '@mui/material';
 import { LogoSmall } from 'components/Icon/components';
 import { useModal } from 'hooks';
-import { SureWithdrawPopup } from 'modules/staking/components';
+import { StakesHeaderTitle, SureWithdrawPopup } from 'modules/staking/components';
 import { getTimeLeftDate } from 'modules/staking/utils';
 import { FontFamilies, FontWeights } from 'theme/Typography';
 import { StakesCardDataProps } from 'types';
 import { fromDecimals } from 'utils';
 
 import { RowCardProps } from '../../RowCard';
+
+const MobileTitle = styled(StakesHeaderTitle)(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.down('lg')]: { display: 'flex' },
+}));
 
 const ButtonStyled = styled(Button)({
   width: '100%',
@@ -24,13 +29,12 @@ type StakesProps = Pick<
 export const Stakes: FC<StakesProps> = ({ cardData, poolsAprArr, isHarvesting, isWithdrawing, onChangeStakeItem }) => {
   const surePoupRef = useRef(null);
   const [isAllowToWithdraw, setAllowToWithdraw] = useState(false);
-  const [isAllowToHarvest, setAllowToHarvest] = useState(true);
   const [isSurePopupVisible, setSurePopupVisible, onCloseSurePopup] = useModal(false);
 
   const { id, stakesData } = cardData as StakesCardDataProps;
   // if undefined its value does not show at html. verification is in markup
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [staked, earned, poolId, comissionPercent, daysLeft]: any = stakesData;
+  const [staked, earned, poolId, comissionPercent, daysLeft, rewardAmount]: any = stakesData;
 
   const handleWithdrawChange = () => {
     if (isAllowToWithdraw && onChangeStakeItem) {
@@ -55,7 +59,6 @@ export const Stakes: FC<StakesProps> = ({ cardData, poolsAprArr, isHarvesting, i
     const isUserStakesClosed = +new Date(+daysLeft * 1000) - Date.now() <= 0;
     if (isUserStakesClosed) {
       setAllowToWithdraw(true);
-      setAllowToHarvest(false);
     }
   }, [daysLeft]);
 
@@ -63,50 +66,61 @@ export const Stakes: FC<StakesProps> = ({ cardData, poolsAprArr, isHarvesting, i
     <Grid
       container
       justifyContent="space-between"
-      alignItems={{ xs: 'space-between', sm: 'space-between', md: 'center' }}
+      direction={{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }}
+      alignItems={{ xs: 'space-between', sm: 'space-between', md: 'space-between', lg: 'center' }}
     >
       {staked && (
-        <Grid pl={2} item md={2.5} xs={4}>
-          <Box display="flex" justifyContent="flex-start">
+        <Grid item container pl={{ xs: 0, sm: 0, md: 0, lg: 2 }} md={2.5} xs={12}>
+          <Grid item xs={6}>
+            <MobileTitle>CRO Staked</MobileTitle>
+          </Grid>
+          <Grid item container xs={6} lg={12}>
             <LogoSmall />
             <Typography variant="body2" ml={1} fontWeight={FontWeights.fontWeightMedium}>
               {fromDecimals(staked)}
             </Typography>
-          </Box>
+          </Grid>
         </Grid>
       )}
       {earned && (
-        <Grid item container md={2.5} xs={4} justifyContent={{ xs: 'center', sm: 'center', md: 'flex-start' }}>
-          <Typography variant="body2" textTransform="none">
-            {fromDecimals(earned)} CLZ
-          </Typography>
+        <Grid item container md={2.5} xs={12}>
+          <Grid item xs={6}>
+            <MobileTitle>CRO Earned</MobileTitle>
+          </Grid>
+          <Grid item xs={6} lg={12}>
+            <Typography variant="body2" textTransform="none">
+              {fromDecimals(earned)} CLZ
+            </Typography>
+          </Grid>
         </Grid>
       )}
       {poolId && (
-        <Grid item container justifyContent={{ xs: 'flex-end', sm: 'flex-end', md: 'flex-start' }} md={2} xs={4}>
-          <Typography variant="body2" textTransform="none">
-            {(poolsAprArr as number[])[poolId]} %
-          </Typography>
+        <Grid item container md={2} xs={12}>
+          <Grid item xs={6}>
+            <MobileTitle>Reward</MobileTitle>
+          </Grid>
+          <Grid item xs={6} lg={12}>
+            <Typography variant="body2" textTransform="none">
+              {(poolsAprArr as number[])[poolId]} %
+            </Typography>
+          </Grid>
         </Grid>
       )}
       {daysLeft && (
-        <Grid item display={{ xs: 'none', sm: 'none', md: 'block' }} md={2}>
-          <Typography variant="body2" textTransform="none">
-            {getTimeLeftDate(+daysLeft)}
-          </Typography>
+        <Grid item container md={2} xs={12}>
+          <Grid item xs={6} lg={12}>
+            <MobileTitle>Days left</MobileTitle>
+          </Grid>
+          <Grid item xs={6} lg={12}>
+            <Typography variant="body2" textTransform="none">
+              {getTimeLeftDate(+daysLeft)}
+            </Typography>
+          </Grid>
         </Grid>
       )}
-      <Grid
-        item
-        container
-        mt={{ xs: 2, sm: 2, md: 0 }}
-        justifyContent={{ xs: 'center', sm: 'center', md: 'flex-end' }}
-        wrap="nowrap"
-        md={3}
-        xs={12}
-      >
+      <Grid item container mt={{ xs: 2, sm: 2, md: 0 }} wrap="nowrap" md={3} xs={12}>
         <ButtonStyled
-          disabled={isHarvesting || !isAllowToHarvest}
+          disabled={isHarvesting || +rewardAmount[0] === 0}
           onClick={() => onChangeStakeItem && onChangeStakeItem('harvest', id)}
         >
           Harvest

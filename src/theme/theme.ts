@@ -19,6 +19,7 @@ import { getMuiBackdropDefaultProps, getMuiBackdropOverrides } from './Backdrop'
 import { getMuiBreadcrumbsDefaultProps, getMuiBreadcrumbsOverrides } from './Breadcrumbs';
 import { getMuiCssBaselineDefaultProps, getMuiCssBaselineOverrides } from './CssBaseLine';
 import { getMuiDialogDefaultProps, getMuiDialogOverrides } from './Dialog';
+import { getMuiLinkDefaultProps, getMuiLinkOverrides } from './Link';
 import { getMuiPopoverDefaultProps, getMuiPopoverOverrides } from './Popover';
 import { getMuiSelectDefaultProps, getMuiSelectOverrides } from './Select';
 import { getMuiTextFieldDefaultProps, getMuiTextFieldOverrides } from './TextField';
@@ -87,6 +88,10 @@ export const theme = createTheme(themeBase, {
     MuiTextField: {
       defaultProps: getMuiTextFieldDefaultProps(),
       styleOverrides: getMuiTextFieldOverrides(themeBase),
+    },
+    MuiLink: {
+      defaultProps: getMuiLinkDefaultProps(),
+      styleOverrides: getMuiLinkOverrides(themeBase),
     },
     MuiAccordion: {
       defaultProps: getMuiAccordionPropsDefaultProps(),

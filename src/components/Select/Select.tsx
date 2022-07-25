@@ -6,7 +6,7 @@ import { MenuItemsProps } from 'types';
 
 import { SelectInput } from './theme';
 
-const SELECT_CHECK_ICON = `url(${SelectCheckIcon}) 190px center no-repeat, transparent`;
+const SELECT_CHECK_ICON = `url(${SelectCheckIcon}) 160px center no-repeat, transparent`;
 
 export interface SelectProps {
   menuItems: MenuItemsProps[];
@@ -31,6 +31,7 @@ export const Select: FC<SelectProps & MuiSelectProps> = ({
         MenuProps={{
           PaperProps: {
             sx: {
+              mt: 1.5,
               minHeight: '128px',
               width: paperWidth,
               background: BG_MAIN,
@@ -38,7 +39,10 @@ export const Select: FC<SelectProps & MuiSelectProps> = ({
               borderColor: BORDER_COLOR_SELECT_GRAY,
               borderRadius: BORDER_RADIUS_DEFAULT,
               boxShadow: SELECT_SHADOW_DEFAULT,
+
               '.MuiMenuItem-root': {
+                fontSize: '14px',
+
                 '&:hover': {
                   background: '',
                 },

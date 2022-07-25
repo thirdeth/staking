@@ -14,16 +14,24 @@ import {
 import { MenuItemsProps } from 'types';
 import { IdoPublic, IdoStatus } from 'types/store/requests';
 
-import { getValuesForSecondarySelect, selectMenuItems, statusVariantItems } from './StageBar.helpers';
+import { getValuesForSecondarySelect, selectMenuItems } from './StageBar.helpers';
+import { StatusItemsProps } from './StageBar.types';
 
 export type StageBarProps = {
   idoStatus: IdoStatus[];
   publicFilterValue: IdoPublic;
+  statusItems: StatusItemsProps;
   onChangeFilter: (event: SelectChangeEvent<unknown>) => void;
   onChangeStatus: (value: IdoStatus[]) => void;
 };
 
-export const StageBar: FC<StageBarProps> = ({ idoStatus, publicFilterValue, onChangeFilter, onChangeStatus }) => {
+export const StageBar: FC<StageBarProps> = ({
+  idoStatus,
+  publicFilterValue,
+  statusItems,
+  onChangeFilter,
+  onChangeStatus,
+}) => {
   const valuesForSecondarySelect = getValuesForSecondarySelect(idoStatus);
   return (
     <Stack>
@@ -39,7 +47,7 @@ export const StageBar: FC<StageBarProps> = ({ idoStatus, publicFilterValue, onCh
           },
         }}
       >
-        {statusVariantItems.map(({ status, stageName }) => (
+        {statusItems.map(({ status, stageName }) => (
           <Button
             key={stageName}
             onClick={() => onChangeStatus(status)}
@@ -104,24 +112,20 @@ export const StageBar: FC<StageBarProps> = ({ idoStatus, publicFilterValue, onCh
         >
           {valuesForSecondarySelect && !!valuesForSecondarySelect.values.length && (
             <Select
-              sx={{
-                px: 2,
-              }}
+              sx={{ px: 2 }}
               value={valuesForSecondarySelect?.value}
               onChange={(event) => onChangeStatus(event.target.value as IdoStatus[])}
-              paperWidth="250px"
+              paperWidth="200px"
               menuItems={valuesForSecondarySelect?.values as MenuItemsProps[]}
             />
           )}
 
           <Select
-            sx={{
-              px: 2,
-            }}
+            sx={{ px: 2 }}
             value={publicFilterValue}
             defaultValue={publicFilterValue}
             onChange={onChangeFilter}
-            paperWidth="250px"
+            paperWidth="200px"
             menuItems={selectMenuItems}
           />
         </Box>

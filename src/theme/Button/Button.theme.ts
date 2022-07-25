@@ -75,6 +75,7 @@ export const getMuiButtonOverrides = (theme: Theme): ComponentsOverrides['MuiBut
     '&:hover': {
       color: COLOR_TEXT_WHITE,
       backgroundColor: BG_BLUE,
+      border: BORDER_BUTTON_BLUE,
     },
 
     '&:active': {

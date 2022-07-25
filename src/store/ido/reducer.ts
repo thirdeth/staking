@@ -31,8 +31,7 @@ export const idoReducer = createSlice({
     }),
     resetCurrentIdo: (state: IdoState) => ({
       ...state,
-      ...initialState.currentIdo,
-      ...initialState.userInfo,
+      ...initialState,
     }),
   },
 });

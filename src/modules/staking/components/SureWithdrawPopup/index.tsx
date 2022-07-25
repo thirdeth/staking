@@ -29,7 +29,7 @@ export const SureWithdrawPopup: FC<SureWithdrawPopupProps> = ({
       onClose={onClose}
       sx={{
         '& .MuiPopover-paper': {
-          mt: 1,
+          mt: 2,
           px: 2.5,
           py: 2,
           width: 323,

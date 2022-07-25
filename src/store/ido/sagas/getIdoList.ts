@@ -20,12 +20,15 @@ export function* getIdoListSaga({ type, payload }: ReturnType<typeof getIdoList>
   const myAddress: UserState['address'] = yield select(usersSelector.getProp('address'));
 
   try {
+    // for owner or investor filter page
+    const owner = payload.isMyIdos !== undefined && payload.isMyIdos.length ? myAddress : '';
+    const investor = payload.isMyInvesments !== undefined && payload.isMyInvesments.length ? myAddress : '';
     const {
       data: { count, result },
     } = yield call(baseApi.getIdoList, {
       ...omit(payload, 'shouldConcat', 'isMyIdos', 'isMyInvesments'),
-      owner: payload.isMyIdos ? myAddress : '',
-      investor: payload.isMyInvesments ? myAddress : '',
+      owner,
+      investor,
     });
 
     const camleizedIdoData = camelize(result);

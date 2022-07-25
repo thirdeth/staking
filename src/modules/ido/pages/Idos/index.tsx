@@ -6,7 +6,7 @@ import { ApplyCard, RowCard } from 'components';
 import { InfoCard } from 'components/Cards/InfoCard';
 import { RowCardSkeleton } from 'components/Cards/RowCard/components';
 import { useShallowSelector } from 'hooks';
-import { CardsHeader, StageBar } from 'modules/ido/components';
+import { CardsHeader, StageBar, statusVariantItems } from 'modules/ido/components';
 import { useIdoFilter, useUpdatedIdoDataFromApi } from 'modules/ido/hooks';
 import { getIdoTypeFromIdoStatus } from 'modules/ido/utils';
 import { getIdoList } from 'store/ido/actions';
@@ -36,11 +36,12 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
   const { handleChangePublicFilter, handleChangeIdoStatus, currentPage, handleChangeCurrentPage, searchParams } =
     useIdoFilter(true);
 
+  const statusItemsArray = isMyInvesments ? statusVariantItems.slice(1, statusVariantItems.length) : statusVariantItems;
   const statusParams = useMemo(
     () =>
       (searchParams.getAll(PARAMS.status) as IdoStatus[]).length
         ? (searchParams.getAll(PARAMS.status) as IdoStatus[])
-        : [IdoStatus.pending],
+        : [IdoStatus.inProgress],
     [searchParams],
   );
 
@@ -74,6 +75,7 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
       }),
     );
     handleChangeCurrentPage(0);
+
     dispatch(
       getIdoList({
         public: (searchParams.getAll(PARAMS.access) as IdoPublic[]) || IdoPublic.all,
@@ -93,6 +95,7 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
       <StageBar
         publicFilterValue={(searchParams.get(PARAMS.access) as IdoPublic) || IdoPublic.all}
         idoStatus={statusParams}
+        statusItems={statusItemsArray}
         onChangeFilter={handleChangePublicFilter}
         onChangeStatus={handleChangeIdoStatus}
       />

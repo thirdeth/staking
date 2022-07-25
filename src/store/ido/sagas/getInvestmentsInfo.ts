@@ -52,9 +52,9 @@ export function* getInvestmentsInfoSaga({
     if (data.response >= 0) {
       yield* put(
         updateIdoState({
+          userInfo: { userAllocation: data.response.toString(), payed, claimAmount },
           vestingInfo,
           isLiqAdded,
-          userInfo: { userAllocation: data.response.toString(), payed, claimAmount },
         }),
       );
     } else {

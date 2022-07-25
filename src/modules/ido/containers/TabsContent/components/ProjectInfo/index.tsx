@@ -61,7 +61,7 @@ export const ProjectInfo: FC<ProjectDataProps> = ({ projectData }) => {
             xs={6}
           >
             <Grid item>
-              <TextContainer>{tokenName}</TextContainer>
+              <TextContainer maxWidth={120}>{tokenName}</TextContainer>
             </Grid>
             <Grid item>
               <TextContainer>{tokenSymbol}</TextContainer>

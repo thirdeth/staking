@@ -36,8 +36,8 @@ export const Header: FC = () => {
         position: 'fixed',
         top: '0',
         left: '0',
-        right: '0',
         zIndex: '2',
+        width: '100vw',
         background: BG_MAIN,
         transition: TRANSITION_DEFAULT_TIME,
       }}

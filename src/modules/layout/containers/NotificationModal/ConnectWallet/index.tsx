@@ -56,7 +56,7 @@ export const ConnectWalletModal: FC<IConnectWalletModalProps> = ({ onConnectWall
           startIcon={<WalletConnectLogo />}
           onClick={() => handleConnect(WalletProviders.walletConnect, Chains.Cronos)}
         >
-          Wallet connect
+          WalletConnect
         </WalletButton>
       </Grid>
     </Grid>

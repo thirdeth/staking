@@ -1,5 +1,6 @@
 import { InputBase, styled } from '@mui/material';
 import { FontFamilies } from 'theme/Typography';
+import { COLOR_TEXT_BLUE } from 'theme/variables';
 
 export const SelectInput = styled(InputBase)(({ theme }) => ({
   'label + &': {},
@@ -28,8 +29,11 @@ export const SelectInput = styled(InputBase)(({ theme }) => ({
     '&:focus, &:hover': {
       background: 'transparent',
     },
+    '&:hover': {
+      color: COLOR_TEXT_BLUE,
+    },
   },
   '& .MuiSvgIcon-root': {
-    margin: theme.spacing(1, 0, 0, 2),
+    margin: theme.spacing(1, 1, 0, 2),
   },
 }));

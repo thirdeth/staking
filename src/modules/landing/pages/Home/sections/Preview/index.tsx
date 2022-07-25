@@ -1,10 +1,12 @@
 import { FC } from 'react';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Link, Typography } from '@mui/material';
 import { SocialLinks } from 'components';
 import { LogoBlackLittle } from 'components/Icon/components';
 import { PREVIEW_SECTION_SIZE } from 'modules/landing/components';
 import { FontFamilies } from 'theme/Typography';
 import { COLOR_TEXT_BLUE } from 'theme/variables';
+
+import { pitchDecLink, previewSocialLinksItems } from './Preview.helpers';
 
 export const Preview: FC = () => {
   return (
@@ -29,14 +31,16 @@ export const Preview: FC = () => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <SocialLinks links={{}} />
+          <SocialLinks links={previewSocialLinksItems} />
         </Grid>
         <Grid item xs={12}>
           <LogoBlackLittle />
         </Grid>
 
         <Grid item xs={12}>
-          <Button>Pitch Deck</Button>
+          <Link href={pitchDecLink} target="_blank" rel="noreferrer">
+            <Button>Pitch Deck</Button>
+          </Link>
         </Grid>
       </Grid>
     </Box>
