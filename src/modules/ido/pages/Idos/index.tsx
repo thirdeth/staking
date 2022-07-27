@@ -13,9 +13,9 @@ import { getIdoList } from 'store/ido/actions';
 import idoActionTypes from 'store/ido/actionTypes';
 import { updateIdoState } from 'store/ido/reducer';
 import uiSelector from 'store/ui/selectors';
-import { BG_BLUE, COLOR_TEXT_BLACK } from 'theme/variables';
+import { COLOR_TEXT_BLACK } from 'theme/variables';
 import { PARAMS, RequestStatus } from 'types';
-import { IdoPublic, IdoStatus } from 'types/store/requests';
+import { IdoPublic, IdoStatus, IdoWeights } from 'types/store/requests';
 
 const DEFAULT_IDOS_PER_PAGE = 5;
 
@@ -29,64 +29,76 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
 
   const { idos, count } = useUpdatedIdoDataFromApi();
 
-  const getIdoListRequestStatus = useShallowSelector(uiSelector.getProp(idoActionTypes.GET_IDO_LIST));
+  const {
+    handleChangePublicFilter,
+    handleChangeIdoStatus,
+    handleChangeStakingRequired,
+    currentPage,
+    handleChangeCurrentPage,
+    searchParams,
+    isStakingRequire,
+  } = useIdoFilter(true);
 
+  const getIdoListRequestStatus = useShallowSelector(uiSelector.getProp(idoActionTypes.GET_IDO_LIST));
   const isLoading = getIdoListRequestStatus === RequestStatus.REQUEST;
 
-  const { handleChangePublicFilter, handleChangeIdoStatus, currentPage, handleChangeCurrentPage, searchParams } =
-    useIdoFilter(true);
+  const loadingSkeletonCounter = count > DEFAULT_IDOS_PER_PAGE ? count % DEFAULT_IDOS_PER_PAGE : DEFAULT_IDOS_PER_PAGE;
 
-  const statusItemsArray = isMyInvesments ? statusVariantItems.slice(1, statusVariantItems.length) : statusVariantItems;
-  const statusParams = useMemo(
-    () =>
-      (searchParams.getAll(PARAMS.status) as IdoStatus[]).length
-        ? (searchParams.getAll(PARAMS.status) as IdoStatus[])
-        : [IdoStatus.inProgress],
+  const statusParams = useMemo(() => {
+    const statusesArr = searchParams.getAll(PARAMS.status) as IdoStatus[];
+    if (statusesArr.length) {
+      return statusesArr;
+    }
+    return [IdoStatus.inProgress, IdoStatus.register, IdoStatus.registrationClosed];
+  }, [searchParams]);
+
+  const weightsParams = useMemo(
+    () => (searchParams.get(PARAMS.with_weights) as IdoWeights) || IdoWeights.withWeights,
     [searchParams],
   );
 
+  // for investments - without upcoming status
+  const stageBarStatusItemsArr = isMyInvesments
+    ? statusVariantItems.slice(1, statusVariantItems.length)
+    : statusVariantItems;
+
   const handleChangePageAndFetch = useCallback(
-    (page: number) => {
+    (page: number, shouldConcat = true) => {
       handleChangeCurrentPage(page);
 
       dispatch(
         getIdoList({
-          public: (searchParams.getAll(PARAMS.access) as IdoPublic[]) || IdoPublic.all,
+          public: (searchParams.getAll(PARAMS.access) as IdoPublic[]) || [],
           status: statusParams,
           count: DEFAULT_IDOS_PER_PAGE,
           start: page * DEFAULT_IDOS_PER_PAGE,
           isMyIdos: isMyIdos !== undefined ? [isMyIdos] : [],
           isMyInvesments: isMyInvesments !== undefined ? [isMyInvesments] : [],
-          shouldConcat: true,
+          withWeights: weightsParams,
+          shouldConcat,
         }),
       );
     },
-    [dispatch, handleChangeCurrentPage, isMyIdos, isMyInvesments, searchParams, statusParams],
+    [dispatch, handleChangeCurrentPage, isMyIdos, isMyInvesments, searchParams, statusParams, weightsParams],
   );
 
   useEffect(() => {
     // smooth changes for user
-    dispatch(
-      updateIdoState({
-        ido: {
-          count: 0,
-          idos: [],
-        },
-      }),
-    );
+    dispatch(updateIdoState({ ido: { count: 0, idos: [] } }));
     handleChangeCurrentPage(0);
 
     dispatch(
       getIdoList({
-        public: (searchParams.getAll(PARAMS.access) as IdoPublic[]) || IdoPublic.all,
+        public: (searchParams.getAll(PARAMS.access) as IdoPublic[]) || IdoPublic.public,
         status: statusParams,
         count: DEFAULT_IDOS_PER_PAGE,
         start: 0,
         isMyIdos: isMyIdos !== undefined ? [isMyIdos] : [],
         isMyInvesments: isMyInvesments !== undefined ? [isMyInvesments] : [],
+        withWeights: weightsParams,
       }),
     );
-  }, [dispatch, handleChangeCurrentPage, isMyIdos, isMyInvesments, searchParams, statusParams]);
+  }, [dispatch, handleChangeCurrentPage, isMyIdos, isMyInvesments, searchParams, statusParams, weightsParams]);
 
   const idoType = useMemo(() => getIdoTypeFromIdoStatus(statusParams), [statusParams]);
 
@@ -95,14 +107,16 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
       <StageBar
         publicFilterValue={(searchParams.get(PARAMS.access) as IdoPublic) || IdoPublic.all}
         idoStatus={statusParams}
-        statusItems={statusItemsArray}
+        isStakingRequire={isStakingRequire}
+        statusItems={stageBarStatusItemsArr}
         onChangeFilter={handleChangePublicFilter}
         onChangeStatus={handleChangeIdoStatus}
+        onChangeStakingRequired={handleChangeStakingRequired}
       />
 
       <Grid pt={2} container spacing={2}>
         {count && (
-          <Grid item xs={12} display={{ xs: 'none', sm: 'none', md: 'block' }} padding={0}>
+          <Grid item xs={12} display={{ xs: 'none', sm: 'none', md: 'block' }} p={0}>
             <CardsHeader idoType={idoType} />
           </Grid>
         )}
@@ -112,21 +126,15 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
           </Grid>
         ))}
         {isLoading &&
-          Array(count > DEFAULT_IDOS_PER_PAGE ? count % DEFAULT_IDOS_PER_PAGE : DEFAULT_IDOS_PER_PAGE)
-            .fill('')
-            .map((_, index) => (
-              <Grid key={index} item xs={12}>
-                <RowCardSkeleton />
-              </Grid>
-            ))}
+          new Array(loadingSkeletonCounter).fill('').map((_, index) => (
+            <Grid key={index} item xs={12}>
+              <RowCardSkeleton />
+            </Grid>
+          ))}
       </Grid>
+
       {count === 0 && !isLoading && (
-        <InfoCard
-          sx={{
-            mt: 10,
-          }}
-          title={`There are no ${idoType} projects now. Keep tuned!`}
-        />
+        <InfoCard sx={{ mt: 10 }} title={`There are no ${idoType} projects now. Keep tuned!`} />
       )}
       {count >= DEFAULT_IDOS_PER_PAGE * (currentPage + 1) && (
         <Button
@@ -134,9 +142,7 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
             my: 5,
             color: COLOR_TEXT_BLACK,
             borderWidth: 2,
-            '&:hover': {
-              border: `2px solid ${BG_BLUE}`,
-            },
+            '&:hover': { borderWidth: 2 },
           }}
           fullWidth
           variant="outlined"

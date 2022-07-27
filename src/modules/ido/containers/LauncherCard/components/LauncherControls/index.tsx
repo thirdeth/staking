@@ -21,8 +21,9 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
   const { discord, medium, telegram, twitter, status, investors } = projectData;
   const [btnText, btnHandler, isMainBtnVisible, textMessage] = useValidateLauncherBtn(status);
 
-  const isShowTextMessage = !isMainBtnVisible && !!textMessage.length && !isGettingInvestmentsInfo;
   const isShowAddLiquidityBtn = !isGettingInvestmentsInfo && isCanAddLiquidity;
+  const isShowTextMessage =
+    !isMainBtnVisible && !!textMessage.length && !isGettingInvestmentsInfo && !isShowAddLiquidityBtn;
 
   return (
     <Grid
@@ -68,9 +69,11 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
       </Grid>
 
       <Grid item container justifyContent="center" xs={12} md={4}>
-        <Typography variant="body2" fontWeight={FontWeights.fontWeightRegular} py={{ xs: 2, sm: 2, md: 0 }}>
-          Participants {investors}
-        </Typography>
+        {+investors > 0 && (
+          <Typography variant="body2" fontWeight={FontWeights.fontWeightRegular} py={{ xs: 2, sm: 2, md: 0 }}>
+            Participants {investors}
+          </Typography>
+        )}
       </Grid>
 
       <Grid item container justifyContent="flex-end" xs={12} md={4}>

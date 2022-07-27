@@ -10,4 +10,6 @@ export const stageBarPropsMocked: StageBarProps = {
   onChangeFilter: noop,
   onChangeStatus: noop,
   statusItems: statusVariantItems,
+  isStakingRequire: false,
+  onChangeStakingRequired: () => noop,
 };

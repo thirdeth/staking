@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Container, Grid } from '@mui/material';
 import { useShallowSelector, useWindowState } from 'hooks';
@@ -13,6 +13,7 @@ import { HeaderControls } from './components';
 export const Header: FC = () => {
   const dispatch = useDispatch();
   const { address, nativeBalance, rankId } = useShallowSelector<State, UserState>(userSelector.getUser);
+  const [headerPadding, setHeaderPadding] = useState(0);
   const [scrollToTopValue] = useGetScollValue();
   const { width } = useWindowState();
 
@@ -29,10 +30,18 @@ export const Header: FC = () => {
     [dispatch],
   );
 
+  useEffect(() => {
+    const isWindowsOs = navigator.userAgent.indexOf('Win') !== -1;
+    if (isWindowsOs) {
+      setHeaderPadding(17);
+    }
+  }, []);
+
   return (
     <Box
       sx={{
         py: scrollToTopValue <= 150 ? 2.5 : 0.8,
+        paddingRight: `${headerPadding}px`,
         position: 'fixed',
         top: '0',
         left: '0',

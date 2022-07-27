@@ -24,7 +24,7 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
   const { address: userAddress, rankId } = useShallowSelector<State, UserState>(userSelector.getUser);
   const {
     userInfo: { userAllocation, claimAmount, payed },
-    currentIdo: { withWeights, vesting, idoIncrement, ownerAddress },
+    currentIdo: { withWeights, vesting, idoIncrement, ownerAddress, isPublic },
   } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
 
   // ----------------- Button handlers ------------------
@@ -130,9 +130,11 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
       if (!withWeights) {
         const [{ text, handlerKey, isVisible }, infoText] = validateWithoutWeights(
           status,
+          userAllocation,
           +payed,
           claimAmount,
           vesting,
+          isPublic,
         );
         setBtnText(text);
         setBtnHandler(getButtonHandlers()[handlerKey]);
@@ -141,6 +143,7 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
       }
     }
   }, [
+    isPublic,
     vesting,
     withWeights,
     claimAmount,

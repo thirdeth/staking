@@ -1,5 +1,8 @@
 import { isEqual } from 'lodash';
+import { BG_BLUE_EXTRALIGHT, BORDER_RADIUS_DEFAULT } from 'theme/variables';
 import { IdoPublic, IdoStatus } from 'types/store/requests';
+
+import { MobileSelectStylesProps } from './StageBar.types';
 
 export const statusVariantItems = [
   {
@@ -91,4 +94,14 @@ export const getValuesForSecondarySelect = (idoStatusesArray: IdoStatus[]) => {
       };
     }
   }
+};
+
+export const mobileSelectStyles: MobileSelectStylesProps = {
+  mt: 2,
+  px: 1.5,
+  width: 'fit-content',
+  display: { xs: 'flex', sm: 'flex', md: 'none' },
+  alignSelf: 'flex-end',
+  background: BG_BLUE_EXTRALIGHT,
+  borderRadius: BORDER_RADIUS_DEFAULT,
 };

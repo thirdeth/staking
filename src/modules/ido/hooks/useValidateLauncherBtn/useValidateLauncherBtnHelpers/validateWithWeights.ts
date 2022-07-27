@@ -56,11 +56,16 @@ export const validateWithWeights = (
       break;
 
     case IdoStatus.registrationClosed:
-      resultValidBtnProps = {
-        text: 'Stake more',
-        handlerKey: HandlersKeys.navigate,
-        isVisible: true,
-      };
+      if (userAllocation === null) {
+        resultTextMessage = 'You are not registered';
+      } else {
+        resultValidBtnProps = {
+          text: 'Increase allocation',
+          handlerKey: HandlersKeys.navigate,
+          isVisible: true,
+        };
+      }
+
       break;
 
     case IdoStatus.inProgress:

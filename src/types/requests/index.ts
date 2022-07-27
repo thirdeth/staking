@@ -1,4 +1,4 @@
-import { IdoPublic, IdoStatus } from 'types/store/requests';
+import { IdoPublic, IdoStatus, IdoWeights } from 'types/store/requests';
 import Web3 from 'web3';
 
 export type UpdateUserProps = 'tokenBalance' | 'nativeBalance' | 'userStakes' | 'rankId';
@@ -12,6 +12,7 @@ export type GetIdoListReq = {
   isMyInvesments?: boolean[];
   owner?: string;
   investor?: string;
+  withWeights?: IdoWeights;
   shouldConcat?: boolean;
 };
 

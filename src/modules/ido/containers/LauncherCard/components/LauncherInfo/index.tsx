@@ -9,7 +9,7 @@ import { IdoStatus } from 'types/store/requests';
 import { statusTextVariants } from '../../LauncherCard.helpers';
 
 export const LauncherInfo: FC<ProjectDataProps> = ({ projectData }) => {
-  const { status, projectName, logoUrl, tokenSymbol, price, tokenLogoUrl, timer, start } = projectData;
+  const { status, projectName, logoUrl, tokenSymbol, price, tokenLogoUrl, timer, start, withWeights } = projectData;
 
   return (
     <Grid container justifyContent="space-between" height={{ md: 'auto', lg: '102px' }}>
@@ -116,7 +116,9 @@ export const LauncherInfo: FC<ProjectDataProps> = ({ projectData }) => {
         md={5}
       >
         <Typography variant="body2" textTransform="uppercase" fontWeight={FontWeights.fontWeightRegular}>
-          {statusTextVariants[status as IdoStatus]}
+          {!withWeights && status === IdoStatus.pending
+            ? 'Sale will start in'
+            : statusTextVariants[status as IdoStatus]}
         </Typography>
         {status !== IdoStatus.completedFail && status !== IdoStatus.completedSuccess && (
           <Countdown auctionEndText="00d 00h 00m 00s" timer={+timer} startTime={+start} type={status} />

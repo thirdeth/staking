@@ -1,38 +1,65 @@
-import { FC } from 'react';
-import { Box, Button, SelectChangeEvent, Stack } from '@mui/material';
+import { FC, useMemo } from 'react';
+import { Box, SelectChangeEvent, Stack, styled } from '@mui/material';
 import { Select } from 'components';
-import { intersection } from 'lodash';
-import {
-  BG_BLUE,
-  BG_BLUE_EXTRALIGHT,
-  BG_BUTTON_GRAY,
-  BORDER_GRAY_LIGHT,
-  BORDER_RADIUS_DEFAULT,
-  COLOR_TEXT_BLACK,
-  COLOR_TEXT_WHITE,
-} from 'theme/variables';
+import { BG_BUTTON_GRAY, BORDER_GRAY_LIGHT, BORDER_RADIUS_DEFAULT } from 'theme/variables';
 import { MenuItemsProps } from 'types';
 import { IdoPublic, IdoStatus } from 'types/store/requests';
 
-import { getValuesForSecondarySelect, selectMenuItems } from './StageBar.helpers';
+import { FormSwitcher, StageSwitcher } from './components';
+import { getValuesForSecondarySelect, mobileSelectStyles, selectMenuItems } from './StageBar.helpers';
 import { StatusItemsProps } from './StageBar.types';
+
+const STAGE_BAR_HEIGHT = 60;
+
+const BoxDesktopSelectContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  height: '100%',
+
+  '& > *': {
+    height: STAGE_BAR_HEIGHT,
+    width: 200,
+    justifyContent: 'center',
+    borderLeft: `${BORDER_GRAY_LIGHT} !important`,
+  },
+
+  [theme.breakpoints.down('md')]: {
+    display: 'none',
+  },
+}));
 
 export type StageBarProps = {
   idoStatus: IdoStatus[];
   publicFilterValue: IdoPublic;
+  isStakingRequire: boolean;
   statusItems: StatusItemsProps;
   onChangeFilter: (event: SelectChangeEvent<unknown>) => void;
   onChangeStatus: (value: IdoStatus[]) => void;
+  onChangeStakingRequired: () => void;
 };
 
 export const StageBar: FC<StageBarProps> = ({
   idoStatus,
   publicFilterValue,
+  isStakingRequire,
   statusItems,
   onChangeFilter,
+  onChangeStakingRequired,
   onChangeStatus,
 }) => {
   const valuesForSecondarySelect = getValuesForSecondarySelect(idoStatus);
+
+  const isShowSecondFilter = useMemo(() => {
+    if (!isStakingRequire && !idoStatus.includes(IdoStatus.inProgress)) {
+      if (valuesForSecondarySelect && !!valuesForSecondarySelect.values.length) {
+        return true;
+      }
+    } else if (isStakingRequire && valuesForSecondarySelect && !!valuesForSecondarySelect.values.length) {
+      return true;
+    }
+    return false;
+  }, [idoStatus, isStakingRequire, valuesForSecondarySelect]);
+
   return (
     <Stack>
       <Box
@@ -41,76 +68,22 @@ export const StageBar: FC<StageBarProps> = ({
           display: 'flex',
           alignItems: 'center',
           background: BG_BUTTON_GRAY,
-          borderRadius: '8px',
+          borderRadius: BORDER_RADIUS_DEFAULT,
           '& > *:last-child': {
             marginLeft: 'auto',
           },
         }}
       >
-        {statusItems.map(({ status, stageName }) => (
-          <Button
-            key={stageName}
-            onClick={() => onChangeStatus(status)}
-            variant="text"
-            sx={(theme) => {
-              const selectedProperties = intersection(idoStatus, status).length
-                ? {
-                    color: COLOR_TEXT_WHITE,
-                    background: BG_BLUE,
-                    '&:hover': {
-                      background: BG_BLUE,
-                    },
-                  }
-                : {
-                    color: COLOR_TEXT_BLACK,
-                    background: 'transparent',
-                    '&:hover': {
-                      color: COLOR_TEXT_WHITE,
-                      background: BG_BLUE,
-                    },
-                  };
-              return {
-                p: 0,
-                height: 60,
-                borderRight: BORDER_GRAY_LIGHT,
-                px: 2,
-                fontSize: { xs: '14px', sm: '14px', md: '16px' },
-                ...selectedProperties,
-
-                [theme.breakpoints.down('md')]: {
-                  flexBasis: '33.34%',
-                  '&:last-of-type': {
-                    border: 'none',
-                  },
-                },
-              };
-            }}
-          >
-            {stageName}
-          </Button>
-        ))}
+        <StageSwitcher
+          idoStatus={idoStatus}
+          height={STAGE_BAR_HEIGHT}
+          statusItems={statusItems}
+          onChangeStatus={onChangeStatus}
+        />
 
         {/* For desktop width */}
-        <Box
-          sx={{
-            display: { xs: 'none', sm: 'none', md: 'flex' },
-            alignItems: 'center',
-            height: '100%',
-
-            '& > *': {
-              height: 60,
-              width: 200,
-              justifyContent: 'center',
-              '&:first-of-type': {
-                borderRight: BORDER_GRAY_LIGHT,
-                borderLeft: BORDER_GRAY_LIGHT,
-                borderStyle: 'solid',
-                borderWidth: '0 1px',
-              },
-            },
-          }}
-        >
-          {valuesForSecondarySelect && !!valuesForSecondarySelect.values.length && (
+        <BoxDesktopSelectContainer>
+          {isShowSecondFilter && (
             <Select
               sx={{ px: 2 }}
               value={valuesForSecondarySelect?.value}
@@ -119,16 +92,17 @@ export const StageBar: FC<StageBarProps> = ({
               menuItems={valuesForSecondarySelect?.values as MenuItemsProps[]}
             />
           )}
-
-          <Select
-            sx={{ px: 2 }}
-            value={publicFilterValue}
-            defaultValue={publicFilterValue}
-            onChange={onChangeFilter}
-            paperWidth="200px"
-            menuItems={selectMenuItems}
-          />
-        </Box>
+          {!isStakingRequire && (
+            <Select
+              sx={{ px: 2 }}
+              value={publicFilterValue}
+              defaultValue={publicFilterValue}
+              onChange={onChangeFilter}
+              paperWidth="200px"
+              menuItems={selectMenuItems}
+            />
+          )}
+        </BoxDesktopSelectContainer>
       </Box>
 
       {/* For mobile width */}
@@ -141,39 +115,27 @@ export const StageBar: FC<StageBarProps> = ({
       >
         {valuesForSecondarySelect && !!valuesForSecondarySelect.values.length && (
           <Select
-            sx={{
-              mt: 2,
-              mr: { xs: 0, sm: 2, md: 2 },
-              px: 1.5,
-              width: 'fit-content',
-              display: { xs: 'flex', sm: 'flex', md: 'none' },
-              background: BG_BLUE_EXTRALIGHT,
-              borderRadius: BORDER_RADIUS_DEFAULT,
-              alignSelf: 'flex-end',
-            }}
+            sx={{ ...mobileSelectStyles, mr: { xs: 0, sm: 2, md: 2 } }}
             value={valuesForSecondarySelect?.value}
             onChange={(event) => onChangeStatus(event.target.value as IdoStatus[])}
             paperWidth="200px"
             menuItems={valuesForSecondarySelect?.values as MenuItemsProps[]}
           />
         )}
-        <Select
-          sx={{
-            mt: 2,
-            px: 1.5,
-            width: 'fit-content',
-            display: { xs: 'flex', sm: 'flex', md: 'none' },
-            background: BG_BLUE_EXTRALIGHT,
-            borderRadius: BORDER_RADIUS_DEFAULT,
-            alignSelf: 'flex-end',
-          }}
-          value={publicFilterValue}
-          defaultValue={publicFilterValue}
-          onChange={onChangeFilter}
-          paperWidth="200px"
-          menuItems={selectMenuItems}
-        />
+
+        {!isStakingRequire && (
+          <Select
+            sx={{ ...mobileSelectStyles }}
+            value={publicFilterValue}
+            defaultValue={publicFilterValue}
+            onChange={onChangeFilter}
+            paperWidth="200px"
+            menuItems={selectMenuItems}
+          />
+        )}
       </Box>
+
+      <FormSwitcher isStakingRequire={isStakingRequire} onChangeStakingRequired={onChangeStakingRequired} />
     </Stack>
   );
 };

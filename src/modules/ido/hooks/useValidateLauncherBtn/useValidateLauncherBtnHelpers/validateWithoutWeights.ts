@@ -1,12 +1,15 @@
+import { Nullable } from 'types';
 import { IdoStatus } from 'types/store/requests';
 
 import { HandlersKeys, ValidBtnProps } from '../useValidateLauncherBtn.types';
 
 export const validateWithoutWeights = (
   status: string,
+  userAllocation: Nullable<string>,
   payed: number,
   claimAmount: string[],
   vesting = false,
+  isPublic = false,
 ): [ValidBtnProps, string] => {
   let resultValidBtnProps: ValidBtnProps = {
     text: '',
@@ -18,11 +21,14 @@ export const validateWithoutWeights = (
 
   switch (status) {
     case IdoStatus.pending:
-      resultValidBtnProps = {
-        text: 'Stake to participate',
-        handlerKey: HandlersKeys.navigate,
-        isVisible: true,
-      };
+      if (isPublic) {
+        resultTextMessage = 'Wait for IDO start';
+      } else if (userAllocation === null) {
+        resultTextMessage = 'You are not in the whitelist. DYOR';
+      } else {
+        resultTextMessage = 'Wait for IDO start';
+      }
+
       break;
 
     case IdoStatus.inProgress:

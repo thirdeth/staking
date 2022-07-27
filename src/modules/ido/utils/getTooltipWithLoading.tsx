@@ -9,13 +9,15 @@ const TextEllipsis = styled(Typography)({
   whiteSpace: 'nowrap',
 });
 
-export const getTooltipWithLoading = (isLoading: boolean, value: string) => {
+export const getTooltipWithLoading = (isLoading: boolean, value: string, tokenSymbol: string) => {
   if (isLoading) {
     return <Typography>...</Typography>;
   }
   return (
     <Tooltip title={value} arrow placement="bottom-start">
-      <TextEllipsis>{value} CRO</TextEllipsis>
+      <TextEllipsis>
+        {value} {tokenSymbol}
+      </TextEllipsis>
     </Tooltip>
   );
 };

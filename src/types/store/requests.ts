@@ -3,6 +3,10 @@ export enum IdoPublic {
   private = 'false',
   all = 'all',
 }
+export enum IdoWeights {
+  'withWeights' = 'true',
+  'withoutWeights' = 'false',
+}
 export enum IdoStatus {
   pending = 'PENDING',
   register = 'REGISTER_FOR_IDO',

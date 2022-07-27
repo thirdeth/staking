@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Grid, Typography } from '@mui/material';
 import { ProgressBar } from 'components';
 import { getTooltipWithLoading } from 'modules/ido/utils';
+import { fromDecimals } from 'utils';
 
 import { LauncherCardProps } from '../../LauncherCard';
 
@@ -12,7 +13,7 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
   userAllocation,
   isGettingInvestmentsInfo,
 }) => {
-  const { totalBought, hardCap } = projectData;
+  const { totalBought, hardCap, decimals, tokenSymbol } = projectData;
 
   return (
     <Grid container alignItems="center" rowGap={2} pt={{ xs: 2, sm: 2, md: 4 }}>
@@ -33,7 +34,7 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
             Total Raise:&nbsp;
           </Typography>
 
-          {getTooltipWithLoading(isGettingInvestmentsInfo, totalBought)}
+          {getTooltipWithLoading(isGettingInvestmentsInfo, fromDecimals(totalBought, decimals), tokenSymbol)}
         </Grid>
 
         <Grid
@@ -50,7 +51,7 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
               <Typography variant="body2" fontWeight={700}>
                 Allocation:&nbsp;
               </Typography>
-              {getTooltipWithLoading(isGettingInvestmentsInfo, userAllocation)}
+              {getTooltipWithLoading(isGettingInvestmentsInfo, userAllocation, tokenSymbol)}
             </Grid>
           )}
 
@@ -65,13 +66,13 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
             <Typography variant="body2" fontWeight={700}>
               Target Raise:&nbsp;
             </Typography>
-            {getTooltipWithLoading(isGettingInvestmentsInfo, hardCap)}
+            {getTooltipWithLoading(isGettingInvestmentsInfo, hardCap, tokenSymbol)}
           </Grid>
         </Grid>
       </Grid>
 
       <Grid item xs={12}>
-        <ProgressBar variant="parallelogram" progress={+totalBought} base={+hardCap} />
+        <ProgressBar variant="parallelogram" progress={+fromDecimals(totalBought)} base={+hardCap} />
       </Grid>
     </Grid>
   );
