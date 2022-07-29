@@ -63,6 +63,7 @@ module.exports = {
     'react/jsx-no-constructed-context-values': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'react/display-name': 'off',
+    'default-param-last': 'off',
     'react/function-component-definition': [
       2,
       {

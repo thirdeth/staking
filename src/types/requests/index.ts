@@ -96,3 +96,7 @@ export type GetIvestmentsInfoReq = {
   vesting: boolean;
   ownerAddress: string;
 } & RequestWithWeb3Provider;
+
+export type GetTotalBoughtReq = {
+  idoIncrement: string;
+} & RequestWithWeb3Provider;

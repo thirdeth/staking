@@ -108,6 +108,7 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
       // if user connected and missed registration stage - btn will be hidden
       if (status !== IdoStatus.register && userAllocation === null && withWeights) {
         setBtnVisible(false);
+        setTextMessage('You are not registered');
       }
 
       // if project with weights parametrs

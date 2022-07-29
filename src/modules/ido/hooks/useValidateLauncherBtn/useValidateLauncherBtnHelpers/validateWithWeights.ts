@@ -76,9 +76,12 @@ export const validateWithWeights = (
           handlerKey: HandlersKeys.openInvestModal,
           isVisible: true,
         };
+      } else if (userAllocation === null) {
+        resultTextMessage = 'You are not registered';
+      } else {
+        // if user bought all his part - btn will be hidden and uses message
+        resultTextMessage = 'Wait for the project to be finished to claim your tokens';
       }
-      // if user bought all his part - btn will be hidden and uses message
-      resultTextMessage = 'Wait for the project to be finished to claim your tokens';
       break;
 
     case IdoStatus.completedFail:

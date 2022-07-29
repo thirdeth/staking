@@ -7,6 +7,7 @@ const CLAIM = 'CLAIM' as const;
 const REFUND = 'REFUND' as const;
 const ADD_LIQUIDITY = 'ADD_LIQUIDITY' as const;
 const GET_INVESTMENTS_INFO = 'GET_INVESTMENTS_INFO' as const;
+const GET_TOTAL_BOUGHT = 'GET_TOTAL_BOUGHT' as const;
 
 export default {
   GET_IDO_LIST,
@@ -18,4 +19,5 @@ export default {
   REFUND,
   ADD_LIQUIDITY,
   GET_INVESTMENTS_INFO,
+  GET_TOTAL_BOUGHT,
 };

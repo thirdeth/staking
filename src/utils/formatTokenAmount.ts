@@ -33,7 +33,7 @@ export const fromDecimals = (balance: string | number, decimals = 18, forDisplay
 
   const displayValue = new BigNumber(balance).dividedBy(new BigNumber(10).pow(decimals));
 
-  return forDisplay ? parseFloat(displayValue.toFixed(4)).toString() : displayValue.toString(10);
+  return forDisplay ? parseFloat(displayValue.toFixed(4)).toString() : displayValue.toFixed(10, 1);
 };
 
 export const fromDecimalsDisplay = (balance: string | number, decimals = 18) =>

@@ -21,14 +21,17 @@ export const NotificationModal: FC = () => {
   const {
     currentIdo,
     vestingInfo,
-    userInfo: { userAllocation, claimAmount },
+    userInfo: { userAllocation, claimAmount, totalBought },
   } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
 
   const { connect, disconnect, walletService } = useWalletConnectorContext();
   const currData = modalData[modalState.activeModal];
 
-  const { [idoActionTypes.INVEST]: investRequestStatus, [idoActionTypes.CLAIM]: claimRequestStatus } =
-    useShallowSelector(uiSelector.getUI);
+  const {
+    [idoActionTypes.INVEST]: investRequestStatus,
+    [idoActionTypes.CLAIM]: claimRequestStatus,
+    [idoActionTypes.GET_TOTAL_BOUGHT]: getTotalBoughtRequestStatus,
+  } = useShallowSelector(uiSelector.getUI);
 
   const closeModal = useCallback(() => {
     dispatch(
@@ -52,10 +55,14 @@ export const NotificationModal: FC = () => {
         <InvestModal
           userBalance={nativeBalance}
           nativeBalance={nativeBalance}
-          userAllocation={userAllocation}
-          web3Provider={walletService.Web3()}
+          hardCap={currentIdo.hardCap}
           tokenPrice={+currentIdo.price}
+          userAllocation={userAllocation}
+          totalBought={totalBought}
+          idoIncrement={currentIdo.idoIncrement}
+          web3Provider={walletService.Web3()}
           investRequestStatus={investRequestStatus}
+          getTotalBoughtRequestStatus={getTotalBoughtRequestStatus}
           closeModal={closeModal}
         />
       )}

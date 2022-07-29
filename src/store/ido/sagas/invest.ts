@@ -3,6 +3,7 @@ import { ContractsNames } from 'services/WalletService/config';
 import { notifyText } from 'services/WalletService/config/constants';
 import { error, request, success } from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
+import { getTotalBoughtSaga } from 'store/ido/sagas/getTotalBought';
 import idoSelector from 'store/ido/selectors';
 import userActionTypes from 'store/user/actionTypes';
 import { updateUserDataSaga } from 'store/user/sagas/updateUserData';
@@ -43,6 +44,14 @@ export function* investSaga({ type, payload: { web3Provider, amount } }: ReturnT
       payload: {
         web3Provider,
         updateParams: ['tokenBalance', 'nativeBalance'] as UpdateUserProps[],
+      },
+    });
+
+    yield* call(getTotalBoughtSaga, {
+      type: actionTypes.GET_TOTAL_BOUGHT,
+      payload: {
+        web3Provider,
+        idoIncrement,
       },
     });
 

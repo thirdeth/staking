@@ -3,7 +3,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import createSagaMiddleware from 'redux-saga';
 
-import { ignoredActions } from './user/ignoredSerializableActions';
+import { ignoredActions } from './ignoredSerializableActions';
 import reducer from './rootReducer';
 import rootSaga from './rootSaga';
 

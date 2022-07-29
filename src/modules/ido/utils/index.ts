@@ -4,3 +4,4 @@ export * from './getVestingAnlockAmount';
 export * from './getEmbedYoutubeLink';
 export * from './getTooltipWithLoading';
 export * from './formatTokenomicsKeyNames';
+export * from './validateMaxInvestValue';

@@ -5,12 +5,17 @@ import { validateOnlyNumbers, ValidationTypes } from './index';
 export const useValidateInputField = (
   type = ValidationTypes.string,
   decimals = 18,
+  maxValue?: number,
 ): [string, ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>, (value: string) => void] => {
   const [inputValue, setInputValue] = useState('');
 
   const handleChangeValue = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const { value } = event.target;
-
+    if (maxValue) {
+      if (+value > maxValue) {
+        return;
+      }
+    }
     if (value === '' || type === ValidationTypes.string) {
       setInputValue(value);
     }

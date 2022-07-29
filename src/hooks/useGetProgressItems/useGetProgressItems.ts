@@ -16,13 +16,13 @@ export const useGetProgressItems = (ref: RefObject<Element>, progress: number): 
 
       const progressItemSizeWithSpacing = 13;
       // Calculate max amount of points
-      const pointItemsValue = Math.floor(progressWidth / progressItemSizeWithSpacing);
+      const pointItemsValue = Math.round(progressWidth / progressItemSizeWithSpacing);
 
       const newArr = new Array(pointItemsValue).fill('').map((_, index) => {
         const pointCurrPercent = (100 / pointItemsValue) * (index + 1);
 
         // Filling current color for progress percent
-        if (progress > pointCurrPercent) {
+        if (progress >= pointCurrPercent) {
           return { value: index + 1, color: PointValues.blue };
         }
         return { value: index + 1, color: PointValues.white };

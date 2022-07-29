@@ -16,6 +16,7 @@ export type IdoState = {
     userAllocation: string | null;
     payed: string;
     claimAmount: string[];
+    totalBought: string;
   };
   vestingInfo: VestingInfoProps;
   isLiqAdded: boolean;

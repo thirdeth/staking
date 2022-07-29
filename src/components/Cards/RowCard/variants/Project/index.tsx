@@ -9,7 +9,7 @@ import { IdoType } from 'modules/ido/utils';
 import { FontWeights } from 'theme/Typography';
 import { BORDER_RADIUS_DEFAULT, COLOR_TEXT_GRAY_DARK } from 'theme/variables';
 import { ProjectCardDataProps } from 'types';
-import { formatNumber } from 'utils';
+import { formatNumber, fromDecimals } from 'utils';
 
 import { RowCardProps } from '../../RowCard';
 
@@ -154,7 +154,7 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
           ) : (
             <>
               <TypographySybtitle>Total raised</TypographySybtitle>
-              <ProgressBar base={hardCap} progress={Number(boughtAmount)} variant="parallelogram" />
+              <ProgressBar variant="circle" base={hardCap} progress={+fromDecimals(boughtAmount || 0)} />
             </>
           )}
         </Grid>

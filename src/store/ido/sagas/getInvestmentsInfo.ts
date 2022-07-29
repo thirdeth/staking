@@ -1,9 +1,10 @@
 import { ContractsNames } from 'services/WalletService/config';
 import { error, request, success } from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
+import idoSelector from 'store/ido/selectors';
 import userSelector from 'store/user/selectors';
 import { call, put, select, takeLatest } from 'typed-redux-saga';
-import { UserState, VestingInfoProps } from 'types';
+import { IdoState, UserState, VestingInfoProps } from 'types';
 import { IdoFarmeAbi } from 'types/contracts';
 import { getContractDataByItsName } from 'utils';
 
@@ -17,6 +18,8 @@ export function* getInvestmentsInfoSaga({
 }: ReturnType<typeof getInvestmentsInfo>) {
   yield* put(request(type));
   const { address, chainType }: UserState = yield select(userSelector.getUser);
+  const userInfo: IdoState['userInfo'] = yield select(idoSelector.getProp('userInfo'));
+
   const [idoFarmeAbi, idoFarmeContractAddress] = getContractDataByItsName(ContractsNames.idoFarme, chainType);
 
   try {
@@ -48,17 +51,29 @@ export function* getInvestmentsInfoSaga({
     // check is user registered
     const { data } = yield* call(baseApi.getUserAllocation, { address, pk: +idoId });
 
+    const updatedUserInfo = {
+      ...userInfo,
+      payed,
+      claimAmount,
+    };
+
     // if user registered, response will be equal 0 or more then 0
     if (data.response >= 0) {
       yield* put(
         updateIdoState({
-          userInfo: { userAllocation: data.response.toString(), payed, claimAmount },
+          userInfo: { ...updatedUserInfo, userAllocation: data.response.toString() },
           vestingInfo,
           isLiqAdded,
         }),
       );
     } else {
-      yield* put(updateIdoState({ userInfo: { userAllocation: null, payed, claimAmount }, vestingInfo, isLiqAdded }));
+      yield* put(
+        updateIdoState({
+          userInfo: { ...updatedUserInfo },
+          vestingInfo,
+          isLiqAdded,
+        }),
+      );
     }
 
     yield* put(success(type));

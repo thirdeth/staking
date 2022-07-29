@@ -138,13 +138,13 @@ export const contractsConfig: IContracts = {
     [ContractsNames.idoFarme]: {
       testnet: {
         address: {
-          [Chains.Cronos]: '0x0435C135ab271afC3273c6098AB1Ab6AbFd6c318',
+          [Chains.Cronos]: '0x6691121C0591f34c80bB7e3D14E6eD9861494F02',
         },
         abi: idoFarmeAbi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains.Cronos]: '0x0435C135ab271afC3273c6098AB1Ab6AbFd6c318',
+          [Chains.Cronos]: '0x6691121C0591f34c80bB7e3D14E6eD9861494F02',
         },
         abi: idoFarmeAbi as AbiItem[],
       },
