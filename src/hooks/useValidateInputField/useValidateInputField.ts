@@ -11,7 +11,8 @@ export const useValidateInputField = (
 
   const handleChangeValue = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const { value } = event.target;
-    if (maxValue) {
+
+    if (maxValue !== undefined && maxValue >= 0) {
       if (+value > maxValue) {
         return;
       }
