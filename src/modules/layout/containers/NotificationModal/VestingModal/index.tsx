@@ -76,7 +76,7 @@ export const VestingModal: FC<VestingModalProps> = ({
         <Grid item display="flex" flexDirection="column" alignItems="center">
           <Typography variant="body1">Total Claimable</Typography>
           <Typography mt={2} variant="h2" maxWidth={150} noWrap>
-            {fromDecimals(claimAmount[1])} {tokenSymbol}
+            {fromDecimals(claimAmount[2])} {tokenSymbol}
           </Typography>
         </Grid>
       </Grid>
