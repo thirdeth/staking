@@ -14,7 +14,7 @@ import { updateIdoState } from '../reducer';
 
 export function* getInvestmentsInfoSaga({
   type,
-  payload: { web3Provider, idoId, idoIncrement, vesting, ownerAddress },
+  payload: { web3Provider, idoId, idoIncrement, vesting },
 }: ReturnType<typeof getInvestmentsInfo>) {
   yield* put(request(type));
   const { address, chainType }: UserState = yield select(userSelector.getUser);
@@ -30,7 +30,6 @@ export function* getInvestmentsInfoSaga({
       unlockPercent: '',
       unlockStepTime: '',
     };
-    let isLiqAdded = false;
 
     const { payed } = yield* call(idoFarmeContract.methods.investments(idoIncrement, address).call);
     const claimAmount = yield* call(idoFarmeContract.methods.getClaimAmount(idoIncrement, address).call);
@@ -44,9 +43,7 @@ export function* getInvestmentsInfoSaga({
     }
 
     // check for owner is liquidity added yet
-    if (ownerAddress.toLowerCase() === address.toLowerCase()) {
-      isLiqAdded = yield* call(idoFarmeContract.methods.isLiqAdded(idoIncrement).call);
-    }
+    const isLiqAdded = yield* call(idoFarmeContract.methods.isLiqAdded(idoIncrement).call);
 
     // check is user registered
     const { data } = yield* call(baseApi.getUserAllocation, { address, pk: +idoId });

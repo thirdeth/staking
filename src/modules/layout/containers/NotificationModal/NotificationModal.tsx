@@ -72,6 +72,7 @@ export const NotificationModal: FC = () => {
           idoIncrement={currentIdo.idoIncrement.toString()}
           endTime={currentIdo.end}
           vestingInfo={vestingInfo}
+          tokenSymbol={currentIdo.tokenSymbol}
           web3Provider={walletService.Web3()}
           claimRequestStatus={claimRequestStatus}
           closeModal={closeModal}

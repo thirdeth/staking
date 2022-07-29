@@ -26,6 +26,7 @@ export type VestingModalProps = {
   claimAmount: string[];
   endTime: string;
   vestingInfo: VestingInfoProps;
+  tokenSymbol: string;
   web3Provider: Web3;
   claimRequestStatus: RequestStatus;
 } & INotifyModalProps;
@@ -35,6 +36,7 @@ export const VestingModal: FC<VestingModalProps> = ({
   idoIncrement,
   endTime,
   vestingInfo,
+  tokenSymbol,
   web3Provider,
   claimRequestStatus,
   closeModal,
@@ -66,21 +68,21 @@ export const VestingModal: FC<VestingModalProps> = ({
       <Grid container justifyContent="space-between" alignItems="center">
         <Grid item display="flex" flexDirection="column" alignItems="center">
           <Typography variant="body1">Total Amount</Typography>
-          <Typography mt={2} variant="h2">
-            {fromDecimals(claimAmount[1])} CLZ
+          <Typography mt={2} variant="h2" maxWidth={150} noWrap>
+            {fromDecimals(claimAmount[1])} {tokenSymbol}
           </Typography>
         </Grid>
 
         <Grid item display="flex" flexDirection="column" alignItems="center">
           <Typography variant="body1">Total Claimable</Typography>
-          <Typography mt={2} variant="h2">
-            {fromDecimals(claimAmount[1])} CLZ
+          <Typography mt={2} variant="h2" maxWidth={150} noWrap>
+            {fromDecimals(claimAmount[1])} {tokenSymbol}
           </Typography>
         </Grid>
       </Grid>
 
       <Typography my={3} variant="body1" textAlign="center">
-        CLZ Mpunthly Schedule
+        {tokenSymbol.toUpperCase()} Mpunthly Schedule
       </Typography>
 
       <LoadingButton
@@ -96,9 +98,11 @@ export const VestingModal: FC<VestingModalProps> = ({
       <Stack spacing={1} sx={{ maxHeight: '310px', overflowY: 'auto' }}>
         {tableData.map(({ id, anlockTime, anlockAmount }) => (
           <Item key={id} sx={{ px: 2 }}>
-            <Typography variant="body2">{id} stage</Typography>
+            <Typography variant="body2">{+id + 1} stage</Typography>
             <Typography variant="body2">{anlockTime}</Typography>
-            <Typography variant="body2">{fromDecimals(anlockAmount, 18)} CLZ</Typography>
+            <Typography variant="body2">
+              {fromDecimals(anlockAmount, 18)} {tokenSymbol.toUpperCase()}
+            </Typography>
           </Item>
         ))}
       </Stack>

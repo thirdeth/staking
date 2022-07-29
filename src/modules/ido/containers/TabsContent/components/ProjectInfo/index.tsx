@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Box, Grid, styled, Tooltip, Typography } from '@mui/material';
+import { TextWithTooltip } from 'components';
 import { ProjectDataProps } from 'modules/ido/pages/Details/Details.types';
 import { FontFamilies, FontWeights } from 'theme/Typography';
 import { BG_GRAY, BORDER_RADIUS_DEFAULT } from 'theme/variables';
@@ -61,7 +62,7 @@ export const ProjectInfo: FC<ProjectDataProps> = ({ projectData }) => {
             xs={6}
           >
             <Grid item>
-              <TextContainer maxWidth={120}>{tokenName}</TextContainer>
+              <TextWithTooltip value={tokenName} fontSize="16px" fontWeight={FontWeights.fontWeightMedium} />
             </Grid>
             <Grid item>
               <TextContainer>{tokenSymbol}</TextContainer>

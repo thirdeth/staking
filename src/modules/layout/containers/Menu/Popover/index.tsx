@@ -39,7 +39,7 @@ export const MenuPopover: FC<MenuPopoverProps> = ({ visible, anchorEl, onClose }
       onClose={onClose}
       sx={{
         '& .MuiPopover-paper': {
-          mt: 1,
+          mt: { xs: 2, sm: 2, md: 1 },
           pt: 1,
           pb: 2.5,
           width: '153px',

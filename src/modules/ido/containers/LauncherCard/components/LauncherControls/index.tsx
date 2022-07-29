@@ -12,9 +12,10 @@ type LauncherControlsProps = Omit<LauncherCardProps, 'userAllocation'>;
 
 export const LauncherControls: FC<LauncherControlsProps> = ({
   projectData,
-  isRegistration,
   isGettingInvestmentsInfo,
+  isRegistration,
   isAddingLiquidity,
+  isClaiming,
   isCanAddLiquidity,
   onAddLiauidity,
 }) => {
@@ -48,7 +49,7 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
         {isMainBtnVisible && (
           <LoadingButton
             variant="contained"
-            loading={isRegistration || isGettingInvestmentsInfo}
+            loading={isRegistration || isClaiming || isGettingInvestmentsInfo}
             sx={{ width: { xs: '100%', sm: '100%', md: 'auto' } }}
             onClick={btnHandler}
           >

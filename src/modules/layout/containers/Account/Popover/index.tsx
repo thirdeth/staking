@@ -63,7 +63,7 @@ export const AccountPopover: FC<AccountModalProps> = ({
       onClose={onClose}
       sx={{
         '& .MuiPopover-paper': {
-          mt: 1,
+          mt: { xs: 2, sm: 2, md: 1 },
           px: 2.5,
           pt: 1,
           pb: 2.5,

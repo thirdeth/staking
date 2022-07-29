@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { LoadingButton } from '@mui/lab';
 import { Box, Button, Paper, Stack, styled, TextField, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
+import { TextWithTooltip } from 'components';
 import { useValidateInputField, ValidationTypes } from 'hooks';
 import { validateMaxInvestValue } from 'modules/ido/utils';
 import { getTotalBought, onInvest } from 'store/ido/actions';
@@ -10,7 +11,7 @@ import { BORDER_BUTTON_RED, COLOR_TEXT_GRAY_DARK, COLOR_TEXT_RED } from 'theme/v
 import { INotifyModalProps, Nullable, RequestStatus } from 'types';
 import Web3 from 'web3';
 
-import { InvestTextField, TextWithTooltip } from './components';
+import { InvestTextField } from './components';
 
 const Item = styled(Paper)({
   border: 'none',
@@ -99,7 +100,7 @@ export const InvestModal: FC<InvestModalProps> = ({
       </Item>
 
       <Item>
-        <TextWithTooltip value={userBalance} startText="Balance:" endText="CRO" />
+        <TextWithTooltip value={userBalance} startText="Balance:" endText="CRO" color={COLOR_TEXT_GRAY_DARK} />
         <InvestTextField
           investValue={investValue}
           disabled={isInvesting || isLoadingInfo}
@@ -110,7 +111,7 @@ export const InvestModal: FC<InvestModalProps> = ({
       </Item>
 
       <Item sx={{ width: 'fit-content' }}>
-        <TextWithTooltip value={maxInvestValue} startText="Max Invest:" endText="CRO" />
+        <TextWithTooltip value={maxInvestValue} startText="Max Invest:" endText="CRO" color={COLOR_TEXT_GRAY_DARK} />
       </Item>
 
       <Item>

@@ -23,8 +23,9 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
 
   const { address: userAddress, rankId } = useShallowSelector<State, UserState>(userSelector.getUser);
   const {
+    isLiqAdded,
     userInfo: { userAllocation, claimAmount, payed },
-    currentIdo: { withWeights, vesting, idoIncrement, ownerAddress, isPublic },
+    currentIdo: { withWeights, vesting, idoIncrement, isPublic },
   } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
 
   // ----------------- Button handlers ------------------
@@ -54,11 +55,10 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
           web3Provider: walletService.Web3(),
           idoIncrement: idoIncrement.toString(),
           vesting: !!vesting,
-          ownerAddress: ownerAddress as string,
         }),
       );
     }
-  }, [dispatch, id, idoIncrement, userAddress, vesting, walletService, ownerAddress]);
+  }, [dispatch, id, idoIncrement, userAddress, vesting, walletService]);
 
   const handleClaim = useCallback(() => {
     if (id) {
@@ -120,6 +120,7 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
           +payed,
           claimAmount,
           vesting,
+          isLiqAdded,
         );
         setBtnText(text);
         setBtnHandler(getButtonHandlers()[handlerKey]);
@@ -136,6 +137,7 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
           claimAmount,
           vesting,
           isPublic,
+          isLiqAdded,
         );
         setBtnText(text);
         setBtnHandler(getButtonHandlers()[handlerKey]);
@@ -145,6 +147,7 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
     }
   }, [
     isPublic,
+    isLiqAdded,
     vesting,
     withWeights,
     claimAmount,

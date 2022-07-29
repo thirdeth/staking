@@ -42,12 +42,14 @@ export const Details: FC = () => {
   const {
     [idoActionTypes.GET_IDO_BY_ID]: getIdoByIdRequestStatus,
     [idoActionTypes.ADD_LIQUIDITY]: addLiquidityRequestStatus,
+    [idoActionTypes.CLAIM]: claimRequestStatus,
     [idoActionTypes.REGISTRATION_TO_IDO]: registrationRequestStatus,
     [idoActionTypes.GET_INVESTMENTS_INFO]: getInvestmentsInfoRequestStatus,
   } = useShallowSelector(uiSelector.getUI);
 
   const isGettingIdoById = getIdoByIdRequestStatus === RequestStatus.REQUEST;
   const isRegistration = registrationRequestStatus === RequestStatus.REQUEST;
+  const isClaiming = claimRequestStatus === RequestStatus.REQUEST;
   const isAddingLiquidity = addLiquidityRequestStatus === RequestStatus.REQUEST;
   const isGettingInvestmentsInfo = getInvestmentsInfoRequestStatus === RequestStatus.REQUEST;
 
@@ -82,7 +84,6 @@ export const Details: FC = () => {
           idoId: id,
           idoIncrement: idoIncrement.toString(),
           vesting,
-          ownerAddress,
         }),
       );
     }
@@ -127,8 +128,9 @@ export const Details: FC = () => {
               userAllocation={userAllocation}
               isCanAddLiquidity={isCanAddLiquidity}
               isRegistration={isRegistration}
-              onAddLiauidity={handleAddLiquidity}
+              isClaiming={isClaiming}
               isAddingLiquidity={isAddingLiquidity}
+              onAddLiauidity={handleAddLiquidity}
               isGettingInvestmentsInfo={isGettingInvestmentsInfo}
             />
           </Grid>

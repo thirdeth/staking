@@ -1,10 +1,9 @@
 import { ContractsNames } from 'services/WalletService/config';
 import { error, request, success } from 'store/api/actions';
-import { baseApi } from 'store/api/apiRequestBuilder';
 import idoSelector from 'store/ido/selectors';
 import userSelector from 'store/user/selectors';
 import { call, put, select, takeLatest } from 'typed-redux-saga';
-import { IdoState, UserState, VestingInfoProps } from 'types';
+import { IdoState, UserState } from 'types';
 import { IdoFarmeAbi } from 'types/contracts';
 import { getContractDataByItsName } from 'utils';
 
@@ -19,6 +18,7 @@ export function* getTotalBoughtSaga({
   yield* put(request(type));
   const { chainType }: UserState = yield select(userSelector.getUser);
   const userInfo: IdoState['userInfo'] = yield select(idoSelector.getProp('userInfo'));
+  const currentIdo: IdoState['currentIdo'] = yield select(idoSelector.getProp('currentIdo'));
   const [idoFarmeAbi, idoFarmeContractAddress] = getContractDataByItsName(ContractsNames.idoFarme, chainType);
 
   try {
@@ -26,7 +26,7 @@ export function* getTotalBoughtSaga({
 
     const { totalBought } = yield* call(idoFarmeContract.methods.idoParams(idoIncrement).call);
 
-    yield* put(updateIdoState({ userInfo: { ...userInfo, totalBought } }));
+    yield* put(updateIdoState({ userInfo: { ...userInfo, totalBought }, currentIdo: { ...currentIdo, totalBought } }));
 
     yield* put(success(type));
   } catch (err) {

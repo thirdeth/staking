@@ -8,8 +8,8 @@ export type GetIdoListReq = {
   status: IdoStatus | IdoStatus[];
   count: number;
   start: number;
-  isMyIdos?: boolean[];
-  isMyInvesments?: boolean[];
+  isMyIdos?: boolean;
+  isMyInvesments?: boolean;
   owner?: string;
   investor?: string;
   withWeights?: IdoWeights;
@@ -32,7 +32,6 @@ export type GetProofReq = {
 export type RegistretionIdoWithUpdatesReq = {
   idoIncrement: string;
   vesting: boolean;
-  ownerAddress: string;
 } & RegistrationIdoReq &
   RequestWithWeb3Provider;
 
@@ -94,7 +93,6 @@ export type GetIvestmentsInfoReq = {
   idoId: string;
   idoIncrement: string;
   vesting: boolean;
-  ownerAddress: string;
 } & RequestWithWeb3Provider;
 
 export type GetTotalBoughtReq = {

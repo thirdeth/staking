@@ -12,6 +12,7 @@ export const validateWithWeights = (
   payed: number,
   claimAmount: string[],
   vesting = false,
+  isLiqAdded: boolean,
 ): [ValidBtnProps, string] => {
   let resultValidBtnProps: ValidBtnProps = {
     text: '',
@@ -99,7 +100,7 @@ export const validateWithWeights = (
 
     case IdoStatus.completedSuccess:
       // it means thath user can claim and should check other items claimAmountArr
-      if (+claimAmount[0] > 0) {
+      if (+claimAmount[0] > 0 && isLiqAdded) {
         // user can claim
         if (+claimAmount[1] > 0 && !vesting) {
           resultValidBtnProps = {
@@ -119,8 +120,16 @@ export const validateWithWeights = (
           resultTextMessage = 'You already claimed';
         }
       }
-      if (+claimAmount[0] === 0) {
-        resultTextMessage = 'You already claimed';
+      // if user have reward but it is not current vesting stage - open vesting modal for watching stages
+      if (vesting && isLiqAdded && +claimAmount[2] !== 0) {
+        resultValidBtnProps = {
+          text: 'Claim',
+          handlerKey: HandlersKeys.claim,
+          isVisible: true,
+        };
+      }
+      if (!isLiqAdded) {
+        resultTextMessage = 'Wait for the owner will add liquidity to claim your tokens';
       }
       break;
 

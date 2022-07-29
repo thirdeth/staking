@@ -10,6 +10,7 @@ export const validateWithoutWeights = (
   claimAmount: string[],
   vesting = false,
   isPublic = false,
+  isLiqAdded: boolean,
 ): [ValidBtnProps, string] => {
   let resultValidBtnProps: ValidBtnProps = {
     text: '',
@@ -54,7 +55,7 @@ export const validateWithoutWeights = (
 
     case IdoStatus.completedSuccess:
       // it means thath user can claim and should check other items claimAmountArr
-      if (+claimAmount[0] > 0) {
+      if (+claimAmount[0] > 0 && isLiqAdded) {
         // user can claim
         if (+claimAmount[1] > 0) {
           resultValidBtnProps = {
@@ -67,8 +68,11 @@ export const validateWithoutWeights = (
           resultTextMessage = 'You already claimed';
         }
       }
-      if (+claimAmount[0] === 0) {
-        resultTextMessage = 'You already claimed';
+      // if (+claimAmount[0] === 0 && isLiqAdded) {
+      //   resultTextMessage = 'You already claimed';
+      // }
+      if (!isLiqAdded) {
+        resultTextMessage = 'Wait for the owner will add liquidity to claim your tokens';
       }
       break;
 

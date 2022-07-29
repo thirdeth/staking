@@ -21,8 +21,9 @@ export function* getIdoListSaga({ type, payload }: ReturnType<typeof getIdoList>
 
   try {
     // for owner or investor filter page
-    const owner = payload.isMyIdos !== undefined && payload.isMyIdos.length ? myAddress : '';
-    const investor = payload.isMyInvesments !== undefined && payload.isMyInvesments.length ? myAddress : '';
+    const owner = payload.isMyIdos ? myAddress : '';
+    const investor = payload.isMyInvesments ? myAddress : '';
+
     const {
       data: { count, result },
     } = yield call(baseApi.getIdoList, {

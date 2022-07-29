@@ -10,8 +10,9 @@ export type LauncherCardProps = {
   userAllocation: Nullable<string>;
   isCanAddLiquidity: boolean;
   isRegistration: boolean;
-  isGettingInvestmentsInfo: boolean;
+  isClaiming: boolean;
   isAddingLiquidity: boolean;
+  isGettingInvestmentsInfo: boolean;
   onAddLiauidity: () => void;
 } & ProjectDataProps;
 
@@ -20,8 +21,9 @@ export const LauncherCard: FC<LauncherCardProps> = ({
   isCanAddLiquidity,
   userAllocation,
   isRegistration,
-  isGettingInvestmentsInfo,
+  isClaiming,
   isAddingLiquidity,
+  isGettingInvestmentsInfo,
   onAddLiauidity,
 }) => {
   return (
@@ -45,8 +47,9 @@ export const LauncherCard: FC<LauncherCardProps> = ({
           isCanAddLiquidity={isCanAddLiquidity}
           projectData={projectData}
           isRegistration={isRegistration}
-          isGettingInvestmentsInfo={isGettingInvestmentsInfo}
+          isClaiming={isClaiming}
           isAddingLiquidity={isAddingLiquidity}
+          isGettingInvestmentsInfo={isGettingInvestmentsInfo}
           onAddLiauidity={onAddLiauidity}
         />
       </Grid>

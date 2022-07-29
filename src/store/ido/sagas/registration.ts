@@ -12,7 +12,7 @@ import { getInvestmentsInfoSaga } from './getInvestmentsInfo';
 
 export function* registrationSaga({
   type,
-  payload: { web3Provider, address, pk, idoIncrement, vesting, ownerAddress },
+  payload: { web3Provider, address, pk, idoIncrement, vesting },
 }: ReturnType<typeof onRegistrationToIdo>) {
   yield* put(apiActions.request(type));
 
@@ -33,7 +33,6 @@ export function* registrationSaga({
         idoId: pk.toString(),
         idoIncrement,
         vesting,
-        ownerAddress,
       },
     });
 
