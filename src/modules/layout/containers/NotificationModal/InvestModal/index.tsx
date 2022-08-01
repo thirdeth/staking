@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { LoadingButton } from '@mui/lab';
 import { Box, Button, Paper, Stack, styled, TextField, Typography } from '@mui/material';
@@ -88,9 +88,8 @@ export const InvestModal: FC<InvestModalProps> = ({
   useEffect(() => {
     if (isInvested) {
       setOriginInvestValue('');
-      closeModal();
     }
-  }, [closeModal, isInvested, setOriginInvestValue]);
+  }, [isInvested, setOriginInvestValue]);
 
   return (
     <Stack spacing={2}>

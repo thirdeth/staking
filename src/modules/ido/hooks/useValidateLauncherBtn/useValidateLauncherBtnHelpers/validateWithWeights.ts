@@ -95,7 +95,7 @@ export const validateWithWeights = (
         };
       }
       // user returned his CRO or didn't invest
-      resultTextMessage = 'You already refunded your tokens';
+      // resultTextMessage = 'You already refunded your tokens';
       break;
 
     case IdoStatus.completedSuccess:
