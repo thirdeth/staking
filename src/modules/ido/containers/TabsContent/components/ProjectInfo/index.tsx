@@ -65,7 +65,7 @@ export const ProjectInfo: FC<ProjectDataProps> = ({ projectData }) => {
               <TextWithTooltip value={tokenName} fontSize="16px" fontWeight={FontWeights.fontWeightMedium} />
             </Grid>
             <Grid item>
-              <TextContainer>{tokenSymbol}</TextContainer>
+              <TextContainer>{tokenSymbol.toUpperCase()}</TextContainer>
             </Grid>
             <Grid item>
               <TextContainer>{decimals}</TextContainer>
@@ -76,7 +76,7 @@ export const ProjectInfo: FC<ProjectDataProps> = ({ projectData }) => {
             <Grid item>
               <Tooltip title={totalSupply} arrow placement="left">
                 <TextContainer>
-                  {totalSupply} {tokenSymbol}
+                  {totalSupply} {tokenSymbol.toUpperCase()}
                 </TextContainer>
               </Tooltip>
             </Grid>

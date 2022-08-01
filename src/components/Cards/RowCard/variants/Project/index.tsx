@@ -77,7 +77,7 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
                 </Tooltip>
               )}
               {token?.symbol && price && (
-                <Typography whiteSpace="nowrap">{`Price (${token?.symbol}) = ${price} CRO`}</Typography>
+                <Typography whiteSpace="nowrap">{`Price (${token?.symbol.toUpperCase()}) = ${price} CRO`}</Typography>
               )}
             </Box>
           </Box>

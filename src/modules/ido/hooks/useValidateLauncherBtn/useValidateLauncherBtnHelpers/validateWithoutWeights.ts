@@ -71,9 +71,9 @@ export const validateWithoutWeights = (
       // if (+claimAmount[0] === 0 && isLiqAdded) {
       //   resultTextMessage = 'You already claimed';
       // }
-      if (!isLiqAdded) {
-        resultTextMessage = 'Wait for the owner will add liquidity to claim your tokens';
-      }
+      // if (!isLiqAdded) {
+      //   resultTextMessage = 'Wait for the owner will add liquidity to claim your tokens';
+      // }
       break;
 
     default:

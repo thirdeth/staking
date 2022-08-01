@@ -5,6 +5,7 @@ import { Grid, Typography } from '@mui/material';
 import { ApplyCard } from 'components';
 import { useShallowSelector } from 'hooks';
 import { isEmpty } from 'lodash';
+import { AttentionText } from 'modules/ido/components';
 import { LauncherCard, SkeletonContainer, TabsContent } from 'modules/ido/containers';
 import { useUpdateIdoData } from 'modules/ido/hooks';
 import { useWalletConnectorContext } from 'services';
@@ -18,7 +19,7 @@ import { FontFamilies, FontWeights } from 'theme/Typography';
 import { COLOR_TEXT_BLUE } from 'theme/variables';
 import { IdoState, RequestStatus, State } from 'types';
 import { IdoStatus } from 'types/store/requests';
-import { getDisplayStageName } from 'utils';
+import { getDisplayStageName, toDecimals } from 'utils';
 
 import { IdoRequiredProps } from './Details.types';
 
@@ -29,10 +30,11 @@ export const Details: FC = () => {
 
   const {
     currentIdo,
-    userInfo: { userAllocation },
+    userInfo: { userAllocation, totalBought },
     isLiqAdded,
   } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
-  const { idoIncrement, ownerAddress, vesting, status, tokenAddress, decimals } = currentIdo as IdoRequiredProps;
+  const { idoIncrement, ownerAddress, vesting, status, tokenAddress, softCap, decimals, end } =
+    currentIdo as IdoRequiredProps;
   const userAddress = useShallowSelector(userSelector.getProp('address'));
 
   const isCurrentIdoEmpty = isEmpty(currentIdo);
@@ -58,6 +60,9 @@ export const Details: FC = () => {
   const isGettingInvestmentsInfo = getInvestmentsInfoRequestStatus === RequestStatus.REQUEST;
 
   const isDataLoaded = !isEmpty(currentIdo) && !isGettingIdoById;
+
+  const isShowAttentionTextVisible =
+    status === IdoStatus.completedFail && totalBought >= toDecimals(softCap, decimals) && +end * 1000 < Date.now();
 
   const handleAddLiquidity = () => {
     dispatch(
@@ -108,44 +113,54 @@ export const Details: FC = () => {
   return (
     <>
       {isDataLoaded && (
-        <Grid container justifyContent="space-between" alignItems="flex-start" spacing={3} sx={{ overflowX: 'hidden' }}>
-          <Grid item xs={12}>
-            <Typography
-              variant="body2"
-              sx={{
-                strong: {
-                  fontSize: '30px',
-                  fontFamily: FontFamilies.secondary,
-                  fontWeight: FontWeights.fontWeightRegular,
-                  textTransform: 'uppercase',
-                  color: COLOR_TEXT_BLUE,
-                },
-              }}
-            >
-              Status: <strong>{getDisplayStageName(status)}</strong>
-            </Typography>
-          </Grid>
+        <>
+          {isShowAttentionTextVisible && <AttentionText />}
 
-          <Grid item xs={12}>
-            <LauncherCard
-              projectData={currentIdo as IdoRequiredProps}
-              userAllocation={userAllocation}
-              isCanAddLiquidity={isCanAddLiquidity}
-              isRegistration={isRegistration}
-              isClaiming={isClaiming}
-              isRefunding={isRefunding}
-              isAddingLiquidity={isAddingLiquidity}
-              onAddLiauidity={handleAddLiquidity}
-              isGettingInvestmentsInfo={isGettingInvestmentsInfo}
-            />
+          <Grid
+            container
+            justifyContent="space-between"
+            alignItems="flex-start"
+            spacing={3}
+            sx={{ overflowX: 'hidden' }}
+          >
+            <Grid item xs={12}>
+              <Typography
+                variant="body2"
+                sx={{
+                  strong: {
+                    fontSize: '30px',
+                    fontFamily: FontFamilies.secondary,
+                    fontWeight: FontWeights.fontWeightRegular,
+                    textTransform: 'uppercase',
+                    color: COLOR_TEXT_BLUE,
+                  },
+                }}
+              >
+                Status: <strong>{getDisplayStageName(status)}</strong>
+              </Typography>
+            </Grid>
+
+            <Grid item xs={12}>
+              <LauncherCard
+                projectData={currentIdo as IdoRequiredProps}
+                userAllocation={userAllocation}
+                isCanAddLiquidity={isCanAddLiquidity}
+                isRegistration={isRegistration}
+                isClaiming={isClaiming}
+                isRefunding={isRefunding}
+                isAddingLiquidity={isAddingLiquidity}
+                onAddLiauidity={handleAddLiquidity}
+                isGettingInvestmentsInfo={isGettingInvestmentsInfo}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TabsContent projectData={currentIdo as IdoRequiredProps} />
+            </Grid>
+            <Grid item xs={12}>
+              <ApplyCard size="s" />
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <TabsContent projectData={currentIdo as IdoRequiredProps} />
-          </Grid>
-          <Grid item xs={12}>
-            <ApplyCard size="s" />
-          </Grid>
-        </Grid>
+        </>
       )}
 
       {isGettingIdoById && <SkeletonContainer />}

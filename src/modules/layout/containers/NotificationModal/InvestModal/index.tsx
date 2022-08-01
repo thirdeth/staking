@@ -88,8 +88,9 @@ export const InvestModal: FC<InvestModalProps> = ({
   useEffect(() => {
     if (isInvested) {
       setOriginInvestValue('');
+      closeModal();
     }
-  }, [isInvested, setOriginInvestValue]);
+  }, [closeModal, isInvested, setOriginInvestValue]);
 
   return (
     <Stack spacing={2}>
