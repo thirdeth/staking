@@ -11,6 +11,8 @@ import { getContractDataByItsName, getToastMessage } from 'utils';
 import { onRefund } from '../actions';
 import actionTypes from '../actionTypes';
 
+import { getTotalBoughtSaga } from './getTotalBought';
+
 export function* refundaga({ type, payload: { web3Provider, idoIncrement } }: ReturnType<typeof onRefund>) {
   yield* put(request(type));
   const { address, chainType }: UserState = yield select(userSelector.getUser);
@@ -22,6 +24,14 @@ export function* refundaga({ type, payload: { web3Provider, idoIncrement } }: Re
     yield* call(idoFarmeContract.methods.withdrawInvestment(idoIncrement).send, {
       from: address,
       to: idoFarmeContractAddress,
+    });
+
+    yield* call(getTotalBoughtSaga, {
+      type: actionTypes.GET_TOTAL_BOUGHT,
+      payload: {
+        web3Provider,
+        idoIncrement,
+      },
     });
 
     yield* put(success(type));

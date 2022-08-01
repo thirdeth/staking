@@ -19,7 +19,7 @@ export const useGetProgressItems = (ref: RefObject<Element>, progress: number): 
       const pointItemsValue = Math.round(progressWidth / progressItemSizeWithSpacing);
 
       const newArr = new Array(pointItemsValue).fill('').map((_, index) => {
-        const pointCurrPercent = (100 / pointItemsValue) * (index + 1);
+        const pointCurrPercent = Math.round((100 / pointItemsValue) * (index + 1));
 
         // Filling current color for progress percent
         if (progress >= pointCurrPercent) {

@@ -35,6 +35,8 @@ export const Details: FC = () => {
   const { idoIncrement, ownerAddress, vesting, status, tokenAddress, decimals } = currentIdo as IdoRequiredProps;
   const userAddress = useShallowSelector(userSelector.getProp('address'));
 
+  const isCurrentIdoEmpty = isEmpty(currentIdo);
+
   // for refresh ido data
   useUpdateIdoData(currentIdo as IdoRequiredProps, id);
   const [isCanAddLiquidity, setCanAddLiquidity] = useState(false);
@@ -43,6 +45,7 @@ export const Details: FC = () => {
     [idoActionTypes.GET_IDO_BY_ID]: getIdoByIdRequestStatus,
     [idoActionTypes.ADD_LIQUIDITY]: addLiquidityRequestStatus,
     [idoActionTypes.CLAIM]: claimRequestStatus,
+    [idoActionTypes.REFUND]: refundRequestStatus,
     [idoActionTypes.REGISTRATION_TO_IDO]: registrationRequestStatus,
     [idoActionTypes.GET_INVESTMENTS_INFO]: getInvestmentsInfoRequestStatus,
   } = useShallowSelector(uiSelector.getUI);
@@ -50,6 +53,7 @@ export const Details: FC = () => {
   const isGettingIdoById = getIdoByIdRequestStatus === RequestStatus.REQUEST;
   const isRegistration = registrationRequestStatus === RequestStatus.REQUEST;
   const isClaiming = claimRequestStatus === RequestStatus.REQUEST;
+  const isRefunding = refundRequestStatus === RequestStatus.REQUEST;
   const isAddingLiquidity = addLiquidityRequestStatus === RequestStatus.REQUEST;
   const isGettingInvestmentsInfo = getInvestmentsInfoRequestStatus === RequestStatus.REQUEST;
 
@@ -77,7 +81,7 @@ export const Details: FC = () => {
   }, [dispatch, id, walletService]);
 
   useEffect(() => {
-    if (id && userAddress.length && !isEmpty(currentIdo)) {
+    if (id && userAddress.length && !isCurrentIdoEmpty) {
       dispatch(
         getInvestmentsInfo({
           web3Provider: walletService.Web3(),
@@ -87,7 +91,7 @@ export const Details: FC = () => {
         }),
       );
     }
-  }, [currentIdo, dispatch, id, idoIncrement, ownerAddress, userAddress.length, vesting, walletService]);
+  }, [isCurrentIdoEmpty, dispatch, id, idoIncrement, userAddress.length, vesting, walletService]);
 
   useEffect(() => {
     const isLoginAndDataLoaded = userAddress?.length && ownerAddress?.length;
@@ -129,6 +133,7 @@ export const Details: FC = () => {
               isCanAddLiquidity={isCanAddLiquidity}
               isRegistration={isRegistration}
               isClaiming={isClaiming}
+              isRefunding={isRefunding}
               isAddingLiquidity={isAddingLiquidity}
               onAddLiauidity={handleAddLiquidity}
               isGettingInvestmentsInfo={isGettingInvestmentsInfo}

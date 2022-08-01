@@ -53,8 +53,8 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
   }, [searchParams]);
 
   const weightsParams = useMemo(
-    () => (searchParams.get(PARAMS.with_weights) as IdoWeights) || IdoWeights.withWeights,
-    [searchParams],
+    () => (searchParams.get(PARAMS.with_weights) as IdoWeights) || isStakingRequire,
+    [isStakingRequire, searchParams],
   );
 
   // for investments - without upcoming status

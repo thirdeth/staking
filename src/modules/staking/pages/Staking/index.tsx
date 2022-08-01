@@ -52,7 +52,9 @@ export const Staking: FC<StakingProps> = ({ title }) => {
 
   const handleCahngeStakePeriod = useCallback((event: MouseEvent<HTMLElement>) => {
     const { value } = event.target as HTMLButtonElement;
-    setStakePeriod(+value);
+    if (value !== undefined) {
+      setStakePeriod(+value);
+    }
   }, []);
 
   const handleOpenConnectModal = useCallback(() => {

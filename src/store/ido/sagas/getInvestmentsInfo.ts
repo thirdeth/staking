@@ -18,7 +18,7 @@ export function* getInvestmentsInfoSaga({
 }: ReturnType<typeof getInvestmentsInfo>) {
   yield* put(request(type));
   const { address, chainType }: UserState = yield select(userSelector.getUser);
-  const userInfo: IdoState['userInfo'] = yield select(idoSelector.getProp('userInfo'));
+  const { userInfo, currentIdo }: IdoState = yield select(idoSelector.getIdo);
 
   const [idoFarmeAbi, idoFarmeContractAddress] = getContractDataByItsName(ContractsNames.idoFarme, chainType);
 
@@ -33,6 +33,8 @@ export function* getInvestmentsInfoSaga({
 
     const { payed } = yield* call(idoFarmeContract.methods.investments(idoIncrement, address).call);
     const claimAmount = yield* call(idoFarmeContract.methods.getClaimAmount(idoIncrement, address).call);
+    // refresh right totalBought from contract
+    const { totalBought } = yield* call(idoFarmeContract.methods.idoParams(idoIncrement).call);
 
     // for ido with vesting conditional check vesting params
     if (vesting) {
@@ -59,6 +61,7 @@ export function* getInvestmentsInfoSaga({
       yield* put(
         updateIdoState({
           userInfo: { ...updatedUserInfo, userAllocation: data.response.toString() },
+          currentIdo: { ...currentIdo, totalBought },
           vestingInfo,
           isLiqAdded,
         }),
@@ -67,6 +70,7 @@ export function* getInvestmentsInfoSaga({
       yield* put(
         updateIdoState({
           userInfo: { ...updatedUserInfo },
+          currentIdo: { ...currentIdo, totalBought },
           vestingInfo,
           isLiqAdded,
         }),

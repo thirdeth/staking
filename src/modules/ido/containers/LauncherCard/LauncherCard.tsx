@@ -11,6 +11,7 @@ export type LauncherCardProps = {
   isCanAddLiquidity: boolean;
   isRegistration: boolean;
   isClaiming: boolean;
+  isRefunding: boolean;
   isAddingLiquidity: boolean;
   isGettingInvestmentsInfo: boolean;
   onAddLiauidity: () => void;
@@ -22,6 +23,7 @@ export const LauncherCard: FC<LauncherCardProps> = ({
   userAllocation,
   isRegistration,
   isClaiming,
+  isRefunding,
   isAddingLiquidity,
   isGettingInvestmentsInfo,
   onAddLiauidity,
@@ -49,6 +51,7 @@ export const LauncherCard: FC<LauncherCardProps> = ({
           isRegistration={isRegistration}
           isClaiming={isClaiming}
           isAddingLiquidity={isAddingLiquidity}
+          isRefunding={isRefunding}
           isGettingInvestmentsInfo={isGettingInvestmentsInfo}
           onAddLiauidity={onAddLiauidity}
         />

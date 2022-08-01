@@ -16,11 +16,14 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
   isRegistration,
   isAddingLiquidity,
   isClaiming,
+  isRefunding,
   isCanAddLiquidity,
   onAddLiauidity,
 }) => {
   const { discord, medium, telegram, twitter, status, investors } = projectData;
   const [btnText, btnHandler, isMainBtnVisible, textMessage] = useValidateLauncherBtn(status);
+
+  const isLoading = isRegistration || isClaiming || isRefunding || isGettingInvestmentsInfo;
 
   const isShowAddLiquidityBtn = !isGettingInvestmentsInfo && isCanAddLiquidity;
   const isShowTextMessage =
@@ -49,7 +52,7 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
         {isMainBtnVisible && (
           <LoadingButton
             variant="contained"
-            loading={isRegistration || isClaiming || isGettingInvestmentsInfo}
+            loading={isLoading}
             sx={{ width: { xs: '100%', sm: '100%', md: 'auto' } }}
             onClick={btnHandler}
           >
@@ -61,7 +64,7 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
           <LoadingButton
             variant="contained"
             loading={isAddingLiquidity}
-            sx={{ ml: { xs: 0, sm: 0, md: 2 }, width: { xs: '100%', sm: '100%', md: 'auto' } }}
+            sx={{ width: { xs: '100%', sm: '100%', md: 'auto' } }}
             onClick={onAddLiauidity}
           >
             Add Liquidity
@@ -82,7 +85,8 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
           color={COLOR_TEXT_BLACK}
           links={{ discord, medium, telegram, twitter }}
           sx={{
-            justifyContent: { xs: 'space-between', sm: 'space-between', md: 'center', lg: 'center' },
+            mb: { xs: 2, sm: 2, md: 0 },
+            justifyContent: 'center',
             width: { xs: '100%', sm: '100%', md: 'auto !important', lg: 'auto !important' },
           }}
         />

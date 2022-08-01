@@ -8,7 +8,7 @@ import userSelector from 'store/user/selectors';
 import { call, put, takeLatest } from 'typed-redux-saga';
 import { UserState } from 'types';
 import { IdoFarmeAbi } from 'types/contracts';
-import { getContractDataByItsName, getToastMessage, toDecimals } from 'utils';
+import { getContractDataByItsName, getToastMessage } from 'utils';
 
 import { onAddLiquidity } from '../actions';
 import actionTypes from '../actionTypes';
@@ -16,7 +16,7 @@ import { updateIdoState } from '../reducer';
 
 export function* addLiquiditySaga({
   type,
-  payload: { web3Provider, idoIncrement, tokenAddress, decimals },
+  payload: { web3Provider, idoIncrement, tokenAddress },
 }: ReturnType<typeof onAddLiquidity>) {
   yield* put(request(type));
   const { address, chainType }: UserState = yield select(userSelector.getUser);
@@ -33,7 +33,7 @@ export function* addLiquiditySaga({
         web3Provider,
         spenderAddress: tokenAddress,
         tokenAddress: idoFarmeContractAddress,
-        amount: toDecimals(totalBought, decimals),
+        amount: totalBought,
       },
     });
 
