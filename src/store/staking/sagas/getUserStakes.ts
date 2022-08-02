@@ -19,7 +19,7 @@ export function* getUserStakesSaga({ type, payload: { web3Provider } }: ReturnTy
     const stakingContract: StakingAbi = yield new web3Provider.eth.Contract(stakingAbi, stakingContractAddress);
 
     if (address) {
-      // get array of main info per user stake
+      // get array of main part info per user stake
       const userStakesPartInfo = yield* call(stakingContract.methods.getFront(address).call);
       // get reward amounts array
       const rewardAmountsPerStakes = yield* all(
@@ -28,7 +28,7 @@ export function* getUserStakesSaga({ type, payload: { web3Provider } }: ReturnTy
         ),
       );
 
-      const userStakes = userStakesPartInfo.map((stake, index) => [...stake, rewardAmountsPerStakes[index]]);
+      const userStakes = userStakesPartInfo.map((stake, index) => [...stake, rewardAmountsPerStakes[index][0]]);
       const { totalStakedAmount } = yield* call(stakingContract.methods.addressToUserInfo(address).call);
 
       yield put(

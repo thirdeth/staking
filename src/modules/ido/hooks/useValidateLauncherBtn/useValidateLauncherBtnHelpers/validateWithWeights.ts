@@ -22,7 +22,7 @@ export const validateWithWeights = (
 
   let resultTextMessage = '';
 
-  const wasBought = userAllocation
+  const isWasntBought = userAllocation
     ? +new BigNumber(+userAllocation).minus(new BigNumber(fromDecimals(payed, 18))).toString() > 0
     : false;
 
@@ -71,7 +71,7 @@ export const validateWithWeights = (
 
     case IdoStatus.inProgress:
       // if user doesn't bought all his part
-      if (wasBought) {
+      if (isWasntBought) {
         resultValidBtnProps = {
           text: 'Invest',
           handlerKey: HandlersKeys.openInvestModal,
@@ -94,8 +94,6 @@ export const validateWithWeights = (
           isVisible: true,
         };
       }
-      // user returned his CRO or didn't invest
-      // resultTextMessage = 'You already refunded your tokens';
       break;
 
     case IdoStatus.completedSuccess:

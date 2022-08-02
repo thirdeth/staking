@@ -2,15 +2,18 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { isEmpty } from 'lodash';
 import { IdoRequiredProps } from 'modules/ido/pages/Details/Details.types';
-import { getIdoById } from 'store/ido/actions';
+import { useWalletConnectorContext } from 'services';
+import { getIdoById, getInvestmentsInfo } from 'store/ido/actions';
 import { IdoStatus } from 'types/store/requests';
 
 export const useUpdateIdoData = (currentIdo: IdoRequiredProps, id: string | undefined) => {
+  const { idoIncrement, status, vesting } = currentIdo;
   const dispatch = useDispatch();
+  const { walletService } = useWalletConnectorContext();
 
-  const isNotSuccess = currentIdo.status !== IdoStatus.completedSuccess;
-  const isNotFail = currentIdo.status !== IdoStatus.completedFail;
-  const isUpcoming = currentIdo.status === IdoStatus.pending;
+  const isNotSuccess = status !== IdoStatus.completedSuccess;
+  const isNotFail = status !== IdoStatus.completedFail;
+  const isUpcoming = status === IdoStatus.pending;
 
   const [isUpdateIdo, setUpdateIdo] = useState(false);
 
@@ -33,7 +36,15 @@ export const useUpdateIdoData = (currentIdo: IdoRequiredProps, id: string | unde
   useEffect(() => {
     if (id && !isEmpty(currentIdo) && isUpdateIdo) {
       dispatch(getIdoById({ id }));
+      dispatch(
+        getInvestmentsInfo({
+          web3Provider: walletService.Web3(),
+          idoId: id,
+          idoIncrement: idoIncrement.toString(),
+          vesting: !!vesting,
+        }),
+      );
       setUpdateIdo(false);
     }
-  }, [currentIdo, dispatch, id, isUpdateIdo]);
+  }, [currentIdo, dispatch, id, idoIncrement, isUpdateIdo, vesting, walletService]);
 };

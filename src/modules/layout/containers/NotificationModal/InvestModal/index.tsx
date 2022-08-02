@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { LoadingButton } from '@mui/lab';
 import { Box, Button, Paper, Stack, styled, TextField, Typography } from '@mui/material';
@@ -7,6 +7,7 @@ import { TextWithTooltip } from 'components';
 import { useValidateInputField, ValidationTypes } from 'hooks';
 import { validateMaxInvestValue } from 'modules/ido/utils';
 import { getTotalBought, onInvest } from 'store/ido/actions';
+import actionTypes from 'store/ido/actionTypes';
 import { BORDER_BUTTON_RED, COLOR_TEXT_GRAY_DARK, COLOR_TEXT_RED } from 'theme/variables';
 import { INotifyModalProps, Nullable, RequestStatus } from 'types';
 import Web3 from 'web3';
@@ -88,8 +89,10 @@ export const InvestModal: FC<InvestModalProps> = ({
   useEffect(() => {
     if (isInvested) {
       setOriginInvestValue('');
+      closeModal();
+      dispatch({ type: `${actionTypes.INVEST}_RESET` });
     }
-  }, [isInvested, setOriginInvestValue]);
+  }, [closeModal, dispatch, isInvested, setOriginInvestValue]);
 
   return (
     <Stack spacing={2}>
@@ -116,7 +119,13 @@ export const InvestModal: FC<InvestModalProps> = ({
 
       <Item>
         <Box display="flex" justifyContent="space-between">
-          <LoadingButton variant="contained" fullWidth loading={isInvesting || isLoadingInfo} onClick={handleInvest}>
+          <LoadingButton
+            variant="contained"
+            fullWidth
+            loading={isInvesting || isLoadingInfo}
+            disabled={+investValue === 0}
+            onClick={handleInvest}
+          >
             Confirm
           </LoadingButton>
           <Button

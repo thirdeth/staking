@@ -36,7 +36,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
       dispatch(
         updateUserData({
           web3Provider: walletService.Web3(),
-          updateParams: ['nativeBalance', 'tokenBalance', 'rankId', 'userStakes'],
+          updateParams: ['nativeBalance', 'tokenBalance', 'rankId'],
         }),
       );
     }

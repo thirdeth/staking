@@ -16,6 +16,7 @@ import { getPoolsInfo, onHarvest, onStake, onWithdraw } from 'store/staking/acti
 import stakingActionTypes from 'store/staking/actionTypes';
 import stakingSelector from 'store/staking/selectors';
 import uiSelector from 'store/ui/selectors';
+import { updateUserData } from 'store/user/actions';
 import userSelector from 'store/user/selectors';
 import { Modals, RequestStatus, StakingState, State, UserState } from 'types';
 
@@ -107,6 +108,7 @@ export const Staking: FC<StakingProps> = ({ title }) => {
   useEffect(() => {
     if (address.length) {
       dispatch(getPoolsInfo({ web3Provider: walletService.Web3() }));
+      dispatch(updateUserData({ web3Provider: walletService.Web3(), updateParams: ['userStakes'] }));
     }
   }, [address.length, dispatch, walletService]);
 

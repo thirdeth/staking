@@ -26,6 +26,7 @@ export const ignoredActions = [
   idoActionTypes.GET_IDO_LIST,
   idoActionTypes.GET_IDO_BY_ID,
   idoActionTypes.GET_INVESTMENTS_INFO,
+  idoActionTypes.GET_TOTAL_BOUGHT,
   idoActionTypes.REGISTRATION_TO_IDO,
   idoActionTypes.INVEST,
   idoActionTypes.CLAIM,
