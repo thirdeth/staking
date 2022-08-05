@@ -11,6 +11,8 @@ export const validateWithWeights = (
   userAllocation: Nullable<string>,
   payed: number,
   claimAmount: string[],
+  hardCap: string,
+  totalBought: string,
   vesting = false,
   isLiqAdded: boolean,
 ): [ValidBtnProps, string] => {
@@ -25,6 +27,8 @@ export const validateWithWeights = (
   const isWasntBought = userAllocation
     ? +new BigNumber(+userAllocation).minus(new BigNumber(fromDecimals(payed, 18))).toString() > 0
     : false;
+
+  const isFullHardCap = totalBought <= hardCap;
 
   switch (status) {
     case IdoStatus.pending:
@@ -71,7 +75,7 @@ export const validateWithWeights = (
 
     case IdoStatus.inProgress:
       // if user doesn't bought all his part
-      if (isWasntBought) {
+      if (isWasntBought && !isFullHardCap) {
         resultValidBtnProps = {
           text: 'Invest',
           handlerKey: HandlersKeys.openInvestModal,
@@ -80,7 +84,7 @@ export const validateWithWeights = (
       } else if (userAllocation === null) {
         resultTextMessage = 'You are not registered';
       } else {
-        // if user bought all his part - btn will be hidden and uses message
+        // if user bought all his allocation part - btn will be hidden and uses message
         resultTextMessage = 'Wait for the project to be finished to claim your tokens';
       }
       break;
@@ -114,9 +118,9 @@ export const validateWithWeights = (
             isVisible: true,
           };
         }
-        if (+claimAmount[1] === 0) {
-          resultTextMessage = 'You already claimed';
-        }
+        // if (+claimAmount[1] === 0) {
+        //   resultTextMessage = 'You already claimed';
+        // }
       }
       // if user have reward but it is not current vesting stage - open vesting modal for watching stages
       if (vesting && isLiqAdded && +claimAmount[2] !== 0) {
@@ -125,9 +129,10 @@ export const validateWithWeights = (
           handlerKey: HandlersKeys.claim,
           isVisible: true,
         };
-      }
-      if (!isLiqAdded) {
+      } else if (+claimAmount[0] > 0 && !isLiqAdded) {
         resultTextMessage = 'Wait for the owner will add liquidity to claim your tokens';
+      } else if (+claimAmount[0] === 0 && isLiqAdded) {
+        resultTextMessage = 'You already claimed';
       }
       break;
 

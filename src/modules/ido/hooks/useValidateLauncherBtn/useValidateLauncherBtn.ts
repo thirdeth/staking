@@ -25,7 +25,7 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
   const {
     isLiqAdded,
     userInfo: { userAllocation, claimAmount, payed },
-    currentIdo: { withWeights, vesting, idoIncrement, isPublic },
+    currentIdo: { withWeights, vesting, idoIncrement, isPublic, hardCap, totalBought },
   } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
 
   // ----------------- Button handlers ------------------
@@ -119,6 +119,8 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
           userAllocation,
           +payed,
           claimAmount,
+          hardCap,
+          totalBought,
           vesting,
           isLiqAdded,
         );
