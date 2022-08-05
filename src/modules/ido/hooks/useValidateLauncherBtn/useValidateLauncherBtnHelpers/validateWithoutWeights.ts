@@ -62,16 +62,16 @@ export const validateWithoutWeights = (
             isVisible: true,
           };
         }
-        // if (+claimAmount[1] === 0) {
-        //   resultTextMessage = 'You already claimed';
-        // }
+        if (+claimAmount[1] === 0) {
+          resultTextMessage = 'You already claimed';
+        }
       }
       if (+claimAmount[0] > 0 && !isLiqAdded) {
         resultTextMessage = 'Wait for the owner will add liquidity to claim your tokens';
       }
-      if (+claimAmount[0] === 0 && isLiqAdded) {
-        resultTextMessage = 'You already claimed';
-      }
+      // if (+claimAmount[0] === 0 && isLiqAdded) {
+      //   resultTextMessage = 'You already claimed';
+      // }
       break;
 
     default:

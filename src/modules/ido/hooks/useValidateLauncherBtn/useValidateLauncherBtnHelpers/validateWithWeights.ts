@@ -111,6 +111,7 @@ export const validateWithWeights = (
             isVisible: true,
           };
         }
+        // if user have reward but it is not current vesting stage - open vesting modal for watching stages
         if (vesting) {
           resultValidBtnProps = {
             text: 'Claim',
@@ -118,21 +119,8 @@ export const validateWithWeights = (
             isVisible: true,
           };
         }
-        // if (+claimAmount[1] === 0) {
-        //   resultTextMessage = 'You already claimed';
-        // }
-      }
-      // if user have reward but it is not current vesting stage - open vesting modal for watching stages
-      if (vesting && isLiqAdded && +claimAmount[2] !== 0) {
-        resultValidBtnProps = {
-          text: 'Claim',
-          handlerKey: HandlersKeys.claim,
-          isVisible: true,
-        };
       } else if (+claimAmount[0] > 0 && !isLiqAdded) {
         resultTextMessage = 'Wait for the owner will add liquidity to claim your tokens';
-      } else if (+claimAmount[0] === 0 && isLiqAdded) {
-        resultTextMessage = 'You already claimed';
       }
       break;
 
