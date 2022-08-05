@@ -3,7 +3,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Box, Button, Grid, Link, Popover, styled, Typography } from '@mui/material';
 import { CopyText, RankInfo, UserStakingRankIds } from 'components';
 import { Close, OutIcon } from 'components/Icon/components';
-import { FontFamilies, FontWeights } from 'theme/Typography';
 import {
   BG_BLUE,
   BG_BUTTON_WHITE,
@@ -11,19 +10,11 @@ import {
   BORDER_RADIUS_POPOVER,
   COLOR_TEXT_RED,
   COLOR_TEXT_WHITE,
-} from 'theme/variables';
+  FontFamilies,
+  FontWeights,
+} from 'theme';
 
 import { accountLinkItems, buyCryptoLink } from './Popover.helpers';
-
-interface AccountModalProps {
-  address: string;
-  rankId: string;
-  nativeBalance: string;
-  visible: boolean;
-  anchorEl: RefObject<HTMLElement>;
-  onClose: () => void;
-  onDisconnect: () => void;
-}
 
 const DisconnectButton = styled(Button)({
   width: '100%',
@@ -44,6 +35,16 @@ const BuyLinkTypography = styled(Typography)({
   fontWeight: FontWeights.fontWeightMedium,
   textDecoration: 'none',
 });
+
+interface AccountModalProps {
+  address: string;
+  rankId: string;
+  nativeBalance: string;
+  visible: boolean;
+  anchorEl: RefObject<HTMLElement>;
+  onClose: () => void;
+  onDisconnect: () => void;
+}
 
 export const AccountPopover: FC<AccountModalProps> = ({
   address,

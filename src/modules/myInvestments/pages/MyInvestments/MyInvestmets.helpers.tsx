@@ -1,6 +1,6 @@
 import { CronosMockLogo } from 'assets/img';
+import { ProjectCardDataProps, RankCardDataProps } from 'components/Cards/RowCard/RowCard.types';
 import { IdoType } from 'modules/ido/utils';
-import { ProjectCardDataProps, RankCardDataProps } from 'types';
 import { IdoStatus } from 'types/store/requests';
 
 export const investmentsMockData: ProjectCardDataProps[] = [

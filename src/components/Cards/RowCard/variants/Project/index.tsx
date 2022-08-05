@@ -2,13 +2,10 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Grid, styled, Tooltip, Typography } from '@mui/material';
 import { routes } from 'appConstants/routes';
-import { ProgressBar } from 'components';
-import { Status } from 'components/Status';
+import { ProgressBar, ProjectCardDataProps, Status } from 'components';
 import { useTimeLeft } from 'hooks/useTimeLeft';
 import { IdoType } from 'modules/ido/utils';
-import { FontWeights } from 'theme/Typography';
-import { BORDER_RADIUS_DEFAULT, COLOR_TEXT_GRAY_DARK } from 'theme/variables';
-import { ProjectCardDataProps } from 'types';
+import { BORDER_RADIUS_DEFAULT, COLOR_TEXT_GRAY_DARK, FontWeights } from 'theme';
 import { formatNumber, fromDecimals } from 'utils';
 
 import { RowCardProps } from '../../RowCard';

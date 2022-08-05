@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Box, Grid, styled, Typography } from '@mui/material';
 import { CopyText, GrowRate, RankInfo } from 'components';
+import { RankCardDataProps } from 'components/Cards/RowCard/RowCard.types';
 import { COLOR_TEXT_GRAY_DARK } from 'theme/variables';
-import { RankCardDataProps } from 'types';
 import { dateFormatter, shortenPhrase } from 'utils';
 
 import { RowCardProps } from '../../RowCard';

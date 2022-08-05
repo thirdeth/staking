@@ -1,5 +1,6 @@
 import { BG_BLUE_LIGHT, BG_GRAY } from 'theme/variables';
-import { ColorProps, VariantProps } from 'types';
+
+import { ColorProps, VariantProps } from './RowCard.types';
 
 const colorState: Record<ColorProps, string> = {
   gray: BG_GRAY,

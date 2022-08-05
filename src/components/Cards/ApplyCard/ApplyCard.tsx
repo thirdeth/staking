@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Box, BoxProps, Button, Grid, Typography } from '@mui/material';
 import { BG_BLUE_DARK, BORDER_RADIUS_MEDIUM, COLOR_TEXT_WHITE, COLOR_TEXT_WHITE_EXTRALIGHT } from 'theme/variables';
-import { SizeProps } from 'types';
 
+import { SizeProps } from './ApplyCard.types';
 import { applyCardStyleState } from './index';
 
 export interface ApplyCardProps {

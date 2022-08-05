@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react';
-import { SizeProps } from 'types';
+
+import { SizeProps } from './ApplyCard.types';
 
 const sizeState: Record<SizeProps, CSSProperties> = {
   s: {

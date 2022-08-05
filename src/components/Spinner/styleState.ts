@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react';
-import { SpinnerSizeProps } from 'types';
+
+import { SpinnerSizeProps } from './Spinner.types';
 
 const sizeState: Record<SpinnerSizeProps, CSSProperties> = {
   s: {

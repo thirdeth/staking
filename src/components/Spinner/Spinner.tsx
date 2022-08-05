@@ -2,8 +2,8 @@ import { FC } from 'react';
 import { Box, styled } from '@mui/material';
 import { LoaderIcon } from 'components/Icon/components';
 import { BG_MAIN } from 'theme/variables';
-import { SpinnerSizeProps } from 'types';
 
+import { SpinnerSizeProps } from './Spinner.types';
 import { spinnerStyleState } from './styleState';
 
 const LoaderIconStyled = styled(LoaderIcon)({

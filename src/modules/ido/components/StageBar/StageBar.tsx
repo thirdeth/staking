@@ -1,8 +1,8 @@
 import { FC, useMemo } from 'react';
 import { Box, SelectChangeEvent, Stack, styled } from '@mui/material';
 import { Select } from 'components';
+import { MenuItemsProps } from 'components/Select/Select.types';
 import { BG_BUTTON_GRAY, BORDER_GRAY_LIGHT, BORDER_RADIUS_DEFAULT } from 'theme/variables';
-import { MenuItemsProps } from 'types';
 import { IdoPublic, IdoStatus } from 'types/store/requests';
 
 import { FormSwitcher, StageSwitcher } from './components';
@@ -106,6 +106,7 @@ export const StageBar: FC<StageBarProps> = ({
       </Box>
 
       {/* For mobile width */}
+      <FormSwitcher isStakingRequire={isStakingRequire} onChangeStakingRequired={onChangeStakingRequired} />
       <Box
         sx={{
           display: 'flex',
@@ -134,8 +135,6 @@ export const StageBar: FC<StageBarProps> = ({
           />
         )}
       </Box>
-
-      <FormSwitcher isStakingRequire={isStakingRequire} onChangeStakingRequired={onChangeStakingRequired} />
     </Stack>
   );
 };

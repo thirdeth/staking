@@ -2,8 +2,8 @@ import { FC } from 'react';
 import { FormControl, InputLabel, MenuItem, Select as MuiSelect, SelectProps as MuiSelectProps } from '@mui/material';
 import { SelectCheckIcon } from 'assets/img';
 import { BG_MAIN, BORDER_COLOR_SELECT_GRAY, BORDER_RADIUS_DEFAULT, SELECT_SHADOW_DEFAULT } from 'theme/variables';
-import { MenuItemsProps } from 'types';
 
+import { MenuItemsProps } from './Select.types';
 import { SelectInput } from './theme';
 
 const SELECT_CHECK_ICON = `url(${SelectCheckIcon}) 160px center no-repeat, transparent`;

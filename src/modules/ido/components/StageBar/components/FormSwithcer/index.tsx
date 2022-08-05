@@ -12,14 +12,19 @@ export const FormSwitcher: FC<FormswitcherProps> = ({ isStakingRequire, onChange
   return (
     <FormControlLabel
       label={
-        <Typography variant="body2" fontWeight={FontWeights.fontWeightMedium} fontFamily={FontFamilies.secondary}>
+        <Typography
+          variant="body2"
+          fontWeight={FontWeights.fontWeightMedium}
+          fontFamily={FontFamilies.secondary}
+          fontSize={{ xs: 14, sm: 14, md: 16 }}
+        >
           {isStakingRequire ? 'Staking required' : 'Staking not required'}
         </Typography>
       }
       sx={{
         mt: 1,
         mx: 0,
-        width: 274,
+        width: { xs: 232, sm: 232, md: 274 },
         height: 40,
         alignSelf: 'flex-end',
         background: BG_GRAY,

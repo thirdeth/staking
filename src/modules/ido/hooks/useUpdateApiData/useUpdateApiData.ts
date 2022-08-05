@@ -1,6 +1,6 @@
+import { ProjectCardDataProps } from 'components/Cards/RowCard/RowCard.types';
 import { useShallowSelector } from 'hooks';
 import idoSelector from 'store/ido/selectors';
-import { ProjectCardDataProps } from 'types';
 import { IdoStatus } from 'types/store/requests';
 
 import { getIdoTypeFromIdoStatus } from '../../utils';

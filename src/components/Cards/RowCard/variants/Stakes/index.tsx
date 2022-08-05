@@ -1,11 +1,11 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import { Button, Grid, styled, Typography } from '@mui/material';
+import { StakesCardDataProps } from 'components/Cards/RowCard/RowCard.types';
 import { LogoSmall } from 'components/Icon/components';
 import { useModal } from 'hooks';
 import { StakesHeaderTitle, SureWithdrawPopup } from 'modules/staking/components';
 import { getTimeLeftDate } from 'modules/staking/utils';
 import { FontFamilies, FontWeights } from 'theme/Typography';
-import { StakesCardDataProps } from 'types';
 import { fromDecimals } from 'utils';
 
 import { RowCardProps } from '../../RowCard';

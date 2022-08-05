@@ -1,6 +1,6 @@
+import { RankCardDataProps } from 'components/Cards/RowCard/RowCard.types';
 import { useShallowSelector } from 'hooks';
 import stakingSelector from 'store/staking/selectors';
-import { RankCardDataProps } from 'types';
 import { fromDecimals } from 'utils';
 
 export const useUpdateDataForLeaderBoards = (): RankCardDataProps[] => {

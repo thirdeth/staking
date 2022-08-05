@@ -20,6 +20,7 @@ const WalletButton = styled(Button)({
 
   '&:hover': {
     background: 'transparent',
+    transform: 'scale(0.95)',
   },
 });
 

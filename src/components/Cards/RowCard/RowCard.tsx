@@ -2,10 +2,16 @@ import { FC } from 'react';
 import { Box, BoxProps, styled } from '@mui/material';
 import { ChangeStakeItemType } from 'modules/staking/pages/Staking/Staking.types';
 import { BG_BLUE_LIGHT, BORDER_RADIUS_DEFAULT, TRANSITION_DEFAULT_TIME } from 'theme/variables';
-import { ColorProps, ProjectCardDataProps, RankCardDataProps, StakesCardDataProps, VariantProps } from 'types';
 
 import { Stakes } from './variants/Stakes';
 import { Project, Rank, rowCardStyleState } from './index';
+import {
+  ColorProps,
+  ProjectCardDataProps,
+  RankCardDataProps,
+  StakesCardDataProps,
+  VariantProps,
+} from './RowCard.types';
 
 export const BoxRowStyled = styled(Box)({
   borderRadius: BORDER_RADIUS_DEFAULT,
