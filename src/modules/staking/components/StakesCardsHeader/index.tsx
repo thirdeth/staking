@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { LoadingButton } from '@mui/lab';
 import { Grid, styled, Typography } from '@mui/material';
 import { FontWeights } from 'theme/Typography';
 
@@ -8,7 +9,12 @@ export const StakesHeaderTitle = styled(Typography)({
   fontWeight: FontWeights.fontWeightRegular,
 });
 
-export const StakesCardsHeader: FC = () => {
+type StakesHeaderTitleProps = {
+  onHarvestAll: () => void;
+  isHarvestingAll: boolean;
+};
+
+export const StakesCardsHeader: FC<StakesHeaderTitleProps> = ({ onHarvestAll, isHarvestingAll }) => {
   return (
     <Grid
       container
@@ -25,10 +31,14 @@ export const StakesCardsHeader: FC = () => {
       <Grid item container xs={4} md={2}>
         <StakesHeaderTitle>Reward</StakesHeaderTitle>
       </Grid>
-      <Grid item md={2}>
+      <Grid item md={1.9}>
         <StakesHeaderTitle>Time left</StakesHeaderTitle>
       </Grid>
-      <Grid item xs={12} md={3} />
+      <Grid item xs={12} md={3.1}>
+        <LoadingButton variant="contained" fullWidth loading={isHarvestingAll} onClick={onHarvestAll}>
+          Harvest All
+        </LoadingButton>
+      </Grid>
     </Grid>
   );
 };

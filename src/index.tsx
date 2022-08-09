@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import { Spinner } from 'components';
 import { Layout } from 'modules/layout/containers';
 import { RouteManager } from 'modules/router/containers';
@@ -25,7 +25,6 @@ root.render(
         <Suspense fallback={<Spinner size="xl" />}>
           <WalletConnectContext>
             <ThemeProvider theme={theme}>
-              <CssBaseline />
               <ToastContainer autoClose={4000} hideProgressBar position="bottom-right" closeButton />
               <Layout>
                 <RouteManager />

@@ -18,6 +18,7 @@ export const ignoredActions = [
 
   stakingActionTypes.STAKE,
   stakingActionTypes.HARVEST,
+  stakingActionTypes.HARVEST_ALL,
   stakingActionTypes.WITHDRAW,
   stakingActionTypes.GET_USER_STAKES,
   stakingActionTypes.GET_POOLS_INFO,

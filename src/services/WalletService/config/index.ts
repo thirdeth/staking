@@ -52,7 +52,7 @@ export const chains: {
       },
     },
     testnet: {
-      name: 'Cronos-Testnet',
+      name: 'Cronos Testnet',
       chainId: 338,
       nativeCurrency: {
         name: 'TCRO',
@@ -138,13 +138,13 @@ export const contractsConfig: IContracts = {
     [ContractsNames.idoFarme]: {
       testnet: {
         address: {
-          [Chains.Cronos]: '0xefd0aEFA3BdfD55DCF6F5e397157a2d1c60e16f1',
+          [Chains.Cronos]: '0x4d1A7B733B86817e4523709050807CEA5200A6cf',
         },
         abi: idoFarmeAbi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains.Cronos]: '0xefd0aEFA3BdfD55DCF6F5e397157a2d1c60e16f1',
+          [Chains.Cronos]: '0x4d1A7B733B86817e4523709050807CEA5200A6cf',
         },
         abi: idoFarmeAbi as AbiItem[],
       },

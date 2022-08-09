@@ -13,13 +13,14 @@ export const ChartCard: FC<ChartCardProps> = ({ value, text, chartImg }) => {
   return (
     <Box
       sx={{
-        px: { xs: 2, sm: 2, md: 6.2 },
-        py: { xs: 3, sm: 3, md: 5.4 },
+        px: { xs: 2, sm: 2, md: 5.5 },
+        py: 3,
+        minHeight: { xs: 'auto', sm: 'auto', md: 158 },
         background: BG_BLUE_ACCENT,
         borderRadius: BORDER_RADIUS_DEFAULT,
       }}
     >
-      <Grid container justifyContent="space-between" alignItems="flex-start">
+      <Grid container justifyContent="space-between" alignItems={{ xs: 'center', sm: 'center', md: 'flex-start' }}>
         <Grid item container direction="column" justifyContent="space-between">
           <Grid item pb={{ xs: 1, sm: 1, md: 3 }}>
             <Typography

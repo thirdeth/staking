@@ -1,6 +1,7 @@
 import { FC, MouseEvent, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { LoadingButton } from '@mui/lab';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { routes } from 'appConstants/routes';
 import { ApplyCard, InfoCard, RowCard, UserStakingRankIds } from 'components';
@@ -12,7 +13,7 @@ import { StakingForm } from 'modules/staking/containers';
 import { useGetPoolsAprArray } from 'modules/staking/hooks';
 import { useWalletConnectorContext } from 'services';
 import { setActiveModal } from 'store/modals/reducer';
-import { getPoolsInfo, onHarvest, onStake, onWithdraw } from 'store/staking/actions';
+import { getPoolsInfo, onHarvest, onHarvestAll, onStake, onWithdraw } from 'store/staking/actions';
 import stakingActionTypes from 'store/staking/actionTypes';
 import stakingSelector from 'store/staking/selectors';
 import uiSelector from 'store/ui/selectors';
@@ -42,12 +43,14 @@ export const Staking: FC<StakingProps> = ({ title }) => {
   const {
     [stakingActionTypes.STAKE]: stakeRequestStatus,
     [stakingActionTypes.HARVEST]: harvestRequestStatus,
+    [stakingActionTypes.HARVEST_ALL]: harvestAllRequestStatus,
     [stakingActionTypes.WITHDRAW]: withdrawRequestStatus,
     [stakingActionTypes.GET_USER_STAKES]: getUserStakesRequestStatus,
   } = useShallowSelector(uiSelector.getUI);
 
   const isStaking = stakeRequestStatus === RequestStatus.REQUEST;
   const isHarvesting = harvestRequestStatus === RequestStatus.REQUEST;
+  const isHarvestingAll = harvestAllRequestStatus === RequestStatus.REQUEST;
   const isWithdrawing = withdrawRequestStatus === RequestStatus.REQUEST;
   const isGettingUserStakes = getUserStakesRequestStatus === RequestStatus.REQUEST;
 
@@ -76,6 +79,14 @@ export const Staking: FC<StakingProps> = ({ title }) => {
       }),
     );
   }, [dispatch, stakePeriod, stakeValue, walletService]);
+
+  const handleHarvestAll = useCallback(() => {
+    dispatch(
+      onHarvestAll({
+        web3Provider: walletService.Web3(),
+      }),
+    );
+  }, [dispatch, walletService]);
 
   const handleChangeStakeItem = useCallback(
     (changeType: ChangeStakeItemType, stakeIndex: number) => {
@@ -136,40 +147,71 @@ export const Staking: FC<StakingProps> = ({ title }) => {
             pt={2}
             justifyContent={{ xs: 'center', sm: 'center', md: 'center', lg: 'space-between' }}
             alignItems="flex-start"
-            spacing={3}
+            rowSpacing={3}
           >
-            <Grid item xs={12} sm={12} md={6}>
-              <StakingForm
-                totalStakedAmount={totalStakedAmount}
-                tokenBalance={tokenBalance}
-                poolsInfo={poolsInfo}
-                poolsAprArr={poolsAprArr}
-                stakePeriod={stakePeriod}
-                stakeValue={stakeValue}
-                isStaking={isStaking}
-                onChangeStakePeriod={handleCahngeStakePeriod}
-                onChangeStakeValue={setStakeValue}
-                onSetMaxStakeValue={setOriginStakeValue}
-                onStake={handleStake}
-              />
-            </Grid>
+            <Grid item xs={12} container spacing={3} height={{ xs: 'auto', sm: 'auto', md: 555 }}>
+              <Grid item xs={12} sm={12} md={6} height={{ xs: 'auto', sm: 'auto', md: '100%' }}>
+                <StakingForm
+                  totalStakedAmount={totalStakedAmount}
+                  tokenBalance={tokenBalance}
+                  poolsInfo={poolsInfo}
+                  poolsAprArr={poolsAprArr}
+                  stakePeriod={stakePeriod}
+                  stakeValue={stakeValue}
+                  isStaking={isStaking}
+                  onChangeStakePeriod={handleCahngeStakePeriod}
+                  onChangeStakeValue={setStakeValue}
+                  onSetMaxStakeValue={setOriginStakeValue}
+                  onStake={handleStake}
+                />
+              </Grid>
 
-            <Grid item container spacing={1} direction="column" xs={12} sm={12} md={6}>
-              {chartItemsArray.map(({ value, text, Img }, index) => (
-                // not rerendering chart card items
-                // eslint-disable-next-line react/no-array-index-key
-                <Grid key={index} item>
-                  <ChartCard value={value} text={text} chartImg={<Img />} />
-                </Grid>
-              ))}
+              <Grid
+                item
+                container
+                direction="column"
+                justifyContent="space-between"
+                height={{ xs: 'auto', sm: 'auto', md: '100%' }}
+                rowGap={{ xs: 3, sm: 3, md: 0 }}
+                xs={12}
+                sm={12}
+                md={6}
+              >
+                {chartItemsArray.map(({ value, text, Img }, index) => (
+                  // not rerendering chart card items
+                  // eslint-disable-next-line react/no-array-index-key
+                  <Grid key={index} item>
+                    <ChartCard value={value} text={text} chartImg={<Img />} />
+                  </Grid>
+                ))}
+              </Grid>
             </Grid>
 
             <Grid item mt={2} xs={12} container spacing={2}>
               <Grid item xs={12}>
-                {!!userStakes.length && <StakesCardsHeader />}
+                {!!userStakes.length && (
+                  <StakesCardsHeader onHarvestAll={handleHarvestAll} isHarvestingAll={isHarvestingAll} />
+                )}
               </Grid>
 
-              {userStakes.length &&
+              <Grid
+                item
+                container
+                justifyContent="center"
+                xs={12}
+                display={{ xs: 'flex', sm: 'flex', md: 'flex', lg: 'none' }}
+              >
+                <LoadingButton
+                  variant="contained"
+                  sx={{ width: { xs: '100%', sm: 'auto', md: 'auto' } }}
+                  loading={isHarvestingAll}
+                  onClick={handleHarvestAll}
+                >
+                  Harvest All
+                </LoadingButton>
+              </Grid>
+
+              {!!userStakes.length &&
                 !isGettingUserStakes &&
                 userStakes.map((cardData, index) => (
                   // not rerendering items
