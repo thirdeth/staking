@@ -105,8 +105,8 @@ export const StageBar: FC<StageBarProps> = ({
         </BoxDesktopSelectContainer>
       </Box>
 
-      {/* For mobile width */}
       <FormSwitcher isStakingRequire={isStakingRequire} onChangeStakingRequired={onChangeStakingRequired} />
+      {/* For mobile width */}
       <Box
         sx={{
           display: 'flex',
@@ -119,7 +119,7 @@ export const StageBar: FC<StageBarProps> = ({
             sx={{ ...mobileSelectStyles, mr: { xs: 0, sm: 2, md: 2 } }}
             value={valuesForSecondarySelect?.value}
             onChange={(event) => onChangeStatus(event.target.value as IdoStatus[])}
-            paperWidth="200px"
+            paperWidth="100%"
             menuItems={valuesForSecondarySelect?.values as MenuItemsProps[]}
           />
         )}
@@ -130,7 +130,7 @@ export const StageBar: FC<StageBarProps> = ({
             value={publicFilterValue}
             defaultValue={publicFilterValue}
             onChange={onChangeFilter}
-            paperWidth="200px"
+            paperWidth="100%"
             menuItems={selectMenuItems}
           />
         )}

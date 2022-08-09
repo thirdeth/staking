@@ -54,27 +54,23 @@ export const RankingCard: FC<RankingCardProps> = ({ rankId, description, stakedT
       <BoxWithBottomBorder
         isBorder
         sx={{
+          pl: isExpanded ? '0' : 'calc(50% - 40px)',
           position: 'relative',
           borderBottomColor: isExpanded ? COLOR_TEXT_GRAY_EXTRALIGHT : COLOR_TEXT_BLUE,
           display: 'flex',
           alignItems: 'center',
-          pl: isExpanded ? '0' : 'calc(50% - 40px)',
         }}
       >
         <RankInfo rankId={rankId} type="card" size="m" hideText={!isExpanded} />
       </BoxWithBottomBorder>
-      <Box
-        sx={{
-          pt: 2,
-        }}
-      >
+      <Box sx={{ pt: 2 }}>
         <Typography
+          variant="h4"
           sx={{
             mb: isExpanded ? 0 : 1,
             height: isExpanded ? 0 : 25,
             color: isExpanded ? COLOR_TEXT_WHITE : COLOR_TEXT_BLUE,
           }}
-          variant="h4"
         >
           {currentRank?.title}
         </Typography>
@@ -89,18 +85,15 @@ export const RankingCard: FC<RankingCardProps> = ({ rankId, description, stakedT
             <Typography className="s">{description}</Typography>
           </BoxWithBottomBorder>
           <BoxWithBottomBorder isBorder isTopPadding>
-            <Typography
-              variant="body2"
-              sx={{
-                pb: 2,
-              }}
-            >
+            <Typography variant="body2" sx={{ pb: 2 }}>
               Full staked tokens
             </Typography>
             <Typography
               variant="h2"
               color={COLOR_TEXT_BLUE}
+              noWrap
               sx={(theme) => ({
+                maxWidth: { xs: 255, sm: 255, md: 'auto' },
                 [theme.breakpoints.down('sm')]: {
                   fontSize: '26px',
                 },

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Button, Grid, styled, Typography } from '@mui/material';
 import { routes } from 'appConstants/routes';
 import { UserBalance } from 'components';
@@ -27,17 +27,19 @@ export const HeaderControls: FC<HeaderControlsProps> = ({ address, rankId, nativ
     <Grid container item justifyContent="space-between" alignItems="center" xs={12} wrap="nowrap">
       <Menu />
 
-      <Grid container item alignItems="center" columnGap={{ xs: 1, sm: 1, md: 2 }} paddingRight={0.5}>
-        <MainLogo />
-        <Typography
-          fontFamily={FontFamilies.secondary}
-          textTransform="uppercase"
-          fontSize={{ xs: '18px', sm: '18px', md: '24px' }}
-          maxWidth={{ xs: '103px', sm: '103px', md: '100%', lg: '100%' }}
-        >
-          Cronos Launcher
-        </Typography>
-      </Grid>
+      <Link to="/">
+        <Grid container item alignItems="center" columnGap={{ xs: 1, sm: 1, md: 2 }} paddingRight={0.5}>
+          <MainLogo />
+          <Typography
+            fontFamily={FontFamilies.secondary}
+            textTransform="uppercase"
+            fontSize={{ xs: '18px', sm: '18px', md: '24px' }}
+            maxWidth={{ xs: '103px', sm: '103px', md: '100%', lg: '100%' }}
+          >
+            Cronos Launcher
+          </Typography>
+        </Grid>
+      </Link>
 
       <Grid
         container

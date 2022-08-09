@@ -16,7 +16,7 @@ export const FormSwitcher: FC<FormswitcherProps> = ({ isStakingRequire, onChange
           variant="body2"
           fontWeight={FontWeights.fontWeightMedium}
           fontFamily={FontFamilies.secondary}
-          fontSize={{ xs: 14, sm: 14, md: 16 }}
+          fontSize={16}
         >
           {isStakingRequire ? 'Staking required' : 'Staking not required'}
         </Typography>
@@ -24,7 +24,7 @@ export const FormSwitcher: FC<FormswitcherProps> = ({ isStakingRequire, onChange
       sx={{
         mt: 1,
         mx: 0,
-        width: { xs: 232, sm: 232, md: 274 },
+        width: { xs: '100%', sm: '100%', md: 274 },
         height: 40,
         alignSelf: 'flex-end',
         background: BG_GRAY,

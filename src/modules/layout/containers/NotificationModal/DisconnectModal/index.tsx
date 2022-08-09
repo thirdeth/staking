@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Button, Grid } from '@mui/material';
 import { CopyText } from 'components';
 import { INotifyModalProps } from 'types';
+import { shortenPhrase } from 'utils';
 
 interface IDisconnectModalProps extends INotifyModalProps {
   address: string;
@@ -15,7 +16,7 @@ export const DisconnectModal: FC<IDisconnectModalProps> = ({ address, disconnect
   };
   return (
     <Grid container direction="column" justifyContent="center" alignItems="center" rowGap={2}>
-      <CopyText text={address} />
+      <CopyText text={shortenPhrase(address, 6, 4)} />
       <Button
         variant="contained"
         sx={{

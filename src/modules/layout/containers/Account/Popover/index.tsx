@@ -13,6 +13,7 @@ import {
   FontFamilies,
   FontWeights,
 } from 'theme';
+import { shortenPhrase } from 'utils';
 
 import { accountLinkItems, buyCryptoLink } from './Popover.helpers';
 
@@ -107,7 +108,7 @@ export const AccountPopover: FC<AccountModalProps> = ({
           </Grid>
         </Grid>
 
-        <CopyText size="sm" color="secondary" text={address} />
+        <CopyText size="sm" color="secondary" text={shortenPhrase(address, 6, 4)} />
 
         <Box display={{ xs: 'flex', sm: 'flex', md: 'none' }} justifyContent="flex-start" alignItems="center">
           <Typography variant="body2" color={COLOR_TEXT_WHITE}>

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
 import { useShallowSelector } from 'hooks';
 import { Subscription } from 'rxjs';
+import { connectWallet } from 'services/WalletService/config';
 import { notifyText } from 'services/WalletService/config/constants';
 import { disconnectWalletState, updateUserState } from 'store/user/reducer';
 import userSelector from 'store/user/selectors';
@@ -92,17 +93,44 @@ const WalletConnectContext: FC<WalletConnectProps> = ({ children }) => {
           setCurrentSubsciber(sub);
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-          // metamask doesn't installed,
-          // redirect to download MM or open MM on mobile
           if (error.code === 4) {
-            window.open(
-              `https://metamask.app.link/dapp/${window.location.hostname + window.location.pathname}/?utm_source=mm`,
-            );
+            switch (error.type) {
+              case 'MetaMask': {
+                if (window.ethereum) {
+                  const chainParams = connectWallet(Chains.Cronos, chainType);
+                  window.ethereum.request({
+                    method: 'wallet_addEthereumChain',
+                    params: [
+                      {
+                        chainId: `0x${chainParams.network.chainID.toString(16)}`,
+                        chainName: chainParams.network.chainName,
+                        nativeCurrency: chainParams.network.nativeCurrency,
+                        rpcUrls: [chainParams.network.rpc],
+                        blockExplorerUrls: [chainParams.network.blockExplorerUrl],
+                      },
+                    ],
+                  });
+                } else {
+                  // metamask doesn't installed,
+                  // redirect to download MM or open MM on mobile
+                  window.open(
+                    `https://metamask.app.link/dapp/${
+                      window.location.hostname + window.location.pathname
+                    }/?utm_source=mm`,
+                  );
+                }
+                break;
+              }
+
+              default: {
+                disconnect();
+              }
+            }
           }
         }
       }
     },
-    [WalletConnect, chainType, dispatch, subscriberError, subscriberSuccess],
+    [WalletConnect, chainType, disconnect, dispatch, subscriberError, subscriberSuccess],
   );
 
   useEffect(() => {

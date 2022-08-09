@@ -99,7 +99,7 @@ export const getValuesForSecondarySelect = (idoStatusesArray: IdoStatus[]) => {
 export const mobileSelectStyles: MobileSelectStylesProps = {
   mt: 2,
   px: 1.5,
-  width: 'fit-content',
+  width: '100%',
   display: { xs: 'flex', sm: 'flex', md: 'none' },
   alignSelf: 'flex-end',
   background: BG_BLUE_EXTRALIGHT,

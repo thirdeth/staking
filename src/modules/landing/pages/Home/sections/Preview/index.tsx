@@ -10,7 +10,7 @@ import { pitchDecLink, previewSocialLinksItems } from './Preview.helpers';
 
 export const Preview: FC = () => {
   return (
-    <Box sx={{ pt: { xs: 20, sm: 20, md: 12 }, height: PREVIEW_SECTION_SIZE }}>
+    <Box sx={{ pt: { xs: 45, sm: 45, md: 12 }, height: PREVIEW_SECTION_SIZE }}>
       <Grid container direction="column" justifyContent="flex-start" alignItems="flex-start" spacing={3}>
         <Grid item xs={12}>
           <Typography variant="h1">Limitless, Borderless, All-in-One</Typography>
@@ -21,12 +21,7 @@ export const Preview: FC = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Typography
-            variant="h4"
-            sx={{
-              fontFamily: FontFamilies.primary,
-            }}
-          >
+          <Typography variant="h4" fontFamily={FontFamilies.primary}>
             #1 Launch Zone on the First EVM and IBC interoperable Blockhain
           </Typography>
         </Grid>

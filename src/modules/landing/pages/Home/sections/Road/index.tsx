@@ -12,7 +12,9 @@ export const Road: FC = () => {
       <Grid container direction="column" justifyContent="flex-start" alignItems="center" pb={14}>
         <RoadLine />
         <Grid item pb={2}>
-          <Typography variant="h1">Why Cronos Chain?</Typography>
+          <Typography variant="h1" textAlign="center">
+            Why Cronos Chain?
+          </Typography>
         </Grid>
         <Grid item>
           <Typography

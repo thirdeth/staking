@@ -14,7 +14,7 @@ export const SideBar: FC<SideBarProps> = ({ activeTab, tabItems, onChangeActiveT
     <Box
       sx={{
         px: { xs: 2, sm: 2, md: 3 },
-        py: { xs: 1, sm: 1, md: 3 },
+        py: { xs: 0, sm: 0, md: 3 },
         height: { xs: '37px', sm: '37px', md: '363px' },
         background: BG_GRAY,
         borderRadius: BORDER_RADIUS_DEFAULT,
@@ -23,12 +23,17 @@ export const SideBar: FC<SideBarProps> = ({ activeTab, tabItems, onChangeActiveT
       <Grid
         container
         direction={{ xs: 'row', sm: 'row', md: 'column' }}
+        alignItems={{ xs: 'center', sm: 'center', md: 'flex-start' }}
         justifyContent="flex-start"
-        alignItems="flex-start"
         wrap="nowrap"
-        overflow="auto"
-        spacing={2}
-        sx={{ '&::-webkit-scrollbar': { display: 'none' } }}
+        rowSpacing={{ xs: 0, sm: 0, md: 2 }}
+        columnSpacing={2}
+        sx={{
+          height: '100%',
+          overflowX: 'auto',
+          overflowY: 'hidden',
+          '&::-webkit-scrollbar': { display: 'none' },
+        }}
       >
         {tabItems.map((tab, index) => (
           // not rerendering items of tabs

@@ -43,7 +43,7 @@ export const chains: {
           provider: {
             rpc: {
               rpc: {
-                25: 'https://cronos.org/explorer',
+                25: 'https://mainnet.infura.io/v3/4dd57d0bbe3f412689cb114d0735e990',
               },
               chainId: 25,
             },
@@ -69,7 +69,7 @@ export const chains: {
           provider: {
             rpc: {
               rpc: {
-                338: 'https://cronos-testnet-3.crypto.org:8545',
+                338: 'https://mainnet.infura.io/v3/4dd57d0bbe3f412689cb114d0735e990',
               },
               chainId: 338,
             },

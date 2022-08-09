@@ -60,7 +60,7 @@ export const StakingForm: FC<StakingFormProps> = ({
         borderRadius: BORDER_RADIUS_DEFAULT,
       }}
     >
-      <Grid container direction="column" spacing={4.5}>
+      <Grid container direction="column" rowSpacing={4.2}>
         <Grid item xs={12}>
           <Typography variant="h3" fontSize={{ xs: '20px', sm: '20px', md: '24px' }}>
             Stake for IDO Participation
@@ -98,8 +98,8 @@ export const StakingForm: FC<StakingFormProps> = ({
         </Grid>
 
         <Grid item container justifyContent="space-between" alignItems="flex-end" spacing={2} xs={12}>
-          <Grid item>
-            <Box display="flex" alignItems="center">
+          <Grid item xs={12} sm={12} md={12} lg={9}>
+            <Box display="flex" alignItems="center" sx={{ width: '100%' }}>
               <TextContainer>Balance:</TextContainer>
               <TextContainer
                 sx={{
@@ -122,7 +122,7 @@ export const StakingForm: FC<StakingFormProps> = ({
               variant="outlined"
               placeholder="0.00"
               disabled={isStaking}
-              sx={{ width: { xs: '100%', sm: '100%', md: '352px' } }}
+              fullWidth
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -151,7 +151,7 @@ export const StakingForm: FC<StakingFormProps> = ({
             />
           </Grid>
 
-          <Grid item>
+          <Grid item xs={12} sm={12} md={12} lg={3}>
             <LoadingButton variant="contained" loading={isStaking} disabled={+stakeValue === 0} onClick={onStake}>
               Stake
             </LoadingButton>

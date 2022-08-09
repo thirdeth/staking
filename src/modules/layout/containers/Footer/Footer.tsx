@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Container, Grid, Typography } from '@mui/material';
 import { SocialLinks } from 'components';
 import { MainLogo } from 'components/Icon/components';
+import { previewSocialLinksItems } from 'modules/landing/pages/Home/sections/Preview/Preview.helpers';
 import { BG_MAIN, BORDER_HEADER, COLOR_TEXT_GRAY_LIGHT } from 'theme/variables';
 
 import { termsItems } from './Footer.helpers';
@@ -55,7 +56,7 @@ export const Footer: FC = () => {
           xs={12}
           pt={4.5}
         >
-          <SocialLinks links={{}} />
+          <SocialLinks links={previewSocialLinksItems} />
         </Grid>
       </Grid>
 

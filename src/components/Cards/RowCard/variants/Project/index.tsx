@@ -42,7 +42,11 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
 
   return (
     <StyledLink to={routes.idos.details.root.getPath(id)}>
-      <Grid container alignItems={{ xs: 'stretch', sm: 'stretch', md: 'center' }}>
+      <Grid
+        container
+        alignItems={{ xs: 'stretch', sm: 'stretch', md: 'center' }}
+        columnSpacing={{ xs: 2, sm: 3, md: 0 }}
+      >
         <Grid item container justifyContent="flex-start" alignItems="center" wrap="nowrap" xs={12} sm={12} md={4}>
           {/* <TypographySybtitle>Project name</TypographySybtitle> */}
           <Box
@@ -67,14 +71,18 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
                     textTransform="uppercase"
                     whiteSpace="nowrap"
                     noWrap
-                    maxWidth={{ xs: 150, sm: 150, md: 250 }}
+                    maxWidth={{ xs: 210, sm: 210, md: 250 }}
                   >
                     {projectName}
                   </Typography>
                 </Tooltip>
               )}
               {token?.symbol && price && (
-                <Typography whiteSpace="nowrap">{`Price (${token?.symbol.toUpperCase()}) = ${price} CRO`}</Typography>
+                <Typography
+                  noWrap
+                  maxWidth={{ xs: 210, sm: 210, md: 250 }}
+                  whiteSpace="nowrap"
+                >{`Price (${token?.symbol.toUpperCase()}) = ${price} CRO`}</Typography>
               )}
             </Box>
           </Box>
@@ -85,13 +93,13 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
             {token?.icon && (
               <Box component="img" sx={{ width: 37, height: 37, borderRadius: '50%' }} src={token.icon} alt="token" />
             )}
-            <Box ml={2} sx={{ display: { xs: 'block', sm: 'block', md: 'none' } }}>
+            <Box ml={{ xs: 1, sm: 1, md: 2 }} sx={{ display: { xs: 'block', sm: 'block', md: 'none' } }}>
               <Tooltip title={token?.name || ''} arrow placement="bottom-start">
                 <Typography noWrap maxWidth={{ xs: 100, sm: 100, md: 'none' }}>
                   {token?.name}
                 </Typography>
               </Tooltip>
-              <Typography>{`(${token?.symbol})`}</Typography>
+              <Typography>{`(${token?.symbol.toUpperCase()})`}</Typography>
             </Box>
           </Box>
         </Grid>

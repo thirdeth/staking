@@ -31,8 +31,10 @@ export const Header: FC = () => {
   );
 
   useEffect(() => {
-    const isWindowsOs = navigator.userAgent.indexOf('Win') !== -1;
-    if (isWindowsOs) {
+    const isMacOs = navigator.userAgent.indexOf('Mac') !== -1;
+    const isAndroid = navigator.userAgent.indexOf('Android') !== -1;
+
+    if (!isMacOs && !isAndroid) {
       setHeaderPadding(17);
     }
   }, []);

@@ -7,7 +7,7 @@ export const SelectInput = styled(InputBase)(({ theme }) => ({
   '& .MuiInputBase-input': {
     position: 'relative',
     padding: theme.spacing(1, 0),
-    width: '176px',
+    width: '100%',
     backgroundColor: 'transparent',
     borderBottom: '1px solid',
     borderColor: 'transparent',

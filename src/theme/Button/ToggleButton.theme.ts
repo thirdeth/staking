@@ -16,7 +16,7 @@ export const getMuiToggleButtonOverrides = (theme: Theme): ComponentsOverrides['
     border: BORDER_BUTTON_GRAY,
     borderRadius: BORDER_RADIUS_DEFAULT,
     color: COLOR_TEXT_BLACK,
-    fontSize: '16px',
+    fontSize: 16,
     fontWeight: 700,
     textTransform: 'uppercase',
     whiteSpace: 'nowrap',
@@ -25,6 +25,7 @@ export const getMuiToggleButtonOverrides = (theme: Theme): ComponentsOverrides['
       width: '100%',
     },
     [theme.breakpoints.down('md')]: {
+      fontSize: 13,
       minWidth: 'auto',
       width: '100%',
     },

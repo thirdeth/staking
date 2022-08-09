@@ -1,13 +1,11 @@
 import { FC } from 'react';
 import { Grid, Typography } from '@mui/material';
 import { CheckIcon } from 'components/Icon/components';
-import { useWindowState } from 'hooks';
 import { FontWeights } from 'theme/Typography';
 
 import { paperItems } from './Paper.helpers';
 
 export const Paper: FC = () => {
-  const { width } = useWindowState();
   return (
     <Grid container direction="column" justifyContent="flex-start" alignItems="center" pt={20}>
       {paperItems.map(({ id, Image, title, text, list }) => (
@@ -21,7 +19,7 @@ export const Paper: FC = () => {
             '&:nth-of-type(even)': { flexDirection: 'row-reverse' },
           }}
         >
-          <Grid item sx={{ img: { width: +width < 900 ? '338px' : '519px' } }} py={{ xs: 4, sm: 4, md: 0, lg: 0 }}>
+          <Grid item sx={{ img: { width: { xs: 338, sm: 338, md: 519 } } }} py={{ xs: 4, sm: 4, md: 0 }}>
             <Image />
           </Grid>
 
@@ -36,7 +34,7 @@ export const Paper: FC = () => {
             sm={8}
             md={5}
           >
-            <Grid item container alignSelf={{ xs: 'flex-start', sm: 'flex-start', md: 'center' }}>
+            <Grid item container alignSelf="flex-start">
               <Typography variant="h1">{title}</Typography>
             </Grid>
             <Grid item>{text}</Grid>
@@ -50,7 +48,14 @@ export const Paper: FC = () => {
               alignSelf="flex-start"
             >
               {list.map((checkItem) => (
-                <Grid item container key={checkItem} justifyContent="flex-start" alignItems="center" spacing={3}>
+                <Grid
+                  item
+                  container
+                  key={checkItem}
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={{ xs: 1, sm: 2, md: 3 }}
+                >
                   <Grid item>
                     <CheckIcon />
                   </Grid>
