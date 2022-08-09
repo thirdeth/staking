@@ -2,8 +2,7 @@ import { FC } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { UserStakingRankIds } from 'components';
 import { useShallowSelector } from 'hooks';
-import { RankingCard } from 'modules/ranking/components';
-import { RankingInfoCard } from 'modules/ranking/components/RankingInfoCard';
+import { RankingCard, RankingInfoCard } from 'modules/ranking/components';
 import userSelector from 'store/user/selectors';
 
 import { rankingCardsInfo } from './Ranking.helper';

@@ -34,16 +34,17 @@ export const Header: FC = () => {
     const isMacOs = navigator.userAgent.indexOf('Mac') !== -1;
     const isAndroid = navigator.userAgent.indexOf('Android') !== -1;
 
-    if (!isMacOs && !isAndroid) {
-      setHeaderPadding(17);
+    if (isMacOs || isAndroid) {
+      return;
     }
+    setHeaderPadding(17);
   }, []);
 
   return (
     <Box
       sx={{
         py: scrollToTopValue <= 150 ? 2.5 : 0.8,
-        paddingRight: `${headerPadding}px`,
+        paddingRight: `${headerPadding}px !important`,
         position: 'fixed',
         top: '0',
         left: '0',

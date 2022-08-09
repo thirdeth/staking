@@ -23,8 +23,7 @@ export const RowCardSkeleton: FC<RowCardSkeletonProps> = ({ variant = 'project',
             <Skeleton
               animation="wave"
               sx={{
-                ml: { xs: 0, sm: 0, md: 1 },
-                width: '160px',
+                width: '100%',
                 height: '50px',
               }}
             />

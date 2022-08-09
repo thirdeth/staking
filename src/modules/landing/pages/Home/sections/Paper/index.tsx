@@ -61,7 +61,11 @@ export const Paper: FC = () => {
                   </Grid>
 
                   <Grid item>
-                    <Typography variant="body1" fontWeight={FontWeights.fontWeightMedium}>
+                    <Typography
+                      variant="body1"
+                      fontWeight={FontWeights.fontWeightMedium}
+                      maxWidth={{ xs: 240, sm: 240, md: 'auto' }}
+                    >
                       {checkItem}
                     </Typography>
                   </Grid>

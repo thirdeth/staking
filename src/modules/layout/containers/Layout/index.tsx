@@ -47,6 +47,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
       sx={{
         height: '100%',
         background: isHomePage ? HOIME_BG : BG_MAIN,
+        overflowX: 'hidden',
       }}
     >
       <Header />

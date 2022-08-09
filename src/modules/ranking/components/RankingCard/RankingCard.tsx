@@ -9,7 +9,6 @@ import {
   TRANSITION_DEFAULT_TIME,
 } from 'theme/variables';
 import { Nullable } from 'types';
-import { formatNumber } from 'utils';
 
 export interface RankingCardProps {
   rankId: UserStakingRankIds;
@@ -99,7 +98,7 @@ export const RankingCard: FC<RankingCardProps> = ({ rankId, description, stakedT
                 },
               })}
             >
-              {formatNumber(stakedTokens)}
+              {stakedTokens}
             </Typography>
           </BoxWithBottomBorder>
           <BoxWithBottomBorder
