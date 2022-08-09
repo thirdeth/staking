@@ -12,15 +12,20 @@ export const GrowRate: FC<GrowRateProps> = ({ growAmount }) => {
     <Box
       sx={{
         position: 'relative',
-        width: 'fit-content',
+        width: '20px',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
       }}
     >
       {growAmount > 0 && (
         <ArrowDown
           sx={{
             position: 'absolute',
-            top: '-5px',
-            right: '-3px',
+            top: '-7px',
+            right: '0',
+            left: '0',
+            margin: '0 auto',
             transform: 'rotate(180deg)',
           }}
           fill={COLOR_TEXT_GREEN}
@@ -30,8 +35,8 @@ export const GrowRate: FC<GrowRateProps> = ({ growAmount }) => {
         <ArrowDown
           sx={{
             position: 'absolute',
-            bottom: '-5px',
-            right: '-3px',
+            bottom: '-7px',
+            right: '1px',
           }}
           fill={COLOR_TEXT_RED}
         />

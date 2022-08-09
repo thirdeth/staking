@@ -10,7 +10,13 @@ import { pitchDecLink, previewSocialLinksItems } from './Preview.helpers';
 
 export const Preview: FC = () => {
   return (
-    <Box sx={{ pt: { xs: 45, sm: 45, md: 12 }, height: PREVIEW_SECTION_SIZE }}>
+    <Box
+      sx={{
+        pt: { xs: 45, sm: 45, md: 12 },
+        pb: { xs: 2, sm: 2, md: 0 },
+        height: PREVIEW_SECTION_SIZE,
+      }}
+    >
       <Grid container direction="column" justifyContent="flex-start" alignItems="flex-start" spacing={3}>
         <Grid item xs={12}>
           <Typography variant="h1">Limitless, Borderless, All-in-One</Typography>

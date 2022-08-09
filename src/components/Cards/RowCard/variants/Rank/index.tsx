@@ -11,6 +11,7 @@ const RowTitleText = styled(Typography)(({ theme }) => ({
   display: 'none',
   fontSize: '14px',
   color: COLOR_TEXT_GRAY_DARK,
+  width: 'fit-content',
 
   [theme.breakpoints.down('md')]: { display: 'block' },
 }));
@@ -31,7 +32,7 @@ export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
               <RankInfo rankId={rankId} type="rank" size="m" />
             </Grid>
             {growAmount !== undefined && (
-              <Grid item>
+              <Grid item mt={{ xs: 3, sm: 3, md: 0 }}>
                 <GrowRate growAmount={growAmount} />
               </Grid>
             )}
@@ -44,20 +45,8 @@ export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
           <RowTitleText>Wallet Address</RowTitleText>
 
           <Box display="flex" alignItems="center">
-            <Typography
-              variant="body2"
-              textTransform="none"
-              mr={1}
-              sx={(theme) => ({
-                [theme.breakpoints.down('md')]: {
-                  maxWidth: '100px',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                },
-              })}
-            >
-              {shortenPhrase(walletAddress, 10, 10)}
+            <Typography variant="body2" textTransform="none" mr={1}>
+              {shortenPhrase(walletAddress, 6, 4)}
             </Typography>
 
             <CopyText text={walletAddress} variant="icon" />
@@ -76,7 +65,7 @@ export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
         <Grid item md={2} xs={6}>
           <RowTitleText>Last Staked</RowTitleText>
           <Typography variant="body2" textTransform="none">
-            {dateFormatter(buyDate)}
+            {dateFormatter(buyDate, 'll')}
           </Typography>
         </Grid>
       )}

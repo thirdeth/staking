@@ -1,4 +1,5 @@
 import { ComponentsOverrides, ComponentsProps, Theme } from '@mui/material';
+import { FontFamilies } from 'theme/Typography';
 import {
   BG_BUTTON_BLUE,
   BORDER_BUTTON_GRAY,
@@ -17,6 +18,7 @@ export const getMuiToggleButtonOverrides = (theme: Theme): ComponentsOverrides['
     borderRadius: BORDER_RADIUS_DEFAULT,
     color: COLOR_TEXT_BLACK,
     fontSize: 16,
+    fontFamily: FontFamilies.secondary,
     fontWeight: 700,
     textTransform: 'uppercase',
     whiteSpace: 'nowrap',

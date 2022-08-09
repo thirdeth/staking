@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import { FontWeights } from 'theme/Typography';
+import { FontFamilies, FontWeights } from 'theme/Typography';
 import { COLOR_TEXT_BLUE } from 'theme/variables';
 
 interface UserBalancProps {
@@ -25,6 +25,7 @@ export const UserBalance: FC<UserBalancProps> = ({ balance }) => {
             <Typography
               variant="h4"
               fontWeight={FontWeights.fontWeightRegular}
+              fontFamily={FontFamilies.primary}
               color={COLOR_TEXT_BLUE}
               textTransform="uppercase"
               sx={{
@@ -43,6 +44,7 @@ export const UserBalance: FC<UserBalancProps> = ({ balance }) => {
               fontWeight={FontWeights.fontWeightRegular}
               color={COLOR_TEXT_BLUE}
               textTransform="uppercase"
+              ml={1}
             >
               CRO
             </Typography>

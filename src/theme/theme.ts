@@ -17,6 +17,7 @@ import { getMuiLoadingButtonDefaultProps, getMuiLoadingButtonOverrides } from '.
 import { getMuiAccordion, getMuiAccordionDetails, getMuiAccordionPropsDefaultProps } from './Accordion';
 import { getMuiBackdropDefaultProps, getMuiBackdropOverrides } from './Backdrop';
 import { getMuiBreadcrumbsDefaultProps, getMuiBreadcrumbsOverrides } from './Breadcrumbs';
+import { getMuiCssBaselineDefaultProps, getMuiCssBaselineOverrides } from './CssBaseLine';
 import { getMuiDialogDefaultProps, getMuiDialogOverrides } from './Dialog';
 import { getMuiLinkDefaultProps, getMuiLinkOverrides } from './Link';
 import { getMuiPopoverDefaultProps, getMuiPopoverOverrides } from './Popover';
@@ -36,6 +37,10 @@ const themeBase = createTheme({
 
 export const theme = createTheme(themeBase, {
   components: {
+    MuiCSSBaseLine: {
+      defaultProps: getMuiCssBaselineDefaultProps(),
+      styleOverrides: getMuiCssBaselineOverrides(themeBase),
+    },
     MuiGrid: {
       defaultProps: getMuiGridDefaultProps(),
       styleOverrides: getMuiGridOverrides(),

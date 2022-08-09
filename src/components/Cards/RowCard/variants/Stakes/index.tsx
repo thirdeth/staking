@@ -5,7 +5,7 @@ import { LogoSmall } from 'components/Icon/components';
 import { useModal } from 'hooks';
 import { StakesHeaderTitle, SureWithdrawPopup } from 'modules/staking/components';
 import { getTimeLeftDate } from 'modules/staking/utils';
-import { FontFamilies, FontWeights } from 'theme/Typography';
+import { FontWeights } from 'theme/Typography';
 import { fromDecimals } from 'utils';
 
 import { RowCardProps } from '../../RowCard';
@@ -17,8 +17,6 @@ const MobileTitle = styled(StakesHeaderTitle)(({ theme }) => ({
 
 const ButtonStyled = styled(Button)({
   width: '100%',
-  fontFamily: FontFamilies.primary,
-  textTransform: 'none',
 });
 
 type StakesProps = Pick<
