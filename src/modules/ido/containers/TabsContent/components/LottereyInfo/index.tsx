@@ -1,21 +1,17 @@
 import { FC } from 'react';
 import { Box, Grid, styled, Typography } from '@mui/material';
 import { rankColors, RankInfo, UserStakingRankIds } from 'components';
-import { ProjectDataProps } from 'modules/ido/pages/Details/Details.types';
 import { FontFamilies, FontWeights } from 'theme/Typography';
 import {
-  BG_BLUE_EXTRALIGHT,
   BG_GRAY_LIGHT,
   BORDER_ACCENT_BLUE,
   BORDER_BUTTON_BLUE,
   BORDER_GRAY_LIGHT,
-  BORDER_RADIUS_CARD_MEDIUM,
   BORDER_RADIUS_DEFAULT,
   COLOR_TEXT_ACCENT_BLUE,
   COLOR_TEXT_BLACK,
   COLOR_TEXT_BLUE,
 } from 'theme/variables';
-import { dateFormatter } from 'utils';
 
 import { TabsContentProps } from '../../TabsContent';
 

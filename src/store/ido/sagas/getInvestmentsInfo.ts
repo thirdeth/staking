@@ -18,7 +18,7 @@ export function* getInvestmentsInfoSaga({
 }: ReturnType<typeof getInvestmentsInfo>) {
   yield* put(request(type));
   const { address, chainType }: UserState = yield select(userSelector.getUser);
-  const { userInfo, currentIdo }: IdoState = yield select(idoSelector.getIdo);
+  const { userInfo }: IdoState = yield select(idoSelector.getIdo);
 
   const [idoFarmeAbi, idoFarmeContractAddress] = getContractDataByItsName(ContractsNames.idoFarme, chainType);
 
