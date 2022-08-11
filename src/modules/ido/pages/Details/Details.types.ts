@@ -1,7 +1,7 @@
-import { IDO } from 'types/api/IDO';
+import { Ido } from 'types/api/Ido';
 import { Tokenomic } from 'types/api/Tokenomic';
 
-export type IdoRequiredProps = Required<IDO>;
+export type IdoRequiredProps = Required<Ido>;
 
 export interface ProjectDataProps {
   projectData: IdoRequiredProps;

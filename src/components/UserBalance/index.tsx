@@ -24,16 +24,11 @@ export const UserBalance: FC<UserBalancProps> = ({ balance }) => {
           <Grid item>
             <Typography
               variant="h4"
-              fontWeight={FontWeights.fontWeightRegular}
+              fontWeight={FontWeights.fontWeightMedium}
               fontFamily={FontFamilies.primary}
               color={COLOR_TEXT_BLUE}
-              textTransform="uppercase"
-              sx={{
-                maxWidth: '85px',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
+              maxWidth="85px"
+              noWrap
             >
               {balance}
             </Typography>

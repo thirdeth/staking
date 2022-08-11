@@ -128,7 +128,9 @@ export const Staking: FC<StakingProps> = ({ title }) => {
       {!!address.length && (
         <>
           <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Typography variant="h1">{title}</Typography>
+            <Typography variant="h1" textTransform="uppercase">
+              {title}
+            </Typography>
             <Link to={routes.staking.leaderboard.root.path}>
               <Button>Leaderboard</Button>
             </Link>

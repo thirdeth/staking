@@ -9,7 +9,7 @@ import { Partner } from './Partner';
 import { Team } from './Team';
 import { Tokenomic } from './Tokenomic';
 
-export interface IDO {
+export interface Ido {
   decimals?: number;
   discord: string;
   end: string;
@@ -18,13 +18,12 @@ export interface IDO {
   idoIncrement: number;
   investor?: string;
   investors?: string;
-  isPublic?: boolean;
   logoUrl?: string;
   medium: string;
   owner?: number;
   ownerAddress?: string;
   partners?: Partner[];
-  price: string;
+  price: number;
   projectName: string;
   projectSummary: string;
   roadmap: string;
@@ -44,9 +43,9 @@ export interface IDO {
   totalBought: string;
   totalSupply: string;
   twitter: string;
+  type?: string;
   unlockPercent?: number;
   unlockStepTime?: number;
   vesting?: boolean;
-  videoUrl?: string;
-  withWeights?: boolean;
+  videoUrl: string;
 }

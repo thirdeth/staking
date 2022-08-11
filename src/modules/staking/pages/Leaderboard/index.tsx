@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { ApplyCard, RowCard } from 'components';
 import { RowCardSkeleton } from 'components/Cards/RowCard/components';
 import { useShallowSelector } from 'hooks';
@@ -11,7 +11,10 @@ import stakeActionTypes from 'store/staking/actionTypes';
 import uiSelector from 'store/ui/selectors';
 import { RequestStatus } from 'types';
 
-export const Leaderboard: FC = () => {
+interface LeaderboardProps {
+  title: string;
+}
+export const Leaderboard: FC<LeaderboardProps> = ({ title }) => {
   const dispatch = useDispatch();
 
   const leaderboardItems = useUpdateDataForLeaderBoards();
@@ -23,6 +26,9 @@ export const Leaderboard: FC = () => {
   }, [dispatch]);
   return (
     <>
+      <Typography mb={3} variant="h1" textTransform="uppercase">
+        {title}
+      </Typography>
       <Grid pt={2} container spacing={2}>
         <Grid item xs={12} display={{ xs: 'none', sm: 'none', md: 'block' }}>
           <CardsHeader />

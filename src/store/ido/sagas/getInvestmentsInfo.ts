@@ -54,6 +54,7 @@ export function* getInvestmentsInfoSaga({
       ...userInfo,
       payed,
       claimAmount,
+      totalBought,
     };
 
     // if user registered, response will be equal 0 or more then 0
@@ -61,7 +62,6 @@ export function* getInvestmentsInfoSaga({
       yield* put(
         updateIdoState({
           userInfo: { ...updatedUserInfo, userAllocation: data.response.toString() },
-          currentIdo: { ...currentIdo, totalBought },
           vestingInfo,
           isLiqAdded,
         }),
@@ -70,7 +70,6 @@ export function* getInvestmentsInfoSaga({
       yield* put(
         updateIdoState({
           userInfo: { ...updatedUserInfo },
-          currentIdo: { ...currentIdo, totalBought },
           vestingInfo,
           isLiqAdded,
         }),

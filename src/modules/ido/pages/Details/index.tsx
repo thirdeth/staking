@@ -17,7 +17,7 @@ import uiSelector from 'store/ui/selectors';
 import userSelector from 'store/user/selectors';
 import { FontFamilies, FontWeights } from 'theme/Typography';
 import { COLOR_TEXT_BLUE } from 'theme/variables';
-import { IdoState, RequestStatus, State } from 'types';
+import { IdoState, RequestStatus, State, UserState } from 'types';
 import { IdoStatus } from 'types/store/requests';
 import { getDisplayStageName, toDecimals } from 'utils';
 
@@ -35,7 +35,7 @@ export const Details: FC = () => {
   } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
   const { idoIncrement, ownerAddress, vesting, status, tokenAddress, softCap, decimals, end } =
     currentIdo as IdoRequiredProps;
-  const userAddress = useShallowSelector(userSelector.getProp('address'));
+  const { address: userAddress, rankId } = useShallowSelector<State, UserState>(userSelector.getUser);
 
   const isCurrentIdoEmpty = isEmpty(currentIdo);
 
@@ -144,6 +144,7 @@ export const Details: FC = () => {
               <LauncherCard
                 projectData={currentIdo as IdoRequiredProps}
                 userAllocation={userAllocation}
+                totalBought={totalBought}
                 isCanAddLiquidity={isCanAddLiquidity}
                 isRegistration={isRegistration}
                 isClaiming={isClaiming}
@@ -154,7 +155,7 @@ export const Details: FC = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <TabsContent projectData={currentIdo as IdoRequiredProps} />
+              <TabsContent projectData={currentIdo as IdoRequiredProps} myRankId={rankId} />
             </Grid>
             <Grid item xs={12}>
               <ApplyCard size="s" />

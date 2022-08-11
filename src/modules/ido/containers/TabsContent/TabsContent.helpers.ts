@@ -1,1 +1,9 @@
-export const sidebarTabItems = ['Project Info', 'Project Summary', 'Tokenomics', 'Roadmap', 'Partners', 'Team Members'];
+export const sidebarTabItems = [
+  'Lotterey Info',
+  'Project Info',
+  'Project Summary',
+  'Tokenomics',
+  'Roadmap',
+  'Partners',
+  'Team Members',
+];

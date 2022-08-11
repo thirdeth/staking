@@ -15,12 +15,16 @@ export const ChartCard: FC<ChartCardProps> = ({ value, text, chartImg }) => {
       sx={{
         px: { xs: 2, sm: 2, md: 5.5 },
         py: 3,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
         minHeight: { xs: 'auto', sm: 'auto', md: 158 },
         background: BG_BLUE_ACCENT,
         borderRadius: BORDER_RADIUS_DEFAULT,
       }}
     >
-      <Grid container justifyContent="space-between" alignItems={{ xs: 'center', sm: 'center', md: 'flex-start' }}>
+      <Grid item container justifyContent="space-between" alignItems="center" xs={12}>
         <Grid item container direction="column" justifyContent="space-between">
           <Grid item pb={{ xs: 1, sm: 1, md: 3 }}>
             <Typography

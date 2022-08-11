@@ -8,7 +8,7 @@ import { COLOR_TEXT_BLACK } from 'theme/variables';
 
 import { LauncherCardProps } from '../../LauncherCard';
 
-type LauncherControlsProps = Omit<LauncherCardProps, 'userAllocation'>;
+type LauncherControlsProps = Omit<LauncherCardProps, 'userAllocation' | 'totalBought'>;
 
 export const LauncherControls: FC<LauncherControlsProps> = ({
   projectData,

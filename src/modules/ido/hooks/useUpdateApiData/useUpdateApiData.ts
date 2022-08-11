@@ -28,7 +28,7 @@ export const useUpdatedIdoDataFromApi = (): ReturnType => {
         tokenLogoUrl,
         start,
         hardCap,
-        isPublic,
+        type,
         timer,
         price,
       }) => {
@@ -45,10 +45,10 @@ export const useUpdatedIdoDataFromApi = (): ReturnType => {
           boughtAmount: totalBought,
           startTime: start,
           hardCap: +hardCap,
-          isPublic: !!isPublic,
-          type: getIdoTypeFromIdoStatus([status] as IdoStatus[]),
+          accessType: type || 'public',
+          idoType: getIdoTypeFromIdoStatus([status] as IdoStatus[]),
           timer: timer as string,
-          price,
+          price: price.toString() || '0',
         };
       },
     ),

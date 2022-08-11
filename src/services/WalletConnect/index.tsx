@@ -27,7 +27,7 @@ type IAccountInfo = IConnect | IError | { address: string };
 const Web3Context = createContext({} as IContextValue);
 
 const WalletConnectContext: FC<WalletConnectProps> = ({ children }) => {
-  const [currentSubsriber, setCurrentSubsciber] = useState<Subscription>();
+  const [currentSubscriber, setCurrentSubscriber] = useState<Subscription>();
   const WalletConnect = useMemo(() => new WalletService(), []);
   const dispatch = useDispatch();
   const {
@@ -40,9 +40,9 @@ const WalletConnectContext: FC<WalletConnectProps> = ({ children }) => {
   const disconnect = useCallback(() => {
     dispatch(disconnectWalletState());
     WalletConnect.resetConnect();
-    currentSubsriber?.unsubscribe();
+    currentSubscriber?.unsubscribe();
     getToastMessage('info', notifyText.disconnet.info);
-  }, [WalletConnect, currentSubsriber, dispatch]);
+  }, [WalletConnect, currentSubscriber, dispatch]);
 
   const subscriberSuccess = useCallback(
     (res: { name: string }) => {
@@ -90,47 +90,35 @@ const WalletConnectContext: FC<WalletConnectProps> = ({ children }) => {
             getToastMessage('success', `Wallet connected: ${shortenPhrase(accountAddress, 3, 3)}`);
           }
 
-          setCurrentSubsciber(sub);
+          setCurrentSubscriber(sub);
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-          if (error.code === 4) {
-            switch (error.type) {
-              case 'MetaMask': {
-                if (window.ethereum) {
-                  const chainParams = connectWallet(Chains.Cronos, chainType);
-                  window.ethereum.request({
-                    method: 'wallet_addEthereumChain',
-                    params: [
-                      {
-                        chainId: `0x${chainParams.network.chainID.toString(16)}`,
-                        chainName: chainParams.network.chainName,
-                        nativeCurrency: chainParams.network.nativeCurrency,
-                        rpcUrls: [chainParams.network.rpc],
-                        blockExplorerUrls: [chainParams.network.blockExplorerUrl],
-                      },
-                    ],
-                  });
-                } else {
-                  // metamask doesn't installed,
-                  // redirect to download MM or open MM on mobile
-                  window.open(
-                    `https://metamask.app.link/dapp/${
-                      window.location.hostname + window.location.pathname
-                    }/?utm_source=mm`,
-                  );
-                }
-                break;
-              }
+          if (!window.ethereum) {
+            window.open(
+              `https://metamask.app.link/dapp/${window.location.hostname + window.location.pathname}/?utm_source=mm`,
+            );
+            return;
+          }
 
-              default: {
-                disconnect();
-              }
-            }
+          if (error.code === 4 && error.type === 'MetaMask') {
+            const chainParams = connectWallet(Chains.Cronos, chainType);
+            window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [
+                {
+                  chainId: `0x${chainParams.network.chainID.toString(16)}`,
+                  chainName: chainParams.network.chainName,
+                  nativeCurrency: chainParams.network.nativeCurrency,
+                  rpcUrls: [chainParams.network.rpc],
+                  blockExplorerUrls: [chainParams.network.blockExplorerUrl],
+                },
+              ],
+            });
           }
         }
       }
     },
-    [WalletConnect, chainType, disconnect, dispatch, subscriberError, subscriberSuccess],
+    [WalletConnect, chainType, dispatch, subscriberError, subscriberSuccess],
   );
 
   useEffect(() => {

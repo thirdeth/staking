@@ -1,4 +1,4 @@
-import { IDO } from 'types/api/IDO';
+import { Ido } from 'types/api/Ido';
 
 export type VestingInfoProps = {
   startUnlockPercent: string;
@@ -9,9 +9,9 @@ export type VestingInfoProps = {
 export type IdoState = {
   ido: {
     count: number;
-    idos: IDO[];
+    idos: Ido[];
   };
-  currentIdo: IDO;
+  currentIdo: Ido;
   userInfo: {
     userAllocation: string | null;
     payed: string;

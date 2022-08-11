@@ -6,7 +6,7 @@ import idosSelector from 'store/ido/selectors';
 import usersSelector from 'store/user/selectors';
 import { put, takeLatest } from 'typed-redux-saga';
 import { IdoState, UserState } from 'types';
-import { IDO } from 'types/api/IDO';
+import { Ido } from 'types/api/Ido';
 import { camelize } from 'utils';
 
 import { getIdoList } from '../actions';
@@ -37,13 +37,13 @@ export function* getIdoListSaga({ type, payload }: ReturnType<typeof getIdoList>
     let newIdos = camleizedIdoData;
 
     if (payload.shouldConcat) {
-      newIdos = [...idos, ...(newIdos as IDO[])];
+      newIdos = [...idos, ...(newIdos as Ido[])];
     }
 
     yield put(
       updateIdoState({
         ido: {
-          idos: [...(newIdos as IDO[])],
+          idos: [...(newIdos as Ido[])],
           count,
         },
       }),

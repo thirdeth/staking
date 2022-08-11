@@ -10,7 +10,7 @@ import idoSelector from 'store/ido/selectors';
 import { setActiveModal } from 'store/modals/reducer';
 import userSelector from 'store/user/selectors';
 import { IdoState, Modals, State, UserState } from 'types';
-import { IdoStatus } from 'types/store/requests';
+import { IdoPublic, IdoStatus } from 'types/store/requests';
 
 import { BtnHandlerType, HandlersKeys } from './useValidateLauncherBtn.types';
 import { validateWithoutWeights, validateWithWeights } from './useValidateLauncherBtnHelpers';
@@ -25,7 +25,7 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
   const {
     isLiqAdded,
     userInfo: { userAllocation, claimAmount, payed },
-    currentIdo: { withWeights, vesting, idoIncrement, isPublic, hardCap, totalBought },
+    currentIdo: { vesting, idoIncrement, type, hardCap, totalBought },
   } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
 
   // ----------------- Button handlers ------------------
@@ -98,7 +98,7 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
   const [textMessage, setTextMessage] = useState('');
   const [btnHandler, setBtnHandler] = useState<BtnHandlerType>(() => noop);
 
-  const handleValidateValidBtnProps = useCallback(() => {
+  const handleValidateBtnProps = useCallback(() => {
     // if user does not connected to wallet
     if (!userAddress.length) {
       setBtnText('Connect Wallet');
@@ -106,13 +106,13 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
       setBtnVisible(true);
     } else {
       // if user connected and missed registration stage - btn will be hidden
-      if (status !== IdoStatus.register && userAllocation === null && withWeights) {
+      if (status !== IdoStatus.register && userAllocation === null && type === IdoPublic.publicStaking) {
         setBtnVisible(false);
         setTextMessage('You are not registered');
       }
 
       // if project with weights parametrs
-      if (withWeights) {
+      if (type === IdoPublic.publicStaking) {
         const [{ text, handlerKey, isVisible }, infoText] = validateWithWeights(
           status,
           +rankId,
@@ -131,14 +131,14 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
       }
 
       // if project without weights parametrs
-      if (!withWeights) {
+      if (type !== IdoPublic.publicStaking) {
         const [{ text, handlerKey, isVisible }, infoText] = validateWithoutWeights(
           status,
           userAllocation,
           +payed,
           claimAmount,
           vesting,
-          isPublic,
+          type === 'public',
           isLiqAdded,
         );
         setBtnText(text);
@@ -148,23 +148,24 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
       }
     }
   }, [
-    isPublic,
-    isLiqAdded,
-    vesting,
-    withWeights,
     claimAmount,
     getButtonHandlers,
     handleOpenModal,
+    hardCap,
+    isLiqAdded,
     payed,
     rankId,
     status,
+    totalBought,
+    type,
     userAddress.length,
     userAllocation,
+    vesting,
   ]);
 
   useEffect(() => {
-    handleValidateValidBtnProps();
-  }, [handleValidateValidBtnProps]);
+    handleValidateBtnProps();
+  }, [handleValidateBtnProps]);
 
   return [btnText, btnHandler, isBtnVisible, textMessage];
 };

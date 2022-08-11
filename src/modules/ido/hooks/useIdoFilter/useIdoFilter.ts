@@ -2,19 +2,23 @@ import { useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SelectChangeEvent } from '@mui/material';
 import { PARAMS } from 'types';
-import { IdoPublic, IdoStatus, IdoWeights } from 'types/store/requests';
+import { IdoPublic, IdoStatus } from 'types/store/requests';
 
 export const useIdoFilter = (isUrlUpdated = false) => {
   const [publicFilter, setPublicFilterValue] = useState(IdoPublic.all);
-  const [idoStatuses, setIdoStatuses] = useState<IdoStatus[]>([IdoStatus.pending]);
+  const [idoStatuses, setIdoStatuses] = useState<IdoStatus[]>([
+    IdoStatus.inProgress,
+    IdoStatus.register,
+    IdoStatus.registrationClosed,
+  ]);
   const [currentPage, setCurrentPage] = useState(0);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const defaultStakingRequreValue = searchParams.get(PARAMS.with_weights) as IdoWeights;
+  const defaultStakingRequreValue = searchParams.get(PARAMS.access) as string;
 
   const [isStakingRequire, setStakingRequire] = useState(
-    defaultStakingRequreValue ? defaultStakingRequreValue === 'true' : true,
+    defaultStakingRequreValue ? defaultStakingRequreValue.includes(IdoPublic.publicStaking) : true,
   );
 
   const handleChangePublicFilter = useCallback(
@@ -23,18 +27,12 @@ export const useIdoFilter = (isUrlUpdated = false) => {
       setPublicFilterValue(value as IdoPublic);
 
       if (isUrlUpdated) {
-        const statusParams = new URLSearchParams(searchParams).getAll(PARAMS.status);
-        const weightsParams = new URLSearchParams(searchParams).getAll(PARAMS.with_weights);
+        const statusParams = new URLSearchParams(searchParams).getAll(PARAMS.status).join(',');
 
-        if (value === IdoPublic.all) {
-          setSearchParams({ [PARAMS.status]: statusParams, [PARAMS.with_weights]: weightsParams });
-        } else {
-          setSearchParams({
-            [PARAMS.status]: statusParams,
-            [PARAMS.access]: [value as string],
-            [PARAMS.with_weights]: weightsParams,
-          });
-        }
+        setSearchParams({
+          [PARAMS.status]: statusParams,
+          [PARAMS.access]: value as string,
+        });
       }
     },
     [isUrlUpdated, searchParams, setSearchParams],
@@ -45,13 +43,11 @@ export const useIdoFilter = (isUrlUpdated = false) => {
       setIdoStatuses(value);
 
       if (isUrlUpdated) {
-        const accessParams = new URLSearchParams(searchParams).getAll(PARAMS.access);
-        const weightsParams = new URLSearchParams(searchParams).getAll(PARAMS.with_weights);
+        const accessParams = new URLSearchParams(searchParams).getAll(PARAMS.access).join(',');
 
         setSearchParams({
           [PARAMS.status]: value,
           [PARAMS.access]: accessParams,
-          [PARAMS.with_weights]: weightsParams,
         });
       }
     },
@@ -66,28 +62,19 @@ export const useIdoFilter = (isUrlUpdated = false) => {
     if (isUrlUpdated) {
       // params in url at now
       const statusParams = new URLSearchParams(searchParams).getAll(PARAMS.status);
+      let newStatusParams = [IdoStatus.inProgress] as string[];
 
-      // if user switch with wrong status params it will be default inProgress status
-      const newStatusParams =
-        statusParams.includes(IdoStatus.register) || statusParams.includes(IdoStatus.registrationClosed)
-          ? [IdoStatus.inProgress]
-          : statusParams;
-
-      if (isStakingRequire) {
-        // if switch on not required (checked)
-        setSearchParams({
-          [PARAMS.status]: newStatusParams,
-          [PARAMS.access]: [],
-          [PARAMS.with_weights]: IdoWeights.withoutWeights,
-        });
-      } else {
-        // if switch on required (unChecked)
-        setSearchParams({
-          [PARAMS.status]: statusParams,
-          [PARAMS.access]: [IdoPublic.public],
-          [PARAMS.with_weights]: IdoWeights.withWeights,
-        });
+      if (statusParams.length) {
+        newStatusParams =
+          statusParams.includes(IdoStatus.register) || statusParams.includes(IdoStatus.registrationClosed)
+            ? [IdoStatus.inProgress]
+            : statusParams;
       }
+
+      setSearchParams({
+        [PARAMS.status]: newStatusParams,
+        [PARAMS.access]: isStakingRequire ? IdoPublic.all : IdoPublic.publicStaking,
+      });
 
       setCurrentPage(0);
       setStakingRequire(!isStakingRequire);

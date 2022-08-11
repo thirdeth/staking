@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { Box, styled, Typography } from '@mui/material';
 import { useTimeLeft } from 'modules/ido/hooks';
-import { IdoStatus } from 'types/store/requests';
 import { getFormatedCounterDate } from 'utils';
 
 const BoxValueStyled = styled(Box)(({ theme }) => ({
@@ -16,13 +15,11 @@ const BoxValueStyled = styled(Box)(({ theme }) => ({
 
 export interface CountdownProps {
   timer: number;
-  startTime: number;
-  type: string;
   auctionEndText: string;
 }
 
-export const Countdown: FC<CountdownProps> = ({ startTime, type, timer, auctionEndText }) => {
-  const timeLeft = useTimeLeft(+(type === IdoStatus.pending ? startTime : timer) * 1000);
+export const Countdown: FC<CountdownProps> = ({ timer, auctionEndText }) => {
+  const timeLeft = useTimeLeft(+timer * 1000);
 
   if (!timeLeft) {
     return <Typography variant="h1">{auctionEndText}</Typography>;

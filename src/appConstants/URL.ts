@@ -1,10 +1,10 @@
 import { RegistrationIdoReq } from 'types/requests';
 
 export default {
-  getIdoList: '/get_ido_list/',
+  getIdoList: '/ido/',
   getIdoById: (id: string) => `/ido/${id}/`,
-  getUserAllocation: ({ address, pk }: RegistrationIdoReq) => `/investor_allocation/?address=${address}&pk=${pk}`,
-  registrationToIdo: '/registration_to_ido/',
-  getTopInvestors: '/get_top_investors/',
-  getProof: '/get_proof/',
+  getUserAllocation: ({ address, pk }: RegistrationIdoReq) => `/investor/allocation/?address=${address}&pk=${pk}`,
+  registrationToIdo: '/register/',
+  getTopInvestors: '/investor/top/',
+  getProof: '/investor/proof/',
 };

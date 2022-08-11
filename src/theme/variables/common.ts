@@ -32,6 +32,7 @@ export const COLOR_LIGHT_BLUE = 'rgb(231, 240, 254, 1)';
 // ===== Borders
 export const BORDER_HEADER = '2px solid rgba(237, 237, 237, 1)';
 export const BORDER_GRAY_LIGHT = '1px solid rgba(0, 0, 0, 0.08)';
+export const BORDER_ACCENT_BLUE = '1px solid #0A3B87';
 
 // ===== Border-Radius
 export const BORDER_RADIUS_DEFAULT = '8px';

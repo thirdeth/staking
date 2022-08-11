@@ -40,8 +40,8 @@ export interface ProjectCardDataProps {
   buyDate?: string | number;
   startTime: string;
   hardCap: number;
-  isPublic: boolean;
-  type: IdoType;
+  accessType: string;
+  idoType: IdoType;
   timer: string;
   price: string;
 }

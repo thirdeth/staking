@@ -8,6 +8,7 @@ import { LauncherControls, LauncherInfo, LauncherProgress } from './components';
 
 export type LauncherCardProps = {
   userAllocation: Nullable<string>;
+  totalBought: string;
   isCanAddLiquidity: boolean;
   isRegistration: boolean;
   isClaiming: boolean;
@@ -21,6 +22,7 @@ export const LauncherCard: FC<LauncherCardProps> = ({
   projectData,
   isCanAddLiquidity,
   userAllocation,
+  totalBought,
   isRegistration,
   isClaiming,
   isRefunding,
@@ -41,7 +43,7 @@ export const LauncherCard: FC<LauncherCardProps> = ({
       <Grid container direction="column" justifyContent="center" alignItems="space-between">
         <LauncherInfo projectData={projectData} />
         <LauncherProgress
-          projectData={projectData}
+          projectData={{ ...projectData, totalBought }}
           userAllocation={userAllocation}
           isGettingInvestmentsInfo={isGettingInvestmentsInfo}
         />

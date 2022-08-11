@@ -1,8 +1,10 @@
-import { ProjectDataProps } from 'modules/ido/pages/Details/Details.types';
 import { Color } from 'types/api/enums';
 
-export const tabsContentPropsMocked: ProjectDataProps = {
+import { TabsContentProps } from './TabsContent';
+
+export const tabsContentPropsMocked: TabsContentProps = {
   projectData: {
+    type: 'public',
     id: 1,
     timer: '1657700814',
     videoUrl: '',
@@ -12,15 +14,14 @@ export const tabsContentPropsMocked: ProjectDataProps = {
     tokenSymbol: 'IiQ',
     totalSupply: '9934514',
     tokenAddress: '0x43bA502a34D66BAd37122E84da4697B900Ef55d2',
-    isPublic: false,
     vesting: false,
     startUnlockPercent: 0,
     unlockPercent: 0,
     unlockStepTime: 0,
     start: '1657700814',
     end: '1658305614',
-    price: '53',
-    status: 'PENDING',
+    price: 53,
+    status: 'pending',
     softCap: '77544',
     hardCap: '9934514',
     totalBought: '0',
@@ -47,7 +48,7 @@ export const tabsContentPropsMocked: ProjectDataProps = {
     decimals: 18,
     investors: '',
     targetedRaise: '',
-    withWeights: true,
     idoIncrement: 1,
   },
+  myRankId: '1',
 };

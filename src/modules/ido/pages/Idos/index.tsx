@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import { FC, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { ApplyCard, RowCard } from 'components';
 import { InfoCard } from 'components/Cards/InfoCard';
 import { RowCardSkeleton } from 'components/Cards/RowCard/components';
@@ -15,16 +15,17 @@ import { updateIdoState } from 'store/ido/reducer';
 import uiSelector from 'store/ui/selectors';
 import { COLOR_TEXT_BLACK } from 'theme/variables';
 import { PARAMS, RequestStatus } from 'types';
-import { IdoPublic, IdoStatus, IdoWeights } from 'types/store/requests';
+import { IdoPublic } from 'types/store/requests';
 
 const DEFAULT_IDOS_PER_PAGE = 5;
 
 interface IdoPageProps {
   isMyIdos?: boolean;
   isMyInvesments?: boolean;
+  title: string;
 }
 
-export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
+export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments, title }) => {
   const dispatch = useDispatch();
 
   const { idos, count } = useUpdatedIdoDataFromApi();
@@ -34,6 +35,7 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
     handleChangeIdoStatus,
     handleChangeStakingRequired,
     currentPage,
+    idoStatuses,
     handleChangeCurrentPage,
     searchParams,
     isStakingRequire,
@@ -43,19 +45,6 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
   const isLoading = getIdoListRequestStatus === RequestStatus.REQUEST;
 
   const loadingSkeletonCounter = count > DEFAULT_IDOS_PER_PAGE ? count % DEFAULT_IDOS_PER_PAGE : DEFAULT_IDOS_PER_PAGE;
-
-  const statusParams = useMemo(() => {
-    const statusesArr = searchParams.getAll(PARAMS.status) as IdoStatus[];
-    if (statusesArr.length) {
-      return statusesArr;
-    }
-    return [IdoStatus.inProgress, IdoStatus.register, IdoStatus.registrationClosed];
-  }, [searchParams]);
-
-  const weightsParams = useMemo(
-    () => (searchParams.get(PARAMS.with_weights) as IdoWeights) || isStakingRequire,
-    [isStakingRequire, searchParams],
-  );
 
   // for investments - without upcoming status
   const stageBarStatusItemsArr = isMyInvesments
@@ -68,18 +57,17 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
 
       dispatch(
         getIdoList({
-          public: (searchParams.getAll(PARAMS.access) as IdoPublic[]) || [],
-          status: statusParams,
+          type: (searchParams.getAll(PARAMS.access).join(',') as string) || IdoPublic.publicStaking,
+          status: idoStatuses.join(','),
           count: DEFAULT_IDOS_PER_PAGE,
           start: page * DEFAULT_IDOS_PER_PAGE,
           isMyIdos: isMyIdos !== undefined,
           isMyInvesments: isMyInvesments !== undefined,
-          withWeights: weightsParams,
           shouldConcat,
         }),
       );
     },
-    [dispatch, handleChangeCurrentPage, isMyIdos, isMyInvesments, searchParams, statusParams, weightsParams],
+    [dispatch, handleChangeCurrentPage, isMyIdos, isMyInvesments, searchParams, idoStatuses],
   );
 
   useEffect(() => {
@@ -89,24 +77,26 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments }) => {
 
     dispatch(
       getIdoList({
-        public: (searchParams.getAll(PARAMS.access) as IdoPublic[]) || IdoPublic.public,
-        status: statusParams,
+        type: (searchParams.getAll(PARAMS.access).join(',') as string) || IdoPublic.publicStaking,
+        status: idoStatuses.join(','),
         count: DEFAULT_IDOS_PER_PAGE,
         start: 0,
         isMyIdos: isMyIdos !== undefined,
         isMyInvesments: isMyInvesments !== undefined,
-        withWeights: weightsParams,
       }),
     );
-  }, [dispatch, handleChangeCurrentPage, isMyIdos, isMyInvesments, searchParams, statusParams, weightsParams]);
+  }, [dispatch, handleChangeCurrentPage, isMyIdos, isMyInvesments, searchParams, idoStatuses]);
 
-  const idoType = useMemo(() => getIdoTypeFromIdoStatus(statusParams), [statusParams]);
+  const idoType = useMemo(() => getIdoTypeFromIdoStatus(idoStatuses), [idoStatuses]);
 
   return (
     <Box sx={{ overflowX: 'hidden' }}>
+      <Typography mb={3.5} variant="h1" textTransform="uppercase">
+        {title}
+      </Typography>
       <StageBar
         publicFilterValue={(searchParams.get(PARAMS.access) as IdoPublic) || IdoPublic.all}
-        idoStatus={statusParams}
+        idoStatus={idoStatuses}
         isStakingRequire={isStakingRequire}
         statusItems={stageBarStatusItemsArr}
         onChangeFilter={handleChangePublicFilter}

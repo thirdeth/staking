@@ -30,15 +30,15 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
     id,
     startTime,
     hardCap,
-    isPublic,
-    type,
+    accessType,
+    idoType,
     status,
     timer,
     price,
     boughtAmount,
   } = cardData as ProjectCardDataProps;
 
-  const timeLeft = useTimeLeft(+(type === IdoType.pending ? startTime : timer) * 1000, true);
+  const timeLeft = useTimeLeft(+timer * 1000, true);
 
   return (
     <StyledLink to={routes.idos.details.root.getPath(id)}>
@@ -87,7 +87,7 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={6} sm={6} md={type === IdoType.completed ? 2 : 1}>
+        <Grid item xs={6} sm={6} md={idoType === IdoType.completed ? 2 : 1}>
           <TypographySybtitle>Token</TypographySybtitle>
           <Box display="flex" alignItems="center">
             {token?.icon && (
@@ -103,8 +103,8 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={6} sm={6} md={type === IdoType.completed ? 3 : 2}>
-          {startTime && type === IdoType.pending && (
+        <Grid item xs={6} sm={6} md={idoType === IdoType.completed ? 3 : 2}>
+          {startTime && idoType === IdoType.pending && (
             <>
               <TypographySybtitle>Starts in</TypographySybtitle>
               <Typography variant="body2" textTransform="none" fontSize={{ xs: '14px', sm: '14px', md: '16px' }}>
@@ -112,26 +112,26 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
               </Typography>
             </>
           )}
-          {status && type === IdoType.inProgress && (
+          {status && idoType === IdoType.inProgress && (
             <>
               <TypographySybtitle>Stage</TypographySybtitle>
               <Typography variant="body2" textTransform="none" fontSize={{ xs: '14px', sm: '14px', md: '16px' }}>
-                {status.replaceAll('_', ' ')}
+                {status.replaceAll('_', ' ').toUpperCase()}
               </Typography>
             </>
           )}
-          {status && type === IdoType.completed && (
+          {status && idoType === IdoType.completed && (
             <>
               <TypographySybtitle>Status</TypographySybtitle>
               <Typography variant="body2" textTransform="none" fontSize={{ xs: '14px', sm: '14px', md: '16px' }}>
-                {status.replaceAll('COMPLETED_', ' ')}
+                {status.replaceAll('completed_', ' ').toUpperCase()}
               </Typography>
             </>
           )}
         </Grid>
-        {type !== IdoType.completed && (
+        {idoType !== IdoType.completed && (
           <Grid item xs={6} sm={6} md={3}>
-            {hardCap && type === IdoType.pending && (
+            {hardCap && idoType === IdoType.pending && (
               <>
                 <TypographySybtitle>Targeted raise</TypographySybtitle>
                 <Typography variant="body2" textTransform="none" fontSize={{ xs: '14px', sm: '14px', md: '16px' }}>
@@ -139,7 +139,7 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
                 </Typography>
               </>
             )}
-            {timer && type === IdoType.inProgress && (
+            {timer && idoType === IdoType.inProgress && (
               <>
                 <TypographySybtitle>Next stage will start in</TypographySybtitle>
                 <Typography variant="body2" textTransform="none" fontSize={{ xs: '14px', sm: '14px', md: '16px' }}>
@@ -150,11 +150,18 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
           </Grid>
         )}
 
-        <Grid item xs={12} sm={6} md={type === IdoType.completed ? 3 : 2} justifyContent="center" alignItems="center">
-          {isPublic && type === IdoType.pending ? (
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={idoType === IdoType.completed ? 3 : 2}
+          justifyContent="center"
+          alignItems="center"
+        >
+          {accessType === 'public' && idoType === IdoType.pending ? (
             <>
-              <TypographySybtitle>Access Type</TypographySybtitle>
-              <Status isPublic={isPublic} />
+              <TypographySybtitle>Access idoType</TypographySybtitle>
+              <Status isPublic={accessType === 'public'} />
             </>
           ) : (
             <>

@@ -1,7 +1,6 @@
 import { RankCardDataProps } from 'components/Cards/RowCard/RowCard.types';
 import { useShallowSelector } from 'hooks';
 import stakingSelector from 'store/staking/selectors';
-import { fromDecimals } from 'utils';
 
 export const useUpdateDataForLeaderBoards = (): RankCardDataProps[] => {
   const topInvestors = useShallowSelector(stakingSelector.getProp('topInvestors'));
@@ -11,7 +10,7 @@ export const useUpdateDataForLeaderBoards = (): RankCardDataProps[] => {
       id: index,
       rankId: 1,
       walletAddress: address,
-      stakedAmount: fromDecimals(stakeAmount),
+      stakedAmount: (+stakeAmount).toFixed(4),
       buyDate: lastStaked,
       growAmount: positionDelta,
     };

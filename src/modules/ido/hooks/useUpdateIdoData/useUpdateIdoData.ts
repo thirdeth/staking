@@ -7,21 +7,19 @@ import { getIdoById, getInvestmentsInfo } from 'store/ido/actions';
 import { IdoStatus } from 'types/store/requests';
 
 export const useUpdateIdoData = (currentIdo: IdoRequiredProps, id: string | undefined) => {
-  const { idoIncrement, status, vesting } = currentIdo;
   const dispatch = useDispatch();
   const { walletService } = useWalletConnectorContext();
-
-  const isNotSuccess = status !== IdoStatus.completedSuccess;
-  const isNotFail = status !== IdoStatus.completedFail;
-  const isUpcoming = status === IdoStatus.pending;
 
   const [isUpdateIdo, setUpdateIdo] = useState(false);
 
   useEffect(() => {
+    const { status, timer } = currentIdo;
+
+    const isNotSuccess = status !== IdoStatus.completedSuccess;
+    const isNotFail = status !== IdoStatus.completedFail;
+
     const refreshTimeout = setInterval(() => {
-      // if project status === upcoming(pending) => timer time will be equal start time
-      const isStageTimeExpire =
-        (new Date(+currentIdo[isUpcoming ? 'start' : 'timer'] * 1000).getTime() - Date.now()) / 1000 <= 0;
+      const isStageTimeExpire = (new Date(+timer * 1000).getTime() - Date.now()) / 1000 <= 0;
 
       if (isStageTimeExpire && isNotSuccess && isNotFail) {
         setUpdateIdo(true);
@@ -31,9 +29,11 @@ export const useUpdateIdoData = (currentIdo: IdoRequiredProps, id: string | unde
     return () => {
       clearInterval(refreshTimeout);
     };
-  }, [currentIdo, isNotFail, isNotSuccess, isUpcoming]);
+  }, [currentIdo]);
 
   useEffect(() => {
+    const { idoIncrement, vesting } = currentIdo;
+
     if (id && !isEmpty(currentIdo) && isUpdateIdo) {
       dispatch(getIdoById({ id }));
       dispatch(
@@ -46,5 +46,5 @@ export const useUpdateIdoData = (currentIdo: IdoRequiredProps, id: string | unde
       );
       setUpdateIdo(false);
     }
-  }, [currentIdo, dispatch, id, idoIncrement, isUpdateIdo, vesting, walletService]);
+  }, [currentIdo, dispatch, id, isUpdateIdo, walletService]);
 };

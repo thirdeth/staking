@@ -81,7 +81,7 @@ export const ProjectInfo: FC<ProjectDataProps> = ({ projectData }) => {
               </Tooltip>
             </Grid>
             <Grid item>
-              <TextContainer>{projectData.isPublic ? 'Public' : 'Private'}</TextContainer>
+              <TextContainer>{projectData.type.includes('public') ? 'Public' : 'Private'}</TextContainer>
             </Grid>
           </Grid>
         </Grid>
