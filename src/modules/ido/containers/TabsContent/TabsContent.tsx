@@ -25,6 +25,7 @@ export const TabsContent: FC<TabsContentProps> = ({ projectData, myRankId }) => 
       <Grid item xs={12} sm={12} md={4}>
         <SideBar tabItems={sidebarTabItems} activeTab={activeTab} onChangeActiveTab={handleChangeActiveTab} />
       </Grid>
+
       <Grid item xs={12} sm={12} md={8}>
         <ActiveTabComponent projectData={projectData} myRankId={myRankId} />
       </Grid>
