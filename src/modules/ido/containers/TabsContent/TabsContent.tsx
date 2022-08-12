@@ -12,18 +12,34 @@ export type TabsContentProps = {
 
 export const TabsContent: FC<TabsContentProps> = ({ projectData, myRankId }) => {
   const [activeTab, setActiveTab] = useState(1);
-  const ActiveTabComponent = useMemo(
-    () => [LottereyInfo, ProjectInfo, ProjectSummary, Tokenomics, Roadmap, Partners, TeamMembers][activeTab - 1],
-    [activeTab],
+
+  const isWithWeightProject = projectData.type.includes('staking');
+  const defaultTabsComponents = useMemo(
+    () => [ProjectInfo, ProjectSummary, Tokenomics, Roadmap, Partners, TeamMembers],
+    [],
   );
+  const ActiveTabComponent = useMemo(() => {
+    if (isWithWeightProject) {
+      return [LottereyInfo, ...defaultTabsComponents][activeTab - 1];
+    }
+    return defaultTabsComponents[activeTab - 1];
+  }, [activeTab, defaultTabsComponents, isWithWeightProject]);
+
+  const currentSidebarTabItems = useMemo(() => {
+    if (isWithWeightProject) {
+      return sidebarTabItems;
+    }
+    return sidebarTabItems.slice(1, sidebarTabItems.length - 1);
+  }, [isWithWeightProject]);
 
   const handleChangeActiveTab = (tabNumber: number) => {
     setActiveTab(tabNumber);
   };
+
   return (
     <Grid container justifyContent="space-between" alignItems="flex-start" spacing={3}>
       <Grid item xs={12} sm={12} md={4}>
-        <SideBar tabItems={sidebarTabItems} activeTab={activeTab} onChangeActiveTab={handleChangeActiveTab} />
+        <SideBar tabItems={currentSidebarTabItems} activeTab={activeTab} onChangeActiveTab={handleChangeActiveTab} />
       </Grid>
 
       <Grid item xs={12} sm={12} md={8}>

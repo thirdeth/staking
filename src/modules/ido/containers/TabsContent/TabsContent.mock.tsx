@@ -39,6 +39,7 @@ export const tabsContentPropsMocked: TabsContentProps = {
         id: 1,
       },
     ],
+    lotteryParams: [],
     partners: [],
     team: [],
     projectSummary: '',

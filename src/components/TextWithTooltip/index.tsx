@@ -19,7 +19,7 @@ export const TextWithTooltip: FC<TextWithTooltipProps> = ({
     <Tooltip title={value} placement="top-start">
       <Typography {...textProps} sx={{ display: 'flex', flexDirection: 'row' }}>
         {startText}
-        <Typography mx={0.5} maxWidth={120} noWrap {...textProps}>
+        <Typography mx={0.5} maxWidth={70} noWrap {...textProps}>
           {!isLoading && value}
 
           {isLoading && '...'}

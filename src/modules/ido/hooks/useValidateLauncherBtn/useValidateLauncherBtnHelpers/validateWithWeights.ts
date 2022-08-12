@@ -28,7 +28,7 @@ export const validateWithWeights = (
     ? +new BigNumber(+userAllocation).minus(new BigNumber(fromDecimals(payed, 18))).toString() > 0
     : false;
 
-  const isFullHardCap = totalBought <= hardCap;
+  const isFullHardCap = +totalBought < +hardCap;
 
   switch (status) {
     case IdoStatus.pending:
@@ -75,7 +75,7 @@ export const validateWithWeights = (
 
     case IdoStatus.inProgress:
       // if user doesn't bought all his part
-      if (isWasntBought && !isFullHardCap) {
+      if (isWasntBought && isFullHardCap) {
         resultValidBtnProps = {
           text: 'Invest',
           handlerKey: HandlersKeys.openInvestModal,
@@ -87,6 +87,7 @@ export const validateWithWeights = (
         // if user bought all his allocation part - btn will be hidden and uses message
         resultTextMessage = 'Wait for the project to be finished to claim your tokens';
       }
+
       break;
 
     case IdoStatus.completedFail:

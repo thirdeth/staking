@@ -48,6 +48,7 @@ export const launcherCardPropsMocked: LauncherCardProps = {
         id: 1,
       },
     ],
+    lotteryParams: [],
     partners: [],
     team: [],
     projectSummary: '',

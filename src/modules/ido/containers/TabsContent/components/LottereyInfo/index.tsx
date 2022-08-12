@@ -23,34 +23,9 @@ const TextTitleContainer = styled(Typography)({
   textTransform: 'uppercase',
 });
 
-const LOTTEREY_INFO_DATA_MOCK = [
-  {
-    rankId: 1,
-    percent: '15',
-  },
-  {
-    rankId: 2,
-    percent: '25',
-  },
-  {
-    rankId: 3,
-    percent: '50',
-  },
-  {
-    rankId: 4,
-    percent: '60',
-  },
-  {
-    rankId: 5,
-    percent: '85',
-  },
-  {
-    rankId: 6,
-    percent: '90',
-  },
-];
-
 export const LottereyInfo: FC<TabsContentProps> = ({ projectData, myRankId }) => {
+  const { lotteryParams } = projectData;
+
   return (
     <Box>
       <Typography variant="h2" fontSize="22px" mb={3}>
@@ -74,63 +49,66 @@ export const LottereyInfo: FC<TabsContentProps> = ({ projectData, myRankId }) =>
         </Grid>
 
         <Grid item container direction="column" justifyContent="flex-start" alignItems="center">
-          {LOTTEREY_INFO_DATA_MOCK.map(({ rankId, percent }, index) => (
-            <Grid
-              // not rerendering date items
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-              item
-              container
-              justifyContent="space-between"
-              alignItems="center"
-              xs={12}
-              sx={{
-                p: 2,
-                borderRadius: +myRankId === +rankId ? BORDER_RADIUS_DEFAULT : 'none',
-                borderBottom: BORDER_GRAY_LIGHT,
-                border: +myRankId === +rankId ? BORDER_BUTTON_BLUE : '',
-              }}
-            >
-              <Grid item container justifyContent="space-between" alignItems="center" xs={6}>
-                <Grid item container justifyContent="space-between" alignItems="center">
-                  <RankInfo rankId={rankId as UserStakingRankIds} />
-                  <Typography
-                    ml={1}
-                    fontSize={{ xs: 16, sm: 16, md: 20 }}
-                    fontFamily={FontFamilies.secondary}
-                    color={+myRankId === +rankId ? COLOR_TEXT_BLUE : COLOR_TEXT_BLACK}
-                  >
-                    {rankColors[rankId]?.title}
-                  </Typography>
-                </Grid>
-              </Grid>
-
-              <Grid item container justifyContent="space-between" alignItems="center" xs={6}>
-                <Grid item container justifyContent="space-between" xs={12}>
-                  <Typography
-                    fontSize={{ xs: 16, sm: 16, md: 20 }}
-                    fontWeight={FontWeights.fontWeightMedium}
-                    fontFamily={FontFamilies.secondary}
-                    color={+myRankId === +rankId ? COLOR_TEXT_BLUE : COLOR_TEXT_BLACK}
-                  >
-                    {percent} %
-                  </Typography>
-                  {+myRankId === +rankId && (
+          {lotteryParams.map(({ level, percent }, index) => {
+            const rankId = +level + 1;
+            return (
+              <Grid
+                // not rerendering date items
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                item
+                container
+                justifyContent="space-between"
+                alignItems="center"
+                xs={12}
+                sx={{
+                  p: 2,
+                  borderRadius: +myRankId === +rankId ? BORDER_RADIUS_DEFAULT : 'none',
+                  borderBottom: BORDER_GRAY_LIGHT,
+                  border: +myRankId === +rankId ? BORDER_BUTTON_BLUE : '',
+                }}
+              >
+                <Grid item container justifyContent="space-between" alignItems="center" xs={6}>
+                  <Grid item container justifyContent="space-between" alignItems="center">
+                    <RankInfo rankId={+rankId as UserStakingRankIds} />
                     <Typography
-                      variant="body2"
-                      px={1}
+                      ml={1}
+                      fontSize={{ xs: 16, sm: 16, md: 20 }}
                       fontFamily={FontFamilies.secondary}
-                      color={COLOR_TEXT_ACCENT_BLUE}
-                      border={BORDER_ACCENT_BLUE}
-                      borderRadius={BORDER_RADIUS_DEFAULT}
+                      color={+myRankId === +rankId ? COLOR_TEXT_BLUE : COLOR_TEXT_BLACK}
                     >
-                      your rank
+                      {rankColors[+rankId]?.title}
                     </Typography>
-                  )}
+                  </Grid>
+                </Grid>
+
+                <Grid item container justifyContent="space-between" alignItems="center" xs={6}>
+                  <Grid item container justifyContent="space-between" xs={12}>
+                    <Typography
+                      fontSize={{ xs: 16, sm: 16, md: 20 }}
+                      fontWeight={FontWeights.fontWeightMedium}
+                      fontFamily={FontFamilies.secondary}
+                      color={+myRankId === +rankId ? COLOR_TEXT_BLUE : COLOR_TEXT_BLACK}
+                    >
+                      {percent} %
+                    </Typography>
+                    {+myRankId === +rankId && (
+                      <Typography
+                        px={{ xs: 0.5, sm: 0.5, md: 1 }}
+                        fontFamily={FontFamilies.secondary}
+                        fontSize={{ xs: 14, sm: 14, md: 16 }}
+                        color={COLOR_TEXT_ACCENT_BLUE}
+                        border={BORDER_ACCENT_BLUE}
+                        borderRadius={BORDER_RADIUS_DEFAULT}
+                      >
+                        your rank
+                      </Typography>
+                    )}
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-          ))}
+            );
+          })}
         </Grid>
       </Grid>
     </Box>

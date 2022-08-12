@@ -33,6 +33,8 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
           container
           direction={{ xs: 'column', sm: 'column', md: 'row' }}
           justifyContent="center"
+          flexWrap="nowrap"
+          columnSpacing={2}
           xs={12}
           sm={12}
           md={4}

@@ -62,7 +62,12 @@ export const ProjectInfo: FC<ProjectDataProps> = ({ projectData }) => {
             xs={6}
           >
             <Grid item>
-              <TextWithTooltip value={tokenName} fontSize="16px" fontWeight={FontWeights.fontWeightMedium} />
+              <TextWithTooltip
+                value={tokenName}
+                fontSize="16px"
+                maxWidth={{ xs: 120, sm: 120, md: 300 }}
+                fontWeight={FontWeights.fontWeightMedium}
+              />
             </Grid>
             <Grid item>
               <TextContainer>{tokenSymbol.toUpperCase()}</TextContainer>

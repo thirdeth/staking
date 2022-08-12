@@ -21,14 +21,7 @@ export const Partners: FC<ProjectDataProps> = ({ projectData }) => {
                 borderRadius: BORDER_RADIUS_CARD_MEDIUM,
               }}
             >
-              <CardMedia
-                component="img"
-                sx={{
-                  width: '100%',
-                  maxWidth: { md: '240px', xs: '120px' },
-                }}
-                src={icon}
-              />
+              <CardMedia component="img" width="100%" src={icon} />
             </Card>
           </Link>
         </Grid>

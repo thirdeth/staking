@@ -20,7 +20,7 @@ import actionTypes from '../actionTypes';
 export function* investSaga({ type, payload: { web3Provider, amount } }: ReturnType<typeof onInvest>) {
   yield* put(request(type));
   const { address, chainType }: UserState = yield select(userSelector.getUser);
-  const { idoIncrement, id, withWeights, decimals } = yield select(idoSelector.getProp('currentIdo'));
+  const { idoIncrement, id, type: idoType, decimals } = yield select(idoSelector.getProp('currentIdo'));
   const [idoFarmeAbi, idoFarmeContractAddress] = getContractDataByItsName(ContractsNames.idoFarme, chainType);
 
   const amountWithDecimals = toDecimals(amount, +decimals);
@@ -30,8 +30,8 @@ export function* investSaga({ type, payload: { web3Provider, amount } }: ReturnT
 
     const { data } = yield* call(baseApi.getProof, { address, ido_id: id });
 
-    const weight = withWeights ? data.response.weight.toString() : '0';
-    const proof = withWeights ? data.response.proof : [];
+    const weight = idoType.includes('staking') ? data.response.weight.toString() : '0';
+    const proof = idoType.includes('staking') ? data.response.proof : [];
 
     yield* call(idoFarmeContract.methods.invest(idoIncrement.toString(), weight, proof).send, {
       from: address,

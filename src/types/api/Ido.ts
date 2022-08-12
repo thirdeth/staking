@@ -19,6 +19,7 @@ export interface Ido {
   investor?: string;
   investors?: string;
   logoUrl?: string;
+  lotteryParams?: { level: string; percent: string }[];
   medium: string;
   owner?: number;
   ownerAddress?: string;

@@ -20,7 +20,7 @@ export function* registrationSaga({
     const { data } = yield call(baseApi.registrationToIdo, { address, pk });
 
     if (data?.response?.length) {
-      getToastMessage('info', data.response);
+      getToastMessage('success', data.response);
     } else {
       getToastMessage('success', notifyText.registration.success);
     }

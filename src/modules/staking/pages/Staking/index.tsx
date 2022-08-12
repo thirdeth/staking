@@ -205,7 +205,7 @@ export const Staking: FC<StakingProps> = ({ title }) => {
               >
                 <LoadingButton
                   variant="contained"
-                  sx={{ width: { xs: '100%', sm: 'auto', md: 'auto' } }}
+                  sx={{ width: { xs: '100%', sm: 310, md: 310 } }}
                   loading={isHarvestingAll}
                   onClick={handleHarvestAll}
                 >

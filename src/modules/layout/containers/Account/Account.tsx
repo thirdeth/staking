@@ -37,8 +37,8 @@ export const Account: FC<AccountProps> = ({ address, rankId, nativeBalance, widt
       <Button
         ref={popoverRef}
         onClick={onOpenAccountInfo}
-        variant={width > 900 ? 'text' : 'contained'}
-        startIcon={<WalletIcon sx={{ path: { fill: width > 900 ? BG_BUTTON_GRAY_DARK : BG_MAIN } }} />}
+        variant={width >= 900 ? 'text' : 'contained'}
+        startIcon={<WalletIcon sx={{ path: { fill: width >= 900 ? BG_BUTTON_GRAY_DARK : BG_MAIN } }} />}
         sx={(theme) => ({
           border: BORDER_BUTTON_GRAY_BOLD,
           borderRadius: BORDER_RADIUS_DEFAULT,
@@ -66,7 +66,7 @@ export const Account: FC<AccountProps> = ({ address, rankId, nativeBalance, widt
           [theme.breakpoints.down('md')]: { pr: 0, pl: 1, minWidth: '56px', height: '44px', border: 'none' },
         })}
       >
-        {width > 900 && (
+        {width >= 900 && (
           <Grid container justifyContent="flex-start" alignItems="center" columnGap={1}>
             <Typography variant="body2" color={COLOR_TEXT_BLUE}>
               {shortenPhrase(address, 6, 4)}

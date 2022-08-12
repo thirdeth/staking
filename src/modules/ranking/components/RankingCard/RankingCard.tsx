@@ -14,7 +14,6 @@ export interface RankingCardProps {
   rankId: UserStakingRankIds;
   description: string;
   stakedTokens: string;
-  allocation: string;
   poolWeight: string;
 }
 
@@ -31,7 +30,7 @@ const BoxWithBottomBorder = styled(Box, {
   paddingTop: theme.spacing(isTopPadding ? 2 : 0),
 }));
 
-export const RankingCard: FC<RankingCardProps> = ({ rankId, description, stakedTokens, allocation, poolWeight }) => {
+export const RankingCard: FC<RankingCardProps> = ({ rankId, description, stakedTokens, poolWeight }) => {
   const currentRank = rankColors.find(({ id }) => id === rankId);
 
   const [isExpanded, setExpanded] = useState(false);
@@ -102,22 +101,8 @@ export const RankingCard: FC<RankingCardProps> = ({ rankId, description, stakedT
             </Typography>
           </BoxWithBottomBorder>
           <BoxWithBottomBorder
-            isTopPadding
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Typography variant="body2" maxWidth={170}>
-              Lottery or guaranteed allocation
-            </Typography>
-            <Typography variant="h2" color={COLOR_TEXT_BLUE}>
-              {allocation}%
-            </Typography>
-          </BoxWithBottomBorder>
-          <BoxWithBottomBorder
-            sx={{
+              mt: 2,
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
