@@ -17,6 +17,7 @@ export type IdoState = {
     payed: string;
     claimAmount: string[];
     totalBought: string;
+    contractHardCap: string;
   };
   vestingInfo: VestingInfoProps;
   isLiqAdded: boolean;

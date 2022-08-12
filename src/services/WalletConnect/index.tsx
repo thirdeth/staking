@@ -63,7 +63,6 @@ const WalletConnectContext: FC<WalletConnectProps> = ({ children }) => {
       console.error(error);
       if (error.code !== 4) {
         WalletConnect.resetConnect();
-        getToastMessage('error', 'You changed to wrong network. Please choose Binance-Smart-Chain');
         dispatch(disconnectWalletState());
       }
     },

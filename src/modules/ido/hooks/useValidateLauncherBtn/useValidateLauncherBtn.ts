@@ -24,8 +24,8 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
   const { address: userAddress, rankId } = useShallowSelector<State, UserState>(userSelector.getUser);
   const {
     isLiqAdded,
-    userInfo: { userAllocation, claimAmount, payed },
-    currentIdo: { vesting, idoIncrement, type, hardCap, totalBought },
+    userInfo: { userAllocation, claimAmount, payed, totalBought, contractHardCap },
+    currentIdo: { vesting, idoIncrement, type, decimals },
   } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
 
   // ----------------- Button handlers ------------------
@@ -119,10 +119,11 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
           userAllocation,
           +payed,
           claimAmount,
-          hardCap,
+          contractHardCap,
           totalBought,
           vesting,
           isLiqAdded,
+          decimals,
         );
         setBtnText(text);
         setBtnHandler(getButtonHandlers()[handlerKey]);
@@ -137,9 +138,12 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
           userAllocation,
           +payed,
           claimAmount,
+          contractHardCap,
+          totalBought,
           vesting,
           type === 'public',
           isLiqAdded,
+          decimals,
         );
         setBtnText(text);
         setBtnHandler(getButtonHandlers()[handlerKey]);
@@ -151,7 +155,7 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
     claimAmount,
     getButtonHandlers,
     handleOpenModal,
-    hardCap,
+    contractHardCap,
     isLiqAdded,
     payed,
     rankId,
@@ -161,6 +165,7 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
     userAddress.length,
     userAllocation,
     vesting,
+    decimals,
   ]);
 
   useEffect(() => {

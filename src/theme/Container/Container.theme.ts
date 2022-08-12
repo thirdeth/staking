@@ -8,7 +8,7 @@ export const getMuiContainerDefaultProps = (): ComponentsProps['MuiContainer'] =
     px: {
       xs: 3,
       sm: 3,
-      md: 0,
+      md: 2,
       lg: 0,
     },
     mx: 'auto',

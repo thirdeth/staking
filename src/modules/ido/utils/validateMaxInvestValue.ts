@@ -1,35 +1,48 @@
 import BigNumber from 'bignumber.js';
 import { Nullable } from 'types';
+import { getDiffHardcapTotalBought } from 'utils';
 
-export const validateMaxInvestValue = (
-  hardCap: string,
-  nativeBalance: string,
-  tokenPrice: number,
-  userAllocation: Nullable<string>,
-  totalBought: string,
-): string => {
-  const hardCapWithDecimals = new BigNumber(+hardCap).multipliedBy(new BigNumber(10).pow(18));
-  const totalBoughtBN = new BigNumber(totalBought);
+type ValudateMaxInvestProps = {
+  contractHardCap: string;
+  nativeBalance: string;
+  tokenPrice: number;
+  userAllocation: Nullable<string>;
+  totalBought: string;
+  payed: string;
+  decimals: number;
+};
 
-  const maxRequireInvestValue = +hardCapWithDecimals
-    .minus(totalBoughtBN)
-    .dividedBy(new BigNumber(10).pow(18))
-    .toFixed(10, 1);
+export const validateMaxInvestValue = ({
+  contractHardCap,
+  nativeBalance,
+  tokenPrice,
+  userAllocation,
+  totalBought,
+  payed,
+  decimals = 18,
+}: ValudateMaxInvestProps): string => {
+  const diffAllocationPayedValue = userAllocation
+    ? +new BigNumber(+userAllocation).minus(new BigNumber(payed).dividedBy(new BigNumber(10).pow(18))).toString()
+    : 0;
+
+  const maxRequireInvestValue = getDiffHardcapTotalBought(contractHardCap, totalBought, decimals)
+    .multipliedBy(new BigNumber(tokenPrice))
+    .toString();
 
   let maxCalcValue;
   if (!userAllocation) {
-    maxCalcValue = +maxRequireInvestValue * +tokenPrice;
+    maxCalcValue = maxRequireInvestValue;
 
-    if (+nativeBalance > maxCalcValue) {
+    if (+nativeBalance > +maxCalcValue) {
       return maxCalcValue.toString();
     }
     return nativeBalance;
   }
 
-  if (+userAllocation < maxRequireInvestValue) {
-    maxCalcValue = +userAllocation * +tokenPrice;
+  if (diffAllocationPayedValue > 0) {
+    maxCalcValue = diffAllocationPayedValue;
   } else {
-    maxCalcValue = +maxRequireInvestValue * +tokenPrice;
+    maxCalcValue = 0;
   }
 
   if (+nativeBalance > maxCalcValue) {

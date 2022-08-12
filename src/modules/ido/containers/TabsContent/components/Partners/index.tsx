@@ -6,7 +6,7 @@ import { BG_GRAY, BORDER_RADIUS_CARD_MEDIUM } from 'theme/variables';
 export const Partners: FC<ProjectDataProps> = ({ projectData }) => {
   const { partners } = projectData;
   return (
-    <Grid container spacing={{ md: 3, xs: 2 }}>
+    <Grid container spacing={{ xs: 2, sm: 2, md: 3 }}>
       {partners.map(({ icon, urlPath, id }) => (
         <Grid item key={id} xs={6}>
           <Link href={urlPath} target="_blank" rel="noreferrer">

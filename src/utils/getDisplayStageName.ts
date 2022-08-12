@@ -1,3 +1,5 @@
+import { IdoStatus } from 'types/store/requests';
+
 enum StageVariantDisplay {
   upcoming = 'upcoming',
   'in progress' = 'in progress',
@@ -6,19 +8,22 @@ enum StageVariantDisplay {
 
 export const getDisplayStageName = (stage: string): keyof typeof StageVariantDisplay => {
   switch (stage) {
-    case 'PENDING':
+    case IdoStatus.pending:
       return StageVariantDisplay.upcoming;
-    case 'REGISTRATION_FOR_IDO':
-      return StageVariantDisplay['in progress'];
-    case 'REGISTRATION_CLOSED':
+
+    case IdoStatus.register:
       return StageVariantDisplay['in progress'];
 
-    case 'IN_PROGRESS':
+    case IdoStatus.registrationClosed:
       return StageVariantDisplay['in progress'];
 
-    case 'COMPLETED_SUCCESS':
+    case IdoStatus.inProgress:
+      return StageVariantDisplay['in progress'];
+
+    case IdoStatus.completedSuccess:
       return StageVariantDisplay.completed;
-    case 'COMPLETED_FAIL':
+
+    case IdoStatus.completedFail:
       return StageVariantDisplay.completed;
 
     default:

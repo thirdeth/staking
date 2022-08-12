@@ -55,7 +55,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
       <Container
         sx={{
           pt: 15,
-          px: { xs: 3, sm: 3, md: 0 },
+          px: { xs: 3, sm: 3, md: 1 },
         }}
       >
         {!isHomePage && <Breadcrumbs routesBreadcrumbs={breadcrumbs} />}

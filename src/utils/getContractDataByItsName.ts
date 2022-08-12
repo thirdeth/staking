@@ -7,8 +7,7 @@ export const getContractDataByItsName = (
   chainType: IChainType,
   nertwork = Chains.Cronos,
 ): [AbiItem[], string] => {
-  const { abi: contractAbi, address: contractAddress } =
-    contractsConfig.contracts[name][chainType ? 'mainnet' : 'testnet'];
+  const { abi: contractAbi, address: contractAddress } = contractsConfig.contracts[name][chainType];
 
   return [contractAbi as AbiItem[], contractAddress[nertwork]];
 };

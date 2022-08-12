@@ -13,23 +13,14 @@ export const LauncherInfo: FC<ProjectDataProps> = ({ projectData }) => {
 
   return (
     <Grid container justifyContent="space-between" height={{ md: 'auto', lg: '102px' }}>
-      <Grid
-        item
-        container
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        flexWrap="nowrap"
-        columnGap={3}
-        xs={12}
-        sm={12}
-        md={5}
-      >
+      <Grid item container justifyContent="flex-start" alignItems="flex-start" flexWrap="nowrap" xs={12} sm={12} md={5}>
         <Grid
           item
           container
           justifyContent="center"
           alignItems="center"
           p={1}
+          mr={{ xs: 1, sm: 1, md: 3 }}
           sx={(theme) => ({
             height: '102px',
             width: '102px',

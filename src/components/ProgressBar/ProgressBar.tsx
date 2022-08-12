@@ -17,6 +17,7 @@ export const ProgressBar: FC<ProgressBarProps & BoxProps> = ({ progress, base, v
 
   return (
     <Grid
+      {...boxProps}
       container
       justifyContent="space-between"
       alignItems="center"
@@ -29,7 +30,6 @@ export const ProgressBar: FC<ProgressBarProps & BoxProps> = ({ progress, base, v
         background: COLOR_TEXT_GRAY_EXTRALIGHT,
         borderRadius: variant === 'parallelogram' ? '4px' : '20px',
         width: '100% !important',
-        ...boxProps,
       }}
     >
       {progressItems.map(({ value, color }) => (

@@ -23,10 +23,12 @@ export type InvestModalProps = {
   userBalance: string;
   nativeBalance: string;
 
-  hardCap: string;
+  contractHardCap: string;
+  payed: string;
   tokenPrice: number;
   userAllocation: Nullable<string>;
   totalBought: string;
+  decimals: number;
   idoIncrement: number;
   web3Provider: Web3;
 
@@ -38,10 +40,12 @@ export const InvestModal: FC<InvestModalProps> = ({
   userBalance,
   nativeBalance,
 
-  hardCap,
+  contractHardCap,
+  payed,
   tokenPrice,
   userAllocation,
   totalBought,
+  decimals,
   idoIncrement,
   web3Provider,
 
@@ -51,7 +55,15 @@ export const InvestModal: FC<InvestModalProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const maxInvestValue = validateMaxInvestValue(hardCap, nativeBalance, tokenPrice, userAllocation, totalBought);
+  const maxInvestValue = validateMaxInvestValue({
+    contractHardCap,
+    nativeBalance,
+    tokenPrice,
+    userAllocation,
+    totalBought,
+    payed,
+    decimals,
+  });
   const [investValue, setInvestValue, setOriginInvestValue] = useValidateInputField(
     ValidationTypes.number,
     18,
@@ -133,7 +145,7 @@ export const InvestModal: FC<InvestModalProps> = ({
             variant="outlined"
             fullWidth
             sx={{
-              ml: 2,
+              ml: { xs: 1, sm: 1, md: 2 },
               border: BORDER_BUTTON_RED,
               color: COLOR_TEXT_RED,
               '&:hover': {

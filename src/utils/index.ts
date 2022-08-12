@@ -10,3 +10,4 @@ export * from './validateStatus';
 export * from './getDisplayStageName';
 export * from './getFormatedCounterDate';
 export * from './camelize';
+export * from './getDiffHardcapTotalBought';

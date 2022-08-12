@@ -1,5 +1,6 @@
 import { Nullable } from 'types';
 import { IdoStatus } from 'types/store/requests';
+import { getDiffHardcapTotalBought } from 'utils';
 
 import { HandlersKeys, ValidBtnProps } from '../useValidateLauncherBtn.types';
 
@@ -8,9 +9,12 @@ export const validateWithoutWeights = (
   userAllocation: Nullable<string>,
   payed: number,
   claimAmount: string[],
+  contractHardCap: string,
+  totalBought: string,
   vesting = false,
   isPublic = false,
   isLiqAdded: boolean,
+  decimals = 18,
 ): [ValidBtnProps, string] => {
   let resultValidBtnProps: ValidBtnProps = {
     text: '',
@@ -19,6 +23,8 @@ export const validateWithoutWeights = (
   };
 
   let resultTextMessage = '';
+
+  const isFullHardCap = +getDiffHardcapTotalBought(contractHardCap, totalBought, decimals).toString() === 0;
 
   switch (status) {
     case IdoStatus.pending:
@@ -29,15 +35,18 @@ export const validateWithoutWeights = (
       } else {
         resultTextMessage = 'Wait for IDO start';
       }
-
       break;
 
     case IdoStatus.inProgress:
-      resultValidBtnProps = {
-        text: 'Invest',
-        handlerKey: HandlersKeys.openInvestModal,
-        isVisible: true,
-      };
+      if (!isFullHardCap) {
+        resultValidBtnProps = {
+          text: 'Invest',
+          handlerKey: HandlersKeys.openInvestModal,
+          isVisible: true,
+        };
+      }
+      // if user bought all his allocation part - btn will be hidden and uses message
+      resultTextMessage = 'Wait for the project to be finished to claim your tokens';
       break;
 
     case IdoStatus.completedFail:

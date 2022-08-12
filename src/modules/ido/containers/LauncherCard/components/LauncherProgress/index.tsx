@@ -88,7 +88,14 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
         </Grid>
       </Grid>
 
-      <ProgressBar variant="parallelogram" progress={+fromDecimals(totalBought)} base={+hardCap} />
+      <ProgressBar
+        variant="parallelogram"
+        progress={+fromDecimals(totalBought)}
+        base={+hardCap}
+        sx={{
+          mx: { xs: 3, sm: 3, md: 0 },
+        }}
+      />
     </Box>
   );
 };

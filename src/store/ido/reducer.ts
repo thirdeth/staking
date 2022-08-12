@@ -13,6 +13,7 @@ const initialState: IdoState = {
     payed: '',
     claimAmount: [],
     totalBought: '',
+    contractHardCap: '',
   },
   vestingInfo: {
     startUnlockPercent: '',

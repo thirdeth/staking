@@ -35,6 +35,7 @@ export function* getInvestmentsInfoSaga({
     const claimAmount = yield* call(idoFarmeContract.methods.getClaimAmount(idoIncrement, address).call);
     // refresh right totalBought from contract
     const { totalBought } = yield* call(idoFarmeContract.methods.idoParams(idoIncrement).call);
+    const { hardcap } = yield* call(idoFarmeContract.methods.idos(idoIncrement).call);
 
     // for ido with vesting conditional check vesting params
     if (vesting) {
@@ -55,6 +56,7 @@ export function* getInvestmentsInfoSaga({
       payed,
       claimAmount,
       totalBought,
+      contractHardCap: hardcap,
     };
 
     // if user registered, response will be equal 0 or more then 0

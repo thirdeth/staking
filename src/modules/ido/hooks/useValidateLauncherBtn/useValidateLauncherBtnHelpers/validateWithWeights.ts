@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { Nullable } from 'types';
 import { IdoStatus } from 'types/store/requests';
-import { fromDecimals } from 'utils';
+import { getDiffHardcapTotalBought } from 'utils';
 
 import { HandlersKeys, ValidBtnProps } from '../useValidateLauncherBtn.types';
 
@@ -11,10 +11,11 @@ export const validateWithWeights = (
   userAllocation: Nullable<string>,
   payed: number,
   claimAmount: string[],
-  hardCap: string,
+  contractHardCap: string,
   totalBought: string,
   vesting = false,
   isLiqAdded: boolean,
+  decimals = 18,
 ): [ValidBtnProps, string] => {
   let resultValidBtnProps: ValidBtnProps = {
     text: '',
@@ -25,10 +26,10 @@ export const validateWithWeights = (
   let resultTextMessage = '';
 
   const isWasntBought = userAllocation
-    ? +new BigNumber(+userAllocation).minus(new BigNumber(fromDecimals(payed, 18))).toString() > 0
+    ? +new BigNumber(+userAllocation).minus(new BigNumber(payed).dividedBy(new BigNumber(10).pow(18))).toString() > 0
     : false;
 
-  const isFullHardCap = +totalBought < +hardCap;
+  const isFullHardCap = +getDiffHardcapTotalBought(contractHardCap, totalBought, decimals).toString() === 0;
 
   switch (status) {
     case IdoStatus.pending:
@@ -75,19 +76,19 @@ export const validateWithWeights = (
 
     case IdoStatus.inProgress:
       // if user doesn't bought all his part
-      if (isWasntBought && isFullHardCap) {
+      if (userAllocation === null) {
+        resultTextMessage = 'You are not registered';
+      }
+
+      if (isWasntBought && !isFullHardCap) {
         resultValidBtnProps = {
           text: 'Invest',
           handlerKey: HandlersKeys.openInvestModal,
           isVisible: true,
         };
-      } else if (userAllocation === null) {
-        resultTextMessage = 'You are not registered';
-      } else {
-        // if user bought all his allocation part - btn will be hidden and uses message
-        resultTextMessage = 'Wait for the project to be finished to claim your tokens';
       }
-
+      // if user bought all his allocation part - btn will be hidden and uses message
+      resultTextMessage = 'Wait for the project to be finished to claim your tokens';
       break;
 
     case IdoStatus.completedFail:

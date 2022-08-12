@@ -20,15 +20,14 @@ export const Tokenomics: FC<ProjectDataProps> = ({ projectData }) => {
         justifyContent={{ xs: 'center', sm: 'center', md: 'space-between' }}
         alignItems="center"
         sx={{
-          p: 3,
+          p: { xs: 2, sm: 2, md: 3 },
           background: BG_GRAY,
           borderRadius: BORDER_RADIUS_DEFAULT,
         }}
-        spacing={2}
       >
         <CircleChart chartData={formatedTokenomicsData} />
 
-        <Grid item container spacing={2} xs={12} md={6}>
+        <Grid item container mt={{ xs: 1, sm: 1, md: 0 }} spacing={2} xs={12} md={5}>
           {formatedTokenomicsData.map(({ title, value, color }, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <Grid key={index} item container alignItems="flex-start" xs={6}>
