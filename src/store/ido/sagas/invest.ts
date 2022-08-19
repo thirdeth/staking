@@ -31,8 +31,8 @@ export function* investSaga({ type, payload: { web3Provider, amount } }: ReturnT
 
     const { data } = yield* call(baseApi.getProof, { address, ido_id: id });
 
-    const weight = idoType.includes('staking') ? data.response.weight.toString() : '0';
-    const proof = idoType.includes('staking') ? data.response.proof : [];
+    const weight = idoType !== 'public' ? data.response.weight.toString() : '0';
+    const proof = idoType !== 'public' ? data.response.proof : [];
 
     yield* call(idoFarmeContract.methods.invest(idoIncrement.toString(), weight, proof).send, {
       from: address,
