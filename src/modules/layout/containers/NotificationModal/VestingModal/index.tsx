@@ -96,9 +96,9 @@ export const VestingModal: FC<VestingModalProps> = ({
       </LoadingButton>
 
       <Stack spacing={1} sx={{ maxHeight: '310px', overflowY: 'auto' }}>
-        {tableData.map(({ id, anlockTime, anlockAmount }) => (
+        {tableData.map(({ id, anlockTime, anlockAmount }, index) => (
           <Item key={id} sx={{ px: 2 }}>
-            <Typography variant="body2">{+id + 1} stage</Typography>
+            <Typography variant="body2">{index + 1} stage</Typography>
             <Typography variant="body2">{anlockTime}</Typography>
             <Typography variant="body2">
               {fromDecimals(anlockAmount, 18)} {tokenSymbol.toUpperCase()}
