@@ -3,7 +3,7 @@ import { ContractsNames } from 'services/WalletService/config';
 import { AbiItem } from 'web3-utils';
 
 export enum Chains {
-  Cronos = 'Cronos',
+  Arbitrum = 'Arbitrum',
 }
 export type IChainType = 'testnet' | 'mainnet';
 

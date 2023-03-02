@@ -24,17 +24,17 @@ export const chains: {
     };
   };
 } = {
-  Cronos: {
+  Arbitrum: {
     mainnet: {
-      name: 'Cronos Mainnet',
-      chainId: 25,
+      name: 'Arbitrum One',
+      chainId: 42161,
       nativeCurrency: {
-        name: 'CRO',
-        symbol: 'CRO',
+        name: 'ETH',
+        symbol: 'ETH',
         decimals: 18,
       },
-      rpc: 'https://evm.cronos.org',
-      blockExplorerUrl: 'https://cronos.org/explorer',
+      rpc: 'https://arb1.arbitrum.io/rpc',
+      blockExplorerUrl: 'https://arbiscan.io/',
       provider: {
         MetaMask: { name: 'MetaMask' },
         WalletConnect: {
@@ -43,24 +43,24 @@ export const chains: {
           provider: {
             rpc: {
               rpc: {
-                25: 'https://mainnet.infura.io/v3/4dd57d0bbe3f412689cb114d0735e990',
+                42161: 'https://arb1.arbitrum.io/rpc',
               },
-              chainId: 25,
+              chainId: 42161,
             },
           },
         },
       },
     },
     testnet: {
-      name: 'Cronos Testnet',
-      chainId: 338,
+      name: 'Arbitrum Goerli Testnet',
+      chainId: 421613,
       nativeCurrency: {
-        name: 'TCRO',
-        symbol: 'TCRO',
+        name: 'ETH',
+        symbol: 'ETH',
         decimals: 18,
       },
-      rpc: 'https://cronos-testnet-3.crypto.org:8545',
-      blockExplorerUrl: 'https://cronos.crypto.org/explorer/testnet3',
+      rpc: 'https://goerli-rollup.arbitrum.io/rpc',
+      blockExplorerUrl: 'https://goerli.arbiscan.io/',
       provider: {
         MetaMask: { name: 'MetaMask' },
         WalletConnect: {
@@ -69,9 +69,9 @@ export const chains: {
           provider: {
             rpc: {
               rpc: {
-                338: 'https://mainnet.infura.io/v3/4dd57d0bbe3f412689cb114d0735e990',
+                421613: 'https://goerli-rollup.arbitrum.io/rpc',
               },
-              chainId: 338,
+              chainId: 421613,
             },
           },
         },
@@ -110,13 +110,13 @@ export const contractsConfig: IContracts = {
     [ContractsNames.staking]: {
       testnet: {
         address: {
-          [Chains.Cronos]: '0xE303dD7146E67D3Bd438e54971ebd9076908e7d5',
+          [Chains.Arbitrum]: '0x5Dc383A282E8Ed1280D781EE0547616a737e39B2',
         },
         abi: stakingAbi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains.Cronos]: '0xE303dD7146E67D3Bd438e54971ebd9076908e7d5',
+          [Chains.Arbitrum]: '',
         },
         abi: stakingAbi as AbiItem[],
       },
@@ -124,13 +124,13 @@ export const contractsConfig: IContracts = {
     [ContractsNames.token]: {
       testnet: {
         address: {
-          [Chains.Cronos]: '0x43bA502a34D66BAd37122E84da4697B900Ef55d2',
+          [Chains.Arbitrum]: '0x845e4145F7de2822d16FE233Ecd0181c61f1d65F',
         },
         abi: erc20Abi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains.Cronos]: '0x43bA502a34D66BAd37122E84da4697B900Ef55d2',
+          [Chains.Arbitrum]: '',
         },
         abi: erc20Abi as AbiItem[],
       },
@@ -138,13 +138,13 @@ export const contractsConfig: IContracts = {
     [ContractsNames.idoFarme]: {
       testnet: {
         address: {
-          [Chains.Cronos]: '0x8a2629Ab1EAbA1E99924BCb568600e2E857aD4C9',
+          [Chains.Arbitrum]: '0x8C6f64642bc9433D57C505A448248f445F7DDee7',
         },
         abi: idoFarmeAbi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains.Cronos]: '0x8a2629Ab1EAbA1E99924BCb568600e2E857aD4C9',
+          [Chains.Arbitrum]: '',
         },
         abi: idoFarmeAbi as AbiItem[],
       },

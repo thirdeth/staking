@@ -5,7 +5,7 @@ import { AbiItem } from 'web3-utils';
 export const getContractDataByItsName = (
   name: ContractsNames,
   chainType: IChainType,
-  nertwork = Chains.Cronos,
+  nertwork = Chains.Arbitrum,
 ): [AbiItem[], string] => {
   const { abi: contractAbi, address: contractAddress } = contractsConfig.contracts[name][chainType];
 

@@ -5,7 +5,7 @@ const initialState: UserState = {
   address: '',
   provider: '',
   chainType: 'testnet', // TODO change on mainnet preferably
-  network: Chains.Cronos,
+  network: Chains.Arbitrum,
   tokenBalance: '',
   nativeBalance: '',
   rankId: '',

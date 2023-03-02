@@ -100,8 +100,8 @@ const WalletConnectContext: FC<WalletConnectProps> = ({ children }) => {
           }
 
           if (error.code === 4 && error.type === 'MetaMask') {
-            const chainParams = connectWallet(Chains.Cronos, chainType);
-            window.ethereum.request({
+            const chainParams = connectWallet(Chains.Arbitrum, chainType);
+            await window.ethereum.request({
               method: 'wallet_addEthereumChain',
               params: [
                 {

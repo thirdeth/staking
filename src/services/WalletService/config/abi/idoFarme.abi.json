@@ -1,9 +1,16 @@
 [
   {
     "inputs": [
-      { "internalType": "contract IStaking", "name": "_staking", "type": "address" },
-      { "internalType": "address", "name": "_owner", "type": "address" },
-      { "internalType": "address", "name": "signer", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "signer",
+        "type": "address"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -11,8 +18,18 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": false, "internalType": "uint256", "name": "idoId", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "sellStart", "type": "uint256" }
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "idoId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "sellStart",
+        "type": "uint256"
+      }
     ],
     "name": "AddIdo",
     "type": "event"
@@ -20,8 +37,18 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": false, "internalType": "uint256", "name": "idoId", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "idoId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
     ],
     "name": "Claim",
     "type": "event"
@@ -29,9 +56,30 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": false, "internalType": "uint256", "name": "idoId", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "bought", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "totalBought", "type": "uint256" }
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "idoId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "bought",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "totalBought",
+        "type": "uint256"
+      }
     ],
     "name": "Invest",
     "type": "event"
@@ -39,9 +87,24 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": false, "internalType": "uint256", "name": "idoId", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "totalBought", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "totalRaised", "type": "uint256" }
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "idoId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "totalBought",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "totalRaised",
+        "type": "uint256"
+      }
     ],
     "name": "LiquidityAdded",
     "type": "event"
@@ -49,9 +112,24 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "bytes32", "name": "role", "type": "bytes32" },
-      { "indexed": true, "internalType": "bytes32", "name": "previousAdminRole", "type": "bytes32" },
-      { "indexed": true, "internalType": "bytes32", "name": "newAdminRole", "type": "bytes32" }
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "previousAdminRole",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "newAdminRole",
+        "type": "bytes32"
+      }
     ],
     "name": "RoleAdminChanged",
     "type": "event"
@@ -59,9 +137,24 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "bytes32", "name": "role", "type": "bytes32" },
-      { "indexed": true, "internalType": "address", "name": "account", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "sender", "type": "address" }
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
     ],
     "name": "RoleGranted",
     "type": "event"
@@ -69,37 +162,77 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "bytes32", "name": "role", "type": "bytes32" },
-      { "indexed": true, "internalType": "address", "name": "account", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "sender", "type": "address" }
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
     ],
     "name": "RoleRevoked",
     "type": "event"
   },
   {
     "anonymous": false,
-    "inputs": [{ "indexed": false, "internalType": "uint256", "name": "idoId", "type": "uint256" }],
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "idoId",
+        "type": "uint256"
+      }
+    ],
     "name": "StartSell",
     "type": "event"
   },
   {
     "inputs": [],
     "name": "BASE",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "DEFAULT_ADMIN_ROLE",
-    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "SIGNER_ROLE",
-    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -107,23 +240,66 @@
     "inputs": [
       {
         "components": [
-          { "internalType": "address", "name": "owner", "type": "address" },
-          { "internalType": "address", "name": "projectToken", "type": "address" },
-          { "internalType": "uint128", "name": "price", "type": "uint128" },
-          { "internalType": "uint128", "name": "sellStart", "type": "uint128" },
-          { "internalType": "uint128", "name": "sellEnd", "type": "uint128" },
-          { "internalType": "uint128", "name": "softcap", "type": "uint128" },
-          { "internalType": "uint128", "name": "hardcap", "type": "uint128" },
-          { "internalType": "uint128", "name": "decimals", "type": "uint128" }
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "projectToken",
+            "type": "address"
+          },
+          {
+            "internalType": "uint128",
+            "name": "price",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "sellStart",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "sellEnd",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "softcap",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "hardcap",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "decimals",
+            "type": "uint128"
+          }
         ],
         "internalType": "struct FactoryIdo.Ido",
         "name": "_ido",
         "type": "tuple"
       },
-      { "internalType": "bool", "name": "withWeights", "type": "bool" },
-      { "internalType": "bool", "name": "_public", "type": "bool" },
-      { "internalType": "bool", "name": "vesting", "type": "bool" },
-      { "internalType": "uint128[]", "name": "vestingParams", "type": "uint128[]" }
+      {
+        "internalType": "bool",
+        "name": "withWeights",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "vesting",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint128[]",
+        "name": "vestingParams",
+        "type": "uint128[]"
+      }
     ],
     "name": "addIdo",
     "outputs": [],
@@ -131,54 +307,118 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "idoId", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "idoId",
+        "type": "uint256"
+      }
+    ],
     "name": "addLiquidity",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "idoId", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "idoId",
+        "type": "uint256"
+      }
+    ],
     "name": "claimTokens",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "idoId", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "idoId",
+        "type": "uint256"
+      }
+    ],
     "name": "deleteIdo",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256[]", "name": "idoIds", "type": "uint256[]" }],
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "idoIds",
+        "type": "uint256[]"
+      }
+    ],
     "name": "getBoughts",
-    "outputs": [{ "internalType": "uint256[]", "name": "", "type": "uint256[]" }],
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "idoId", "type": "uint256" },
-      { "internalType": "address", "name": "user", "type": "address" }
+      {
+        "internalType": "uint256",
+        "name": "idoId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
     ],
     "name": "getClaimAmount",
-    "outputs": [{ "internalType": "uint256[3]", "name": "amounts", "type": "uint256[3]" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "bytes32", "name": "role", "type": "bytes32" }],
-    "name": "getRoleAdmin",
-    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "outputs": [
+      {
+        "internalType": "uint256[3]",
+        "name": "amounts",
+        "type": "uint256[3]"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
-      { "internalType": "address", "name": "account", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getRoleAdmin",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
     ],
     "name": "grantRole",
     "outputs": [],
@@ -187,45 +427,123 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
-      { "internalType": "address", "name": "account", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
     ],
     "name": "hasRole",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "name": "idoParams",
     "outputs": [
-      { "internalType": "uint128", "name": "totalRaised", "type": "uint128" },
-      { "internalType": "uint128", "name": "totalBought", "type": "uint128" }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "name": "idos",
-    "outputs": [
-      { "internalType": "address", "name": "owner", "type": "address" },
-      { "internalType": "address", "name": "projectToken", "type": "address" },
-      { "internalType": "uint128", "name": "price", "type": "uint128" },
-      { "internalType": "uint128", "name": "sellStart", "type": "uint128" },
-      { "internalType": "uint128", "name": "sellEnd", "type": "uint128" },
-      { "internalType": "uint128", "name": "softcap", "type": "uint128" },
-      { "internalType": "uint128", "name": "hardcap", "type": "uint128" },
-      { "internalType": "uint128", "name": "decimals", "type": "uint128" }
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "idoId", "type": "uint256" },
-      { "internalType": "uint256", "name": "weight", "type": "uint256" },
-      { "internalType": "bytes32[]", "name": "proof", "type": "bytes32[]" }
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "idoParams",
+    "outputs": [
+      {
+        "internalType": "uint128",
+        "name": "totalRaised",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint128",
+        "name": "totalBought",
+        "type": "uint128"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "idos",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "projectToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint128",
+        "name": "price",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint128",
+        "name": "sellStart",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint128",
+        "name": "sellEnd",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint128",
+        "name": "softcap",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint128",
+        "name": "hardcap",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint128",
+        "name": "decimals",
+        "type": "uint128"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "idoId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "weight",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "proof",
+        "type": "bytes32[]"
+      }
     ],
     "name": "invest",
     "outputs": [],
@@ -234,29 +552,69 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "", "type": "uint256" },
-      { "internalType": "address", "name": "", "type": "address" }
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
     "name": "investments",
     "outputs": [
-      { "internalType": "uint256", "name": "payed", "type": "uint256" },
-      { "internalType": "uint256", "name": "bought", "type": "uint256" },
-      { "internalType": "uint256", "name": "claimed", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "payed",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "bought",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "claimed",
+        "type": "uint256"
+      }
     ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "uint256", "name": "idoId", "type": "uint256" }],
-    "name": "isLiqAdded",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
-      { "internalType": "address", "name": "account", "type": "address" }
+      {
+        "internalType": "uint256",
+        "name": "idoId",
+        "type": "uint256"
+      }
+    ],
+    "name": "isLiqAdded",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
     ],
     "name": "renounceRole",
     "outputs": [],
@@ -265,8 +623,16 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
-      { "internalType": "address", "name": "account", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
     ],
     "name": "revokeRole",
     "outputs": [],
@@ -274,17 +640,22 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "staking",
-    "outputs": [{ "internalType": "contract IStaking", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
-      { "internalType": "uint256", "name": "idoId", "type": "uint256" },
-      { "internalType": "bytes32", "name": "_merkleRoot", "type": "bytes32" },
-      { "internalType": "uint256", "name": "totalWeight", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "idoId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "_merkleRoot",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalWeight",
+        "type": "uint256"
+      }
     ],
     "name": "startSell",
     "outputs": [],
@@ -292,35 +663,85 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "bytes4", "name": "interfaceId", "type": "bytes4" }],
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
     "name": "supportsInterface",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "vestingInfo",
     "outputs": [
-      { "internalType": "uint128", "name": "startUnlockPercent", "type": "uint128" },
-      { "internalType": "uint128", "name": "unlockPercent", "type": "uint128" },
-      { "internalType": "uint256", "name": "unlockStepTime", "type": "uint256" }
+      {
+        "internalType": "uint128",
+        "name": "startUnlockPercent",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint128",
+        "name": "unlockPercent",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint256",
+        "name": "unlockStepTime",
+        "type": "uint256"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "weightsInfo",
     "outputs": [
-      { "internalType": "uint256", "name": "investmentsPerWeight", "type": "uint256" },
-      { "internalType": "bytes32", "name": "merkleRoot", "type": "bytes32" }
+      {
+        "internalType": "uint256",
+        "name": "totalWeights",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "merkleRoot",
+        "type": "bytes32"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "idoId", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "idoId",
+        "type": "uint256"
+      }
+    ],
     "name": "withdrawInvestment",
     "outputs": [],
     "stateMutability": "nonpayable",

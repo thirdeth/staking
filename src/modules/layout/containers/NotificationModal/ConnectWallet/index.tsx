@@ -43,7 +43,7 @@ export const ConnectWalletModal: FC<IConnectWalletModalProps> = ({ onConnectWall
             letterSpacing: '3.5px',
           }}
           startIcon={<MetamaskLogo />}
-          onClick={() => handleConnect(WalletProviders.metamask, Chains.Cronos)}
+          onClick={() => handleConnect(WalletProviders.metamask, Chains.Arbitrum)}
         >
           MetaMask
         </WalletButton>
@@ -55,7 +55,7 @@ export const ConnectWalletModal: FC<IConnectWalletModalProps> = ({ onConnectWall
             textTransform: 'none',
           }}
           startIcon={<WalletConnectLogo />}
-          onClick={() => handleConnect(WalletProviders.walletConnect, Chains.Cronos)}
+          onClick={() => handleConnect(WalletProviders.walletConnect, Chains.Arbitrum)}
         >
           WalletConnect
         </WalletButton>
