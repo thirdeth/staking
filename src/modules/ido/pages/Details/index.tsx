@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import { Grid, Typography } from '@mui/material';
-import { ApplyCard } from 'components';
 import { useShallowSelector } from 'hooks';
 import { isEmpty } from 'lodash';
 import { AttentionText } from 'modules/ido/components';
@@ -158,7 +157,7 @@ export const Details: FC = () => {
               <TabsContent projectData={currentIdo as IdoRequiredProps} myRankId={rankId} />
             </Grid>
             <Grid item xs={12}>
-              <ApplyCard size="s" />
+              {/* <ApplyCard size="s" /> */}
             </Grid>
           </Grid>
         </>

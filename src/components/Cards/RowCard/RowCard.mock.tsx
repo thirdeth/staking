@@ -10,7 +10,7 @@ export const rowCardPropsMocked: RowCardProps = {
     projectIcon: CronosMockLogo,
     token: {
       name: 'Cronos Launcher',
-      symbol: 'CRO',
+      symbol: 'ETH',
       icon: CronosMockLogo,
     },
     boughtAmount: '100,000',

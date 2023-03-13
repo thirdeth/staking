@@ -82,7 +82,7 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
                   noWrap
                   maxWidth={{ xs: 210, sm: 210, md: 250 }}
                   whiteSpace="nowrap"
-                >{`Price (${token?.symbol.toUpperCase()}) = ${price} CRO`}</Typography>
+                >{`Price (${token?.symbol.toUpperCase()}) = ${price} ETH`}</Typography>
               )}
             </Box>
           </Box>

@@ -115,7 +115,7 @@ export const InvestModal: FC<InvestModalProps> = ({
       </Item>
 
       <Item>
-        <TextWithTooltip value={userBalance} startText="Balance:" endText="CRO" color={COLOR_TEXT_GRAY_DARK} />
+        <TextWithTooltip value={userBalance} startText="Balance:" endText="ETH" color={COLOR_TEXT_GRAY_DARK} />
         <InvestTextField
           investValue={investValue}
           disabled={isInvesting || isLoadingInfo}
@@ -126,7 +126,7 @@ export const InvestModal: FC<InvestModalProps> = ({
       </Item>
 
       <Item sx={{ width: 'fit-content' }}>
-        <TextWithTooltip value={maxInvestValue} startText="Max Invest:" endText="CRO" color={COLOR_TEXT_GRAY_DARK} />
+        <TextWithTooltip value={maxInvestValue} startText="Max Invest:" endText="ETH" color={COLOR_TEXT_GRAY_DARK} />
       </Item>
 
       <Item>

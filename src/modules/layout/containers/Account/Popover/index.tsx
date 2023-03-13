@@ -69,7 +69,7 @@ export const AccountPopover: FC<AccountModalProps> = ({
           px: 2.5,
           pt: 1,
           pb: 2.5,
-          width: '310px',
+          width: '330px',
           height: { xs: '440px', sm: '440px', md: '389px' },
           background: BG_BLUE,
           borderRadius: BORDER_RADIUS_POPOVER,
@@ -103,7 +103,7 @@ export const AccountPopover: FC<AccountModalProps> = ({
               Network
             </Typography>
             <Typography variant="h4" color={COLOR_TEXT_WHITE}>
-              Cronos
+              Arbitrum
             </Typography>
           </Grid>
         </Grid>
@@ -130,7 +130,7 @@ export const AccountPopover: FC<AccountModalProps> = ({
               },
             }}
           >
-            <strong>{nativeBalance}</strong> CRO
+            <strong>{nativeBalance}</strong> ETH
           </Typography>
         </Box>
 
@@ -163,7 +163,7 @@ export const AccountPopover: FC<AccountModalProps> = ({
                 fontWeight: '900',
               }}
             >
-              buy CRO
+              buy ETH
             </BuyLinkTypography>
           </Grid>
         </Link>

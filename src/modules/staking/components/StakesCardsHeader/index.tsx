@@ -23,10 +23,12 @@ export const StakesCardsHeader: FC<StakesHeaderTitleProps> = ({ onHarvestAll, is
       display={{ xs: 'none', sm: 'none', md: 'none', lg: 'flex' }}
     >
       <Grid item pl={{ xs: 0, sm: 0, md: 4 }} xs={4} md={2.5}>
-        <StakesHeaderTitle>CLZ Staked</StakesHeaderTitle>
+        {/* was CLZ */}
+        <StakesHeaderTitle>ETH Staked</StakesHeaderTitle>
       </Grid>
       <Grid item container pl={{ xs: 0, sm: 0, md: 1 }} xs={4} md={2.5}>
-        <StakesHeaderTitle>CLZ Earned</StakesHeaderTitle>
+        {/* was CLZ */}
+        <StakesHeaderTitle>ETH Earned</StakesHeaderTitle>
       </Grid>
       <Grid item container xs={4} md={2}>
         <StakesHeaderTitle>Reward</StakesHeaderTitle>

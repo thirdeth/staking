@@ -2,7 +2,7 @@
 import { FC, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Button, Grid, Typography } from '@mui/material';
-import { ApplyCard, RowCard } from 'components';
+import { RowCard } from 'components';
 import { InfoCard } from 'components/Cards/InfoCard';
 import { RowCardSkeleton } from 'components/Cards/RowCard/components';
 import { useShallowSelector } from 'hooks';
@@ -141,7 +141,7 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments, title }) => {
           Show more
         </Button>
       )}
-      <ApplyCard size="s" />
+      {/* <ApplyCard size="s" /> */}
     </Box>
   );
 };

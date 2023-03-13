@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { LoadingButton } from '@mui/lab';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { routes } from 'appConstants/routes';
-import { ApplyCard, InfoCard, RowCard, UserStakingRankIds } from 'components';
+import { InfoCard, RowCard, UserStakingRankIds } from 'components';
 import { RowCardSkeleton } from 'components/Cards/RowCard/components';
 import { useShallowSelector, useValidateInputField, ValidationTypes } from 'hooks';
 import { RankingInfoCard } from 'modules/ranking/components/RankingInfoCard';
@@ -250,7 +250,7 @@ export const Staking: FC<StakingProps> = ({ title }) => {
         />
       )}
 
-      <ApplyCard size="s" />
+      {/* <ApplyCard size="s" /> */}
     </Box>
   );
 };

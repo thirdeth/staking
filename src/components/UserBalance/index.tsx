@@ -41,7 +41,7 @@ export const UserBalance: FC<UserBalancProps> = ({ balance }) => {
               textTransform="uppercase"
               ml={1}
             >
-              CRO
+              ETH
             </Typography>
           </Grid>
         </Grid>

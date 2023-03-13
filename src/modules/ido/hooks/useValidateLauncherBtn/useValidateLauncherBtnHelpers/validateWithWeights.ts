@@ -92,7 +92,7 @@ export const validateWithWeights = (
       break;
 
     case IdoStatus.completedFail:
-      // user can return his CRO
+      // user can return his ETH
       if (+payed > 0) {
         resultValidBtnProps = {
           text: 'Refund',

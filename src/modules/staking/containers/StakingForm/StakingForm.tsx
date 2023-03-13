@@ -71,7 +71,8 @@ export const StakingForm: FC<StakingFormProps> = ({
           <Grid item container justifyContent="flex-start" alignItems="center">
             <Typography variant="h3">{totalStakedAmount || '...'}</Typography>
             <Typography variant="body1" ml={2}>
-              CLZ
+              {/* was CLZ */}
+              ETH
             </Typography>
           </Grid>
 
@@ -113,7 +114,8 @@ export const StakingForm: FC<StakingFormProps> = ({
               >
                 {tokenBalance || '...'}
               </TextContainer>
-              <TextContainer>CLZ</TextContainer>
+              {/* was CLZ */}
+              <TextContainer>ETH</TextContainer>
             </Box>
 
             <TextField

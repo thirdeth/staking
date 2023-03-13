@@ -57,7 +57,7 @@ export const LauncherInfo: FC<ProjectDataProps> = ({ projectData }) => {
             </Typography>
           </Tooltip>
           <Typography variant="body2" textTransform="uppercase" fontWeight={FontWeights.fontWeightRegular}>
-            price ({tokenSymbol}) = {price} CRO
+            price ({tokenSymbol}) = {price} ETH
           </Typography>
         </Grid>
       </Grid>

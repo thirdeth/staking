@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Grid, Typography } from '@mui/material';
-import { ApplyCard, RowCard } from 'components';
+import { RowCard } from 'components';
 import { RowCardSkeleton } from 'components/Cards/RowCard/components';
 import { useShallowSelector } from 'hooks';
 import { CardsHeader } from 'modules/staking/components';
@@ -46,7 +46,7 @@ export const Leaderboard: FC<LeaderboardProps> = ({ title }) => {
               </Grid>
             ))}
       </Grid>
-      <ApplyCard size="s" />
+      {/* <ApplyCard size="s" /> */}
     </>
   );
 };

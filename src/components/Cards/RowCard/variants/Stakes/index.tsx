@@ -70,7 +70,7 @@ export const Stakes: FC<StakesProps> = ({ cardData, poolsAprArr, isHarvesting, i
       {staked && (
         <Grid item container pl={{ xs: 0, sm: 0, md: 0, lg: 2 }} md={2.5} xs={12}>
           <Grid item xs={6}>
-            <MobileTitle>CRO Staked</MobileTitle>
+            <MobileTitle>ETH Staked</MobileTitle>
           </Grid>
           <Grid item container xs={6} lg={12}>
             <LogoSmall />
@@ -83,11 +83,12 @@ export const Stakes: FC<StakesProps> = ({ cardData, poolsAprArr, isHarvesting, i
       {earned && (
         <Grid item container md={2.5} xs={12}>
           <Grid item xs={6}>
-            <MobileTitle>CRO Earned</MobileTitle>
+            <MobileTitle>ETH Earned</MobileTitle>
           </Grid>
           <Grid item xs={6} lg={12}>
             <Typography variant="body2" textTransform="none">
-              {fromDecimals(earned)} CLZ
+              {/* was CLZ */}
+              {fromDecimals(earned)} ETH
             </Typography>
           </Grid>
         </Grid>
