@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Button, Grid, styled, Typography } from '@mui/material';
+import { Box, Button, Grid, styled, Typography } from '@mui/material';
 import { routes } from 'appConstants/routes';
+import { MainLogo } from 'assets/img';
 import { UserBalance } from 'components';
-import { MainLogo, WalletIcon } from 'components/Icon/components';
+import { WalletIcon } from 'components/Icon/components';
 import { Account, Menu } from 'modules/layout/containers';
 import { formatRoutesToArr } from 'modules/router/utils';
-import { FontFamilies } from 'theme/Typography';
 import { BG_BLUE, BG_BLUE_LIGHT, BG_BUTTON_BLUE, COLOR_TEXT_BLACK, COLOR_TEXT_BLUE } from 'theme/variables';
 import { Modals } from 'types';
 
@@ -28,16 +28,8 @@ export const HeaderControls: FC<HeaderControlsProps> = ({ address, rankId, nativ
       <Menu />
 
       <Link to="/">
-        <Grid container item alignItems="center" columnGap={{ xs: 1, sm: 1, md: 2 }} paddingRight={0.5}>
-          <MainLogo />
-          <Typography
-            fontFamily={FontFamilies.secondary}
-            textTransform="uppercase"
-            fontSize={{ xs: '18px', sm: '18px', md: '24px' }}
-            maxWidth={{ xs: '103px', sm: '103px', md: '100%', lg: '100%' }}
-          >
-            Cronos Launcher
-          </Typography>
+        <Grid container item alignItems="center" paddingRight={0.5}>
+          <Box component="img" src={MainLogo} alt="main_logo" maxWidth={{ xs: 160, sm: 240, md: 256 }} />
         </Grid>
       </Link>
 

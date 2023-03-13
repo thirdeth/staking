@@ -1,2 +1,2 @@
-export * from './MockIcons';
+export * from './Icons';
 export * from './Backgrounds';

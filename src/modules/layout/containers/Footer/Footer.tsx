@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
+import { MainLogo } from 'assets/img';
 import { SocialLinks } from 'components';
-import { MainLogo } from 'components/Icon/components';
 import { previewSocialLinksItems } from 'modules/landing/pages/Home/sections/Preview/Preview.helpers';
 import { BG_MAIN, BORDER_HEADER, COLOR_TEXT_GRAY_LIGHT } from 'theme/variables';
 
@@ -27,10 +27,7 @@ export const Footer: FC = () => {
           xs={12}
         >
           <Grid item container alignItems="center" columnGap={2}>
-            <MainLogo />
-            <Typography variant="h4" sx={{ textTransform: 'uppercase' }}>
-              Cronos Launcher
-            </Typography>
+            <Box component="img" src={MainLogo} alt="main_logo" maxWidth={{ xs: 160, sm: 240, md: 256 }} />
           </Grid>
 
           <Grid item>
@@ -73,7 +70,7 @@ export const Footer: FC = () => {
             Copyright © 2022. All Rights Reserved
           </Typography>
           <Typography variant="body2" color={COLOR_TEXT_GRAY_LIGHT}>
-            by Cronos Launcher
+            by Arbishpere
           </Typography>
         </Grid>
 
