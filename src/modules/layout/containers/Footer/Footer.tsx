@@ -39,8 +39,8 @@ export const Footer: FC = () => {
                 textAlign: { xs: 'left', sm: 'left', md: 'right', lg: 'right' },
               }}
             >
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-              industry&apos;s standard dummy text ever since the 1500s.
+              Arbisphere aims to become the leading incubator and accelerator on Arbitrum, launching the most promising
+              projects and helping them in becoming the future leading protocols of the DeFi ecosystem.
             </Typography>
           </Grid>
         </Grid>
@@ -67,7 +67,7 @@ export const Footer: FC = () => {
       >
         <Grid item container columnGap={1} direction={{ xs: 'column', sm: 'row', md: 'row', lg: 'row' }}>
           <Typography variant="body2" color={COLOR_TEXT_GRAY_LIGHT}>
-            Copyright © 2022. All Rights Reserved
+            Copyright © {new Date().getFullYear()}. All Rights Reserved
           </Typography>
           <Typography variant="body2" color={COLOR_TEXT_GRAY_LIGHT}>
             by Arbishpere
