@@ -40,7 +40,10 @@ export const validateMaxInvestValue = ({
   }
 
   if (diffAllocationPayedValue > 0) {
-    maxCalcValue = diffAllocationPayedValue;
+    maxCalcValue = new BigNumber(maxRequireInvestValue)
+      .multipliedBy(diffAllocationPayedValue)
+      .dividedBy(100)
+      .toString(); // diffAllocationPayedValue;
   } else {
     maxCalcValue = 0;
   }

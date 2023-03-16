@@ -44,7 +44,7 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
               <TextWithTooltip
                 value={userAllocation}
                 startText="Allocation:"
-                endText={tokenSymbol.toUpperCase()}
+                endText="%"
                 isLoading={isGettingInvestmentsInfo}
                 fontSize={16}
                 fontWeight={700}

@@ -8,7 +8,7 @@ import { COLOR_TEXT_BLACK } from 'theme/variables';
 
 import { LauncherCardProps } from '../../LauncherCard';
 
-type LauncherControlsProps = Omit<LauncherCardProps, 'userAllocation' | 'totalBought'>;
+type LauncherControlsProps = Omit<LauncherCardProps, 'totalBought'>;
 
 export const LauncherControls: FC<LauncherControlsProps> = ({
   projectData,
@@ -18,7 +18,8 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
   isClaiming,
   isRefunding,
   isCanAddLiquidity,
-  onAddLiauidity,
+  onAddLiquidity,
+  userAllocation,
 }) => {
   const { discord, medium, telegram, twitter, status, investors } = projectData;
   const [btnText, btnHandler, isMainBtnVisible, textMessage] = useValidateLauncherBtn(status);
@@ -55,6 +56,7 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
             loading={isLoading}
             sx={{ width: { xs: '100%', sm: '100%', md: 'auto' } }}
             onClick={btnHandler}
+            disabled={!userAllocation}
           >
             {btnText}
           </LoadingButton>
@@ -65,7 +67,7 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
             variant="contained"
             loading={isAddingLiquidity}
             sx={{ width: { xs: '100%', sm: '100%', md: 'auto' } }}
-            onClick={onAddLiauidity}
+            onClick={onAddLiquidity}
           >
             Add Liquidity
           </LoadingButton>

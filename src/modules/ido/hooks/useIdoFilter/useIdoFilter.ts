@@ -15,10 +15,10 @@ export const useIdoFilter = (isUrlUpdated = false) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const defaultStakingRequreValue = searchParams.get(PARAMS.access) as string;
+  const defaultStakingRequireValue = searchParams.get(PARAMS.access) as string;
 
   const [isStakingRequire, setStakingRequire] = useState(
-    defaultStakingRequreValue ? defaultStakingRequreValue.includes(IdoPublic.publicStaking) : true,
+    defaultStakingRequireValue ? defaultStakingRequireValue.includes(IdoPublic.publicStaking) : false,
   );
 
   const handleChangePublicFilter = useCallback(
@@ -43,15 +43,15 @@ export const useIdoFilter = (isUrlUpdated = false) => {
       setIdoStatuses(value);
 
       if (isUrlUpdated) {
-        const accessParams = new URLSearchParams(searchParams).getAll(PARAMS.access).join(',');
+        // const accessParams = new URLSearchParams(searchParams).getAll(PARAMS.access).join(',');
 
         setSearchParams({
           [PARAMS.status]: value,
-          [PARAMS.access]: accessParams,
+          [PARAMS.access]: !isStakingRequire ? IdoPublic.all : IdoPublic.publicStaking, // previously was accessParams
         });
       }
     },
-    [isUrlUpdated, searchParams, setIdoStatuses, setSearchParams],
+    [isStakingRequire, isUrlUpdated, setSearchParams],
   );
 
   const handleChangeCurrentPage = useCallback((value: number) => {

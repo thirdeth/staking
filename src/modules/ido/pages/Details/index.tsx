@@ -149,7 +149,7 @@ export const Details: FC = () => {
                 isClaiming={isClaiming}
                 isRefunding={isRefunding}
                 isAddingLiquidity={isAddingLiquidity}
-                onAddLiauidity={handleAddLiquidity}
+                onAddLiquidity={handleAddLiquidity}
                 isGettingInvestmentsInfo={isGettingInvestmentsInfo}
               />
             </Grid>

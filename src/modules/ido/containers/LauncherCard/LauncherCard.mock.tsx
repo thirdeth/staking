@@ -10,7 +10,7 @@ export const launcherCardPropsMocked: LauncherCardProps = {
   isAddingLiquidity: false,
   isClaiming: false,
   isRefunding: false,
-  onAddLiauidity: () => noop,
+  onAddLiquidity: () => noop,
   totalBought: '123',
   projectData: {
     id: 1,

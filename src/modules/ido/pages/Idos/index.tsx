@@ -15,7 +15,7 @@ import { updateIdoState } from 'store/ido/reducer';
 import uiSelector from 'store/ui/selectors';
 import { COLOR_TEXT_BLACK } from 'theme/variables';
 import { PARAMS, RequestStatus } from 'types';
-import { IdoPublic } from 'types/store/requests';
+import { IdoPublic, IdoStatus } from 'types/store/requests';
 
 const DEFAULT_IDOS_PER_PAGE = 5;
 
@@ -74,7 +74,9 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments, title }) => {
     // smooth changes for user
     dispatch(updateIdoState({ ido: { count: 0, idos: [] } }));
     handleChangeCurrentPage(0);
-
+    if (!searchParams.get(PARAMS.access)) {
+      handleChangeIdoStatus(['in_progress', 'registration', 'registration_closed'] as IdoStatus[]);
+    }
     dispatch(
       getIdoList({
         type: (searchParams.getAll(PARAMS.access).join(',') as string) || IdoPublic.publicStaking,
@@ -85,7 +87,7 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments, title }) => {
         isMyInvesments: isMyInvesments !== undefined,
       }),
     );
-  }, [dispatch, handleChangeCurrentPage, isMyIdos, isMyInvesments, searchParams, idoStatuses]);
+  }, [dispatch, handleChangeCurrentPage, isMyIdos, isMyInvesments, searchParams, idoStatuses, handleChangeIdoStatus]);
 
   const idoType = useMemo(() => getIdoTypeFromIdoStatus(idoStatuses), [idoStatuses]);
 
