@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js/bignumber';
 import { VestingTableDataProps } from 'modules/layout/containers/NotificationModal/VestingModal/VestingModal.types';
 import { VestingInfoProps } from 'types';
-
-import { dateFormatter } from '../../../utils/dateFormatter';
+import { dateFormatter } from 'utils';
 
 import { getVestingAnlockAmount } from './getVestingAnlockAmount';
 
