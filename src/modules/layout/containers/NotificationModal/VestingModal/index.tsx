@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux';
 import { LoadingButton } from '@mui/lab';
 import { Grid, Paper, Stack, styled, Typography } from '@mui/material';
 import { generateVestingTableData } from 'modules/ido/utils/generateVestingTableData';
+import moment from 'moment';
 import { onClaim } from 'store/ido/actions';
-import { BG_BLUE_LIGHT, BORDER_RADIUS_DEFAULT } from 'theme/variables';
+import { BG_BLUE_LIGHT, BG_GRAY, BORDER_RADIUS_DEFAULT } from 'theme/variables';
 import { INotifyModalProps, RequestStatus, VestingInfoProps } from 'types';
 import { fromDecimals } from 'utils';
 import Web3 from 'web3';
@@ -44,6 +45,8 @@ export const VestingModal: FC<VestingModalProps> = ({
   const dispatch = useDispatch();
   const isClaiming = claimRequestStatus === RequestStatus.REQUEST;
 
+  const currentDateTimestamp = moment(new Date()).format('X');
+
   const tableData = useMemo(() => {
     return generateVestingTableData(claimAmount, +endTime, vestingInfo);
   }, [claimAmount, endTime, vestingInfo]);
@@ -82,7 +85,7 @@ export const VestingModal: FC<VestingModalProps> = ({
       </Grid>
 
       <Typography my={3} variant="body1" textAlign="center">
-        {tokenSymbol.toUpperCase()} Munthly Schedule
+        {tokenSymbol.toUpperCase()} Monthly Schedule
       </Typography>
 
       <LoadingButton
@@ -96,15 +99,30 @@ export const VestingModal: FC<VestingModalProps> = ({
       </LoadingButton>
 
       <Stack spacing={1} sx={{ maxHeight: '310px', overflowY: 'auto' }}>
-        {tableData.map(({ id, anlockTime, anlockAmount }, index) => (
-          <Item key={id} sx={{ px: 2 }}>
-            <Typography variant="body2">{index + 1} stage</Typography>
-            <Typography variant="body2">{anlockTime}</Typography>
-            <Typography variant="body2">
-              {fromDecimals(anlockAmount, 18)} {tokenSymbol.toUpperCase()}
-            </Typography>
-          </Item>
-        ))}
+        {tableData.map(({ id, anlockTime, anlockAmount }, index) => {
+          let bgColor = BG_GRAY;
+          if (
+            +anlockAmount === +claimAmount[2] / index &&
+            +currentDateTimestamp > +moment(tableData[0].anlockTime).format('X')
+          ) {
+            bgColor = BG_BLUE_LIGHT;
+          }
+          return (
+            <Item
+              key={id}
+              sx={{
+                px: 2,
+                background: bgColor,
+              }}
+            >
+              <Typography variant="body2">{index + 1} stage</Typography>
+              <Typography variant="body2">{anlockTime}</Typography>
+              <Typography variant="body2">
+                {fromDecimals(anlockAmount, 18)} {tokenSymbol.toUpperCase()}
+              </Typography>
+            </Item>
+          );
+        })}
       </Stack>
     </>
   );

@@ -5,7 +5,7 @@ import { SocialLinks } from 'components';
 import { useValidateLauncherBtn } from 'modules/ido/hooks';
 import { FontWeights } from 'theme/Typography';
 import { COLOR_TEXT_BLACK } from 'theme/variables';
-import { IdoStatus } from 'types/store/requests';
+import { IdoPublic, IdoStatus } from 'types/store/requests';
 
 import { LauncherCardProps } from '../../LauncherCard';
 
@@ -22,7 +22,7 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
   onAddLiquidity,
   userAllocation,
 }) => {
-  const { discord, medium, telegram, twitter, status, investors } = projectData;
+  const { discord, medium, telegram, twitter, status, investors, type } = projectData;
   const [btnText, btnHandler, isMainBtnVisible, textMessage] = useValidateLauncherBtn(status);
 
   const isLoading = isRegistration || isClaiming || isRefunding || isGettingInvestmentsInfo;
@@ -57,7 +57,7 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
             loading={isLoading}
             sx={{ width: { xs: '100%', sm: '100%', md: 'auto' } }}
             onClick={btnHandler}
-            disabled={status === IdoStatus.inProgress && !userAllocation}
+            disabled={type === IdoPublic.private && status === IdoStatus.inProgress && !userAllocation}
           >
             {btnText}
           </LoadingButton>
