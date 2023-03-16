@@ -31,7 +31,7 @@ export function* getInvestmentsInfoSaga({
       unlockStepTime: '',
     };
 
-    const { payed } = yield* call(idoFarmeContract.methods.investments(idoIncrement, address).call);
+    const { payed, bought } = yield* call(idoFarmeContract.methods.investments(idoIncrement, address).call);
     const claimAmount = yield* call(idoFarmeContract.methods.getClaimAmount(idoIncrement, address).call);
     // refresh right totalBought from contract
     const { totalBought } = yield* call(idoFarmeContract.methods.idoParams(idoIncrement).call);
@@ -54,6 +54,7 @@ export function* getInvestmentsInfoSaga({
     const updatedUserInfo = {
       ...userInfo,
       payed,
+      bought,
       claimAmount,
       totalBought,
       contractHardCap: hardcap,

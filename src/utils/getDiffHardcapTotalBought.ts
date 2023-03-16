@@ -5,5 +5,7 @@ export const getDiffHardcapTotalBought = (
   totalBought: string | number,
   decimals: string | number,
 ) => {
-  return new BigNumber(hardcap).minus(new BigNumber(totalBought)).dividedBy(new BigNumber(10).pow(decimals));
+  return new BigNumber(new BigNumber(hardcap).minus(new BigNumber(totalBought))).dividedBy(
+    new BigNumber(10).pow(decimals),
+  );
 };

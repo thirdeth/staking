@@ -21,7 +21,7 @@ export const NotificationModal: FC = () => {
   const {
     currentIdo,
     vestingInfo,
-    userInfo: { userAllocation, claimAmount, totalBought, payed, contractHardCap },
+    userInfo: { userAllocation, claimAmount, totalBought, payed, bought, contractHardCap },
   } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
 
   const { connect, disconnect, walletService } = useWalletConnectorContext();
@@ -57,6 +57,7 @@ export const NotificationModal: FC = () => {
           nativeBalance={nativeBalance}
           contractHardCap={contractHardCap}
           payed={payed}
+          bought={bought}
           tokenPrice={+currentIdo.price}
           userAllocation={userAllocation}
           totalBought={totalBought}

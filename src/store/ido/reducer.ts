@@ -11,6 +11,7 @@ const initialState: IdoState = {
   userInfo: {
     userAllocation: null,
     payed: '',
+    bought: '',
     claimAmount: [],
     totalBought: '',
     contractHardCap: '',

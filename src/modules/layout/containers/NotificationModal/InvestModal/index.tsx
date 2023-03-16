@@ -25,6 +25,7 @@ export type InvestModalProps = {
 
   contractHardCap: string;
   payed: string;
+  bought: string;
   tokenPrice: number;
   userAllocation: Nullable<string>;
   totalBought: string;
@@ -42,6 +43,7 @@ export const InvestModal: FC<InvestModalProps> = ({
 
   contractHardCap,
   payed,
+  bought,
   tokenPrice,
   userAllocation,
   totalBought,
@@ -62,6 +64,7 @@ export const InvestModal: FC<InvestModalProps> = ({
     userAllocation,
     totalBought,
     payed,
+    bought,
     decimals,
   });
   const [investValue, setInvestValue, setOriginInvestValue] = useValidateInputField(

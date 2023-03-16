@@ -5,6 +5,7 @@ import { SocialLinks } from 'components';
 import { useValidateLauncherBtn } from 'modules/ido/hooks';
 import { FontWeights } from 'theme/Typography';
 import { COLOR_TEXT_BLACK } from 'theme/variables';
+import { IdoStatus } from 'types/store/requests';
 
 import { LauncherCardProps } from '../../LauncherCard';
 
@@ -56,7 +57,7 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
             loading={isLoading}
             sx={{ width: { xs: '100%', sm: '100%', md: 'auto' } }}
             onClick={btnHandler}
-            disabled={!userAllocation}
+            disabled={status === IdoStatus.inProgress && !userAllocation}
           >
             {btnText}
           </LoadingButton>

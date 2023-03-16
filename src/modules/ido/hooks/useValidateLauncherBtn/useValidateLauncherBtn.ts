@@ -6,10 +6,12 @@ import { useShallowSelector } from 'hooks';
 import { noop } from 'lodash';
 import { useWalletConnectorContext } from 'services';
 import { onClaim, onRefund, onRegistrationToIdo } from 'store/ido/actions';
+import idoActionTypes from 'store/ido/actionTypes';
 import idoSelector from 'store/ido/selectors';
 import { setActiveModal } from 'store/modals/reducer';
+import uiSelector from 'store/ui/selectors';
 import userSelector from 'store/user/selectors';
-import { IdoState, Modals, State, UserState } from 'types';
+import { IdoState, Modals, RequestStatus, State, UserState } from 'types';
 import { IdoPublic, IdoStatus } from 'types/store/requests';
 
 import { BtnHandlerType, HandlersKeys } from './useValidateLauncherBtn.types';
@@ -27,6 +29,8 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
     userInfo: { userAllocation, claimAmount, payed, totalBought, contractHardCap },
     currentIdo: { vesting, idoIncrement, type, decimals },
   } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
+
+  const { [idoActionTypes.REFUND]: refundRequestStatus } = useShallowSelector(uiSelector.getUI);
 
   // ----------------- Button handlers ------------------
   const handleNavigateToStake = useCallback(() => {
@@ -171,6 +175,12 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
   useEffect(() => {
     handleValidateBtnProps();
   }, [handleValidateBtnProps]);
+
+  useEffect(() => {
+    if (refundRequestStatus === RequestStatus.SUCCESS) {
+      setBtnVisible(false);
+    }
+  }, [handleValidateBtnProps, refundRequestStatus]);
 
   return [btnText, btnHandler, isBtnVisible, textMessage];
 };

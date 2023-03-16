@@ -15,6 +15,7 @@ export type IdoState = {
   userInfo: {
     userAllocation: string | null;
     payed: string;
+    bought: string;
     claimAmount: string[];
     totalBought: string;
     contractHardCap: string;
