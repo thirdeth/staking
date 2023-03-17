@@ -104,8 +104,8 @@ export const VestingModal: FC<VestingModalProps> = ({
           let bgColor = BG_BLUE_LIGHT;
           if (
             +currentDateTimestamp > +moment(anlockTime).format('X') &&
-            new BigNumber(new BigNumber(+claimAmount[1]).plus(+claimAmount[2])).isGreaterThanOrEqualTo(
-              new BigNumber(+claimAmount[0]).dividedBy(tableData.length).multipliedBy(index + 1),
+            new BigNumber(new BigNumber(anlockAmount).multipliedBy(index + 1)).isLessThanOrEqualTo(
+              new BigNumber(claimAmount[2]),
             )
           ) {
             bgColor = BG_GRAY;

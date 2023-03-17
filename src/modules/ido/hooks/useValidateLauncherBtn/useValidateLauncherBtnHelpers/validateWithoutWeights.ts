@@ -65,15 +65,25 @@ export const validateWithoutWeights = (
       // it means thath user can claim and should check other items claimAmountArr
       if (+claimAmount[0] > 0 && isLiqAdded) {
         // user can claim
-        if (+claimAmount[1] > 0) {
-          resultValidBtnProps = {
-            text: 'Claim',
-            handlerKey: vesting ? HandlersKeys.openVestingModal : HandlersKeys.claim,
-            isVisible: true,
-          };
-        }
+        resultValidBtnProps = {
+          text: 'Claim',
+          handlerKey: vesting ? HandlersKeys.openVestingModal : HandlersKeys.claim,
+          isVisible: true,
+        };
+        // if (+claimAmount[1] > 0) {
+        //   resultValidBtnProps = {
+        //     text: 'Claim',
+        //     handlerKey: vesting ? HandlersKeys.openVestingModal : HandlersKeys.claim,
+        //     isVisible: true,
+        //   };
+        // }
       }
       if (+claimAmount[1] === 0 && +claimAmount[0] === +claimAmount[2]) {
+        resultValidBtnProps = {
+          text: 'Claim',
+          handlerKey: vesting ? HandlersKeys.openVestingModal : HandlersKeys.claim,
+          isVisible: false,
+        };
         resultTextMessage = 'You already claimed';
       }
       if (+claimAmount[0] > 0 && !isLiqAdded) {
