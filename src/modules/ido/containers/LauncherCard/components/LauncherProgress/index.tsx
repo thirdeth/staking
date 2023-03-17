@@ -13,7 +13,6 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
   isGettingInvestmentsInfo,
 }) => {
   const { totalBought, softCap, hardCap, decimals, tokenSymbol } = projectData;
-
   return (
     <Box pt={{ xs: 2, sm: 2, md: 4 }}>
       <Grid container justifyContent="space-between" alignItems="center" mb={1}>

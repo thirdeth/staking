@@ -11,3 +11,5 @@ export * from './getDisplayStageName';
 export * from './getFormatedCounterDate';
 export * from './camelize';
 export * from './getDiffHardcapTotalBought';
+export * from './getWeb3';
+export * from './createContract';

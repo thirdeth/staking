@@ -13,7 +13,6 @@ export function* getIdoByIdSaga({ type, payload: { id } }: ReturnType<typeof get
     const { data } = yield call(baseApi.getIdoById, id);
 
     yield* put(updateIdoState({ currentIdo: data }));
-
     yield* put(apiActions.success(type));
   } catch (err) {
     // eslint-disable-next-line no-console

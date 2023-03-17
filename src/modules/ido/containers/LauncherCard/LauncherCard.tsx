@@ -45,7 +45,7 @@ export const LauncherCard: FC<LauncherCardProps> = ({
       <Grid container direction="column" justifyContent="center" alignItems="space-between">
         <LauncherInfo projectData={projectData} />
         <LauncherProgress
-          projectData={{ ...projectData, totalBought }}
+          projectData={projectData}
           userAllocation={userAllocation}
           isGettingInvestmentsInfo={isGettingInvestmentsInfo}
         />
