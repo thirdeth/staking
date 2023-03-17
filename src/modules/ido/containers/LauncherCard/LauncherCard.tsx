@@ -7,6 +7,7 @@ import { Nullable } from 'types';
 import { LauncherControls, LauncherInfo, LauncherProgress } from './components';
 
 export type LauncherCardProps = {
+  userAddress: string;
   userAllocation: Nullable<string>;
   totalBought: string;
   isCanAddLiquidity: boolean;
@@ -19,6 +20,7 @@ export type LauncherCardProps = {
 } & ProjectDataProps;
 
 export const LauncherCard: FC<LauncherCardProps> = ({
+  userAddress,
   projectData,
   isCanAddLiquidity,
   userAllocation,
@@ -48,6 +50,7 @@ export const LauncherCard: FC<LauncherCardProps> = ({
           isGettingInvestmentsInfo={isGettingInvestmentsInfo}
         />
         <LauncherControls
+          userAddress={userAddress}
           isCanAddLiquidity={isCanAddLiquidity}
           projectData={projectData}
           isRegistration={isRegistration}

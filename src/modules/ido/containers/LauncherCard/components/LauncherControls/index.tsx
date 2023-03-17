@@ -12,6 +12,7 @@ import { LauncherCardProps } from '../../LauncherCard';
 type LauncherControlsProps = Omit<LauncherCardProps, 'totalBought'>;
 
 export const LauncherControls: FC<LauncherControlsProps> = ({
+  userAddress,
   projectData,
   isGettingInvestmentsInfo,
   isRegistration,
@@ -23,7 +24,10 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
   userAllocation,
 }) => {
   const { discord, medium, telegram, twitter, status, investors, type } = projectData;
-  const [btnText, btnHandler, isMainBtnVisible, textMessage] = useValidateLauncherBtn(status);
+  const [btnText, btnHandler, isMainBtnVisible, textMessage] = useValidateLauncherBtn(
+    status,
+    userAddress.toLowerCase() === projectData.ownerAddress.toLowerCase(),
+  );
 
   const isLoading = isRegistration || isClaiming || isRefunding || isGettingInvestmentsInfo;
 
@@ -57,7 +61,7 @@ export const LauncherControls: FC<LauncherControlsProps> = ({
             loading={isLoading}
             sx={{ width: { xs: '100%', sm: '100%', md: 'auto' } }}
             onClick={btnHandler}
-            disabled={type === IdoPublic.private && status === IdoStatus.inProgress && !userAllocation}
+            disabled={isLoading || (type === IdoPublic.private && status === IdoStatus.inProgress && !userAllocation)}
           >
             {btnText}
           </LoadingButton>

@@ -141,6 +141,7 @@ export const Details: FC = () => {
 
             <Grid item xs={12}>
               <LauncherCard
+                userAddress={userAddress}
                 projectData={currentIdo as IdoRequiredProps}
                 userAllocation={userAllocation}
                 totalBought={totalBought}

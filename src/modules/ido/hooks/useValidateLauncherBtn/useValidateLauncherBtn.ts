@@ -17,7 +17,7 @@ import { IdoPublic, IdoStatus } from 'types/store/requests';
 import { BtnHandlerType, HandlersKeys } from './useValidateLauncherBtn.types';
 import { validateWithoutWeights, validateWithWeights } from './useValidateLauncherBtnHelpers';
 
-export const useValidateLauncherBtn = (status: string): [string, () => void, boolean, string] => {
+export const useValidateLauncherBtn = (status: string, isUserOwner: boolean): [string, () => void, boolean, string] => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -148,6 +148,7 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
           type === 'public',
           isLiqAdded,
           decimals,
+          isUserOwner,
         );
         setBtnText(text);
         setBtnHandler(getButtonHandlers()[handlerKey]);
@@ -156,20 +157,21 @@ export const useValidateLauncherBtn = (status: string): [string, () => void, boo
       }
     }
   }, [
-    claimAmount,
-    getButtonHandlers,
-    handleOpenModal,
-    contractHardCap,
-    isLiqAdded,
-    payed,
-    rankId,
-    status,
-    totalBought,
-    type,
     userAddress.length,
+    handleOpenModal,
+    status,
     userAllocation,
+    type,
+    rankId,
+    payed,
+    claimAmount,
+    contractHardCap,
+    totalBought,
     vesting,
+    isLiqAdded,
     decimals,
+    getButtonHandlers,
+    isUserOwner,
   ]);
 
   useEffect(() => {

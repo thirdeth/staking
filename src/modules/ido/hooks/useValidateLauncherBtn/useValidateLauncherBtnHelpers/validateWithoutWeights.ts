@@ -15,6 +15,7 @@ export const validateWithoutWeights = (
   isPublic = false,
   isLiqAdded: boolean,
   decimals = 18,
+  isUserOwner: boolean,
 ): [ValidBtnProps, string] => {
   let resultValidBtnProps: ValidBtnProps = {
     text: '',
@@ -77,6 +78,9 @@ export const validateWithoutWeights = (
       }
       if (+claimAmount[0] > 0 && !isLiqAdded) {
         resultTextMessage = 'Wait for the owner will add liquidity to claim your tokens';
+      }
+      if (isUserOwner && isLiqAdded && +claimAmount[0] === 0) {
+        resultTextMessage = 'Liquidity successfully added';
       }
       // if (+claimAmount[0] === 0 && isLiqAdded) {
       //   resultTextMessage = 'You already claimed';

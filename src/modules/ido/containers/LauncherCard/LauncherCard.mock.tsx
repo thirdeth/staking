@@ -4,6 +4,7 @@ import { Color } from 'types/api/enums';
 import { LauncherCardProps } from './LauncherCard';
 
 export const launcherCardPropsMocked: LauncherCardProps = {
+  userAddress: 'q3fsdfgdf',
   isRegistration: false,
   isGettingInvestmentsInfo: false,
   isCanAddLiquidity: false,
