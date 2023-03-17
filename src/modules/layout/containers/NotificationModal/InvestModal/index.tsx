@@ -73,7 +73,7 @@ export const InvestModal: FC<InvestModalProps> = ({
     +maxInvestValue,
   );
 
-  const receiveValue = new BigNumber(+investValue / tokenPrice).toString(10);
+  const receiveValue = new BigNumber(+investValue).dividedBy(tokenPrice).toString(10);
 
   const isInvesting = investRequestStatus === RequestStatus.REQUEST;
   const isInvested = investRequestStatus === RequestStatus.SUCCESS;
