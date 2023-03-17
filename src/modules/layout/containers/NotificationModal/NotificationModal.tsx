@@ -59,7 +59,7 @@ export const NotificationModal: FC = () => {
           payed={payed}
           bought={bought}
           tokenPrice={+currentIdo.price}
-          userAllocation={userAllocation}
+          userAllocation={currentIdo.type === 'private' ? userAllocation : currentIdo.maxBuyPercent}
           totalBought={totalBought}
           decimals={currentIdo.decimals || 18}
           idoIncrement={currentIdo.idoIncrement}

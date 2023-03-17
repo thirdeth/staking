@@ -15,6 +15,7 @@ export const launcherCardPropsMocked: LauncherCardProps = {
   totalBought: '123',
   projectData: {
     id: 1,
+    maxBuyPercent: '20.00',
     timer: '1657700814',
     videoUrl: '',
     logoUrl: 'https://devcronos.rocknblock.io/media/logos/linkedin.png',

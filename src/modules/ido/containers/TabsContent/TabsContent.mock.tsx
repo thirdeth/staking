@@ -4,6 +4,7 @@ import { TabsContentProps } from './TabsContent';
 
 export const tabsContentPropsMocked: TabsContentProps = {
   projectData: {
+    maxBuyPercent: '20.00',
     type: 'public',
     id: 1,
     timer: '1657700814',

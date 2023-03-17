@@ -8,6 +8,7 @@
 import { Partner } from './Partner';
 import { Team } from './Team';
 import { Tokenomic } from './Tokenomic';
+import { Nullable } from 'types/index';
 
 export interface Ido {
   decimals?: number;
@@ -49,4 +50,5 @@ export interface Ido {
   unlockStepTime?: number;
   vesting?: boolean;
   videoUrl: string;
+  maxBuyPercent: Nullable<string>;
 }

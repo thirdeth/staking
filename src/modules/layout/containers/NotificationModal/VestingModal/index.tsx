@@ -2,6 +2,7 @@ import { FC, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { LoadingButton } from '@mui/lab';
 import { Grid, Paper, Stack, styled, Typography } from '@mui/material';
+import BigNumber from 'bignumber.js/bignumber';
 import { generateVestingTableData } from 'modules/ido/utils/generateVestingTableData';
 import moment from 'moment';
 import { onClaim } from 'store/ido/actions';
@@ -100,12 +101,14 @@ export const VestingModal: FC<VestingModalProps> = ({
 
       <Stack spacing={1} sx={{ maxHeight: '310px', overflowY: 'auto' }}>
         {tableData.map(({ id, anlockTime, anlockAmount }, index) => {
-          let bgColor = BG_GRAY;
+          let bgColor = BG_BLUE_LIGHT;
           if (
-            +anlockAmount === +claimAmount[2] / index &&
-            +currentDateTimestamp > +moment(tableData[0].anlockTime).format('X')
+            +currentDateTimestamp > +moment(anlockTime).format('X') &&
+            new BigNumber(new BigNumber(+claimAmount[1]).plus(+claimAmount[2])).isGreaterThanOrEqualTo(
+              new BigNumber(+claimAmount[0]).dividedBy(tableData.length).multipliedBy(index + 1),
+            )
           ) {
-            bgColor = BG_BLUE_LIGHT;
+            bgColor = BG_GRAY;
           }
           return (
             <Item
