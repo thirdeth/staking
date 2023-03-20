@@ -88,7 +88,10 @@ export const validateWithWeights = (
         };
       }
       // if user bought all his allocation part - btn will be hidden and uses message
-      resultTextMessage = 'Wait for the project to be finished to claim your tokens';
+      resultTextMessage = 'You can invest more due to allocation limitations';
+      if (isFullHardCap) {
+        resultTextMessage = 'You cant invest more due to hardcap limitations';
+      }
       break;
 
     case IdoStatus.completedFail:

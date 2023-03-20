@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js/bignumber';
 import { Nullable } from 'types';
 import { IdoStatus } from 'types/store/requests';
 import { getDiffHardcapTotalBought } from 'utils';
@@ -16,6 +17,7 @@ export const validateWithoutWeights = (
   isLiqAdded: boolean,
   decimals = 18,
   isUserOwner: boolean,
+  maxBuyPercent: Nullable<string>,
 ): [ValidBtnProps, string] => {
   let resultValidBtnProps: ValidBtnProps = {
     text: '',
@@ -26,6 +28,17 @@ export const validateWithoutWeights = (
   let resultTextMessage = '';
 
   const isFullHardCap = +getDiffHardcapTotalBought(contractHardCap, totalBought, decimals).toString() === 0;
+
+  let isUserMaxBought: boolean;
+  if (isPublic) {
+    isUserMaxBought = new BigNumber(maxBuyPercent || '0').isEqualTo(
+      new BigNumber(totalBought).dividedBy(contractHardCap).multipliedBy(100),
+    );
+  } else {
+    isUserMaxBought = new BigNumber(userAllocation || '0').isEqualTo(
+      new BigNumber(totalBought).dividedBy(contractHardCap).multipliedBy(100),
+    );
+  }
 
   switch (status) {
     case IdoStatus.pending:
@@ -47,7 +60,17 @@ export const validateWithoutWeights = (
         };
       }
       // if user bought all his allocation part - btn will be hidden and uses message
-      resultTextMessage = 'Wait for the project to be finished to claim your tokens';
+      if (isFullHardCap) {
+        resultTextMessage = 'You cant invest more due to hardcap limitations';
+      }
+      if (isUserMaxBought) {
+        resultValidBtnProps = {
+          text: 'Invest',
+          handlerKey: HandlersKeys.openInvestModal,
+          isVisible: false,
+        };
+        resultTextMessage = `You cant invest more due to ${isPublic ? 'max buy' : 'allocation'} limitations`;
+      }
       break;
 
     case IdoStatus.completedFail:

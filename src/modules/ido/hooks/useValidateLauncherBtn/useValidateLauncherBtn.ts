@@ -27,7 +27,7 @@ export const useValidateLauncherBtn = (status: string, isUserOwner: boolean): [s
   const {
     isLiqAdded,
     userInfo: { userAllocation, claimAmount, payed, totalBought, contractHardCap },
-    currentIdo: { vesting, idoIncrement, type, decimals },
+    currentIdo: { vesting, idoIncrement, type, decimals, maxBuyPercent },
   } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
 
   const { [idoActionTypes.REFUND]: refundRequestStatus } = useShallowSelector(uiSelector.getUI);
@@ -149,6 +149,7 @@ export const useValidateLauncherBtn = (status: string, isUserOwner: boolean): [s
           isLiqAdded,
           decimals,
           isUserOwner,
+          maxBuyPercent,
         );
         setBtnText(text);
         setBtnHandler(getButtonHandlers()[handlerKey]);
@@ -172,6 +173,7 @@ export const useValidateLauncherBtn = (status: string, isUserOwner: boolean): [s
     decimals,
     getButtonHandlers,
     isUserOwner,
+    maxBuyPercent,
   ]);
 
   useEffect(() => {
