@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Breadcrumbs as BreadcrumbsMui, Grid, Typography } from '@mui/material';
+import { Breadcrumbs as BreadcrumbsMui, Grid, Link as ExternalLink, Typography } from '@mui/material';
+import { EXTERNAL_APP_LINK } from 'appConstants/URL';
 import { HomeIcon } from 'components/Icon/components';
 import { BreadcrumbsPaths } from 'modules/layout/hooks';
 import { COLOR_TEXT_BLUE, COLOR_TEXT_GRAY_EXTRALIGHT } from 'theme/variables';
@@ -17,14 +18,14 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({ routesBreadcrumbs }) => {
         width: '100%',
       })}
     >
-      <Link to="/">
+      <ExternalLink href={EXTERNAL_APP_LINK}>
         <Grid container justifyContent="flex-start" alignItems="center" wrap="nowrap" columnGap={1}>
           <HomeIcon />
           <Typography variant="body1" color={COLOR_TEXT_GRAY_EXTRALIGHT}>
             Home
           </Typography>
         </Grid>
-      </Link>
+      </ExternalLink>
 
       {routesBreadcrumbs.map(({ path, label }, index) => (
         <Link key={path + label} to={path}>

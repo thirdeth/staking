@@ -45,7 +45,7 @@ export const validateWithoutWeights = (
       if (isPublic) {
         resultTextMessage = 'Wait for IDO start';
       } else if (userAllocation === null) {
-        resultTextMessage = 'You are not in the whitelist. DYOR';
+        resultTextMessage = 'You are not in the whitelist. ';
       } else {
         resultTextMessage = 'Wait for IDO start';
       }

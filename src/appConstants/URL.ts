@@ -8,3 +8,5 @@ export default {
   getTopInvestors: '/investor/top/',
   getProof: '/investor/proof/',
 };
+
+export const EXTERNAL_APP_LINK = 'https://www.arbisphere.finance/';

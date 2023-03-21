@@ -72,7 +72,7 @@ export const StakingForm: FC<StakingFormProps> = ({
             <Typography variant="h3">{totalStakedAmount || '...'}</Typography>
             <Typography variant="body1" ml={2}>
               {/* was CLZ */}
-              ETH
+              ARSH
             </Typography>
           </Grid>
 
@@ -115,7 +115,7 @@ export const StakingForm: FC<StakingFormProps> = ({
                 {tokenBalance || '...'}
               </TextContainer>
               {/* was CLZ */}
-              <TextContainer>ETH</TextContainer>
+              <TextContainer>ARSH</TextContainer>
             </Box>
 
             <TextField

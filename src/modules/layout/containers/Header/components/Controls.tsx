@@ -1,7 +1,8 @@
 import { FC } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { Box, Button, Grid, styled, Typography } from '@mui/material';
+import { NavLink } from 'react-router-dom';
+import { Box, Button, Grid, Link as ExternalLink, styled, Typography } from '@mui/material';
 import { routes } from 'appConstants/routes';
+import { EXTERNAL_APP_LINK } from 'appConstants/URL';
 import { MainLogo } from 'assets/img';
 import { UserBalance } from 'components';
 import { WalletIcon } from 'components/Icon/components';
@@ -27,11 +28,11 @@ export const HeaderControls: FC<HeaderControlsProps> = ({ address, rankId, nativ
     <Grid container item justifyContent="space-between" alignItems="center" xs={12} wrap="nowrap">
       <Menu />
 
-      <Link to="/">
+      <ExternalLink href={EXTERNAL_APP_LINK}>
         <Grid container item alignItems="center" paddingRight={0.5}>
           <Box component="img" src={MainLogo} alt="main_logo" maxWidth={{ xs: 160, sm: 240, md: 256 }} />
         </Grid>
-      </Link>
+      </ExternalLink>
 
       <Grid
         container
@@ -44,17 +45,25 @@ export const HeaderControls: FC<HeaderControlsProps> = ({ address, rankId, nativ
           ({ root: { id, path, title, isNavItem } }) =>
             isNavItem && (
               <Grid key={id} item>
-                <GridNavItem to={path}>
-                  {({ isActive }) => (
-                    <Typography
-                      variant="body2"
-                      color={isActive ? COLOR_TEXT_BLUE : COLOR_TEXT_BLACK}
-                      sx={{ '&:hover': { color: COLOR_TEXT_BLUE } }}
-                    >
+                {path === '/' ? (
+                  <ExternalLink href={EXTERNAL_APP_LINK}>
+                    <Typography variant="body2" color={COLOR_TEXT_BLACK} sx={{ '&:hover': { color: COLOR_TEXT_BLUE } }}>
                       {title}
                     </Typography>
-                  )}
-                </GridNavItem>
+                  </ExternalLink>
+                ) : (
+                  <GridNavItem to={path}>
+                    {({ isActive }) => (
+                      <Typography
+                        variant="body2"
+                        color={isActive ? COLOR_TEXT_BLUE : COLOR_TEXT_BLACK}
+                        sx={{ '&:hover': { color: COLOR_TEXT_BLUE } }}
+                      >
+                        {title}
+                      </Typography>
+                    )}
+                  </GridNavItem>
+                )}
               </Grid>
             ),
         )}

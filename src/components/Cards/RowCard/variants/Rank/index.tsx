@@ -57,7 +57,7 @@ export const Rank: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
         <Grid item md={2} xs={6}>
           <RowTitleText>Amount Staked</RowTitleText>
           <Typography variant="body2" textTransform="none">
-            {stakedAmount} ETH
+            {stakedAmount} ARSH
           </Typography>
         </Grid>
       )}
