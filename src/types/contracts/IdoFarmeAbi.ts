@@ -35,11 +35,13 @@ export type Claim = ContractEventLog<{
 }>;
 export type Invest = ContractEventLog<{
   idoId: string;
+  user: string;
   bought: string;
   totalBought: string;
   0: string;
   1: string;
   2: string;
+  3: string;
 }>;
 export type LiquidityAdded = ContractEventLog<{
   idoId: string;
@@ -100,7 +102,6 @@ export interface IdoFarmeAbi extends BaseContract {
         number | string | BN,
       ],
       withWeights: boolean,
-      _public: boolean,
       vesting: boolean,
       vestingParams: (number | string | BN)[],
     ): NonPayableTransactionObject<void>;
@@ -171,8 +172,6 @@ export interface IdoFarmeAbi extends BaseContract {
 
     revokeRole(role: string | number[], account: string): NonPayableTransactionObject<void>;
 
-    staking(): NonPayableTransactionObject<string>;
-
     startSell(
       idoId: number | string | BN,
       _merkleRoot: string | number[],
@@ -191,7 +190,7 @@ export interface IdoFarmeAbi extends BaseContract {
     }>;
 
     weightsInfo(arg0: number | string | BN): NonPayableTransactionObject<{
-      investmentsPerWeight: string;
+      totalWeights: string;
       merkleRoot: string;
       0: string;
       1: string;

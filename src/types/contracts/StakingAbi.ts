@@ -121,7 +121,11 @@ export interface StakingAbi extends BaseContract {
       1: string;
     }>;
 
-    clz(): NonPayableTransactionObject<string>;
+    aprSum(): NonPayableTransactionObject<string>;
+
+    arsh(): NonPayableTransactionObject<string>;
+
+    depositsAmount(): NonPayableTransactionObject<string>;
 
     getFront(_user: string): NonPayableTransactionObject<string[][]>;
 
@@ -138,6 +142,12 @@ export interface StakingAbi extends BaseContract {
     getRoleAdmin(role: string | number[]): NonPayableTransactionObject<string>;
 
     getTotalStakeBatch(_users: string[]): NonPayableTransactionObject<string[]>;
+
+    getTvlAndApr(): NonPayableTransactionObject<{
+      0: string;
+      1: string;
+      2: string;
+    }>;
 
     getWeight(_user: string): NonPayableTransactionObject<string>;
 
@@ -177,6 +187,8 @@ export interface StakingAbi extends BaseContract {
     stakeToLevel(arg0: number | string | BN): NonPayableTransactionObject<string>;
 
     supportsInterface(interfaceId: string | number[]): NonPayableTransactionObject<boolean>;
+
+    totalValueLocked(): NonPayableTransactionObject<string>;
 
     withdraw(_depositInfoId: number | string | BN): NonPayableTransactionObject<void>;
 
