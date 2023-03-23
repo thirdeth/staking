@@ -38,7 +38,7 @@ export default function getLazyRoutes(routes: RoutesProps, loggedIn: boolean) {
       return (
         <Route
           path={path}
-          element={isProtected && !loggedIn ? <Navigate to="/" /> : <Component title={title} {...props} />}
+          element={path === '/' ? <Navigate to="/idos" /> : <Component title={title} {...props} />}
           key={id}
         />
       );
