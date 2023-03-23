@@ -4,7 +4,7 @@ import userSelector from 'store/user/selectors';
 import { validateStatus } from 'utils/validateStatus';
 
 const client: AxiosInstance = axios.create({
-  baseURL: 'https://dapp.arbisphere.finance/api/v1/', // 'https://devcronos.rocknblock.io/api/v1/',
+  baseURL: 'https://devcronos.rocknblock.io/api/v1/', // 'https://dapp.arbisphere.finance/api/v1/', //
   validateStatus,
 });
 
