@@ -13,7 +13,7 @@ import { StakingForm } from 'modules/staking/containers';
 import { useGetPoolsAprArray } from 'modules/staking/hooks';
 import { useWalletConnectorContext } from 'services';
 import { setActiveModal } from 'store/modals/reducer';
-import { getPoolsInfo, onHarvest, onHarvestAll, onStake, onWithdraw } from 'store/staking/actions';
+import { getPoolsInfo, getTvlAndApr, onHarvest, onHarvestAll, onStake, onWithdraw } from 'store/staking/actions';
 import stakingActionTypes from 'store/staking/actionTypes';
 import stakingSelector from 'store/staking/selectors';
 import uiSelector from 'store/ui/selectors';
@@ -122,6 +122,10 @@ export const Staking: FC<StakingProps> = ({ title }) => {
       dispatch(updateUserData({ web3Provider: walletService.Web3(), updateParams: ['userStakes'] }));
     }
   }, [address.length, dispatch, walletService]);
+
+  useEffect(() => {
+    dispatch(getTvlAndApr());
+  }, [dispatch]);
 
   return (
     <Box sx={{ overflowX: 'hidden' }}>
