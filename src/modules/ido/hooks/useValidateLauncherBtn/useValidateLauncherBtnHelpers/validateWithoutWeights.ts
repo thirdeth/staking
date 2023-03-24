@@ -30,12 +30,17 @@ export const validateWithoutWeights = (
   const isFullHardCap = +getDiffHardcapTotalBought(contractHardCap, totalBought, decimals).toString() === 0;
 
   let isUserMaxBought: boolean;
+
+  const allocationPercent = userAllocation
+    ? new BigNumber(userAllocation).multipliedBy(100).dividedBy(contractHardCap).toString()
+    : 0;
+
   if (isPublic) {
     isUserMaxBought = new BigNumber(maxBuyPercent || '0').isEqualTo(
       new BigNumber(totalBought).dividedBy(contractHardCap).multipliedBy(100),
     );
   } else {
-    isUserMaxBought = new BigNumber(userAllocation || '0').isEqualTo(
+    isUserMaxBought = new BigNumber(allocationPercent || '0').isEqualTo(
       new BigNumber(totalBought).dividedBy(contractHardCap).multipliedBy(100),
     );
   }
@@ -45,7 +50,7 @@ export const validateWithoutWeights = (
       if (isPublic) {
         resultTextMessage = 'Wait for IDO start';
       } else if (userAllocation === null) {
-        resultTextMessage = 'You are not in the whitelist. ';
+        resultTextMessage = 'You are not in the whitelist.';
       } else {
         resultTextMessage = 'Wait for IDO start';
       }
@@ -70,6 +75,14 @@ export const validateWithoutWeights = (
           isVisible: false,
         };
         resultTextMessage = `You cant invest more due to ${isPublic ? 'max buy' : 'allocation'} limitations`;
+      }
+      if (userAllocation === null) {
+        resultValidBtnProps = {
+          text: 'Invest',
+          handlerKey: HandlersKeys.openInvestModal,
+          isVisible: false,
+        };
+        resultTextMessage = 'You are not in the whitelist.';
       }
       break;
 

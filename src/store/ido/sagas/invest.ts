@@ -21,10 +21,10 @@ import { getInvestmentsInfoSaga } from './getInvestmentsInfo';
 export function* investSaga({ type, payload: { web3Provider, amount } }: ReturnType<typeof onInvest>) {
   yield* put(request(type));
   const { address, chainType }: UserState = yield select(userSelector.getUser);
-  const { idoIncrement, id, type: idoType, vesting, decimals } = yield select(idoSelector.getProp('currentIdo'));
+  const { idoIncrement, id, type: idoType, vesting } = yield select(idoSelector.getProp('currentIdo'));
   const [idoFarmeAbi, idoFarmeContractAddress] = getContractDataByItsName(ContractsNames.idoFarme, chainType);
 
-  const amountWithDecimals = toDecimals(amount, +decimals);
+  const amountWithDecimals = toDecimals(amount, 18);
 
   try {
     const idoFarmeContract: IdoFarmeAbi = yield new web3Provider.eth.Contract(idoFarmeAbi, idoFarmeContractAddress);

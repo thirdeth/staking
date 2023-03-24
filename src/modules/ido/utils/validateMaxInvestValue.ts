@@ -23,8 +23,13 @@ export const validateMaxInvestValue = ({
   bought,
   decimals = 18,
 }: ValudateMaxInvestProps): string => {
+  const allocationPercent = userAllocation
+    ? new BigNumber(userAllocation).multipliedBy(100).dividedBy(contractHardCap).toString()
+    : 0;
   const diffAllocationPayedValue = userAllocation
-    ? new BigNumber(userAllocation).minus(new BigNumber(bought).dividedBy(contractHardCap).multipliedBy(100)).toString() // +new BigNumber(+userAllocation).minus(new BigNumber(payed).dividedBy(new BigNumber(10).pow(18))).toString()
+    ? new BigNumber(allocationPercent)
+        .minus(new BigNumber(bought).dividedBy(contractHardCap).multipliedBy(100))
+        .toString() // +new BigNumber(+userAllocation).minus(new BigNumber(payed).dividedBy(new BigNumber(10).pow(18))).toString()
     : 0;
 
   const maxRequireInvestValue = getDiffHardcapTotalBought(contractHardCap, totalBought, decimals)
