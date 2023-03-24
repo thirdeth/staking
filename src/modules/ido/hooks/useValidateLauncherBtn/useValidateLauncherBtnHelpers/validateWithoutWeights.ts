@@ -107,7 +107,7 @@ export const validateWithoutWeights = (
           handlerKey: vesting ? HandlersKeys.openVestingModal : HandlersKeys.claim,
           isVisible: false,
         };
-        resultTextMessage = 'You already claimed';
+        resultTextMessage = '';
       }
       if (+claimAmount[0] > 0 && !isLiqAdded) {
         resultTextMessage = 'Wait for the owner will add liquidity to claim your tokens';

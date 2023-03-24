@@ -93,7 +93,7 @@ export const StakingForm: FC<StakingFormProps> = ({
 
           <Grid item container justifyContent="flex-end" alignItems="center">
             <Typography variant="h1" color={COLOR_TEXT_BLUE} noWrap maxWidth="150px">
-              {poolsAprArr[stakePeriod]}%
+              0% {/* {poolsAprArr[stakePeriod]}% */}
             </Typography>
           </Grid>
         </Grid>

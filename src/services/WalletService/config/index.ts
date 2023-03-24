@@ -138,7 +138,7 @@ export const contractsConfig: IContracts = {
     [ContractsNames.idoFarme]: {
       testnet: {
         address: {
-          [Chains.Arbitrum]: '0x4015c8A91849f09d1105De279B46dc358a9fF3Da',
+          [Chains.Arbitrum]: '0x8C6f64642bc9433D57C505A448248f445F7DDee7',
         },
         abi: idoFarmeAbi as AbiItem[],
       },

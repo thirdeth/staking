@@ -1,8 +1,8 @@
 export const previewSocialLinksItems = {
-  discord: 'https://google.com',
-  medium: 'https://google.com',
-  twitter: 'https://google.com',
-  telegram: 'https://google.com',
+  discord: 'https://discord.gg/Yc9UM4GeU9',
+  medium: 'https://docs.arbisphere.finance/',
+  twitter: 'https://twitter.com/arbisphere',
+  telegram: 'https://t.me/arbisphere',
 };
 
 export const pitchDecLink = 'https://www.docdroid.net/BmSlHwX/cronos-launcher-pitch-deck-pdf';
