@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Box, Grid } from '@mui/material';
+import BigNumber from 'bignumber.js';
 import { ProgressBar, TextWithTooltip } from 'components';
 import { fromDecimals } from 'utils';
 
@@ -12,15 +13,16 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
   userAllocation,
   isGettingInvestmentsInfo,
 }) => {
-  const { totalBought, softCap, hardCap, decimals, tokenSymbol } = projectData;
+  const { totalBought, softCap, hardCap, decimals, tokenSymbol, price } = projectData;
+
   return (
     <Box pt={{ xs: 2, sm: 2, md: 4 }}>
       <Grid container justifyContent="space-between" alignItems="center" mb={1}>
         <Grid item xs={12} sm={12} md={4}>
           <TextWithTooltip
-            value={fromDecimals(totalBought, decimals)}
+            value={new BigNumber(fromDecimals(totalBought, decimals)).multipliedBy(price).toFixed(0)}
             startText="Total Raise:"
-            endText={tokenSymbol.toUpperCase()}
+            endText="ETH"
             isLoading={isGettingInvestmentsInfo}
             fontSize={16}
             fontWeight={700}
@@ -58,9 +60,9 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
             xs={userAllocation ? 6 : 12}
           >
             <TextWithTooltip
-              value={softCap}
+              value={new BigNumber(softCap).multipliedBy(price).toFixed(0)}
               startText="SoftCap:"
-              endText={tokenSymbol.toUpperCase()}
+              endText="ETH"
               isLoading={isGettingInvestmentsInfo}
               fontSize={16}
               fontWeight={700}
@@ -77,9 +79,9 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
           md={4}
         >
           <TextWithTooltip
-            value={hardCap}
+            value={new BigNumber(hardCap).multipliedBy(price).toFixed(0)}
             startText="Target Raise:"
-            endText={tokenSymbol.toUpperCase()}
+            endText="ETH"
             isLoading={isGettingInvestmentsInfo}
             fontSize={16}
             fontWeight={700}
@@ -89,7 +91,7 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
 
       <ProgressBar
         variant="parallelogram"
-        progress={+fromDecimals(totalBought)}
+        progress={+fromDecimals(totalBought, decimals)}
         base={+hardCap}
         sx={{
           mx: { xs: 3, sm: 3, md: 0 },

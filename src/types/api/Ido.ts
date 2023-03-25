@@ -51,4 +51,5 @@ export interface Ido {
   vesting?: boolean;
   videoUrl: string;
   maxBuyPercent: Nullable<string>;
+  liquidityAddedTime?: string;
 }

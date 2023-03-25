@@ -96,3 +96,7 @@ export type GetIvestmentsInfoReq = {
 export type GetTotalBoughtReq = {
   idoIncrement: string;
 } & RequestWithWeb3Provider;
+
+export type GetAddLiquidityTimeReq = {
+  idoIncrement: string;
+} & RequestWithWeb3Provider;

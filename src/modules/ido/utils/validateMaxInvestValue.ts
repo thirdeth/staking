@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Nullable } from 'types';
-import { getDiffHardcapTotalBought } from 'utils';
+import { getDiffHardcapTotalBought, toDecimals } from 'utils';
 
 type ValudateMaxInvestProps = {
   contractHardCap: string;
@@ -24,7 +24,7 @@ export const validateMaxInvestValue = ({
   decimals = 18,
 }: ValudateMaxInvestProps): string => {
   const allocationPercent = userAllocation
-    ? new BigNumber(userAllocation).multipliedBy(100).dividedBy(contractHardCap).toString()
+    ? new BigNumber(toDecimals(userAllocation, decimals)).multipliedBy(100).dividedBy(contractHardCap).toString()
     : 0;
   const diffAllocationPayedValue = userAllocation
     ? new BigNumber(allocationPercent)

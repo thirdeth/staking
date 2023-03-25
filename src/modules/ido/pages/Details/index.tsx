@@ -8,7 +8,7 @@ import { AttentionText } from 'modules/ido/components';
 import { LauncherCard, SkeletonContainer, TabsContent } from 'modules/ido/containers';
 import { useUpdateIdoData } from 'modules/ido/hooks';
 import { useWalletConnectorContext } from 'services';
-import { getIdoById, getInvestmentsInfo, onAddLiquidity } from 'store/ido/actions';
+import { getAddLiquidityTime, getIdoById, getInvestmentsInfo, onAddLiquidity } from 'store/ido/actions';
 import idoActionTypes from 'store/ido/actionTypes';
 import { resetCurrentIdo } from 'store/ido/reducer';
 import idoSelector from 'store/ido/selectors';
@@ -92,6 +92,12 @@ export const Details: FC = () => {
           idoId: id,
           idoIncrement: idoIncrement.toString(),
           vesting,
+        }),
+      );
+      dispatch(
+        getAddLiquidityTime({
+          web3Provider: walletService.Web3(),
+          idoIncrement: idoIncrement.toString(),
         }),
       );
     }

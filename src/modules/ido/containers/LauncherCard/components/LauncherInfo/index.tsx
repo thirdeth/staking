@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Box, Grid, Tooltip, Typography } from '@mui/material';
+import BigNumber from 'bignumber.js/bignumber';
 import { Countdown } from 'components';
 import { ProjectDataProps } from 'modules/ido/pages/Details/Details.types';
 import { FontWeights } from 'theme/Typography';
@@ -10,6 +11,8 @@ import { statusTextVariants } from '../../LauncherCard.helpers';
 
 export const LauncherInfo: FC<ProjectDataProps> = ({ projectData }) => {
   const { type, status, projectName, logoUrl, tokenSymbol, price, tokenLogoUrl, timer } = projectData;
+
+  const tokenPrice = new BigNumber(1).dividedBy(price).toFixed(0);
 
   return (
     <Grid container justifyContent="space-between" height={{ md: 'auto', lg: '102px' }}>
@@ -57,7 +60,7 @@ export const LauncherInfo: FC<ProjectDataProps> = ({ projectData }) => {
             </Typography>
           </Tooltip>
           <Typography variant="body2" textTransform="uppercase" fontWeight={FontWeights.fontWeightRegular}>
-            price ({tokenSymbol}) = {price} ETH
+            price 1 ETH = {tokenPrice} {tokenSymbol}
           </Typography>
         </Grid>
       </Grid>

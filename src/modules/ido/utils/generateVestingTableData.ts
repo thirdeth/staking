@@ -9,11 +9,12 @@ export const generateVestingTableData = (
   claimAmount: string[],
   endTime: number,
   vestingInfo: VestingInfoProps,
+  decimals: number,
 ): VestingTableDataProps[] => {
   const { startUnlockPercent, unlockPercent, unlockStepTime } = vestingInfo;
 
   let stageCount = 0;
-  const firstAnlockAmount = getVestingAnlockAmount(claimAmount[0], startUnlockPercent);
+  const firstAnlockAmount = getVestingAnlockAmount(claimAmount[0], startUnlockPercent, decimals);
 
   const resultVestingData: VestingTableDataProps[] = [
     {
@@ -23,7 +24,7 @@ export const generateVestingTableData = (
     },
   ];
 
-  const stepAnlockAmount = getVestingAnlockAmount(claimAmount[0], unlockPercent);
+  const stepAnlockAmount = getVestingAnlockAmount(claimAmount[0], unlockPercent, decimals);
 
   let sumOfUnlockAmount = firstAnlockAmount;
 

@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js/bignumber';
 import { Nullable } from 'types';
 import { IdoStatus } from 'types/store/requests';
-import { getDiffHardcapTotalBought } from 'utils';
+import { getDiffHardcapTotalBought, toDecimals } from 'utils';
 
 import { HandlersKeys, ValidBtnProps } from '../useValidateLauncherBtn.types';
 
@@ -18,6 +18,7 @@ export const validateWithoutWeights = (
   decimals = 18,
   isUserOwner: boolean,
   maxBuyPercent: Nullable<string>,
+  bought: string,
 ): [ValidBtnProps, string] => {
   let resultValidBtnProps: ValidBtnProps = {
     text: '',
@@ -32,7 +33,7 @@ export const validateWithoutWeights = (
   let isUserMaxBought: boolean;
 
   const allocationPercent = userAllocation
-    ? new BigNumber(userAllocation).multipliedBy(100).dividedBy(contractHardCap).toString()
+    ? new BigNumber(toDecimals(userAllocation, decimals)).multipliedBy(100).dividedBy(contractHardCap).toString()
     : 0;
 
   if (isPublic) {
@@ -41,7 +42,7 @@ export const validateWithoutWeights = (
     );
   } else {
     isUserMaxBought = new BigNumber(allocationPercent || '0').isEqualTo(
-      new BigNumber(totalBought).dividedBy(contractHardCap).multipliedBy(100),
+      new BigNumber(bought).dividedBy(contractHardCap).multipliedBy(100),
     );
   }
 

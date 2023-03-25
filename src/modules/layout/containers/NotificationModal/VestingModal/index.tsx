@@ -31,6 +31,7 @@ export type VestingModalProps = {
   tokenSymbol: string;
   web3Provider: Web3;
   claimRequestStatus: RequestStatus;
+  decimals: number;
 } & INotifyModalProps;
 
 export const VestingModal: FC<VestingModalProps> = ({
@@ -42,6 +43,7 @@ export const VestingModal: FC<VestingModalProps> = ({
   web3Provider,
   claimRequestStatus,
   closeModal,
+  decimals,
 }) => {
   const dispatch = useDispatch();
   const isClaiming = claimRequestStatus === RequestStatus.REQUEST;
@@ -49,8 +51,8 @@ export const VestingModal: FC<VestingModalProps> = ({
   const currentDateTimestamp = moment(new Date()).format('X');
 
   const tableData = useMemo(() => {
-    return generateVestingTableData(claimAmount, +endTime, vestingInfo);
-  }, [claimAmount, endTime, vestingInfo]);
+    return generateVestingTableData(claimAmount, +endTime, vestingInfo, decimals);
+  }, [claimAmount, decimals, endTime, vestingInfo]);
 
   const handleClaim = () => {
     dispatch(
@@ -73,14 +75,14 @@ export const VestingModal: FC<VestingModalProps> = ({
         <Grid item display="flex" flexDirection="column" alignItems="center">
           <Typography variant="body1">Available to claim</Typography>
           <Typography mt={2} variant="h2" maxWidth={150} noWrap>
-            {fromDecimals(claimAmount[1])} {tokenSymbol}
+            {fromDecimals(claimAmount[1], decimals)} {tokenSymbol}
           </Typography>
         </Grid>
 
         <Grid item display="flex" flexDirection="column" alignItems="center">
           <Typography variant="body1">Total Claimed</Typography>
           <Typography mt={2} variant="h2" maxWidth={150} noWrap>
-            {fromDecimals(claimAmount[2])} {tokenSymbol}
+            {fromDecimals(claimAmount[2], decimals)} {tokenSymbol}
           </Typography>
         </Grid>
       </Grid>
@@ -121,7 +123,7 @@ export const VestingModal: FC<VestingModalProps> = ({
               <Typography variant="body2">{index + 1} stage</Typography>
               <Typography variant="body2">{anlockTime}</Typography>
               <Typography variant="body2">
-                {fromDecimals(anlockAmount, 18)} {tokenSymbol.toUpperCase()}
+                {fromDecimals(anlockAmount, decimals)} {tokenSymbol.toUpperCase()}
               </Typography>
             </Item>
           );

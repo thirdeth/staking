@@ -144,7 +144,7 @@ export const contractsConfig: IContracts = {
       },
       mainnet: {
         address: {
-          [Chains.Arbitrum]: '0xC7539a6D093BfADcE5dBCfDABb5520eB4C6E5aec',
+          [Chains.Arbitrum]: '0x8E19c5F759052Ec0f40F50E81740187f0Fb0dC87',
         },
         abi: idoFarmeAbi as AbiItem[],
       },

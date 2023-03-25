@@ -26,7 +26,7 @@ export const useValidateLauncherBtn = (status: string, isUserOwner: boolean): [s
   const { address: userAddress, rankId } = useShallowSelector<State, UserState>(userSelector.getUser);
   const {
     isLiqAdded,
-    userInfo: { userAllocation, claimAmount, payed, totalBought, contractHardCap },
+    userInfo: { userAllocation, claimAmount, payed, totalBought, contractHardCap, bought },
     currentIdo: { vesting, idoIncrement, type, decimals, maxBuyPercent },
   } = useShallowSelector<State, IdoState>(idoSelector.getIdo);
 
@@ -150,6 +150,7 @@ export const useValidateLauncherBtn = (status: string, isUserOwner: boolean): [s
           decimals,
           isUserOwner,
           maxBuyPercent,
+          bought,
         );
         setBtnText(text);
         setBtnHandler(getButtonHandlers()[handlerKey]);
@@ -174,6 +175,7 @@ export const useValidateLauncherBtn = (status: string, isUserOwner: boolean): [s
     getButtonHandlers,
     isUserOwner,
     maxBuyPercent,
+    bought,
   ]);
 
   useEffect(() => {
