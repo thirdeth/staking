@@ -20,7 +20,7 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
       <Grid container justifyContent="space-between" alignItems="center" mb={1}>
         <Grid item xs={12} sm={12} md={4}>
           <TextWithTooltip
-            value={new BigNumber(fromDecimals(totalBought, decimals)).multipliedBy(price).toFixed(0)}
+            value={new BigNumber(fromDecimals(totalBought, decimals)).multipliedBy(price).toString()}
             startText="Total Raise:"
             endText="ETH"
             isLoading={isGettingInvestmentsInfo}
@@ -60,7 +60,7 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
             xs={userAllocation ? 6 : 12}
           >
             <TextWithTooltip
-              value={new BigNumber(softCap).multipliedBy(price).toFixed(0)}
+              value={new BigNumber(softCap).multipliedBy(price).toString()}
               startText="SoftCap:"
               endText="ETH"
               isLoading={isGettingInvestmentsInfo}
@@ -79,7 +79,7 @@ export const LauncherProgress: FC<LauncherProgressProps> = ({
           md={4}
         >
           <TextWithTooltip
-            value={new BigNumber(hardCap).multipliedBy(price).toFixed(0)}
+            value={new BigNumber(hardCap).multipliedBy(price).toString()}
             startText="Target Raise:"
             endText="ETH"
             isLoading={isGettingInvestmentsInfo}

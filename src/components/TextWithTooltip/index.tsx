@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Tooltip, Typography, TypographyProps } from '@mui/material';
+import BigNumber from 'bignumber.js/bignumber';
 
 type TextWithTooltipProps = {
   value: string;
@@ -20,7 +21,7 @@ export const TextWithTooltip: FC<TextWithTooltipProps> = ({
       <Typography {...textProps} sx={{ display: 'flex', flexDirection: 'row' }}>
         {startText}
         <Typography mx={0.5} maxWidth={100} noWrap {...textProps}>
-          {!isLoading && value}
+          {!isLoading && new BigNumber(value).toFixed(2)}
 
           {isLoading && '...'}
         </Typography>
