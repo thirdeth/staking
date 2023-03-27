@@ -2,11 +2,12 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Grid, styled, Tooltip, Typography } from '@mui/material';
 import { routes } from 'appConstants/routes';
+import BigNumber from 'bignumber.js/bignumber';
 import { ProgressBar, ProjectCardDataProps, Status } from 'components';
 import { useTimeLeft } from 'hooks/useTimeLeft';
 import { IdoType } from 'modules/ido/utils';
 import { BORDER_RADIUS_DEFAULT, COLOR_TEXT_GRAY_DARK, FontWeights } from 'theme';
-import { formatNumber, fromDecimals } from 'utils';
+import { fromDecimals } from 'utils';
 
 import { RowCardProps } from '../../RowCard';
 
@@ -40,6 +41,7 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
 
   const timeLeft = useTimeLeft(+timer * 1000, true);
 
+  const tokenPrice = new BigNumber(1).dividedBy(price).toFixed(0);
   return (
     <StyledLink to={routes.idos.details.root.getPath(id)}>
       <Grid
@@ -82,7 +84,7 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
                   noWrap
                   maxWidth={{ xs: 210, sm: 210, md: 250 }}
                   whiteSpace="nowrap"
-                >{`Price (${token?.symbol.toUpperCase()}) = ${price} ETH`}</Typography>
+                >{`Price 1 ETH = ${tokenPrice} ${token.symbol.toString()}`}</Typography>
               )}
             </Box>
           </Box>
@@ -135,7 +137,7 @@ export const Project: FC<Pick<RowCardProps, 'cardData'>> = ({ cardData }) => {
               <>
                 <TypographySybtitle>Targeted raise</TypographySybtitle>
                 <Typography variant="body2" textTransform="none" fontSize={{ xs: '14px', sm: '14px', md: '16px' }}>
-                  {formatNumber(hardCap)}
+                  {new BigNumber(hardCap).multipliedBy(price).toFixed(0)} ETH
                 </Typography>
               </>
             )}

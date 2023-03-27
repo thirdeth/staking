@@ -67,6 +67,7 @@ export const NotificationModal: FC = () => {
           investRequestStatus={investRequestStatus}
           getTotalBoughtRequestStatus={getTotalBoughtRequestStatus}
           closeModal={closeModal}
+          idoType={currentIdo.type!}
         />
       )}
       {modalState.activeModal === Modals.Vesting && (

@@ -11,6 +11,7 @@ type ValudateMaxInvestProps = {
   payed: string;
   bought: string;
   decimals: number;
+  idoType: string;
 };
 
 export const validateMaxInvestValue = ({
@@ -22,10 +23,15 @@ export const validateMaxInvestValue = ({
   payed,
   bought,
   decimals = 18,
+  idoType,
 }: ValudateMaxInvestProps): string => {
-  const allocationPercent = userAllocation
+  let allocationPercent = userAllocation
     ? new BigNumber(toDecimals(userAllocation, decimals)).multipliedBy(100).dividedBy(contractHardCap).toString()
     : 0;
+  if (idoType !== 'private') {
+    allocationPercent = userAllocation || '0';
+  }
+
   const diffAllocationPayedValue = userAllocation
     ? new BigNumber(allocationPercent)
         .minus(new BigNumber(bought).dividedBy(contractHardCap).multipliedBy(100))

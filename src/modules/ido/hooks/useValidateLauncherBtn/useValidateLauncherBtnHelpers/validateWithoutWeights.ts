@@ -77,7 +77,7 @@ export const validateWithoutWeights = (
         };
         resultTextMessage = `You cant invest more due to ${isPublic ? 'max buy' : 'allocation'} limitations`;
       }
-      if (userAllocation === null) {
+      if (userAllocation === null && !isPublic) {
         resultValidBtnProps = {
           text: 'Invest',
           handlerKey: HandlersKeys.openInvestModal,

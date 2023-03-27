@@ -32,6 +32,7 @@ export type InvestModalProps = {
   decimals: number;
   idoIncrement: number;
   web3Provider: Web3;
+  idoType: string;
 
   investRequestStatus: RequestStatus;
   getTotalBoughtRequestStatus: RequestStatus;
@@ -54,6 +55,7 @@ export const InvestModal: FC<InvestModalProps> = ({
   investRequestStatus,
   getTotalBoughtRequestStatus,
   closeModal,
+  idoType,
 }) => {
   const dispatch = useDispatch();
 
@@ -66,6 +68,7 @@ export const InvestModal: FC<InvestModalProps> = ({
     payed,
     bought,
     decimals,
+    idoType,
   });
   const [investValue, setInvestValue, setOriginInvestValue] = useValidateInputField(
     ValidationTypes.number,
