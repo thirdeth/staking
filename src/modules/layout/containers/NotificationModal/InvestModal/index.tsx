@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { LoadingButton } from '@mui/lab';
-import { Box, Button, Paper, Stack, styled, TextField, Typography } from '@mui/material';
+import { Box, Button, Paper, Stack, styled, TextField } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { TextWithTooltip } from 'components';
 import { useValidateInputField, ValidationTypes } from 'hooks';
@@ -114,11 +114,11 @@ export const InvestModal: FC<InvestModalProps> = ({
 
   return (
     <Stack spacing={2}>
-      <Item>
-        <Typography variant="body2" color={COLOR_TEXT_GRAY_DARK}>
-          You&apos;ve successfully for IDO.
-        </Typography>
-      </Item>
+      {/* <Item> */}
+      {/*  <Typography variant="body2" color={COLOR_TEXT_GRAY_DARK}> */}
+      {/*    You&apos;ve successfully for IDO. */}
+      {/*  </Typography> */}
+      {/* </Item> */}
 
       <Item>
         <TextWithTooltip value={userBalance} startText="Balance:" endText="ETH" color={COLOR_TEXT_GRAY_DARK} />
