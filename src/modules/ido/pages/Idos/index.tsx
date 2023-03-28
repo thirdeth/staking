@@ -13,6 +13,7 @@ import { getIdoList } from 'store/ido/actions';
 import idoActionTypes from 'store/ido/actionTypes';
 import { updateIdoState } from 'store/ido/reducer';
 import uiSelector from 'store/ui/selectors';
+import userSelector from 'store/user/selectors';
 import { COLOR_TEXT_BLACK } from 'theme/variables';
 import { PARAMS, RequestStatus } from 'types';
 import { IdoPublic, IdoStatus } from 'types/store/requests';
@@ -42,6 +43,7 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments, title }) => {
   } = useIdoFilter(true);
 
   const getIdoListRequestStatus = useShallowSelector(uiSelector.getProp(idoActionTypes.GET_IDO_LIST));
+  const userAddress = useShallowSelector(userSelector.getProp('address'));
   const isLoading = getIdoListRequestStatus === RequestStatus.REQUEST;
 
   const loadingSkeletonCounter = count > DEFAULT_IDOS_PER_PAGE ? count % DEFAULT_IDOS_PER_PAGE : DEFAULT_IDOS_PER_PAGE;
@@ -77,17 +79,28 @@ export const Idos: FC<IdoPageProps> = ({ isMyIdos, isMyInvesments, title }) => {
     if (!searchParams.get(PARAMS.access)) {
       handleChangeIdoStatus(['in_progress', 'registration', 'registration_closed'] as IdoStatus[]);
     }
-    dispatch(
-      getIdoList({
-        type: (searchParams.getAll(PARAMS.access).join(',') as string) || IdoPublic.publicStaking,
-        status: idoStatuses.join(','),
-        count: DEFAULT_IDOS_PER_PAGE,
-        start: 0,
-        isMyIdos: isMyIdos !== undefined,
-        isMyInvesments: isMyInvesments !== undefined,
-      }),
-    );
-  }, [dispatch, handleChangeCurrentPage, isMyIdos, isMyInvesments, searchParams, idoStatuses, handleChangeIdoStatus]);
+    if (userAddress) {
+      dispatch(
+        getIdoList({
+          type: (searchParams.getAll(PARAMS.access).join(',') as string) || IdoPublic.publicStaking,
+          status: idoStatuses.join(','),
+          count: DEFAULT_IDOS_PER_PAGE,
+          start: 0,
+          isMyIdos: isMyIdos !== undefined,
+          isMyInvesments: isMyInvesments !== undefined,
+        }),
+      );
+    }
+  }, [
+    dispatch,
+    handleChangeCurrentPage,
+    isMyIdos,
+    isMyInvesments,
+    searchParams,
+    idoStatuses,
+    handleChangeIdoStatus,
+    userAddress,
+  ]);
 
   const idoType = useMemo(() => getIdoTypeFromIdoStatus(idoStatuses), [idoStatuses]);
 
