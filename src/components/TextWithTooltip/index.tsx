@@ -21,7 +21,7 @@ export const TextWithTooltip: FC<TextWithTooltipProps> = ({
       <Typography {...textProps} sx={{ display: 'flex', flexDirection: 'row' }}>
         {startText}
         <Typography mx={0.5} maxWidth={100} noWrap {...textProps}>
-          {!isLoading && new BigNumber(value).toFixed(2)}
+          {!isLoading && new BigNumber(value).isNaN() ? value : new BigNumber(value).toFixed(2)}
 
           {isLoading && '...'}
         </Typography>
