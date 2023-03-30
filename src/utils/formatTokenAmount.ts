@@ -22,7 +22,7 @@ export const toDecimals = (balance: string | number, decimals = 18, shouldForama
   return displayValue.toString(10);
 };
 
-export const fromDecimals = (balance: string | number, decimals = 18, forDisplay = true): string => {
+export const fromDecimals = (balance: string | number, decimals = 18, forDisplay = true, dp = 4): string => {
   if (balance === '') {
     return '0';
   }
@@ -33,7 +33,7 @@ export const fromDecimals = (balance: string | number, decimals = 18, forDisplay
 
   const displayValue = new BigNumber(balance).dividedBy(new BigNumber(10).pow(decimals));
 
-  return forDisplay ? parseFloat(displayValue.toFixed(4)).toString() : displayValue.toFixed(10, 1);
+  return forDisplay ? parseFloat(displayValue.toFixed(dp)).toString() : displayValue.toFixed(10, 1);
 };
 
 export const fromDecimalsDisplay = (balance: string | number, decimals = 18) =>

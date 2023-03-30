@@ -74,14 +74,14 @@ export const VestingModal: FC<VestingModalProps> = ({
       <Grid container justifyContent="space-between" alignItems="center">
         <Grid item display="flex" flexDirection="column" alignItems="center">
           <Typography variant="body1">Available to claim</Typography>
-          <Typography mt={2} variant="h2" maxWidth={150} noWrap>
+          <Typography mt={2} variant="h3" maxWidth={200} noWrap>
             {fromDecimals(claimAmount[1], decimals)} {tokenSymbol}
           </Typography>
         </Grid>
 
         <Grid item display="flex" flexDirection="column" alignItems="center">
           <Typography variant="body1">Total Claimed</Typography>
-          <Typography mt={2} variant="h2" maxWidth={150} noWrap>
+          <Typography mt={2} variant="h3" maxWidth={200} noWrap>
             {fromDecimals(claimAmount[2], decimals)} {tokenSymbol}
           </Typography>
         </Grid>
