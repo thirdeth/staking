@@ -130,7 +130,7 @@ export const contractsConfig: IContracts = {
       },
       mainnet: {
         address: {
-          [Chains.Arbitrum]: '0xb4ba87fce253070C7Ae3f0f7DfA25e7F4995b587',
+          [Chains.Arbitrum]: '0x4e1b1c450cebc7a4e1561e8edd99a8c650dfb1a9',
         },
         abi: erc20Abi as AbiItem[],
       },
