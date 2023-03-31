@@ -88,7 +88,7 @@ export const VestingModal: FC<VestingModalProps> = ({
       </Grid>
 
       <Typography my={3} variant="body1" textAlign="center">
-        {tokenSymbol.toUpperCase()} Monthly Schedule
+        {tokenSymbol.toUpperCase()} Vesting Schedule
       </Typography>
 
       <LoadingButton

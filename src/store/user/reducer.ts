@@ -4,7 +4,7 @@ import { Chains, UserState } from 'types';
 const initialState: UserState = {
   address: '',
   provider: '',
-  chainType: 'testnet', // TODO change on mainnet preferably
+  chainType: 'mainnet', // TODO change on mainnet preferably
   network: Chains.Arbitrum,
   tokenBalance: '',
   nativeBalance: '',
