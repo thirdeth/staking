@@ -131,18 +131,19 @@ export const Staking: FC<StakingProps> = ({ title }) => {
             <Typography variant="h1" textTransform="uppercase">
               {title}
             </Typography>
-            <Link to={routes.staking.leaderboard.root.path}>
-              <Button>Leaderboard</Button>
-            </Link>
+            {/* <Link to={routes.staking.leaderboard.root.path}> */}
+            {/*  <Button>Leaderboard</Button> */}
+            {/* </Link> */}
           </Box>
 
-          {+rankId !== 0 && (
-            <RankingInfoCard
-              rankId={+rankId as UserStakingRankIds}
-              description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-              my={3}
-            />
-          )}
+          {
+            +rankId !== 0 && null
+            // <RankingInfoCard
+            //   rankId={+rankId as UserStakingRankIds}
+            //   description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+            //   my={3}
+            // />
+          }
 
           <Grid
             container

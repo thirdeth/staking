@@ -70,7 +70,7 @@ export const AccountPopover: FC<AccountModalProps> = ({
           pt: 1,
           pb: 2.5,
           width: '330px',
-          height: { xs: '440px', sm: '440px', md: '389px' },
+          height: { xs: '380px', sm: '380px', md: '339px' },
           background: BG_BLUE,
           borderRadius: BORDER_RADIUS_POPOVER,
         },
@@ -90,22 +90,22 @@ export const AccountPopover: FC<AccountModalProps> = ({
         </Grid>
 
         <Grid item container justifyContent="space-between" alignItems="center" xs={12}>
-          <RankInfo
-            rankId={+rankId as UserStakingRankIds}
-            subtitle="Correct Rank"
-            type="account"
-            size="s"
-            onClick={onClose}
-          />
+          {/* <RankInfo */}
+          {/*  rankId={+rankId as UserStakingRankIds} */}
+          {/*  subtitle="Correct Rank" */}
+          {/*  type="account" */}
+          {/*  size="s" */}
+          {/*  onClick={onClose} */}
+          {/* /> */}
 
-          <Grid item container direction="column" justifyContent="flex-start" alignItems="flex-start">
-            <Typography variant="subtitle1" color={COLOR_TEXT_WHITE}>
-              Network
-            </Typography>
-            <Typography variant="h4" color={COLOR_TEXT_WHITE}>
-              Arbitrum
-            </Typography>
-          </Grid>
+          {/* <Grid item container direction="column" justifyContent="flex-start" alignItems="flex-start"> */}
+          {/*  <Typography variant="subtitle1" color={COLOR_TEXT_WHITE}> */}
+          {/*    Network */}
+          {/*  </Typography> */}
+          {/*  <Typography variant="h4" color={COLOR_TEXT_WHITE}> */}
+          {/*    Arbitrum */}
+          {/*  </Typography> */}
+          {/* </Grid> */}
         </Grid>
 
         <CopyText size="sm" color="secondary" text={shortenPhrase(address, 6, 4)} />
