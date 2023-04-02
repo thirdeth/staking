@@ -116,7 +116,7 @@ export const contractsConfig: IContracts = {
       },
       mainnet: {
         address: {
-          [Chains.Arbitrum]: '0x8792c7f36E7287102c00C3a6F84B0DdEbCfA3d1a',
+          [Chains.Arbitrum]: '0x1ca486E3f3123bA27bFe647e543E916Af8FD3c24',
         },
         abi: stakingAbi as AbiItem[],
       },
@@ -130,7 +130,7 @@ export const contractsConfig: IContracts = {
       },
       mainnet: {
         address: {
-          [Chains.Arbitrum]: '0x4e1b1c450cebc7a4e1561e8edd99a8c650dfb1a9',
+          [Chains.Arbitrum]: '0x4e1b1C450CeBC7a4E1561e8edD99A8C650dfb1A9',
         },
         abi: erc20Abi as AbiItem[],
       },
