@@ -116,7 +116,7 @@ export const contractsConfig: IContracts = {
       },
       mainnet: {
         address: {
-          [Chains.Arbitrum]: '0x1ca486E3f3123bA27bFe647e543E916Af8FD3c24',
+          [Chains.Arbitrum]: '0x09C81Dd256a9340795593fB18def58f7E3Ece191',
         },
         abi: stakingAbi as AbiItem[],
       },
