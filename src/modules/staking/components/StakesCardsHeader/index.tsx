@@ -28,7 +28,7 @@ export const StakesCardsHeader: FC<StakesHeaderTitleProps> = ({ onHarvestAll, is
       </Grid>
       <Grid item container pl={{ xs: 0, sm: 0, md: 1 }} xs={4} md={2.5}>
         {/* was CLZ */}
-        <StakesHeaderTitle>ARSH Earned</StakesHeaderTitle>
+        <StakesHeaderTitle>xARSH Earned</StakesHeaderTitle>
       </Grid>
       <Grid item container xs={4} md={2}>
         <StakesHeaderTitle>Reward</StakesHeaderTitle>

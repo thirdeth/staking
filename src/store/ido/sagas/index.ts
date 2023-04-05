@@ -2,6 +2,7 @@ import { fork } from 'redux-saga/effects';
 
 import addLiquidity from './addLiquidity';
 import claim from './claim';
+import getAddLiquidityTime from './getAddLiquidityTime';
 import getIdoById from './getIdoById';
 import getIdoList from './getIdoList';
 import getInvestmentsInfo from './getInvestmentsInfo';
@@ -22,4 +23,5 @@ export default function* idoSagas() {
   yield fork(invest);
   yield fork(refund);
   yield fork(registrationToIdo);
+  yield fork(getAddLiquidityTime);
 }

@@ -19,18 +19,20 @@ export const ProjectSummary: FC<ProjectDataProps> = ({ projectData }) => {
       <Grid item>
         <Typography component="div">{ReactHtmlParser(projectSummary)}</Typography>
       </Grid>
-      <Grid item>
-        <iframe
-          width="100%"
-          height="374"
-          src={currentUrl}
-          title="YouTube video player"
-          frameBorder="20px"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          style={{ borderRadius: BORDER_RADIUS_CARD_MEDIUM }}
-        />
-      </Grid>
+      {videoUrl !== '-' && (
+        <Grid item>
+          <iframe
+            width="100%"
+            height="374"
+            src={currentUrl}
+            title="YouTube video player"
+            frameBorder="20px"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ borderRadius: BORDER_RADIUS_CARD_MEDIUM }}
+          />
+        </Grid>
+      )}
     </Grid>
   );
 };

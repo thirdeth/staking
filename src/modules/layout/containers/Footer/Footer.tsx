@@ -70,7 +70,7 @@ export const Footer: FC = () => {
             Copyright © {new Date().getFullYear()}. All Rights Reserved
           </Typography>
           <Typography variant="body2" color={COLOR_TEXT_GRAY_LIGHT}>
-            by Arbishpere
+            by Arbisphere
           </Typography>
         </Grid>
 

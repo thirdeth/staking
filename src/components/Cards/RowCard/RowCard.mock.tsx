@@ -6,7 +6,7 @@ import { RowCardProps } from './RowCard';
 export const rowCardPropsMocked: RowCardProps = {
   cardData: {
     id: 1,
-    projectName: 'Arbishpere',
+    projectName: 'Arbisphere',
     projectIcon: MainLogo,
     token: {
       name: 'ETH',

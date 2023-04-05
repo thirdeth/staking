@@ -27,16 +27,29 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({ routesBreadcrumbs }) => {
         </Grid>
       </ExternalLink>
 
-      {routesBreadcrumbs.map(({ path, label }, index) => (
-        <Link key={path + label} to={path}>
-          <Typography
-            variant="body1"
-            color={index === routesBreadcrumbs.length - 1 ? COLOR_TEXT_BLUE : COLOR_TEXT_GRAY_EXTRALIGHT}
-          >
-            {label}
-          </Typography>
-        </Link>
-      ))}
+      {routesBreadcrumbs.map(({ path, label }, index) => {
+        if (index === routesBreadcrumbs.length - 1) {
+          return (
+            <Typography
+              key={path + label}
+              variant="body1"
+              color={index === routesBreadcrumbs.length - 1 ? COLOR_TEXT_BLUE : COLOR_TEXT_GRAY_EXTRALIGHT}
+            >
+              {label}
+            </Typography>
+          );
+        }
+        return (
+          <Link key={path + label} to={path}>
+            <Typography
+              variant="body1"
+              color={index === routesBreadcrumbs.length - 1 ? COLOR_TEXT_BLUE : COLOR_TEXT_GRAY_EXTRALIGHT}
+            >
+              {label}
+            </Typography>
+          </Link>
+        );
+      })}
     </BreadcrumbsMui>
   );
 };

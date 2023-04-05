@@ -4,13 +4,17 @@ import userSelector from 'store/user/selectors';
 import { validateStatus } from 'utils/validateStatus';
 
 const client: AxiosInstance = axios.create({
-  baseURL: 'https://devcronos.rocknblock.io/api/v1/',
+  baseURL: 'https://dapp.arbisphere.finance/api/v1/', //  'https://devcronos.rocknblock.io/api/v1/'
   validateStatus,
 });
 
 export default function* ajax(config: AxiosRequestConfig): Generator<SelectEffect | CallEffect | PutEffect> {
   const accessToken = yield select(userSelector.getProp('key'));
+  const chainType = yield select(userSelector.getProp('chainType'));
 
+  if (chainType === 'testnet') {
+    client.defaults.baseURL = 'https://devcronos.rocknblock.io/api/v1/';
+  }
   if (accessToken) {
     client.defaults.headers.common.Authorization = `Token ${accessToken}`;
   }

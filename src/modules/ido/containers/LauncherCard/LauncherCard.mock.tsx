@@ -31,6 +31,7 @@ export const launcherCardPropsMocked: LauncherCardProps = {
     unlockStepTime: 0,
     start: '1657700814',
     end: '1658305614',
+    liquidityAddedTime: '1658305614',
     price: 53,
     status: 'PENDING',
     softCap: '77544',

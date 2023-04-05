@@ -116,7 +116,7 @@ export const contractsConfig: IContracts = {
       },
       mainnet: {
         address: {
-          [Chains.Arbitrum]: '',
+          [Chains.Arbitrum]: '0x09C81Dd256a9340795593fB18def58f7E3Ece191',
         },
         abi: stakingAbi as AbiItem[],
       },
@@ -130,7 +130,7 @@ export const contractsConfig: IContracts = {
       },
       mainnet: {
         address: {
-          [Chains.Arbitrum]: '',
+          [Chains.Arbitrum]: '0x4e1b1C450CeBC7a4E1561e8edD99A8C650dfb1A9',
         },
         abi: erc20Abi as AbiItem[],
       },
@@ -138,13 +138,13 @@ export const contractsConfig: IContracts = {
     [ContractsNames.idoFarme]: {
       testnet: {
         address: {
-          [Chains.Arbitrum]: '0x4015c8A91849f09d1105De279B46dc358a9fF3Da',
+          [Chains.Arbitrum]: '0x31cAd89fcEFab990573bF7ef995D4bC734698188',
         },
         abi: idoFarmeAbi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains.Arbitrum]: '',
+          [Chains.Arbitrum]: '0x8E19c5F759052Ec0f40F50E81740187f0Fb0dC87',
         },
         abi: idoFarmeAbi as AbiItem[],
       },

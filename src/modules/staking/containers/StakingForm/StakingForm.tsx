@@ -50,7 +50,6 @@ export const StakingForm: FC<StakingFormProps> = ({
   onChangeStakeValue,
 }) => {
   const poolUnstakeValue = useMemo(() => getPoolUnstakeValue(poolsInfo, stakePeriod), [poolsInfo, stakePeriod]);
-
   return (
     <Box
       sx={{
@@ -63,7 +62,7 @@ export const StakingForm: FC<StakingFormProps> = ({
       <Grid container direction="column" rowSpacing={{ xs: 3.8, sm: 3.8, md: 4.2 }}>
         <Grid item xs={12}>
           <Typography variant="h3" fontSize={{ xs: '20px', sm: '20px', md: '24px' }}>
-            Stake for IDO Participation
+            Stake $ARSH
           </Typography>
         </Grid>
 
@@ -93,7 +92,9 @@ export const StakingForm: FC<StakingFormProps> = ({
 
           <Grid item container justifyContent="flex-end" alignItems="center">
             <Typography variant="h1" color={COLOR_TEXT_BLUE} noWrap maxWidth="150px">
-              {poolsAprArr[stakePeriod]}%
+              {stakePeriod === 2 && '510%'}
+              {stakePeriod === 1 && '300%'}
+              {stakePeriod === 0 && '120%'}
             </Typography>
           </Grid>
         </Grid>

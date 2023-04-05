@@ -67,18 +67,20 @@ export const NotificationModal: FC = () => {
           investRequestStatus={investRequestStatus}
           getTotalBoughtRequestStatus={getTotalBoughtRequestStatus}
           closeModal={closeModal}
+          idoType={currentIdo.type!}
         />
       )}
       {modalState.activeModal === Modals.Vesting && (
         <VestingModal
           claimAmount={claimAmount}
           idoIncrement={currentIdo.idoIncrement.toString()}
-          endTime={currentIdo.end}
+          endTime={currentIdo.liquidityAddedTime!}
           vestingInfo={vestingInfo}
           tokenSymbol={currentIdo.tokenSymbol}
           web3Provider={walletService.Web3()}
           claimRequestStatus={claimRequestStatus}
           closeModal={closeModal}
+          decimals={currentIdo.decimals || 18}
         />
       )}
     </Modal>

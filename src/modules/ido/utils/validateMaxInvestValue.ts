@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Nullable } from 'types';
-import { getDiffHardcapTotalBought } from 'utils';
+import { getDiffHardcapTotalBought, toDecimals } from 'utils';
 
 type ValudateMaxInvestProps = {
   contractHardCap: string;
@@ -11,6 +11,7 @@ type ValudateMaxInvestProps = {
   payed: string;
   bought: string;
   decimals: number;
+  idoType: string;
 };
 
 export const validateMaxInvestValue = ({
@@ -22,9 +23,19 @@ export const validateMaxInvestValue = ({
   payed,
   bought,
   decimals = 18,
+  idoType,
 }: ValudateMaxInvestProps): string => {
+  let allocationPercent = userAllocation
+    ? new BigNumber(toDecimals(userAllocation, decimals)).multipliedBy(100).dividedBy(contractHardCap).toString()
+    : 0;
+  if (idoType !== 'private') {
+    allocationPercent = userAllocation || '0';
+  }
+
   const diffAllocationPayedValue = userAllocation
-    ? new BigNumber(userAllocation).minus(new BigNumber(bought).dividedBy(contractHardCap).multipliedBy(100)).toString() // +new BigNumber(+userAllocation).minus(new BigNumber(payed).dividedBy(new BigNumber(10).pow(18))).toString()
+    ? new BigNumber(allocationPercent)
+        .minus(new BigNumber(bought).dividedBy(contractHardCap).multipliedBy(100))
+        .toString() // +new BigNumber(+userAllocation).minus(new BigNumber(payed).dividedBy(new BigNumber(10).pow(18))).toString()
     : 0;
 
   const maxRequireInvestValue = getDiffHardcapTotalBought(contractHardCap, totalBought, decimals)

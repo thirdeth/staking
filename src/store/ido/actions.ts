@@ -2,6 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import {
   AddLiquidityReq,
   ClaimReq,
+  GetAddLiquidityTimeReq,
   GetIdoByIdReq,
   GetIdoListReq,
   GetIvestmentsInfoReq,
@@ -23,3 +24,4 @@ export const onRefund = createAction<ClaimReq>(actionTypes.REFUND);
 export const onAddLiquidity = createAction<AddLiquidityReq>(actionTypes.ADD_LIQUIDITY);
 export const getInvestmentsInfo = createAction<GetIvestmentsInfoReq>(actionTypes.GET_INVESTMENTS_INFO);
 export const getTotalBought = createAction<GetTotalBoughtReq>(actionTypes.GET_TOTAL_BOUGHT);
+export const getAddLiquidityTime = createAction<GetAddLiquidityTimeReq>(actionTypes.GET_ADD_LIQUIDITY_TIME);

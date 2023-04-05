@@ -106,6 +106,8 @@ export interface IdoFarmeAbi extends BaseContract {
       vestingParams: (number | string | BN)[],
     ): NonPayableTransactionObject<void>;
 
+    addLiqTime(arg0: number | string | BN): NonPayableTransactionObject<string>;
+
     addLiquidity(idoId: number | string | BN): NonPayableTransactionObject<void>;
 
     claimTokens(idoId: number | string | BN): NonPayableTransactionObject<void>;

@@ -14,4 +14,4 @@ export const accountLinkItems = [
   },
 ];
 
-export const buyCryptoLink = 'https://google.com';
+export const buyCryptoLink = 'https://app.uniswap.org/';
