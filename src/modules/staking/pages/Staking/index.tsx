@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { LoadingButton } from '@mui/lab';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { routes } from 'appConstants/routes';
+import BigNumber from 'bignumber.js/bignumber';
 import { InfoCard, RowCard, UserStakingRankIds } from 'components';
 import { RowCardSkeleton } from 'components/Cards/RowCard/components';
 import { useShallowSelector, useValidateInputField, ValidationTypes } from 'hooks';
@@ -32,9 +33,10 @@ export const Staking: FC<StakingProps> = ({ title }) => {
   const dispatch = useDispatch();
   const { walletService } = useWalletConnectorContext();
   const { address, tokenBalance, rankId } = useShallowSelector<State, UserState>(userSelector.getUser);
-  const { userStakes, totalStakedAmount, poolsInfo } = useShallowSelector<State, StakingState>(
-    stakingSelector.getStaking,
-  );
+  const { userStakes, totalStakedAmount, poolsInfo, apr, tvl, numberOfStakers } = useShallowSelector<
+    State,
+    StakingState
+  >(stakingSelector.getStaking);
 
   const [stakePeriod, setStakePeriod] = useState(1);
   const [stakeValue, setStakeValue, setOriginStakeValue] = useValidateInputField(ValidationTypes.number);
@@ -53,6 +55,19 @@ export const Staking: FC<StakingProps> = ({ title }) => {
   const isHarvestingAll = harvestAllRequestStatus === RequestStatus.REQUEST;
   const isWithdrawing = withdrawRequestStatus === RequestStatus.REQUEST;
   const isGettingUserStakes = getUserStakesRequestStatus === RequestStatus.REQUEST;
+
+  const getChartValue = (label: string) => {
+    switch (label) {
+      case 'tvl':
+        return `${new BigNumber(tvl).toFixed(2)} ARSH`;
+      case 'apr':
+        return `${new BigNumber(apr).toFixed(0)} %`;
+      case 'numberOfStakers':
+        return numberOfStakers;
+      default:
+        return tvl;
+    }
+  };
 
   const handleCahngeStakePeriod = useCallback((event: MouseEvent<HTMLElement>) => {
     const { value } = event.target as HTMLButtonElement;
@@ -113,8 +128,14 @@ export const Staking: FC<StakingProps> = ({ title }) => {
   useEffect(() => {
     if (stakeRequestStatus === RequestStatus.SUCCESS) {
       setOriginStakeValue('');
+      dispatch(getTvlAndApr());
     }
-  }, [setOriginStakeValue, stakeRequestStatus]);
+  }, [dispatch, setOriginStakeValue, stakeRequestStatus]);
+  useEffect(() => {
+    if (harvestAllRequestStatus === RequestStatus.SUCCESS) {
+      dispatch(getTvlAndApr());
+    }
+  }, [dispatch, harvestAllRequestStatus]);
 
   useEffect(() => {
     if (address.length) {
@@ -184,11 +205,11 @@ export const Staking: FC<StakingProps> = ({ title }) => {
                 sm={12}
                 md={6}
               >
-                {chartItemsArray.map(({ value, text, Img }, index) => (
+                {chartItemsArray.map(({ label, text, Img }, index) => (
                   // not rerendering chart card items
                   // eslint-disable-next-line react/no-array-index-key
                   <Grid key={index} item>
-                    <ChartCard value={value} text={text} chartImg={<Img />} />
+                    <ChartCard value={getChartValue(label)} text={text} chartImg={<Img />} />
                   </Grid>
                 ))}
               </Grid>

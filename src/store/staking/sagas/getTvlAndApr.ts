@@ -1,11 +1,11 @@
+import BigNumber from 'bignumber.js/bignumber';
 import { select } from 'redux-saga/effects';
 import { ContractsNames } from 'services/WalletService/config';
 import { error, request, success } from 'store/api/actions';
-import { baseApi } from 'store/api/apiRequestBuilder';
 import userSelector from 'store/user/selectors';
 import { call, put, takeLatest } from 'typed-redux-saga';
 import { StakingAbi, UserState } from 'types';
-import { createContract, getContractDataByItsName } from 'utils';
+import { createContract, fromDecimals, getContractDataByItsName } from 'utils';
 
 import { getTvlAndApr } from '../actions';
 import actionTypes from '../actionTypes';
@@ -18,13 +18,15 @@ export function* getTvlAndAprSaga({ type }: ReturnType<typeof getTvlAndApr>) {
 
   try {
     const stakingContract: StakingAbi = yield createContract(stakingContractAddress, stakingAbi, network, chainType); // ;yield new web3Provider.eth.Contract(stakingAbi, stakingContractAddress);
-    const data = yield* call(stakingContract.methods.pools(0).call);
-    console.log({ data });
-    // yield put(
-    //   updateStakingState({
-    //     topInvestors: data,
-    //   }),
-    // );
+    const tvlAndAprData = yield* call(stakingContract.methods.getTvlAndApr().call);
+    const numberOfStakers = yield* call(stakingContract.methods.numOfStakers().call);
+    yield put(
+      updateStakingState({
+        tvl: fromDecimals(tvlAndAprData[0], 18),
+        apr: fromDecimals(new BigNumber(tvlAndAprData[1]).multipliedBy(525600).toString(), 18),
+        numberOfStakers,
+      }),
+    );
 
     yield put(success(type));
   } catch (err) {

@@ -107,11 +107,13 @@ export interface StakingAbi extends BaseContract {
       poolId: string;
       maxUnstakeReward: string;
       rewardCollected: string;
+      depositApr: string;
       0: string;
       1: string;
       2: string;
       3: string;
       4: string;
+      5: string;
     }>;
 
     addressToUserInfo(arg0: string): NonPayableTransactionObject<{
@@ -125,7 +127,13 @@ export interface StakingAbi extends BaseContract {
 
     arsh(): NonPayableTransactionObject<string>;
 
+    depositXArsh(amount: number | string | BN): NonPayableTransactionObject<void>;
+
     depositsAmount(): NonPayableTransactionObject<string>;
+
+    emergencyWithdraw(): NonPayableTransactionObject<void>;
+
+    feeRecipient(): NonPayableTransactionObject<string>;
 
     getFront(_user: string): NonPayableTransactionObject<string[][]>;
 
@@ -180,11 +188,17 @@ export interface StakingAbi extends BaseContract {
 
     revokeRole(role: string | number[], account: string): NonPayableTransactionObject<void>;
 
+    rewardAmount(): NonPayableTransactionObject<string>;
+
+    setApr(_poolId: number | string | BN, _apr: number | string | BN): NonPayableTransactionObject<void>;
+
     setCommission(_poolId: number | string | BN, _commission: number | string | BN): NonPayableTransactionObject<void>;
 
     stake(_poolId: number | string | BN, amount: number | string | BN): NonPayableTransactionObject<void>;
 
     stakeToLevel(arg0: number | string | BN): NonPayableTransactionObject<string>;
+
+    stakedAmount(): NonPayableTransactionObject<string>;
 
     supportsInterface(interfaceId: string | number[]): NonPayableTransactionObject<boolean>;
 
@@ -193,6 +207,8 @@ export interface StakingAbi extends BaseContract {
     withdraw(_depositInfoId: number | string | BN): NonPayableTransactionObject<void>;
 
     withdrawExcess(amount: number | string | BN): NonPayableTransactionObject<void>;
+
+    xarsh(): NonPayableTransactionObject<string>;
   };
   events: {
     Harvest(cb?: Callback<Harvest>): EventEmitter;

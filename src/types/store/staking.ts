@@ -11,4 +11,7 @@ export type StakingState = {
   userStakes: string[][];
   topInvestors: Investor[];
   poolsInfo: PoolsInfoProps[];
+  tvl: string;
+  apr: string;
+  numberOfStakers: string;
 };
