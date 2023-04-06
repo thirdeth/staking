@@ -40,6 +40,7 @@ export const Staking: FC<StakingProps> = ({ title }) => {
 
   const [stakePeriod, setStakePeriod] = useState(1);
   const [stakeValue, setStakeValue, setOriginStakeValue] = useValidateInputField(ValidationTypes.number);
+  const [depositValue, setDepositValue, setOriginDepositValue] = useValidateInputField(ValidationTypes.number);
   const poolsAprArr = useGetPoolsAprArray(poolsInfo);
 
   const {
@@ -284,10 +285,10 @@ export const Staking: FC<StakingProps> = ({ title }) => {
               <Grid item xs={12} sm={12} md={6} height={{ xs: 'auto', sm: 'auto', md: 'auto' }}>
                 <VaultForm
                   tokenBalance={xtokenBalance}
-                  depositValue={stakeValue}
+                  depositValue={depositValue}
                   isDepositing={isStaking}
-                  onChangeDepositValue={setStakeValue}
-                  onSetMaxDepositValue={setOriginStakeValue}
+                  onChangeDepositValue={setDepositValue}
+                  onSetMaxDepositValue={setOriginDepositValue}
                   onDeposit={handleStake}
                 />
               </Grid>
