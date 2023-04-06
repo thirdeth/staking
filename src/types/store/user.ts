@@ -6,6 +6,7 @@ export type UserState = {
   chainType: IChainType;
   network: Chains;
   tokenBalance: string;
+  xtokenBalance: string;
   nativeBalance: string;
   rankId: string;
   key: string;

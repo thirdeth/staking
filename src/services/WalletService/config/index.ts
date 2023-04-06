@@ -98,6 +98,7 @@ export const connectWallet = (newChainName: Chains, type: IChainType): IConnectW
 export enum ContractsNames {
   staking,
   token,
+  xtoken,
   idoFarme,
 }
 
@@ -131,6 +132,20 @@ export const contractsConfig: IContracts = {
       mainnet: {
         address: {
           [Chains.Arbitrum]: '0x4e1b1C450CeBC7a4E1561e8edD99A8C650dfb1A9',
+        },
+        abi: erc20Abi as AbiItem[],
+      },
+    },
+    [ContractsNames.xtoken]: {
+      testnet: {
+        address: {
+          [Chains.Arbitrum]: '',
+        },
+        abi: erc20Abi as AbiItem[],
+      },
+      mainnet: {
+        address: {
+          [Chains.Arbitrum]: '',
         },
         abi: erc20Abi as AbiItem[],
       },

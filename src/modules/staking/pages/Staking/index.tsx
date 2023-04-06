@@ -32,7 +32,7 @@ interface StakingProps {
 export const Staking: FC<StakingProps> = ({ title }) => {
   const dispatch = useDispatch();
   const { walletService } = useWalletConnectorContext();
-  const { address, tokenBalance, rankId } = useShallowSelector<State, UserState>(userSelector.getUser);
+  const { address, tokenBalance, xtokenBalance, rankId } = useShallowSelector<State, UserState>(userSelector.getUser);
   const { userStakes, totalStakedAmount, poolsInfo, apr, tvl, numberOfStakers } = useShallowSelector<
     State,
     StakingState
@@ -283,7 +283,7 @@ export const Staking: FC<StakingProps> = ({ title }) => {
             <Grid item xs={12} container spacing={3} height={{ xs: 'auto', sm: 'auto', md: 'auto' }}>
               <Grid item xs={12} sm={12} md={6} height={{ xs: 'auto', sm: 'auto', md: 'auto' }}>
                 <VaultForm
-                  tokenBalance={tokenBalance}
+                  tokenBalance={xtokenBalance}
                   depositValue={stakeValue}
                   isDepositing={isStaking}
                   onChangeDepositValue={setStakeValue}

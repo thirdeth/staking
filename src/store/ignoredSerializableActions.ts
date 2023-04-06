@@ -11,6 +11,7 @@ export const ignoredActions = [
   PURGE,
   REGISTER,
   userActionTypes.GET_TOKEN_BALANCE,
+  userActionTypes.GET_XTOKEN_BALANCE,
   userActionTypes.GET_NATIVE_BALANCE,
   userActionTypes.GET_RANK_ID,
   userActionTypes.UPDATE_USER_DATA,

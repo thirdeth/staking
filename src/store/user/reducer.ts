@@ -7,6 +7,7 @@ const initialState: UserState = {
   chainType: 'mainnet', // TODO change on mainnet preferably
   network: Chains.Arbitrum,
   tokenBalance: '',
+  xtokenBalance: '',
   nativeBalance: '',
   rankId: '',
   key: '',
