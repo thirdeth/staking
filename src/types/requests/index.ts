@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 
-export type UpdateUserProps = 'tokenBalance' | 'nativeBalance' | 'userStakes' | 'rankId';
+export type UpdateUserProps = 'tokenBalance' | 'xtokenBalance' | 'nativeBalance' | 'userStakes' | 'rankId';
 
 export type GetIdoListReq = {
   type: string;
@@ -63,6 +63,10 @@ export type ApproveReq = {
 export type StakeReq = {
   amount: string;
   poolId: number;
+} & RequestWithWeb3Provider;
+
+export type DepositReq = {
+  amount: string;
 } & RequestWithWeb3Provider;
 
 export type InvestReq = {

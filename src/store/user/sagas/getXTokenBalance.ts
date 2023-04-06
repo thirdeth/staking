@@ -23,7 +23,7 @@ export function* getXTokenBalanceSaga({ type, payload: { web3Provider } }: Retur
       const balance = yield* call(tokenContract.methods.balanceOf(userAddress).call);
       const decimals = yield* call(tokenContract.methods.decimals().call);
 
-      yield put(updateUserState({ tokenBalance: fromDecimals(balance, +decimals) }));
+      yield put(updateUserState({ xtokenBalance: fromDecimals(balance, +decimals) }));
       yield put(success(type));
     }
   } catch (err) {

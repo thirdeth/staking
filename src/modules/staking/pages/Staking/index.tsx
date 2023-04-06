@@ -20,7 +20,10 @@ import stakingSelector from 'store/staking/selectors';
 import uiSelector from 'store/ui/selectors';
 import { updateUserData } from 'store/user/actions';
 import userSelector from 'store/user/selectors';
-import { Modals, RequestStatus, StakingState, State, UserState } from 'types';
+import { getUserLockedAmount, getUserUnlockedAmount, onClaim, onDeposit } from 'store/vault/actions';
+import vaultActionTypes from 'store/vault/actionTypes';
+import vaultSelectors from 'store/vault/selectors';
+import { Modals, RequestStatus, StakingState, State, UserState, VaultState } from 'types';
 
 import { chartItemsArray } from './Staking.helpers';
 import { ChangeStakeItemType } from './Staking.types';
@@ -37,6 +40,7 @@ export const Staking: FC<StakingProps> = ({ title }) => {
     State,
     StakingState
   >(stakingSelector.getStaking);
+  const { userLockedAmount, userUnlockedAmount } = useShallowSelector<State, VaultState>(vaultSelectors.getVault);
 
   const [stakePeriod, setStakePeriod] = useState(1);
   const [stakeValue, setStakeValue, setOriginStakeValue] = useValidateInputField(ValidationTypes.number);
@@ -49,6 +53,8 @@ export const Staking: FC<StakingProps> = ({ title }) => {
     [stakingActionTypes.HARVEST_ALL]: harvestAllRequestStatus,
     [stakingActionTypes.WITHDRAW]: withdrawRequestStatus,
     [stakingActionTypes.GET_USER_STAKES]: getUserStakesRequestStatus,
+    [vaultActionTypes.DEPOSIT]: depositRequestStatus,
+    [vaultActionTypes.CLAIM]: claimRequestStatus,
   } = useShallowSelector(uiSelector.getUI);
 
   const isStaking = stakeRequestStatus === RequestStatus.REQUEST;
@@ -56,6 +62,8 @@ export const Staking: FC<StakingProps> = ({ title }) => {
   const isHarvestingAll = harvestAllRequestStatus === RequestStatus.REQUEST;
   const isWithdrawing = withdrawRequestStatus === RequestStatus.REQUEST;
   const isGettingUserStakes = getUserStakesRequestStatus === RequestStatus.REQUEST;
+  const isDepositing = depositRequestStatus === RequestStatus.REQUEST;
+  const isClaiming = claimRequestStatus === RequestStatus.REQUEST;
 
   const getChartValue = (label: string) => {
     switch (label) {
@@ -126,6 +134,23 @@ export const Staking: FC<StakingProps> = ({ title }) => {
     [dispatch, walletService],
   );
 
+  const handleDeposit = useCallback(() => {
+    dispatch(
+      onDeposit({
+        web3Provider: walletService.Web3(),
+        amount: depositValue,
+      }),
+    );
+  }, [dispatch, depositValue, walletService]);
+
+  const handleClaim = useCallback(() => {
+    dispatch(
+      onClaim({
+        web3Provider: walletService.Web3(),
+      }),
+    );
+  }, [dispatch, walletService]);
+
   useEffect(() => {
     if (stakeRequestStatus === RequestStatus.SUCCESS) {
       setOriginStakeValue('');
@@ -141,13 +166,26 @@ export const Staking: FC<StakingProps> = ({ title }) => {
   useEffect(() => {
     if (address.length) {
       dispatch(getPoolsInfo({ web3Provider: walletService.Web3() }));
-      dispatch(updateUserData({ web3Provider: walletService.Web3(), updateParams: ['userStakes'] }));
+      dispatch(
+        updateUserData({
+          web3Provider: walletService.Web3(),
+          updateParams: ['userStakes'],
+        }),
+      );
     }
   }, [address.length, dispatch, walletService]);
 
   useEffect(() => {
     dispatch(getTvlAndApr());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (depositRequestStatus === RequestStatus.SUCCESS || claimRequestStatus === RequestStatus.SUCCESS) {
+      dispatch(getUserLockedAmount({ web3Provider: walletService.Web3() }));
+      dispatch(getUserUnlockedAmount({ web3Provider: walletService.Web3() }));
+      dispatch(updateUserData({ web3Provider: walletService.Web3(), updateParams: ['tokenBalance', 'xtokenBalance'] }));
+    }
+  }, [dispatch, depositRequestStatus, claimRequestStatus, walletService]);
 
   return (
     <Box sx={{ overflowX: 'hidden' }}>
@@ -286,18 +324,18 @@ export const Staking: FC<StakingProps> = ({ title }) => {
                 <VaultForm
                   tokenBalance={xtokenBalance}
                   depositValue={depositValue}
-                  isDepositing={isStaking}
+                  isDepositing={isDepositing}
                   onChangeDepositValue={setDepositValue}
                   onSetMaxDepositValue={setOriginDepositValue}
-                  onDeposit={handleStake}
+                  onDeposit={handleDeposit}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={6} height={{ xs: 'auto', sm: 'auto', md: 'auto' }}>
                 <VaultWithdraw
-                  lockedAmount={tokenBalance}
-                  unlockedAmount={tokenBalance}
-                  isWithdrawing={isStaking}
-                  onWithdraw={handleStake}
+                  lockedAmount={userLockedAmount}
+                  unlockedAmount={userUnlockedAmount}
+                  isWithdrawing={isClaiming}
+                  onWithdraw={handleClaim}
                 />
               </Grid>
             </Grid>

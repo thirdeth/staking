@@ -38,4 +38,8 @@ export const notifyText = {
     success: 'Successful register',
     error: 'Error register',
   },
+  deposit: {
+    success: 'Successful deposit',
+    error: 'Error deposit',
+  },
 };

@@ -12,6 +12,7 @@ import actionTypes from '../actionTypes';
 import { getNativeBalanceSaga } from './getNativeBalance';
 import { getRankIdSaga } from './getRankId';
 import { getTokenBalanceSaga } from './getTokenBalance';
+import { getXTokenBalanceSaga } from './getXTokenBalance';
 
 export function* updateUserDataSaga({
   type,
@@ -39,6 +40,12 @@ export function* updateUserDataSaga({
     if (updateParams.includes('tokenBalance')) {
       yield call(getTokenBalanceSaga, {
         type: actionTypes.GET_TOKEN_BALANCE,
+        payload: { web3Provider },
+      });
+    }
+    if (updateParams.includes('xtokenBalance')) {
+      yield call(getXTokenBalanceSaga, {
+        type: actionTypes.GET_XTOKEN_BALANCE,
         payload: { web3Provider },
       });
     }

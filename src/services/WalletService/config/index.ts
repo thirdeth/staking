@@ -1,7 +1,7 @@
 import { Chains, IChainType, IConnectWallet, IContracts } from 'types';
 import { AbiItem } from 'web3-utils';
 
-import { erc20Abi, idoFarmeAbi, stakingAbi } from './abi';
+import { erc20Abi, idoFarmeAbi, stakingAbi, vaultAbi } from './abi';
 
 export const chains: {
   [key: string]: {
@@ -97,6 +97,7 @@ export const connectWallet = (newChainName: Chains, type: IChainType): IConnectW
 
 export enum ContractsNames {
   staking,
+  vault,
   token,
   xtoken,
   idoFarme,
@@ -122,6 +123,20 @@ export const contractsConfig: IContracts = {
         abi: stakingAbi as AbiItem[],
       },
     },
+    [ContractsNames.vault]: {
+      testnet: {
+        address: {
+          [Chains.Arbitrum]: '',
+        },
+        abi: vaultAbi as AbiItem[],
+      },
+      mainnet: {
+        address: {
+          [Chains.Arbitrum]: '',
+        },
+        abi: vaultAbi as AbiItem[],
+      },
+    },
     [ContractsNames.token]: {
       testnet: {
         address: {
@@ -139,13 +154,13 @@ export const contractsConfig: IContracts = {
     [ContractsNames.xtoken]: {
       testnet: {
         address: {
-          [Chains.Arbitrum]: '',
+          [Chains.Arbitrum]: '0x32b51473bDAb546bb4dF0662433585C8D584C233',
         },
         abi: erc20Abi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains.Arbitrum]: '',
+          [Chains.Arbitrum]: '0x32b51473bDAb546bb4dF0662433585C8D584C233',
         },
         abi: erc20Abi as AbiItem[],
       },

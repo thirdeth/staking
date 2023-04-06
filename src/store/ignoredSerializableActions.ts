@@ -2,6 +2,7 @@ import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist
 import idoActionTypes from 'store/ido/actionTypes';
 import stakingActionTypes from 'store/staking/actionTypes';
 import userActionTypes from 'store/user/actionTypes';
+import vaultActionTypes from 'store/vault/actionTypes';
 
 export const ignoredActions = [
   FLUSH,
@@ -23,6 +24,11 @@ export const ignoredActions = [
   stakingActionTypes.WITHDRAW,
   stakingActionTypes.GET_USER_STAKES,
   stakingActionTypes.GET_POOLS_INFO,
+
+  vaultActionTypes.DEPOSIT,
+  vaultActionTypes.CLAIM,
+  vaultActionTypes.GET_USER_LOCKED_AMOUNT,
+  vaultActionTypes.GET_USER_UNLOCKED_AMOUNT,
 
   idoActionTypes.GET_USER_ALLOCATION,
   idoActionTypes.GET_IDO_LIST,
