@@ -10,7 +10,7 @@ import { RowCardSkeleton } from 'components/Cards/RowCard/components';
 import { useShallowSelector, useValidateInputField, ValidationTypes } from 'hooks';
 import { RankingInfoCard } from 'modules/ranking/components/RankingInfoCard';
 import { ChartCard, StakesCardsHeader } from 'modules/staking/components';
-import { StakingForm } from 'modules/staking/containers';
+import { StakingForm, VaultForm, VaultWithdraw } from 'modules/staking/containers';
 import { useGetPoolsAprArray } from 'modules/staking/hooks';
 import { useWalletConnectorContext } from 'services';
 import { setActiveModal } from 'store/modals/reducer';
@@ -264,6 +264,41 @@ export const Staking: FC<StakingProps> = ({ title }) => {
                     <RowCardSkeleton variant="stakes" />
                   </Grid>
                 ))}
+            </Grid>
+          </Grid>
+
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Typography variant="h1" textTransform="uppercase">
+              Vault
+            </Typography>
+          </Box>
+
+          <Grid
+            container
+            pt={2}
+            justifyContent={{ xs: 'center', sm: 'center', md: 'center', lg: 'space-between' }}
+            alignItems="flex-start"
+            rowSpacing={3}
+          >
+            <Grid item xs={12} container spacing={3} height={{ xs: 'auto', sm: 'auto', md: 'auto' }}>
+              <Grid item xs={12} sm={12} md={6} height={{ xs: 'auto', sm: 'auto', md: 'auto' }}>
+                <VaultForm
+                  tokenBalance={tokenBalance}
+                  depositValue={stakeValue}
+                  isDepositing={isStaking}
+                  onChangeDepositValue={setStakeValue}
+                  onSetMaxDepositValue={setOriginStakeValue}
+                  onDeposit={handleStake}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={6} height={{ xs: 'auto', sm: 'auto', md: 'auto' }}>
+                <VaultWithdraw
+                  lockedAmount={tokenBalance}
+                  unlockedAmount={tokenBalance}
+                  isWithdrawing={isStaking}
+                  onWithdraw={handleStake}
+                />
+              </Grid>
             </Grid>
           </Grid>
         </>
