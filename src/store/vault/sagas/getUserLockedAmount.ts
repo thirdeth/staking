@@ -23,7 +23,7 @@ export function* getUserLockedAmountSaga({ type, payload: { web3Provider } }: Re
 
       yield put(
         updateVaultState({
-          userLockedAmount: userLockedAmount as string,
+          userLockedAmount: fromDecimals(userLockedAmount, 18),
         }),
       );
       yield put(success(type));

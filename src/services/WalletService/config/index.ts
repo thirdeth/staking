@@ -126,13 +126,13 @@ export const contractsConfig: IContracts = {
     [ContractsNames.vault]: {
       testnet: {
         address: {
-          [Chains.Arbitrum]: '',
+          [Chains.Arbitrum]: '0x2Ed2f75FC7489785f23a6b95A94CA9e006903c47',
         },
         abi: vaultAbi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains.Arbitrum]: '',
+          [Chains.Arbitrum]: '0x2Ed2f75FC7489785f23a6b95A94CA9e006903c47',
         },
         abi: vaultAbi as AbiItem[],
       },
@@ -140,13 +140,13 @@ export const contractsConfig: IContracts = {
     [ContractsNames.token]: {
       testnet: {
         address: {
-          [Chains.Arbitrum]: '0x62A698E0B600251318bD5265089BAEC10fB13C8f',
+          [Chains.Arbitrum]: '0x4e1b1c450cebc7a4e1561e8edd99a8c650dfb1a9',
         },
         abi: erc20Abi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains.Arbitrum]: '0x4e1b1C450CeBC7a4E1561e8edD99A8C650dfb1A9',
+          [Chains.Arbitrum]: '0x4e1b1c450cebc7a4e1561e8edd99a8c650dfb1a9',
         },
         abi: erc20Abi as AbiItem[],
       },
@@ -154,13 +154,13 @@ export const contractsConfig: IContracts = {
     [ContractsNames.xtoken]: {
       testnet: {
         address: {
-          [Chains.Arbitrum]: '0x32b51473bDAb546bb4dF0662433585C8D584C233',
+          [Chains.Arbitrum]: '0x32b51473bdab546bb4df0662433585c8d584c233',
         },
         abi: erc20Abi as AbiItem[],
       },
       mainnet: {
         address: {
-          [Chains.Arbitrum]: '0x32b51473bDAb546bb4dF0662433585C8D584C233',
+          [Chains.Arbitrum]: '0x32b51473bdab546bb4df0662433585c8d584c233',
         },
         abi: erc20Abi as AbiItem[],
       },

@@ -166,10 +166,12 @@ export const Staking: FC<StakingProps> = ({ title }) => {
   useEffect(() => {
     if (address.length) {
       dispatch(getPoolsInfo({ web3Provider: walletService.Web3() }));
+      dispatch(getUserLockedAmount({ web3Provider: walletService.Web3() }));
+      dispatch(getUserUnlockedAmount({ web3Provider: walletService.Web3() }));
       dispatch(
         updateUserData({
           web3Provider: walletService.Web3(),
-          updateParams: ['userStakes'],
+          updateParams: ['userStakes', 'tokenBalance', 'xtokenBalance'],
         }),
       );
     }
@@ -177,6 +179,8 @@ export const Staking: FC<StakingProps> = ({ title }) => {
 
   useEffect(() => {
     dispatch(getTvlAndApr());
+    dispatch(getUserLockedAmount({ web3Provider: walletService.Web3() }));
+    dispatch(getUserUnlockedAmount({ web3Provider: walletService.Web3() }));
   }, [dispatch]);
 
   useEffect(() => {

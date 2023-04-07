@@ -14,7 +14,7 @@ import userActionTypes from '../../user/actionTypes';
 import { onClaim } from '../actions';
 import actionTypes from '../actionTypes';
 
-export function* withdrawSaga({ type, payload: { web3Provider } }: ReturnType<typeof onClaim>) {
+export function* claimSaga({ type, payload: { web3Provider } }: ReturnType<typeof onClaim>) {
   yield put(request(type));
   const { address, chainType }: UserState = yield select(userSelector.getUser);
   const [vaultAbi, vaultContractAddress] = getContractDataByItsName(ContractsNames.vault, chainType);
@@ -34,15 +34,15 @@ export function* withdrawSaga({ type, payload: { web3Provider } }: ReturnType<ty
       },
     });
     yield put(success(type));
-    getToastMessage('success', notifyText.withdraw.success);
+    getToastMessage('success', notifyText.claim.success);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
-    getToastMessage('error', notifyText.withdraw.error);
+    getToastMessage('error', notifyText.claim.error);
     yield put(error(type));
   }
 }
 
 export default function* listener() {
-  yield takeLatest(actionTypes.CLAIM, withdrawSaga);
+  yield takeLatest(actionTypes.CLAIM, claimSaga);
 }

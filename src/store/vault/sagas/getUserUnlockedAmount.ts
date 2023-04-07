@@ -26,7 +26,7 @@ export function* getUserUnlockedAmountSaga({
 
       yield put(
         updateVaultState({
-          userUnlockedAmount: userUnlockedAmount as string,
+          userUnlockedAmount: fromDecimals(userUnlockedAmount),
         }),
       );
       yield put(success(type));
